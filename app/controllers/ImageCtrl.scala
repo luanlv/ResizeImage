@@ -13,12 +13,13 @@ import scala.concurrent.Future
 
 import play.modules.reactivemongo.json.ImplicitBSONHandlers._
 import play.modules.reactivemongo.json._
+import play.modules.reactivemongo.JSONFileToSave
 import play.modules.reactivemongo.json.collection._
 import play.modules.reactivemongo.{MongoController, ReactiveMongoApi, ReactiveMongoComponents}
 import play.modules.reactivemongo.json._
 
-import reactivemongo.api.BSONSerializationPack
-import reactivemongo.api.gridfs.{FileToSave, DefaultFileToSave, ReadFile}
+import reactivemongo.api.{DB, BSONSerializationPack}
+import reactivemongo.api.gridfs.{GridFS, FileToSave, DefaultFileToSave, ReadFile}
 import reactivemongo.bson.{BSONString, BSONObjectID, BSONValue, BSONDocument}
 
 import com.sksamuel.scrimage.{Format, Image}
@@ -37,6 +38,13 @@ class ImageCtrl @Inject() (
 
   private val gridFS = reactiveMongoApi.gridFS
 
+
+  private val gridFs = {
+    val theDB = db
+
+    GridFS[BSONSerializationPack.type](DB(theDB.name, theDB.connection))
+  }
+
   gridFS.ensureIndex().onComplete {
     case index =>
       Logger.info(s"Checked index, result is $index")
@@ -49,15 +57,17 @@ class ImageCtrl @Inject() (
     val futureFile = request.body.files.head.ref
 
 
+    val uuid = UUID.randomUUID().toString
     // when the upload is complete, we add the article id to the file entry (in order to find the attachments of the article)
     val futureUpdate = for {
-      file <- futureFile
+                                       file <- futureFile
 
       updateResult <- {
-        val uuid = UUID.randomUUID().toString
         gridFS.files.update(
           BSONDocument("_id" -> file.id),
-          BSONDocument("$set" -> BSONDocument("metadata" -> BSONDocument( "size" -> "normal")))
+          BSONDocument("$set" ->
+              BSONDocument("metadata" -> BSONDocument("UUID" -> uuid, "size" -> "normal"))
+          )
         )
 
 
@@ -71,11 +81,12 @@ class ImageCtrl @Inject() (
               }
             )
 
-            val data = DefaultFileToSave(
+            val data = JSONFileToSave(
               filename = file.filename,
               contentType = file.contentType,
               uploadDate = Some(DateTime.now().getMillis),
-              metadata =  BSONDocument(
+              metadata =  Json.obj(
+                "UUID" -> uuid,
                 "size" -> "thumb"
               )
             )
@@ -91,7 +102,7 @@ class ImageCtrl @Inject() (
 
     futureUpdate.map {
       case _ => {
-        Ok("Ok")
+        Ok(views.html.result(uuid))
       }
     }.recover {
       case e => {
@@ -101,4 +112,18 @@ class ImageCtrl @Inject() (
     }
   }
 
+
+  type JSONReadFile = ReadFile[JSONSerializationPack.type, JsString]
+
+  def getAttachment(uuid: String, size: String) = Action.async { request =>
+    // find the matching attachment, if any, and streams it to the client
+    val file = gridFS.find[JsObject, JSONReadFile](Json.obj("metadata.UUID" -> uuid, "metadata.size" -> size ))
+
+    request.getQueryString("inline") match {
+      case Some("true") =>
+        serve[JsString, JSONReadFile](gridFS)(file, CONTENT_DISPOSITION_INLINE)
+
+      case _            => serve[JsString, JSONReadFile](gridFS)(file)
+    }
+  }
 }
