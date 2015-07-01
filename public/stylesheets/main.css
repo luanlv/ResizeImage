@@ -1,0 +1,23 @@
+/*
+ * A partial implementation of the Ruby list functions from Compass:
+ * https://github.com/Compass/compass/blob/stable/lib/compass/sass_extensions/functions/lists.rb
+ */
+/*
+ * A partial implementation of the Ruby constants functions from Compass:
+ * https://github.com/Compass/compass/blob/stable/lib/compass/sass_extensions/functions/constants.rb
+ */
+/*
+ * A partial implementation of the Ruby display functions from Compass:
+ * https://github.com/Compass/compass/blob/stable/core/lib/compass/core/sass_extensions/functions/display.rb
+ */
+body {
+  color: #ffffff;
+  background-color: cornflowerblue;
+  padding: 2em; }
+
+a {
+  color: firebrick;
+  font-size: 1em; }
+
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFDQTtFQUNJLEFBQU87RUFDUCxBQUFrQjtFQUNsQixBQUFTOztBQUdiO0VBQ0UsQUFBTztFQUNQLEFBQVciLCJmaWxlIjoibWFpbi5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwibGliL2NvbXBhc3NcIjtcbmJvZHkge1xuICAgIGNvbG9yOiAjZmZmZmZmO1xuICAgIGJhY2tncm91bmQtY29sb3I6IGNvcm5mbG93ZXJibHVlO1xuICAgIHBhZGRpbmc6IDJlbTtcbn1cblxuYSB7XG4gIGNvbG9yOiBmaXJlYnJpY2s7XG4gIGZvbnQtc2l6ZTogMWVtO1xufSJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ== */
