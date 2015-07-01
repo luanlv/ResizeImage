@@ -15,7 +15,9 @@
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.11/resource_managed/main" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../target/scala-2.11/resource_managed/test" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/../../test/resources" type="java-test-resource" />
-      <excludeFolder url="file://$MODULE_DIR$/../../target" />
+      <excludeFolder url="file://$MODULE_DIR$/../../target/resolution-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/../../target/streams" />
+      <excludeFolder url="file://$MODULE_DIR$/../../target/web" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -155,6 +157,16 @@
     <orderEntry type="library" scope="TEST" name="SBT: xalan:xalan:2.7.1:jar" level="project" />
     <orderEntry type="library" name="SBT: xerces:xercesImpl:2.11.0:jar" level="project" />
     <orderEntry type="library" name="SBT: xml-apis:xml-apis:1.4.01:jar" level="project" />
+    <orderEntry type="library" name="SBT: ar.com.hjg:pngj:2.1.0:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.drewnoakes:metadata-extractor:2.8.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.sksamuel.scrimage:scrimage-core_2.11:2.1.0.M2:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.twelvemonkeys.common:common-image:3.1.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.twelvemonkeys.common:common-io:3.1.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.twelvemonkeys.common:common-lang:3.1.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.twelvemonkeys.imageio:imageio-core:3.1.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.twelvemonkeys.imageio:imageio-jpeg:3.1.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: com.twelvemonkeys.imageio:imageio-metadata:3.1.1:jar" level="project" />
+    <orderEntry type="library" name="SBT: org.scala-lang:scala-library:2.11.7:jar" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">
