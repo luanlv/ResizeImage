@@ -67,13 +67,16 @@ class ProductCtrl @Inject() (
   //-------------------------  Index page   ----------------------------------------------------------
 
   def index = Action {
-    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj(), 7, 8000000)
-    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj(), 5, 1000000)
+    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 1)
+    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 1)
+    val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 1)
 
     val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
     val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
-    val bigPipe = new BigPipe(PageletRenderOptions.ClientSide, pageletColelction1, pageletColelction2)
-    Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction1))
+    val pageletColelction3 = HtmlPagelet("collection3", futureColection2.map(x => views.html.product.collection(x)))
+
+    val bigPipe = new BigPipe(PageletRenderOptions.ClientSide, pageletColelction1, pageletColelction2, pageletColelction3)
+    Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3))
   }
 
   //--------------------------------------------------------------------------------------------------

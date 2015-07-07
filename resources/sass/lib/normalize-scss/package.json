@@ -1,0 +1,22 @@
+{
+  "name": "normalize-scss",
+  "version": "3.0.2",
+  "description": "Normalize-scss as a node packaged module",
+  "style": "_normalize.scss",
+  "files": [
+    "_normalize.scss"
+  ],
+  "homepage": "https://github.com/JohnAlbin/normalize-scss",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/JohnAlbin/normalize-scss.git"
+  },
+  "author": [
+    "Nicolas Gallagher",
+    "John Albin Wilkins"
+  ],
+  "license": [
+    "MIT",
+    "GPLv2"
+  ]
+}

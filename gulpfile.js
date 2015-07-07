@@ -1,8 +1,25 @@
 var gulp        = require('gulp');
+var sass        = require('gulp-sass');
 var browserSync = require('browser-sync');
+var sourcemaps = require('gulp-sourcemaps');
 
 // Registering a 'less' task that just compile our LESS files to CSS
 
+
+gulp.task('watch', ['sass'], function () {
+  gulp.watch('./resources/sass/{,*/}*.{scss,sass}', ['sass'])
+});
+
+
+gulp.task('sass', function() {
+  gulp.src('./resources/sass/main.scss')
+      .pipe(sourcemaps.init())
+      .pipe(sass({
+        errLogToConsole: true
+      }))
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest('./public/stylesheets'));
+});
 
 //
 gulp.task('serve', function () {
@@ -14,11 +31,9 @@ gulp.task('serve', function () {
     // Reload all assets
     // Important: you need to specify the path on your source code
     // not the path on the url
-    files: ['public/stylesheets/{,*/}*.css',
-      'public/css/{,*/}*.css',
-      'public/javascripts/{,*/}*.js',
-      'app/views/{,*/}*.html',
-      'app/views/{,*/}*.stream',
+    files: ['public/stylesheets/*.css',
+      'public/javascripts/*.js',
+      'app/views/*.html',
       'app/controllers/{,*/}*.scala',
       'conf/routes'],
     open: false
@@ -26,4 +41,4 @@ gulp.task('serve', function () {
 });
 
 // Creating the default gulp task
-gulp.task('default', ['serve']);
+gulp.task('default', ['sass', 'watch', 'serve']);

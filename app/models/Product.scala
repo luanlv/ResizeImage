@@ -17,8 +17,8 @@ case class Product(
                       unit: String,
                       stock: Int,
                       price: Int,
+                      group: String,
                       brand: Option[String],
-                      group: Option[String],
                       origin: Option[String],
                       legType: Option[String],
                       info: Option[String],
@@ -38,8 +38,8 @@ object Product{
       "unit" -> product.unit,
       "stock" -> product.stock,
       "price" -> product.price,
-      "brand" -> product.brand,
       "group" -> product.group,
+      "brand" -> product.brand,
       "origin" -> product.origin,
       "legType" -> product.legType,
       "info" -> product.info,
@@ -59,15 +59,15 @@ object Product{
         val unit = (obj \ "unit").as[String]
         val stock = (obj \ "stock").as[Int]
         val price = (obj \ "price").as[Int]
+        val group = (obj \ "group").as[String]
         val brand = (obj \ "brand").asOpt[String]
-        val group = (obj \ "group").asOpt[String]
         val origin = (obj \ "origin").asOpt[String]
         val legType = (obj \ "legType").asOpt[String]
         val info = (obj \ "info").asOpt[String]
         val note = (obj \ "note").asOpt[String]
         val creationDate = (obj \ "creationDate").asOpt[Long]
         val updateDate = (obj \ "updateDate").asOpt[Long]
-        JsSuccess(Product(id, image, code, name, unit, stock, price, brand, group, origin, legType,
+        JsSuccess(Product(id, image, code, name, unit, stock, price, group, brand, origin, legType,
             info, note, creationDate.map(new DateTime(_)), updateDate.map(new DateTime(_))))
       } catch {
         case cause: Throwable  => JsError(cause.getMessage)
@@ -88,8 +88,8 @@ object Product{
       "unit" -> nonEmptyText,
       "stock" -> number,
       "price" -> number,
+      "group" -> nonEmptyText,
       "brand" -> optional(text),
-      "group" -> optional(text),
       "origin" -> optional(text),
       "legType" -> optional(text),
       "info" -> optional(text),
@@ -97,7 +97,7 @@ object Product{
       "creationDate" -> optional(longNumber),
       "updateDate" -> optional(longNumber)
     ){
-      (id, image, code, name, unit, stock, price, brand, group, origin, legType, info, note,
+      (id, image, code, name, unit, stock, price, group, brand, origin, legType, info, note,
           creationDate, updateDate) =>
         Product(
           id,
@@ -107,8 +107,8 @@ object Product{
           unit,
           stock,
           price,
-          brand,
           group,
+          brand,
           origin,
           legType,
           info,
@@ -126,8 +126,8 @@ object Product{
           product.unit,
           product.stock,
           product.price,
-          product.brand,
           product.group,
+          product.brand,
           product.origin,
           product.legType,
           product.info,

@@ -18,16 +18,8 @@ object DocumentDAO{
 
   type C = JSONCollection
   
-  def find[T](collection: C, query: JsObject = Json.obj(), limit: Int = 0, delay: Int = 1)(implicit reader: Reads[T]): Future[List[T]] = {
-
-    val future = Future((1 to delay).zipWithIndex  )
-    val x = future.map {
-      _ => collection.find(query).cursor[T]().collect[List](limit)
-    }
-    val z = x . flatMap {
-      y => y
-    }
-    z
+  def find[T](collection: C, query: JsObject = Json.obj(), limit: Int = 0)(implicit reader: Reads[T]): Future[List[T]] = {
+    collection.find(query).cursor[T]().collect[List](limit)
   }
 
   def findById[T](collection: C, id: String)(implicit reader: Reads[T]): Future[Option[T]] = findOne(collection, DBQueryBuilder.id(id))

@@ -32,12 +32,19 @@
 			<button class="initialism slide_open btn btn-success">Choose image</button>
 			<input type="hidden" id="image" name="image" value="" />
 			<br/><br/>
+
+
 			@bootstrap3.text(form("code"),
 				label = "Ma san pham",
 				placeholder = "",
 				help = "")
 			@bootstrap3.text(form("name"),
 				label = "Ten san pham",
+				placeholder = "",
+				help = "")
+
+			@bootstrap3.text(form("group"),
+				label = "Nhom",
 				placeholder = "",
 				help = "")
 

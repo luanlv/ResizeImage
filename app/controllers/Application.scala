@@ -13,4 +13,7 @@ class Application  extends Controller{
      Ok(views.html.image.upload())
   }
 
+  def test = Action {
+    Ok(views.html.test())
+  }
 }

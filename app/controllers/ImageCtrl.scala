@@ -70,7 +70,7 @@ class ImageCtrl @Inject() (
           )
         )
         // Create resized image
-        ImageDAO.scaleTo(gridFS, image, uuid, 120, 120)
+        ImageDAO.scaleTo(gridFS, image, uuid, 120, 90)
       }
     } yield (updateResult, image.id, image.filename, image.length)
 

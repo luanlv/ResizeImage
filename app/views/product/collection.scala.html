@@ -1,5 +1,24 @@
 @(products: List[models.Product])
 
-@for(product <- products){
-	<img src="/image/get/@product.image/thumb" alt="">
-}
+<ul class="gallery">
+	@for(i <- 1 to 12){
+		@for(product <- products){
+			<li class="ra-5">
+				<div class="img">
+					<img src="/image/get/@product.image/thumb" alt="">
+				</div>
+				<div class="codeP">
+					<a href="#"><b>@product.code</b></a>
+					<div class="stock">(@product.stock)</div>
+				</div>
+				<div class="nameP">
+					<p>@product.name</p>
+				</div>
+				<div class="priceP">
+					Giá bán lẻ:
+					<div class="price"><b>@product.price VNĐ</b></div>
+				</div>
+			</li>
+		}
+	}
+</ul>

@@ -18,6 +18,7 @@ libraryDependencies ++= Seq(  javaJdbc,
   "org.mockito" % "mockito-core" % "1.9.5" % "test",
   "com.sksamuel.scrimage" %% "scrimage-core" % "2.0.1",
   "com.sksamuel.scrimage" %% "scrimage-io" % "2.0.1",
+  "org.apache.xmlgraphics" % "batik-codec" % "1.7",
   "com.ybrikman.ping" %% "big-pipe" % "0.0.12",
   "joda-time" % "joda-time" % "2.8.1",
   "org.joda" % "joda-convert" % "1.7"

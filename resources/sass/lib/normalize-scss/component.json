@@ -1,0 +1,24 @@
+{
+  "name": "normalize-scss",
+  "repo": "JohnAlbin/normalize-scss",
+  "description": "This is the Sass/Compass version of Normalize.css, a collection of HTML element and attribute rulesets to normalize styles across all browsers.",
+  "version": "3.0.2+normalize.3.0.2",
+  "author": [
+    "Nicolas Gallagher",
+    "John Albin Wilkins"
+  ],
+  "keywords": [
+    "normalize",
+    "reset",
+    "typography",
+    "design",
+    "ui"
+  ],
+  "dependencies": {},
+  "development": {},
+  "license": [
+    "MIT",
+    "GPLv2"
+  ],
+  "styles": ["_normalize.scss"]
+}
