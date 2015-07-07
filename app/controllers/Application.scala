@@ -6,7 +6,7 @@ import play.api.mvc.{Action, Controller, Request}
 class Application  extends Controller{
 
   def index = Action { implicit request =>
-    Ok("ok")
+    Redirect(routes.ProductCtrl.index())
   }
   // list all articles and sort them
   def upload = Action { implicit request =>

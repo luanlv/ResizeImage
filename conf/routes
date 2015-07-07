@@ -3,7 +3,7 @@
 # ~~~~
 
 
-GET           /                                controllers.Articles.index
+GET           /                                controllers.Application.index
 GET           /articles/new                    controllers.Articles.showCreationForm
 POST          /articles/new                    controllers.Articles.create
 GET           /articles/:id                    controllers.Articles.showEditForm(id)
