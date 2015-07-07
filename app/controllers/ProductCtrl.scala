@@ -11,6 +11,7 @@ import core.dao.DocumentDAO._
 import models.Product
 import org.joda.time.DateTime
 import play.api.i18n.MessagesApi
+import play.api.libs.concurrent.Promise
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.modules.reactivemongo.json.collection.JSONCollection
@@ -21,6 +22,8 @@ import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
 import scala.concurrent.Future
 
 import play.api.libs.concurrent.Execution.Implicits._
+
+import scala.util.Random
 
 class ProductCtrl @Inject() (
      val messagesApi: MessagesApi,
@@ -71,9 +74,22 @@ class ProductCtrl @Inject() (
     val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 1)
     val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 1)
 
-    val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
-    val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
-    val pageletColelction3 = HtmlPagelet("collection3", futureColection2.map(x => views.html.product.collection(x)))
+    import play.api.libs.concurrent.Execution.Implicits.defaultContext
+    import scala.concurrent.duration._
+
+    val delay1 = Random.nextInt(1) + 2
+    val delayed1 =  Promise.timeout(futureColection1, delay1.second).flatMap(x => x)
+
+    val delay2 = Random.nextInt(1)
+    val delayed2 =  Promise.timeout(futureColection2, delay2.second).flatMap(x => x)
+
+    val delay3 = Random.nextInt(1) + 1
+    val delayed3 =  Promise.timeout(futureColection3, delay3.second).flatMap(x => x)
+
+
+    val pageletColelction1 = HtmlPagelet("collection1", delayed1.map(x => views.html.product.collection(x)))
+    val pageletColelction2 = HtmlPagelet("collection2", delayed2.map(x => views.html.product.collection(x)))
+    val pageletColelction3 = HtmlPagelet("collection3", delayed3.map(x => views.html.product.collection(x)))
 
     val bigPipe = new BigPipe(PageletRenderOptions.ClientSide, pageletColelction1, pageletColelction2, pageletColelction3)
     Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3))

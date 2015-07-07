@@ -21,7 +21,7 @@
 						</div>
 						<div class="thongbao-right ra-5"></div>
 
-						<div class="menuCol1"> &rarr; Phần cứng, Thiết bị.</div>
+						<div class="menuCol1" > &rarr; Phần cứng, Thiết bị.</div>
 						<div class="col1">
 							@pagelets("collection1")
 						</div>
