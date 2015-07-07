@@ -1,0 +1,117 @@
+@(form: Form[models.Product], error: String)(implicit flash: Flash)
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+	<link href="@routes.Assets.at("css/product/create.css")" rel="stylesheet">
+	<link rel="stylesheet" href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")" />
+	<script src="@routes.Assets.at("js/jquery/jquery-1.11.3.min.js")"></script>
+	<script src="@routes.Assets.at("js/popup_overlay/jquery.popupoverlay.js")"></script>
+</head>
+<body>
+	<div class="container">
+		@if(error.length > 0){
+			<div class="alert alert-warning">@error</div>
+		}
+
+		@form.globalError.map { error =>
+			<div class="alert alert-warning">@error.message</div>
+		}
+
+		@flash.get("success").map{m =>
+			<div class="alert alert-success">@m</div>
+		}
+		@flash.get("error").map{m =>
+			<div class="alert alert-error">@m</div>
+		}
+		@helper.form(action = routes.ProductCtrl.create){
+			<img id="img-view" src="" alt="image">
+			<button class="initialism slide_open btn btn-success">Choose image</button>
+			<input type="hidden" id="image" name="image" value="" />
+			<br/><br/>
+			@bootstrap3.text(form("code"),
+				label = "Ma san pham",
+				placeholder = "",
+				help = "")
+			@bootstrap3.text(form("name"),
+				label = "Ten san pham",
+				placeholder = "",
+				help = "")
+
+			@bootstrap3.text(form("unit"),
+				label = "Don vi",
+				placeholder = "",
+				help = "")
+
+			@bootstrap3.text(form("stock"),
+				label = "Trong kho con",
+				placeholder = "",
+				help = "")
+
+			@bootstrap3.text(form("price"),
+				label = "Gia san pham",
+				placeholder = "",
+				help = "")
+
+			<input class="btn" type="submit">
+		}
+	</div>
+	<div id="slide" class="well">
+		<div>
+			<input type="text" class="search-image">
+
+			<button class="slide_close btn btn-default">Close</button>
+		</div>
+		<div class="list-images"></div>
+	</div>
+
+<script>
+
+$(document).ready(function () {
+
+//  return false;
+
+  $('#slide').popup({
+      focusdelay: 400,
+      outline: true,
+      vertical: 'top'
+  });
+
+	$(".slide_open").click(function(){
+	 $.ajax({
+			type: "GET", // or GET
+			url: "/image/list",
+			success: function(data){
+			 $(".list-images").html(data)
+			}
+    });
+  });
+
+  $(document).on('click', '.img-container', function(){
+		$('#image').val($(this).children('.uuid').html());
+		$('#img-view').attr(
+      'src',
+      $(this).children('img')[0].src
+		);
+	});
+
+  $(document).on('keypress', '.search-image', function (event) {
+         if(event.which === 13){
+            $.ajax({
+							type: "GET", // or GET
+							url: "/image/list" + "?name=" + $(this).val(),
+							success: function(data){
+								 $(".list-images").html(data)
+							}
+						});
+         }
+   });
+
+});
+
+</script>
+</body>
+</html>

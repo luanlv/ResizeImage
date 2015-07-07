@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="SBT: org.apache.sanselan:sanselan:0.97-incubator:jar">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/.ivy2/cache/org.apache.sanselan/sanselan/bundles/sanselan-0.97-incubator.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

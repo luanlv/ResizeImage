@@ -1,0 +1,5 @@
+@(products: List[models.Product])
+
+@for(product <- products){
+	<img src="/image/get/@product.image/thumb" alt="">
+}

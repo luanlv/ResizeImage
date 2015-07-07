@@ -4,22 +4,26 @@ version := "0.11.0"
 
 scalaVersion := "2.11.7"
 
-val jodatime = "joda-time" % "joda-time" % "2.8.1"
-val jodaConvert = "org.joda" % "joda-convert" % "1.7"
+play.twirl.sbt.Import.TwirlKeys.templateFormats ++= Map("stream" -> "com.ybrikman.ping.scalaapi.bigpipe.HtmlStreamFormat")
+
+play.twirl.sbt.Import.TwirlKeys.templateImports ++= Vector("com.ybrikman.ping.scalaapi.bigpipe.HtmlStream",
+                                                            "com.ybrikman.ping.scalaapi.bigpipe._")
 
 libraryDependencies ++= Seq(  javaJdbc,
   cache,
   filters,
   javaWs,
-  "com.google.inject" % "guice" % "3.0",
   "javax.inject" % "javax.inject" % "1",
   "org.reactivemongo" %% "play2-reactivemongo" % "0.11.0.play24",
   "org.mockito" % "mockito-core" % "1.9.5" % "test",
-  "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.0.M2",
-  jodatime,
-  jodaConvert
+  "com.sksamuel.scrimage" %% "scrimage-core" % "2.0.1",
+  "com.sksamuel.scrimage" %% "scrimage-io" % "2.0.1",
+  "com.ybrikman.ping" %% "big-pipe" % "0.0.12",
+  "joda-time" % "joda-time" % "2.8.1",
+  "org.joda" % "joda-convert" % "1.7"
 )
 
 routesGenerator := InjectedRoutesGenerator
+
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)

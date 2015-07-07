@@ -1,0 +1,85 @@
+body {
+  background: #E0FFFF;
+}
+
+.container {
+}
+
+
+img {
+ max-width: 100%;
+}
+
+#img-view {
+  width: 120px;
+  height: 120px;
+}
+
+.well {
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  display:none;
+  margin:1em;
+}
+pre.prettyprint {
+  padding: 9px 14px;
+}
+.fulltable {
+  max-width: 100%;
+  overflow: auto;
+}
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+.lineheight {
+  line-height: 3em;
+}
+.pagetop {
+  background: url(http://subtlepatterns.com/patterns/congruent_outline.png) #333;
+  background-attachment: fixed;
+  color: #fff;
+}
+.page-header {
+  border-bottom: none;
+}
+.initialism {
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+
+#slide {
+  width: 930px;
+  height: 650px;
+  overflow-y: auto;
+}
+
+
+#slide_background {
+  -webkit-transition: all 0.3s 0.3s;
+  -moz-transition: all 0.3s 0.3s;
+  transition: all 0.3s 0.3s;
+}
+#slide,
+#slide_wrapper {
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+#slide {
+  -webkit-transform: translateX(0) translateY(-40%);
+  -moz-transform: translateX(0) translateY(-40%);
+  -ms-transform: translateX(0) translateY(-40%);
+  transform: translateX(0) translateY(-40%);
+}
+.popup_visible #slide {
+  -webkit-transform: translateX(0) translateY(0);
+  -moz-transform: translateX(0) translateY(0);
+  -ms-transform: translateX(0) translateY(0);
+  transform: translateX(0) translateY(0);
+}
+
+.img-container{
+  cursor: pointer;
+}

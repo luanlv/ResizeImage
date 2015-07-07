@@ -1,0 +1,84 @@
+package controllers
+
+import com.ybrikman.ping.javaapi.bigpipe.PageletRenderOptions
+import com.ybrikman.ping.scalaapi.bigpipe.{BigPipe, HtmlPagelet}
+import com.ybrikman.ping.scalaapi.bigpipe.HtmlStreamImplicits._
+
+import java.util.UUID
+import javax.inject.Inject
+import core.dao.DocumentDAO
+import core.dao.DocumentDAO._
+import models.Product
+import org.joda.time.DateTime
+import play.api.i18n.MessagesApi
+import play.api.libs.json.Json
+import play.api.mvc._
+import play.modules.reactivemongo.json.collection.JSONCollection
+import play.modules.reactivemongo.{ReactiveMongoComponents, MongoController, ReactiveMongoApi}
+import reactivemongo.api.indexes.{IndexType, Index}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
+import scala.concurrent.Future
+
+import play.api.libs.concurrent.Execution.Implicits._
+
+class ProductCtrl @Inject() (
+     val messagesApi: MessagesApi,
+     val reactiveMongoApi: ReactiveMongoApi)
+    extends Controller with MongoController with ReactiveMongoComponents {
+
+  //--------------------    COLLECTION    ------------------------------------------------------------
+  val cProduct = {
+    val cProduct = db[JSONCollection]("product")
+    cProduct.indexesManager.ensure(
+      Index(List("code" -> IndexType.Ascending), unique = true)
+    )
+    cProduct
+  }
+
+  //-------------------    CREATE PRODUCT    ---------------------------------------------------------
+  def viewCreate = Action { implicit request =>
+    Ok(views.html.product.create(Product.form, ""))
+  }
+
+  def create = Action.async { implicit request =>
+    Product.form.bindFromRequest.fold(
+      errors => Future.successful(
+        BadGateway(views.html.product.create(errors, ""))),
+
+      // if no error, then insert the article into the 'articles' collection
+      product => {
+        val tmp = product.copy(
+          id = product.id.orElse(Some(UUID.randomUUID().toString)),
+          creationDate = Some(new DateTime()),
+          updateDate = Some(new DateTime()))
+        val f = insert[Product](cProduct, tmp)
+        f.map{
+          lastError => Ok("ok")
+        }.recover{
+          case e => {
+            Ok(views.html.product.create(Product.form.fill(product), e.getMessage()))
+          }
+        }
+      }
+    )
+  }
+
+  //-------------------------  Index page   ----------------------------------------------------------
+
+  def index = Action {
+    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj(), 7, 8000000)
+    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj(), 5, 1000000)
+
+    val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
+    val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
+    val bigPipe = new BigPipe(PageletRenderOptions.ClientSide, pageletColelction1, pageletColelction2)
+    Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction1))
+  }
+
+  //--------------------------------------------------------------------------------------------------
+
+  //--------------------------------------------------------------------------------------------------
+
+  //--------------------------------------------------------------------------------------------------
+}

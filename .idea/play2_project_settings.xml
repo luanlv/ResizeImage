@@ -3,16 +3,17 @@
   <component name="Play2ExcludedModulesSettings">
     <option name="INFO">
       <map>
-        <entry key="reactivemongo-demo-app">
+        <entry key="Resize-image-demo-app">
           <value>
             <ProjectSettingsEntry>
-              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.4.0.jar" />
+              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.4.2.jar" />
             </ProjectSettingsEntry>
           </value>
         </entry>
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
+              <option name="sourceDir" value="$PROJECT_DIR$/app" />
               <option name="confDir" value="$PROJECT_DIR$/app" />
               <option name="templateImports">
                 <list>
@@ -23,6 +24,8 @@
                   <option value="play.api.templates.PlayMagic._" />
                   <option value="play.api.mvc._" />
                   <option value="play.api.data._" />
+                  <option value="com.ybrikman.ping.scalaapi.bigpipe.HtmlStream" />
+                  <option value="com.ybrikman.ping.scalaapi.bigpipe._" />
                 </list>
               </option>
               <option name="routesImports">
