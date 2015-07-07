@@ -12,6 +12,7 @@ $susy: (
 body {
   background-color: $silver;
   padding: 0 auto;
+  font-family: arial;
   font-size: 11px;
 }
 
@@ -89,7 +90,7 @@ $susy:(
 
 .thongbao-right{
   background: $aqua;
-  min-height: 125px;
+  min-height: 100px;
   @include span(4 of 10.6 );
 }
 
@@ -97,7 +98,7 @@ $susy:(
   @include full();
   min-height: 20px;
   background: url(/assets/images/index/bg_title.jpg) #dbeaf4 repeat-x;
-  padding: 2px;
+  padding-top: 5px;
   padding-left: 5px;
 }
 
@@ -156,5 +157,89 @@ $susy:(
   .stock{
     display: inline;
     color: #000;
+  }
+}
+
+.pContainer{
+  margin-top: 10px;
+  border: solid 1px #BEDAEC ;
+  @include clearfix();
+  font-size: 12px;
+}
+
+.pHeader {
+  @include full();
+  background:#daebfa;
+  height:21px;
+  padding-top:5px;
+
+  div{
+    float: left;
+    font-weight: bold;
+    margin-left: 3px;
+    color: #666;
+    font-size: 12px;
+  }
+}
+
+.pImg {
+  margin-top: 10px;
+  text-align: center;
+  @include span(3.5 of 10);
+  em{
+    margin: 10px;
+  }
+  .img {
+    margin-top: 10px;
+    @include container(200px);
+  }
+}
+
+.pDetail {
+  font-size: 12px;
+  margin-top: 10px;
+  @include span( 6.5 of 10 last);
+  fieldset{
+    @include clearfix();
+    padding:4px; border:1px #bedaec solid;background:#F7F3F3
+  }
+  legend>div{
+    width:100%;display:table-cell; height:25px; line-height:25px;background-color:#F3EDC7;padding-left:5px;padding-right:5px;border-left:1px #bedaec solid;border-right:1px #bedaec solid;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .pdName{
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+  }
+}
+
+.pExtra{
+  @include full();
+  @include clearfix();
+  padding: 0;
+  ol{
+    @include clearfix();
+    li{
+      float: left;
+      margin: 0px 1px 0px 0px;
+      list-style: none;
+      div{
+        background: $blue;
+        color: white;
+        font-weight: bold;
+        @include border-radius(10px 10px 0 0);
+        span{
+          margin: 15px;
+        }
+      }
+
+    }
+    margin-bottom: 0;
+  }
+  .pcExtra{
+    border: solid 2px $blue;
   }
 }

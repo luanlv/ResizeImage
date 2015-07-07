@@ -10,6 +10,7 @@ GET           /image/upload                    controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
 GET           /image/get/:uuid/:size           controllers.ImageCtrl.get(uuid: String, size: String)
 
+GET           /product/:code                   controllers.ProductCtrl.viewProduct(code: String)
 GET           /product/create                  controllers.ProductCtrl.viewCreate
 POST          /product/create                  controllers.ProductCtrl.create
 

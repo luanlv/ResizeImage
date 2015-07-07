@@ -77,13 +77,13 @@ class ProductCtrl @Inject() (
     import play.api.libs.concurrent.Execution.Implicits.defaultContext
     import scala.concurrent.duration._
 
-    val delay1 = Random.nextInt(1) + 2
+    val delay1 = 2
     val delayed1 =  Promise.timeout(futureColection1, delay1.second).flatMap(x => x)
 
-    val delay2 = Random.nextInt(1)
+    val delay2 = 1
     val delayed2 =  Promise.timeout(futureColection2, delay2.second).flatMap(x => x)
 
-    val delay3 = Random.nextInt(1) + 1
+    val delay3 = 0
     val delayed3 =  Promise.timeout(futureColection3, delay3.second).flatMap(x => x)
 
 
@@ -95,7 +95,17 @@ class ProductCtrl @Inject() (
     Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3))
   }
 
-  //--------------------------------------------------------------------------------------------------
+  //---------------------------View product--------------------------------------------------------
+
+  def viewProduct(code: String) = Action.async  {
+    val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("code" -> code))
+    futureProduct map {
+      p => p match {
+        case Some(product) => Ok(views.html.product.view(product))
+        case None => Ok("not found")
+      }
+    }
+  }
 
   //--------------------------------------------------------------------------------------------------
 
