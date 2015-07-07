@@ -6,3 +6,4 @@ tmp
 .history
 dist
 .idea
+node_modules
