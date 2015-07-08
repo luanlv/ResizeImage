@@ -1,3 +1,5 @@
+logLevel := Level.Warn
+
 resolvers ++= Seq(
   "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 )

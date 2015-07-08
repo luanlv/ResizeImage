@@ -97,17 +97,19 @@ $susy:(
 .menuCol1, .menuCol2, .menuCol3 {
   @include full();
   min-height: 20px;
-  background: url(/assets/images/index/bg_title.jpg) #dbeaf4 repeat-x;
+  background: #daebfa;
+  border: solid 1px #BEDAEC ;
+  border-bottom: 0;
   padding-top: 5px;
   padding-left: 5px;
 }
 
 .col1, .col2, .col3 {
   border: solid 1px #BEDAEC ;
+  border-top: 0;
   @include full();
   min-height: 150px;
-  margin-bottom: 5px;
-
+  margin-bottom: 19px;
 }
 
 

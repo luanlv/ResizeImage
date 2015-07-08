@@ -2,20 +2,15 @@
 
 <html>
 	<head>
-		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("favicon.png")">
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("favicon.png")">
 		<title>@title</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
-		<link rel="stylesheet" href="/assets/stylesheets/main.css">
-		<link rel="stylesheet" href="/assets/stylesheets/nprogress.css">
-			<!-- You need to include the BigPipe JavaScript at the top of the page -->
-		<script src="/assets/com/ybrikman/ping/big-pipe.js"></script>
-		<script src="@routes.Assets.at("javascripts/jquery/jquery-1.11.3.min.js")"></script>
-		<script src="@routes.Assets.at("javascripts/pjax/nprogress.js")"></script>
-		<script src="@routes.Assets.at("javascripts/pjax/jquery.pjax.min.js")"></script>
-		<script src="@routes.Assets.at("javascripts/pjax/pjaxCtrl.js")"></script>
+		<link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/main.css")">
+		<link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/nprogress.css")">
+		<script>(function(){"use strict";var e="json",n="html",t="text",o=this,r=o.BigPipe={},d=o.document,i=o.console,a=function(e){i&&i.log&&i.log(e)};r.unescapeForEmbedding=function(e){return e?e.replace(new RegExp("\\\\u002d\\\\u002d","gi"),"--"):e},r.readEmbeddedContentFromDom=function(e){var n=d.getElementById(e);return n?r.unescapeForEmbedding(n.firstChild.nodeValue):(a("ERROR: Unable to read content from DOM node with id "+e+" so return an empty String."),"")},r.parseEmbeddedJsonFromDom=function(e){var n=r.readEmbeddedContentFromDom(e);return JSON.parse(n)},r.renderPagelet=function(e,n){var t=d.getElementById(e);t?t.innerHTML=n:a("ERROR: cannot insert pagelet content because DOM node with id "+e+" does not exist")},r.onPagelet=function(o,d,i){if(i===e){var m=r.parseEmbeddedJsonFromDom(d);r.renderPagelet(o,m)}else if(i===n||i===t){var s=r.readEmbeddedContentFromDom(d);r.renderPagelet(o,s)}else a("ERROR: unsupported contentType "+i+" for pagelet with id "+o)}}).call(this);</script>
 	</head>
 	<body>
 			<div class="container">
@@ -29,5 +24,9 @@
 				</div>
 				<div class="footer"></div>
 			</div>
+		<script src="@routes.Assets.versioned("javascripts/jquery/jquery-1.11.3.min.js")"></script>
+		<script src="@routes.Assets.versioned("javascripts/pjax/jquery.pjax.min.js")"></script>
+		<script src="@routes.Assets.versioned("javascripts/pjax/pjaxCtrl.js")"></script>
+		<script src="@routes.Assets.versioned("javascripts/pjax/nprogress.js")"></script>
 	</body>
 </html>

@@ -10,12 +10,14 @@ GET           /image/upload                    controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
 GET           /image/get/:uuid/:size           controllers.ImageCtrl.get(uuid: String, size: String)
 
-GET           /product/:code                   controllers.ProductCtrl.viewProduct(code: String)
 GET           /product/create                  controllers.ProductCtrl.viewCreate
 POST          /product/create                  controllers.ProductCtrl.create
+
+GET           /product/v/:code                   controllers.ProductCtrl.viewProduct(code: String)
 
 GET          /index                           controllers.ProductCtrl.index
 GET          /test                            controllers.Application.test
 
 # Map static resources from the /public folder to the /assets URL path
+GET           /assets/090715/*file                  controllers.Assets.versioned(path="/public", file)
 GET           /assets/*file                    controllers.Assets.at(path="/public", file)
