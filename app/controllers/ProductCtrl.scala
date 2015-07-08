@@ -45,11 +45,6 @@ class ProductCtrl @Inject() (
     cProduct
   }
 
-  private def assetUrl(file: String): String = {
-    val versionedUrl = routes.Assets.versioned(file).url
-    val maybeAssetsUrl = config.getString("assets.url")
-    maybeAssetsUrl.fold(versionedUrl)(_ + versionedUrl)
-  }
 
   //-------------------    CREATE PRODUCT    ---------------------------------------------------------
   def viewCreate = Action { implicit request =>
@@ -81,15 +76,15 @@ class ProductCtrl @Inject() (
 
   //-------------------------  Index page   ----------------------------------------------------------
 
-  def index = PjaxAction { implicit request =>
+  def index = PjaxAction.async { implicit request =>
     val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 1)
     val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 1)
     val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 1)
 
-    val delay1 = 4
+    val delay1 = 0.8
     val delayed1 =  Promise.timeout(futureColection1, delay1.second).flatMap(x => x)
 
-    val delay2 = 2
+    val delay2 = 0.4
     val delayed2 =  Promise.timeout(futureColection2, delay2.second).flatMap(x => x)
 
     val delay3 = 0
@@ -101,7 +96,7 @@ class ProductCtrl @Inject() (
     val pageletColelction3 = HtmlPagelet("collection3", delayed3.map(x => views.html.product.collection(x)))
 
     val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3)
-    Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3))
+    Future(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
   }
 
   //---------------------------View product--------------------------------------------------------
@@ -113,7 +108,7 @@ class ProductCtrl @Inject() (
     if (request.pjaxEnabled)
       futureProduct.map ( p => Ok(views.html.product.view(p)))
     else {
-      val delayed =  Promise.timeout(futureProduct, 5.second).flatMap(x => x)
+      val delayed =  Promise.timeout(futureProduct, 1.second).flatMap(x => x)
       val pageletProduct = HtmlPagelet("product" , delayed.map(x => views.html.product.view(x)))
       val bigPipe = new BigPipe(renderOptions(request), pageletProduct)
       Future(Ok.chunked(views.stream.view(bigPipe, pageletProduct)))
