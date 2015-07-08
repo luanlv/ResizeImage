@@ -8,7 +8,7 @@ GET           /                                controllers.Application.index
 GET           /image/list                      controllers.ImageCtrl.getList(name: String ?="")
 GET           /image/upload                    controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
-GET           /image/get/:uuid/:size           controllers.ImageCtrl.get(uuid: String, size: String)
+GET           /image/:size/090715/:uuid        controllers.ImageCtrl.get(uuid: String, size: String)
 
 GET           /product/create                  controllers.ProductCtrl.viewCreate
 POST          /product/create                  controllers.ProductCtrl.create

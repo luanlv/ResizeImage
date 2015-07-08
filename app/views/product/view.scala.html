@@ -13,7 +13,7 @@
 				<div class="pImg">
 					<em>Hình ảnh có thể chỉ là đại diện, xem datasheet để có thông số chính xác hơn</em>
 					<div class="img">
-						<img src="/image/get/@data.image/thumb" alt="" width="180px">
+						<img src="@routes.ImageCtrl.get(data.image.getOrElse(""), "thumb")" alt="" width="180px">
 					</div>
 				</div>
 

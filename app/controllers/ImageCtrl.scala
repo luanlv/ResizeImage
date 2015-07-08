@@ -22,6 +22,8 @@ import ImplicitBSONHandlers._
 import core.dao.ImageDAO
 import java.util.UUID
 
+import scala.concurrent.Future
+
 class ImageCtrl @Inject() (
     val messagesApi: MessagesApi,
     val reactiveMongoApi: ReactiveMongoApi)
@@ -96,9 +98,7 @@ class ImageCtrl @Inject() (
   }
 
   def get(uuid: String, size: String) = Action.async { request =>
-
     val image = ImageDAO.get(gridFS, uuid, size)
-
-    serve[JsString, JSONReadFile](gridFS)(image, CONTENT_DISPOSITION_INLINE)
+    serve[JsString, JSONReadFile](gridFS)(image, CONTENT_DISPOSITION_INLINE).map(_.withHeaders("Cache-Control" ->"max-age=%d".format(60*60*24*365)))
   }
 }

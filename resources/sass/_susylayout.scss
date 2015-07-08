@@ -68,6 +68,7 @@ $susy:(
 .footer{
   height: 50px;
   background: $orange;
+  margin-top: 10px;
 }
 
 .main{
@@ -242,6 +243,7 @@ $susy:(
     margin-bottom: 0;
   }
   .pcExtra{
-    border: solid 2px $blue;
+    border-top: solid 1px #BEDAEC;
+    border-bottom: solid 1px #BEDAEC;
   }
 }

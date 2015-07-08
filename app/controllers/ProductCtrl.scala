@@ -99,6 +99,9 @@ class ProductCtrl @Inject() (
     Future(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
   }
 
+
+
+
   //---------------------------View product--------------------------------------------------------
 
   def viewProduct(code: String) = PjaxAction.async { implicit request =>
@@ -118,10 +121,18 @@ class ProductCtrl @Inject() (
   //----------------- Server render for google bot    ----------------------------------------------
 
   private def renderOptions(request: RequestHeader): PageletRenderOptions = {
-    request.headers.get(HeaderNames.USER_AGENT) match {
-      case Some(header) if header.contains("GoogleBot") => PageletRenderOptions.ServerSide
-      case _ => PageletRenderOptions.ClientSide
+    request.getQueryString("server") match {
+      case Some("true") =>
+        PageletRenderOptions.ServerSide
+
+      case _            => {
+        request.headers.get(HeaderNames.USER_AGENT) match {
+          case Some(header) if header.contains("GoogleBot") => PageletRenderOptions.ServerSide
+          case _ => PageletRenderOptions.ClientSide
+        }
+      }
     }
+
   }
 
   //--------------------------------------------------------------------------------------------------
