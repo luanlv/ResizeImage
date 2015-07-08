@@ -1,18 +1,5 @@
-<!doctype html>
-<html lang="en">
+@()(implicit pjaxVersion: pjax.PjaxVersion)
 
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
-<head>
-<body>
-	<h1>Upload!</h1>
-	helper.form(action = routes.ImageCtrl.upload(), 'enctype -> "multipart/form-data") {
-		<input type="file" name="picture">
-		<div>
-			<input type="submit" class="btn">
-		</div>
-	}
-</body>
-</html>
+@layout("test"){
+	Ok
+}

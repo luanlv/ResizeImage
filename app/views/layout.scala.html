@@ -1,10 +1,21 @@
-@(title: String)(content: Html)
+@(title: String)(content: Html)(implicit pjaxVersion: pjax.PjaxVersion)
 
 <html>
 	<head>
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("favicon.png")">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
+
 		<link rel="stylesheet" href="/assets/stylesheets/main.css">
+		<link rel="stylesheet" href="/assets/stylesheets/nprogress.css">
 			<!-- You need to include the BigPipe JavaScript at the top of the page -->
 		<script src="/assets/com/ybrikman/ping/big-pipe.js"></script>
+		<script src="@routes.Assets.at("javascripts/jquery/jquery-1.11.3.min.js")"></script>
+		<script src="@routes.Assets.at("javascripts/pjax/nprogress.js")"></script>
+		<script src="@routes.Assets.at("javascripts/pjax/jquery.pjax.min.js")"></script>
+		<script src="@routes.Assets.at("javascripts/pjax/pjaxCtrl.js")"></script>
 	</head>
 	<body>
 			<div class="container">
@@ -12,8 +23,7 @@
 				<nav class="nav"></nav>
 				<div class="main">
 					<aside class="aside ra-5"></aside>
-					<div class="content">
-
+					<div id="pjax-container" class="content">
 						@content
 					</div>
 				</div>

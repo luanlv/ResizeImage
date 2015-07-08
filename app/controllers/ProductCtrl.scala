@@ -10,6 +10,7 @@ import core.dao.DocumentDAO
 import core.dao.DocumentDAO._
 import models.Product
 import org.joda.time.DateTime
+import pjax.Pjax
 import play.api.i18n.MessagesApi
 import play.api.libs.concurrent.Promise
 import play.api.libs.json.Json
@@ -28,7 +29,7 @@ import scala.util.Random
 class ProductCtrl @Inject() (
      val messagesApi: MessagesApi,
      val reactiveMongoApi: ReactiveMongoApi)
-    extends Controller with MongoController with ReactiveMongoComponents {
+    extends Controller with MongoController with ReactiveMongoComponents with Pjax{
 
   //--------------------    COLLECTION    ------------------------------------------------------------
   val cProduct = {
@@ -69,7 +70,7 @@ class ProductCtrl @Inject() (
 
   //-------------------------  Index page   ----------------------------------------------------------
 
-  def index = Action {
+  def index = PjaxAction { implicit request =>
     val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 1)
     val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 1)
     val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 1)
@@ -97,11 +98,22 @@ class ProductCtrl @Inject() (
 
   //---------------------------View product--------------------------------------------------------
 
-  def viewProduct(code: String) = Action.async  {
+  def viewProduct(code: String) = PjaxAction.async { implicit request =>
+    val title = code
+
     val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("code" -> code))
     futureProduct map {
       p => p match {
-        case Some(product) => Ok(views.html.product.view(product))
+        case Some(product) => {
+          val view = views.html.product.view(product)
+          if (request.pjaxEnabled){
+            println("case 1")
+            Ok(view)
+          }else{
+            println("case 2")
+            Ok(views.html.layout(title)(view))
+          }
+        }
         case None => Ok("not found")
       }
     }
