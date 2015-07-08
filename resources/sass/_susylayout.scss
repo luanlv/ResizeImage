@@ -39,6 +39,10 @@ $susy:(
   @include border-radius(5px);
 }
 
+.ra-5{
+  @include border-radius(10px);
+}
+
 .sa{
   @include box-shadow(2px 2px 3px 0px rgba(grey, 0.5));
 }
@@ -116,16 +120,15 @@ $susy:(
 
 .gallery{
   @include clearfix();
-  padding: gutter(16);
-  padding-top: 0;
-  padding-bottom: 0;
-
+  @include pad(gutter(16));
+  padding-bottom: gutter(16);
 }
 
 .gallery > li{
-  @include gallery(4 of 16);
-  margin-bottom: gutter(8);
-  background: #F7F3F3;
+  @include gallery(6 of 24);
+  padding-bottom: 5px;
+  margin-bottom: gutter(24);
+  background: rgba(gray, 0.08);
   @include clearfix();
   color: gray;
   text-align: center;
@@ -135,8 +138,8 @@ $susy:(
   }
 
   .img {
-    margin-top: 15px;
     @include container(120px);
+    margin-top: 10px;
     margin-bottom: 5px;
   }
   p {
