@@ -15,7 +15,19 @@
 	<body>
 	@bigPipe.render { pagelets =>
 		<div class="container">
-			<div class="header"></div>
+			<div class="header">
+				<table id="timing">
+					<tr>
+						<td><h4>Time to first byte:</h4></td>
+						<td><h3 id="time-to-first-byte" class="highlight"></h3></td>
+					</tr>
+					<tr>
+						<td><h4>Time to DOM loading:</h4></td>
+						<td><h3 id="time-to-dom-loading" class="highlight"></h3></td>
+					</tr>
+				</table>
+				<script src='@routes.Assets.versioned("javascripts/timing.js")'></script>
+			</div>
 
 			<nav class="nav"></nav>
 

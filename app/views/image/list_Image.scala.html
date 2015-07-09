@@ -2,7 +2,7 @@
 	@for(img <- images){
 		<div class="img-container  slide_close"
 				style="display: inline-block; width: 120px; height: 160px; overflow : hidden;">
-			<img src="/image/get/@img.metadata.uuid/thumb" alt="">
+			<img src='@routes.ImageCtrl.get(img.metadata.uuid, img.metadata.size)' alt="@img.filename">
 			<br/>
 			<p class="uuid hide">@img.metadata.uuid</p>
 			<p>@img.filename</p>

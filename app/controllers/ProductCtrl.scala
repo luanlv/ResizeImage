@@ -61,9 +61,11 @@ class ProductCtrl @Inject() (
         val tmp = product.copy(
           id = product.id.orElse(Some(UUID.randomUUID().toString)),
           creationDate = Some(new DateTime()),
-          updateDate = Some(new DateTime()))
+          updateDate = Some(new DateTime())
+        )
         val f = insert[Product](cProduct, tmp)
         f.map{
+
           lastError => Ok("ok")
         }.recover{
           case e => {
@@ -96,7 +98,7 @@ class ProductCtrl @Inject() (
     val pageletColelction3 = HtmlPagelet("collection3", delayed3.map(x => views.html.product.collection(x)))
 
     val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3)
-    Future(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
+    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
   }
 
   def index2 = PjaxAction.async { implicit request =>
@@ -109,7 +111,7 @@ class ProductCtrl @Inject() (
     val pageletColelction3 = HtmlPagelet("collection3", futureColection3.map(x => views.html.product.collection(x)))
 
     val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3)
-    Future(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
+    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
   }
 
   //---------------------------View product--------------------------------------------------------
