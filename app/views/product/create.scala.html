@@ -99,7 +99,7 @@ $(document).ready(function () {
 
   $(document).on('click', '.img-container', function(){
 		$('#image').val($(this).children('.uuid').html());
-		$('#img-view').versionedtr(
+		$('#img-view').attr(
       'src',
       $(this).children('img')[0].src
 		);
