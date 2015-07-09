@@ -2,6 +2,7 @@ var gulp        = require('gulp');
 var sass        = require('gulp-sass');
 var browserSync = require('browser-sync');
 var sourcemaps = require('gulp-sourcemaps');
+var minifyHTML = require('gulp-minify-html');
 
 // Registering a 'less' task that just compile our LESS files to CSS
 
@@ -10,6 +11,20 @@ gulp.task('watch', ['sass'], function () {
   gulp.watch('./resources/sass/{,*/}*.{scss,sass}', ['sass'])
 });
 
+
+gulp.task('minify-html', function() {
+  var opts = {
+    conditionals: true,
+    spare:true,
+    quotes: true,
+    empty: true,
+    cdata: true,
+    loose: true
+  };
+  return gulp.src('./resources/html/{,*/}*.stream')
+      .pipe(minifyHTML(opts))
+      .pipe(gulp.dest('./app/views'));
+});
 
 gulp.task('sass', function() {
   gulp.src('./resources/sass/main.scss')
