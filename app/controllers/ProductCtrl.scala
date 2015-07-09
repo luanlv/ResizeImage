@@ -99,8 +99,18 @@ class ProductCtrl @Inject() (
     Future(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
   }
 
+  def index2 = PjaxAction.async { implicit request =>
+    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 1)
+    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 1)
+    val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 1)
 
+    val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
+    val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
+    val pageletColelction3 = HtmlPagelet("collection3", futureColection3.map(x => views.html.product.collection(x)))
 
+    val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3)
+    Future(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
+  }
 
   //---------------------------View product--------------------------------------------------------
 

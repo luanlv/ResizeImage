@@ -3,7 +3,7 @@
 # ~~~~
 
 
-GET           /                                controllers.Application.index
+GET           /                                controllers.ProductCtrl.index2
 
 GET           /image/list                      controllers.ImageCtrl.getList(name: String ?="")
 GET           /image/upload                    controllers.Application.upload
@@ -13,10 +13,9 @@ GET           /image/:size/090715/:uuid        controllers.ImageCtrl.get(uuid: S
 GET           /product/create                  controllers.ProductCtrl.viewCreate
 POST          /product/create                  controllers.ProductCtrl.create
 
-GET           /product/v/:code                   controllers.ProductCtrl.viewProduct(code: String)
+GET           /product/v/:code                  controllers.ProductCtrl.viewProduct(code: String)
 
-GET          /index                           controllers.ProductCtrl.index
-
+GET          /delay                             controllers.ProductCtrl.index
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/090715/*file                  controllers.Assets.versioned(path="/public", file)
 GET           /assets/*file                    controllers.Assets.at(path="/public", file)
