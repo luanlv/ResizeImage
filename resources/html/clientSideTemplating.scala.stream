@@ -46,7 +46,6 @@
 		</div>
 		<script src='@routes.Assets.versioned("js/big-pipe-with-mustache.js")'></script>
 		<script async src='@routes.Assets.versioned("js/jwp.js")'></script>
-		<script async src='@routes.Assets.versioned("javascripts/pjax/nprogress.js")'></script>
 	}
 	</body>
 </html>

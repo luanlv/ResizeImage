@@ -20,4 +20,5 @@ GET           /product/v/:code                  controllers.ProductCtrl.viewProd
 GET          /delay                             controllers.ProductCtrl.index
 # Map static resources from the /public folder to the /assets URL path
 GET           //cdn.lvlblog.com/assets/090715/*file             controllers.Assets.versioned(path="/public", file)
-GET           /assets/090715/*file                     controllers.Assets.at(path="/public", file)
+GET           /assets/090715/*file             controllers.Assets.versioned(path="/public", file)
+#GET           /assets/090715/*file                     controllers.Assets.at(path="/public", file)
