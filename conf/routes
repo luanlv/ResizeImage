@@ -7,9 +7,9 @@ GET           /                                controllers.ProductCtrl.index2
 GET           /client                          controllers.ProductCtrl.client
 GET           /clientDelay                     controllers.ProductCtrl.clientDelay
 GET           /image/list                      controllers.ImageCtrl.getList(name: String ?="")
-GET           //cdn.lvlblog.com/image/upload   controllers.Application.upload
-GET           /image/upload                    controllers.Application.upload
+GET           /image/upload   controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
+GET           //cdn.lvlblog.com/image/:size/1/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
 GET           /image/:size/1/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
 
 GET           /product/create                  controllers.ProductCtrl.viewCreate
