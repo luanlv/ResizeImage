@@ -9,23 +9,11 @@
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 		<link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")'>
 		<script src="/assets/com/ybrikman/ping/big-pipe.js"></script>
-		<script async src='@routes.Assets.versioned("js/jwp.js")'></script>
 	</head>
 	<body>
 	@bigPipe.render { pagelets =>
 		<div class="container">
 			<div class="header">
-				<table id="timing">
-					<tr>
-						<td><h4>Time to first byte:</h4></td>
-						<td><h3 id="time-to-first-byte" class="highlight"></h3></td>
-					</tr>
-					<tr>
-						<td><h4>Time to DOM loading:</h4></td>
-						<td><h3 id="time-to-dom-loading" class="highlight"></h3></td>
-					</tr>
-				</table>
-				<script src='@routes.Assets.versioned("javascripts/timing.js")'></script>
 			</div>
 
 			<nav class="nav"></nav>
@@ -57,6 +45,7 @@
 			<div class="footer"></div>
 		</div>
 		<script src='@routes.Assets.versioned("js/big-pipe-with-mustache.js")'></script>
+		<script async src='@routes.Assets.versioned("js/jwp.js")'></script>
 		<script async src='@routes.Assets.versioned("javascripts/pjax/nprogress.js")'></script>
 	}
 	</body>

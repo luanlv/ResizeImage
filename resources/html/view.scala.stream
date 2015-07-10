@@ -9,7 +9,6 @@
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 		<link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")'>
 		<script src="/assets/com/ybrikman/ping/big-pipe.js"></script>
-		<script async src='@routes.Assets.versioned("js/jwp.js")'></script>
 	</head>
 	<body>
 		@bigPipe.render { pagelets =>
@@ -24,6 +23,7 @@
 					</div>
 				<div class="footer"></div>
 			</div>
+			<script async src='@routes.Assets.versioned("js/jwp.js")'></script>
 			<script async src='@routes.Assets.versioned("javascripts/pjax/nprogress.js")'></script>
 		}
 	</body>
