@@ -79,14 +79,14 @@ class ProductCtrl @Inject() (
   //-------------------------  Index page   ----------------------------------------------------------
 
   def index = PjaxAction.async { implicit request =>
-    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 1)
-    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 1)
-    val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 1)
+    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 8)
+    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8)
+    val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8)
 
-    val delay1 = 0.8
+    val delay1 = 8
     val delayed1 =  Promise.timeout(futureColection1, delay1.second).flatMap(x => x)
 
-    val delay2 = 0.4
+    val delay2 = 4
     val delayed2 =  Promise.timeout(futureColection2, delay2.second).flatMap(x => x)
 
     val delay3 = 0
@@ -102,9 +102,9 @@ class ProductCtrl @Inject() (
   }
 
   def index2 = PjaxAction.async { implicit request =>
-    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 1)
-    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 1)
-    val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 1)
+    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 8)
+    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8)
+    val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8)
 
     val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
     val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
@@ -116,9 +116,9 @@ class ProductCtrl @Inject() (
 
 
   def client = PjaxAction { implicit request =>
-    val futureJson1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 2).map(x => Json.toJson(x))
-    val futureJson2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 2).map(x => Json.toJson(x))
-    val futureJson3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 2).map(x => Json.toJson(x))
+    val futureJson1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 8).map(x => Json.toJson(x))
+    val futureJson2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8).map(x => Json.toJson(x))
+    val futureJson3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8).map(x => Json.toJson(x))
 
 
     val pagelet1 = JsonPagelet("collection1", futureJson1)
@@ -130,11 +130,11 @@ class ProductCtrl @Inject() (
   }
 
   def clientDelay = PjaxAction { implicit request =>
-    val futureJson1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 2).map(x => Json.toJson(x))
-    val futureJson2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 2).map(x => Json.toJson(x))
-    val futureJson3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 2).map(x => Json.toJson(x))
+    val futureJson1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 8).map(x => Json.toJson(x))
+    val futureJson2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8).map(x => Json.toJson(x))
+    val futureJson3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8).map(x => Json.toJson(x))
 
-    val delay1 = 0.8
+    val delay1 = 8
     val delayed1 =  Promise.timeout(futureJson1, delay1.second).flatMap(x => x)
 
     val delay2 = 4
