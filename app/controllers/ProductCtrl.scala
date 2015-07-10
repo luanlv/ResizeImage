@@ -1,7 +1,7 @@
 package controllers
 
 import com.ybrikman.ping.javaapi.bigpipe.PageletRenderOptions
-import com.ybrikman.ping.scalaapi.bigpipe.{BigPipe, HtmlPagelet}
+import com.ybrikman.ping.scalaapi.bigpipe.{JsonPagelet, BigPipe, HtmlPagelet}
 import com.ybrikman.ping.scalaapi.bigpipe.HtmlStreamImplicits._
 import play.api.Configuration
 
@@ -112,6 +112,43 @@ class ProductCtrl @Inject() (
 
     val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3)
     Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
+  }
+
+
+  def client = PjaxAction { implicit request =>
+    val futureJson1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 2).map(x => Json.toJson(x))
+    val futureJson2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 2).map(x => Json.toJson(x))
+    val futureJson3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 2).map(x => Json.toJson(x))
+
+
+    val pagelet1 = JsonPagelet("collection1", futureJson1)
+    val pagelet2 = JsonPagelet("collection2", futureJson2)
+    val pagelet3 = JsonPagelet("collection3", futureJson3)
+
+    val bigPipe = new BigPipe(PageletRenderOptions.ClientSide, pagelet1, pagelet2, pagelet3)
+    Ok.chunked(views.stream.clientSideTemplating(bigPipe, pagelet1, pagelet2, pagelet3))
+  }
+
+  def clientDelay = PjaxAction { implicit request =>
+    val futureJson1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 2).map(x => Json.toJson(x))
+    val futureJson2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 2).map(x => Json.toJson(x))
+    val futureJson3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 2).map(x => Json.toJson(x))
+
+    val delay1 = 0.8
+    val delayed1 =  Promise.timeout(futureJson1, delay1.second).flatMap(x => x)
+
+    val delay2 = 4
+    val delayed2 =  Promise.timeout(futureJson2, delay2.second).flatMap(x => x)
+
+    val delay3 = 0
+    val delayed3 =  Promise.timeout(futureJson3, delay3.second).flatMap(x => x)
+
+    val pagelet1 = JsonPagelet("collection1", delayed1)
+    val pagelet2 = JsonPagelet("collection2", delayed2)
+    val pagelet3 = JsonPagelet("collection3", delayed3)
+
+    val bigPipe = new BigPipe(PageletRenderOptions.ClientSide, pagelet1, pagelet2, pagelet3)
+    Ok.chunked(views.stream.clientSideTemplating(bigPipe, pagelet1, pagelet2, pagelet3))
   }
 
   //---------------------------View product--------------------------------------------------------
