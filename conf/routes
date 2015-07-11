@@ -9,7 +9,7 @@ GET           /clientDelay                     controllers.ProductCtrl.clientDel
 GET           /image/list                      controllers.ImageCtrl.getList(name: String ?="")
 GET           /image/upload   controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
-#GET           //cdn.lvlblog.com/image/1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
+GET           //cdn.lvlblog.com/image/1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
 GET           /image/1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
 
 GET           /product/create                  controllers.ProductCtrl.viewCreate
@@ -20,7 +20,7 @@ GET           /product/v/:code                  controllers.ProductCtrl.viewProd
 GET          /delay                             controllers.ProductCtrl.index
 
 # Map static resources from the /public folder to the /assets URL path
-#GET           //cdn.lvlblog.com/assets/100715/*file             controllers.Assets.versioned(path="/public", file)
+GET           //cdn.lvlblog.com/assets/110715/*file             controllers.Assets.versioned(path="/public", file)
 GET           /assets/110715/*file             controllers.Assets.versioned(path="/public", file)
 #GET           /assets/110715/*file             controllers.Assets.at(path="/public", file)
 
