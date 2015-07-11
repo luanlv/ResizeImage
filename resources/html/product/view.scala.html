@@ -1,7 +1,5 @@
-@(data: Option[models.Product])
+@(data: models.Product)
 
-	@data match{
-		case Some(data) => {
 			<div class="pContainer">
 				<div class="pHeader">
 					<div>
@@ -13,7 +11,7 @@
 				<div class="pImg">
 					<em>Hình ảnh có thể chỉ là đại diện, xem datasheet để có thông số chính xác hơn</em>
 					<div class="img">
-						<img src="@routes.ImageCtrl.get(data.image.getOrElse(""), "thumb")" alt="" width="180px">
+						<img src='@routes.ImageCtrl.get(data.image.getOrElse(""), "thumb")' alt="" width="180px">
 					</div>
 				</div>
 
@@ -29,7 +27,6 @@
 								<div id="">Ngày đăng:&nbsp;
 									<span id="">@data.creationDate.map(u => org.joda.time.format.DateTimeFormat.forPattern("MMM dd, yyyy").print(u)).orElse(Some("n/a"))</span></div>
 							</div>
-
 
 							<div class="lbl">
 								<div class="pdUnit" class="lbl2">Đơn vị tính:&nbsp;
@@ -73,12 +70,9 @@
 							<li>Chi phí hợp lý</li>
 						</ul>
 						<strong>Tài liệu:<br>
+							<br/><br/><br/><br/>
 				</strong>
 					</div>
 				</div>
 			</div>
-		}
-
-		case None => {San pham khong ton tai}
-	}
 

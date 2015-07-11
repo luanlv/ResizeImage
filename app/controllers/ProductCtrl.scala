@@ -158,10 +158,15 @@ class ProductCtrl @Inject() (
     val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("code" -> code))
 
     if (request.pjaxEnabled)
-      futureProduct.map ( p => Ok(views.html.product.view(p)))
+      futureProduct.map { p => p match {
+        case Some(data) => Ok(views.html.product.view(data))
+        case None => Ok("ko ton tai")
+      }}
     else {
-      val delayed =  Promise.timeout(futureProduct, 1.second).flatMap(x => x)
-      val pageletProduct = HtmlPagelet("product" , delayed.map(x => views.html.product.view(x)))
+      val pageletProduct = HtmlPagelet("product" , futureProduct.map{x => x match {
+        case Some(data) => views.html.product.view(data)
+        }
+      })
       val bigPipe = new BigPipe(renderOptions(request), pageletProduct)
       Future(Ok.chunked(views.stream.view(bigPipe, pageletProduct)))
     }

@@ -10,7 +10,7 @@
   var template =
     '<li class="ra-5">' +
           '<div class="img">' +
-          '<img src="/image/thumb/1/{{image}}" alt="">' +
+          '<img src="//cdn.lvlblog.com/image/1/thumb/{{image}}" alt="">' +
           '</div>' +
           '<div class="codeP">' +
           '<a class="pjContainer" href="/product/v/{{code}}"><b>{{code}}</b></a>' +
