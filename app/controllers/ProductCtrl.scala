@@ -130,6 +130,7 @@ class ProductCtrl @Inject() (
     else {
       val pageletProduct = HtmlPagelet("product" , futureProduct.map{x => x match {
         case Some(data) => views.html.product.view(data)
+        case None     => views.html.product.view2()
         }
       })
       val bigPipe = new BigPipe(renderOptions(request), pageletProduct)

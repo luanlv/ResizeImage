@@ -15,7 +15,7 @@ GET           /image/v1/:size/:uuid             controllers.ImageCtrl.get(uuid: 
 GET           /product/create                  controllers.ProductCtrl.viewCreate
 POST          /product/create                  controllers.ProductCtrl.create
 
-GET           /product/view/:code                  controllers.ProductCtrl.viewProduct(code: String)
+GET           /product/view/:code              controllers.ProductCtrl.viewProduct(code: String)
 
 
 # Map static resources from the /public folder to the /assets URL path
