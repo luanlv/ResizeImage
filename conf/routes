@@ -3,10 +3,9 @@
 # ~~~~
 
 
-GET           /2                               controllers.ProductCtrl.index
-GET           /2d                              controllers.ProductCtrl.index2
-GET           /                                controllers.ProductCtrl.client
-GET           /d                               controllers.ProductCtrl.clientDelay
+GET           /                               controllers.ProductCtrl.index
+GET           /d                              controllers.ProductCtrl.index2
+
 GET           /image/list                      controllers.ImageCtrl.getList(name: String ?="")
 GET           /image/upload   controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
