@@ -3,7 +3,6 @@
   var sass        = require('gulp-sass');
   var browserSync = require('browser-sync');
   var sourcemaps = require('gulp-sourcemaps');
-  var minifyHTML = require('gulp-minify-html');
 
 // Registering a 'less' task that just compile our LESS files to CSS
 
@@ -12,9 +11,6 @@
     gulp.watch('./resources/sass/{,*/}*.{scss,sass}', ['sass'])
   });
 
-  gulp.task('watch2', ['sass'], function () {
-    gulp.watch('./resources/html/*.{stream,html}', ['minify-html'])
-  });
 
   gulp.task('minify-html', function() {
     var opts = {
@@ -40,7 +36,7 @@
         .pipe(gulp.dest('./public/stylesheets'));
   });
 
-//
+
   gulp.task('serve', function () {
     browserSync({
       // By default, Play is listening on port 9000
@@ -60,4 +56,4 @@
   });
 
 // Creating the default gulp task
-  gulp.task('default', ['sass', 'minify-html', 'watch', 'watch2', 'serve']);
+  gulp.task('default', ['sass', 'minify-html', 'watch', 'serve']);

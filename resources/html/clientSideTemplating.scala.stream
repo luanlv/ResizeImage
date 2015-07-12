@@ -44,7 +44,7 @@
 			</div>
 			<div class="footer"></div>
 		</div>
-		<script src='@routes.Assets.versioned("js/big-pipe-with-mustache.js")'></script>
+		<script src='@routes.Assets.versioned("js/big-pipe-with-javascript.js")'></script>
 		<script async src='@routes.Assets.versioned("js/jwp.js")'></script>
 	}
 	</body>

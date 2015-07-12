@@ -10,10 +10,10 @@
   var template =
     '<li class="ra-5">' +
           '<div class="img">' +
-          '<img src="//cdn.lvlblog.com/image/1/thumb/{{image}}" alt="">' +
+          '<img src="//cdn.lvlblog.com/image/v1/thumb/{{image}}" alt="">' +
           '</div>' +
           '<div class="codeP">' +
-          '<a class="pjContainer" href="/product/v/{{code}}"><b>{{code}}</b></a>' +
+          '<a class="pjContainer" href="/product/view/{{code}}"><b>{{code}}</b></a>' +
       '<div class="stock"> ({{stock}})</div>' +
       '</div>' +
       '<div class="nameP">{{name}}</div>' +

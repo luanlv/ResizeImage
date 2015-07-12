@@ -3,24 +3,23 @@
 # ~~~~
 
 
-GET           /                                controllers.ProductCtrl.index2
-GET           /client                          controllers.ProductCtrl.client
-GET           /clientDelay                     controllers.ProductCtrl.clientDelay
+GET           /2                               controllers.ProductCtrl.index
+GET           /2d                              controllers.ProductCtrl.index2
+GET           /                                controllers.ProductCtrl.client
+GET           /d                               controllers.ProductCtrl.clientDelay
 GET           /image/list                      controllers.ImageCtrl.getList(name: String ?="")
 GET           /image/upload   controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
-GET           //cdn.lvlblog.com/image/1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
-GET           /image/1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
+GET           //cdn.lvlblog.com/image/v1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
+GET           /image/v1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
 
 GET           /product/create                  controllers.ProductCtrl.viewCreate
 POST          /product/create                  controllers.ProductCtrl.create
 
-GET           /product/v/:code                  controllers.ProductCtrl.viewProduct(code: String)
+GET           /product/view/:code                  controllers.ProductCtrl.viewProduct(code: String)
 
-GET          /delay                             controllers.ProductCtrl.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET           //cdn.lvlblog.com/assets/110715/*file             controllers.Assets.versioned(path="/public", file)
-GET           /assets/110715/*file             controllers.Assets.versioned(path="/public", file)
-#GET           /assets/110715/*file             controllers.Assets.at(path="/public", file)
-
+#GET           //cdn.lvlblog.com/assets/v1/*file             controllers.Assets.versioned(path="/public", file)
+GET           /assets/v1/*file             controllers.Assets.versioned(path="/public", file)
+#GET          /assets/v1/*file             controllers.Assets.at(path="/public", file)

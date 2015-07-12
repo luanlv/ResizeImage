@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <component name="libraryTable">
   <library name="SBT: com.typesafe.netty:netty-http-pipelining:1.1.4:jar">
     <CLASSES>

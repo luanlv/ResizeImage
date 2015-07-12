@@ -78,18 +78,18 @@ class ProductCtrl @Inject() (
 
   //-------------------------  Index page   ----------------------------------------------------------
 
-  def index = PjaxAction.async { implicit request =>
+  def index2 = PjaxAction.async { implicit request =>
     val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 8)
     val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8)
     val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8)
 
-    val delay1 = 6
+    val delay1 = 0.75
     val delayed1 =  Promise.timeout(futureColection1, delay1.second).flatMap(x => x)
 
-    val delay2 = 4
+    val delay2 = 0.5
     val delayed2 =  Promise.timeout(futureColection2, delay2.second).flatMap(x => x)
 
-    val delay3 = 2
+    val delay3 = 0.25
     val delayed3 =  Promise.timeout(futureColection3, delay3.second).flatMap(x => x)
 
 
@@ -101,7 +101,7 @@ class ProductCtrl @Inject() (
     Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
   }
 
-  def index2 = PjaxAction.async { implicit request =>
+  def index = PjaxAction.async { implicit request =>
     val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 8)
     val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8)
     val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8)
@@ -134,13 +134,13 @@ class ProductCtrl @Inject() (
     val futureJson2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8).map(x => Json.toJson(x))
     val futureJson3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8).map(x => Json.toJson(x))
 
-    val delay1 = 6
+    val delay1 = 0.75
     val delayed1 =  Promise.timeout(futureJson1, delay1.second).flatMap(x => x)
 
-    val delay2 = 4
+    val delay2 = 0.5
     val delayed2 =  Promise.timeout(futureJson2, delay2.second).flatMap(x => x)
 
-    val delay3 = 2
+    val delay3 = 0.25
     val delayed3 =  Promise.timeout(futureJson3, delay3.second).flatMap(x => x)
 
     val pagelet1 = JsonPagelet("collection1", delayed1)
