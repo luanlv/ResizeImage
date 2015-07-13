@@ -10,11 +10,11 @@
 		<link rel="stylesheet" href='@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")' />
 	</head>
 	<body>
+		sdfsdf
 		<div class="container">
 			@if(error.length > 0){
 				<div class="alert alert-warning">@error</div>
 			}
-
 			@form.globalError.map { error =>
 				<div class="alert alert-warning">@error.message</div>
 			}

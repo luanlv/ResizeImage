@@ -19,6 +19,6 @@ GET           /product/view/:code              controllers.ProductCtrl.viewProdu
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET           //cdn.lvlblog.com/assets/v1/*file             controllers.Assets.versioned(path="/public", file)
-GET           /assets/v1/*file             controllers.Assets.versioned(path="/public", file)
+GET           //cdn.lvlblog.com/assets/v2/*file             controllers.Assets.versioned(path="/public", file)
+GET           /assets/v2/*file             controllers.Assets.versioned(path="/public", file)
 #GET          /assets/v1/*file             controllers.Assets.at(path="/public", file)
