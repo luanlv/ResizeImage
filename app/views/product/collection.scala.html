@@ -1,1 +1,25 @@
-@(products: List[models.Product]) <ul class="gallery"> @for(product <- products){<li class="ra-5"> <div class="img"> <img src='@routes.ImageCtrl.get(product.image.getOrElse(""), "thumb")' alt=""> </div> <div class="codeP"> <a class="pjContainer" href="@routes.ProductCtrl.viewProduct(product.code)"><b>@product.code</b></a> <div class="stock">(@product.stock)</div> </div> <div class="nameP"> @product.name </div> <div class="priceP"> Giá bán lẻ: <div class="price"><b>@product.price VNĐ</b></div> </div> </li> }</ul>
+@(products: List[models.Product])
+
+<ul class="gallery">
+	@for(product <- products){
+		<li class="simpleCart_shelfItem ra-5">
+			<div class="img">
+				<img src='@routes.ImageCtrl.get(product.image.getOrElse(""), "thumb")' alt="">
+			</div>
+			<div class="codeP">
+				<a class="pjContainer" href='@routes.ProductCtrl.viewProduct(product.code)'><b>@product.code</b></a>
+				<div class="stock">(@product.stock)</div>
+			</div>
+			<div class="nameP item_name">
+			@product.name
+			</div>
+			<div class="priceP ">
+				Giá bán lẻ:
+				<div class="price item_price"><b>@java.text.NumberFormat.getIntegerInstance.format(product.price)</b></div>
+				<b>VNĐ</b>
+			</div>
+			<input type="text" value="1" class="item_quantity" size="1"  id="item-quantity">
+			<button class="item_add">Add to Cart</button>
+		</li>
+	}
+</ul>

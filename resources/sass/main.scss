@@ -3,13 +3,11 @@
 
 
 @import "normalize";
+@import "nprogress";
 @import "susylayout";
+@import "cart";
+
 a {
   text-decoration: none;
 }
 
-.highlight {
-  color: #0077b5;
-}
-
-@import "nprogress";

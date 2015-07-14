@@ -53,8 +53,9 @@ $susy:(
 
 
 .container{
-  @include container(900px);
+  @include container(960px);
   background: white;
+  display: block;
 }
 
 .header{
@@ -128,9 +129,9 @@ $susy:(
   @include gallery(6 of 24);
   padding-bottom: 5px;
   margin-bottom: gutter(24);
-  background: rgba(gray, 0.08);
+  background: rgba(#999, 0.05);
   @include clearfix();
-  color: gray;
+  color: #999;
   text-align: center;
   .codeP, .nameP, .priceP {
     @include full();

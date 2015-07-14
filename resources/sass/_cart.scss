@@ -1,0 +1,121 @@
+/****cart bar****/
+.cartBar{
+  background: $navy;
+  color:#fff;
+  font-size:12px;
+  text-align:center;
+  overflow:hidden;
+  position:fixed;
+  z-index:1001;
+  top:0;
+  width: 960px;
+  margin-top:-28px;
+}
+.cartBar ul{
+  height:24px;
+  list-style:none;
+  display:inline-block;
+  width:auto;
+  //padding: 4px 0 0 0;
+  margin:0;
+}
+.cartBar ul li{
+  float:left;
+  padding:0 10px;
+  border-right:1px solid #000;
+  border-left:1px solid #474747;
+  height:10px;
+  line-height:10px;
+  margin-top: 6px;
+}
+.cartBar ul li.first{
+  border-left:none;
+}
+.cartBar ul li.last{
+  border-right:none;
+}
+.cartBar strong{
+  color:#ccc;
+}
+.cartBar a{
+  color:#fff;
+  text-transform:uppercase;
+}
+.cartBar a:hover{
+  color:#39f;
+}
+.cartBar .simpleCart_checkout{
+  color: white;
+}
+.cartBar .simpleCart_checkout:hover{
+  opacity: 1;
+}
+.cartBar .simpleCart_checkout:active{
+  opacity: 1;
+  background-position:-92px 0;
+}
+#cart{
+  display:none;
+  width:100%;
+  background:$navy;
+  border-top:1px solid #171717;
+  padding:20px 0;
+}
+#cart:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+#cart { display: inline-block; }
+* html #cart { height: 1%; } /* Hides from IE-mac \*/
+#cart { display: none; }
+
+.cartMeta{
+  display:inline-block;
+}
+.simpleCart_items{
+  width:810px;
+  margin:0 auto;
+}
+.cartHeaders{
+  background: $navy;
+  height:14px;
+  padding:4px 0;
+}
+.cartHeaders div{
+  float:left;
+  margin:0 10px;
+  text-align:left;
+}
+.itemContainer{
+  clear:both;
+  height:16px;
+  padding:8px 0;
+  border-bottom:1px solid #111;
+  border-top:1px solid #2c2c2c;
+}
+.itemContainer:first-child{
+  border-top:none;
+}
+.itemContainer:last-child{
+  border-bottom:none;
+}
+.itemContainer div{
+  float:left;
+  margin:0 10px;
+  text-align:left;
+}
+.itemName{width:250px;}
+.itemPrice{width:150px;}
+
+  .itemQuantity{  width:100px;  }
+.itemTotal{  width: 150px;  }
+
+.itemName, .itemPrice, .itemQuantity, .itemTotal{
+  text-align:center !important;
+}
+
+.shipping-info{
+  float:left;
+  margin-left:10px;
+}
+
+.hide{
+  display: none;
+}

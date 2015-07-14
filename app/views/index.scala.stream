@@ -12,10 +12,32 @@
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
+
 	@bigPipe.render { pagelets =>
-		<div class="container">
-			<div class="header">
+		<div class="container" id="container">
+			<div class="cartBar">
+				<span class="cartMeta">
+					<ul>
+						<li class="first"><strong>Số lượng: </strong><span class="simpleCart_quantity" onchange='console.log("ok");'>0</span></li>
+						<li><strong>Tổng: </strong><span class="simpleCart_total">0</span></li>
+						<li><a href="javascript:;" id="view_cart">Chi tiết</a></li>
+						<li><a href="javascript:;" class="simpleCart_empty">Xóa tất cả</a></li>
+						<li class="last"><a href="javascript:;" class="simpleCart_checkout">Thanh toán</a></li>
+					</ul>
+				</span>
+				<div id="cart">
+					<div class="simpleCart_items">
+						<div class="cartHeaders">
+							<div class="itemName">Tên sản phẩm</div>
+							<div class="itemPrice">Giá</div>
+							<div class="itemQuantity">số lượng</div>
+						</div>
+					</div>
+				</div>
 			</div>
+
+			<div class="header"></div>
+
 
 			<nav class="nav"></nav>
 
@@ -28,6 +50,7 @@
 							<strong>Cty làm việc từ 8h00 sáng đến 5h00 chiều từ&nbsp;thứ hai đến thứ bảy </strong>(CN và ngày lễ nghỉ). Nếu quý khách muốn mua hàng ngoài giờ làm việc xin vui lòng gọi điện thoại để hẹn trước.</p>
 					</div>
 					<div class="thongbao-right ra-5"></div>
+
 
 					<div class="menuCol1" > &rarr; Phần cứng, Thiết bị.</div>
 
@@ -47,12 +70,18 @@
 		</div>
 
 		<script async src="@routes.Assets.versioned("javascripts/pjax/nprogress.js")"></script>
+
 		<script>
 			head.load("@routes.Assets.versioned("js/jquery/jquery-1.11.3.min.js")",
+			"https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js",
 			"@routes.Assets.versioned("javascripts/pjax/jquery.pjax.min.js")",
 			"@routes.Assets.versioned("javascripts/pjax/pjaxCtrl.js")",
+			"@routes.Assets.versioned("js/simplecart.min.js")",
+			"@routes.Assets.versioned("js/main.min.js")",
 			function() {});
 		</script>
+
 	}
+
 	</body>
 </html>

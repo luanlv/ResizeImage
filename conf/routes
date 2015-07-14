@@ -9,7 +9,7 @@ GET           /d                              controllers.ProductCtrl.index2
 GET           /image/list                      controllers.ImageCtrl.getList(name: String ?="")
 GET           /image/upload   controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
-GET           //cdn2.lvlblog.com/image/v1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
+#GET           //cdn2.lvlblog.com/image/v1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
 GET           /image/v1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
 
 GET           /product/create                  controllers.ProductCtrl.viewCreate
@@ -19,6 +19,6 @@ GET           /product/view/:code              controllers.ProductCtrl.viewProdu
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET           //cdn2.lvlblog.com/assets/v4/*file             controllers.Assets.versioned(path="/public", file)
+#GET           //cdn2.lvlblog.com/assets/v4/*file             controllers.Assets.versioned(path="/public", file)
 GET           /assets/v4/*file             controllers.Assets.versioned(path="/public", file)
 #GET          /assets/v1/*file             controllers.Assets.at(path="/public", file)

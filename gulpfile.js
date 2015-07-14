@@ -2,6 +2,7 @@ var gulp        = require('gulp');
 var sass        = require('gulp-sass');
 var browserSync = require('browser-sync');
 var sourcemaps = require('gulp-sourcemaps');
+var minifyCss = require('gulp-minify-css');
 
 // Registering a 'less' task that just compile our LESS files to CSS
 gulp.task('sass', function() {
@@ -11,6 +12,7 @@ gulp.task('sass', function() {
         errLogToConsole: true
       }))
       .pipe(sourcemaps.write())
+      .pipe(minifyCss({compatibility: 'ie8'}))
       .pipe(gulp.dest('./public/stylesheets'));
 });
 
