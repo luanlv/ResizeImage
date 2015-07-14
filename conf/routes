@@ -10,7 +10,7 @@ GET           /image/list                      controllers.ImageCtrl.getList(nam
 GET           /image/upload   controllers.Application.upload
 POST          /image/upload                    controllers.ImageCtrl.upload
 GET           //cdn2.lvlblog.com/image/v2/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
-GET           /image/v1/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
+GET           /image/v2/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
 
 GET           /product/create                  controllers.ProductCtrl.viewCreate
 POST          /product/create                  controllers.ProductCtrl.create
