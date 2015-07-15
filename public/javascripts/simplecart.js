@@ -407,6 +407,7 @@ function Cart(){
 
 	/* load cart from cookie */
 	me.load = function () {
+    console.log("simple cart load !");
 		var me = this,
 			id;
 			
@@ -948,6 +949,7 @@ function Cart(){
 	}
 
 	me.initialize = function() {
+    console.log("initialize!");
 		me.initializeView();
 		me.load();
 		me.update();

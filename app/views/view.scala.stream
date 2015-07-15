@@ -13,7 +13,29 @@
 	</head>
 	<body>
 	@bigPipe.render { pagelets =>
-		<div class="container">
+		<div class="container" id="container">
+			<div class="cartBar">
+				<span class="cartMeta">
+					<ul>
+						<li class="first"><strong>Số lượng: </strong><span class="simpleCart_quantity" onchange='console.log("ok");'>0</span></li>
+						<li><strong>Tổng: </strong><span class="simpleCart_total">0</span></li>
+						<li><a href="javascript:;" id="view_cart">Chi tiết</a></li>
+						<li><a href="javascript:;" class="simpleCart_empty">Xóa tất cả</a></li>
+						<li class="last"><a href="javascript:;" class="simpleCart_checkout">Thanh toán</a></li>
+					</ul>
+				</span>
+				<div id="cart">
+					<div class="simpleCart_items">
+						<div class="cartHeaders">
+							<div class="itemName">Tên sản phẩm</div>
+							<div class="itemPrice">Giá</div>
+							<div class="itemQuantity">số lượng</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 			<div class="header"></div>
 			<nav class="nav"></nav>
 			<div class="main">

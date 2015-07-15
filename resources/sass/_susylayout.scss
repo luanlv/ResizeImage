@@ -60,13 +60,13 @@ $susy:(
 
 .header{
   height: 100px;
-  background: $aqua;
   margin-bottom: 5px;
 }
 
 .nav{
   height: 30px;
-  background: $blue;
+  border-top: solid 1px royalblue;
+  border-bottom: solid 1px royalblue;
   margin-bottom: 5px;
 }
 
@@ -81,8 +81,8 @@ $susy:(
 }
 .aside {
   min-height: 550px;
-  background: $aqua;
-  @include span( 3 of 15);
+  border : solid 1px blue;
+  @include span( 2.9 of 15);
 }
 .content{
   min-height: 500px;
