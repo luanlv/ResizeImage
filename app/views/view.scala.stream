@@ -24,11 +24,15 @@
 			</div>
 			<div class="footer"></div>
 		</div>
-		<script async src="@routes.Assets.versioned("javascripts/pjax/nprogress.js")"></script>
+		<script async src="@routes.Assets.versioned("javascripts/pjax/nprogress.min.js")"></script>
 		<script>
-			head.load("@routes.Assets.versioned("js/jquery/jquery-1.11.3.min.js")",
-			"@routes.Assets.versioned("javascripts/pjax/jquery.pjax.min.js")",
-			"@routes.Assets.versioned("javascripts/pjax/pjaxCtrl.js")",
+			head.load("@routes.Assets.versioned("javascripts/jquery/jquery-1.11.3.min.js")",
+			"@routes.Assets.versioned("javascripts/pjax/pjax.min.js")",
+			@*"@routes.Assets.versioned("javascripts/pjax/jquery.pjax.min.js")",*@
+			@*"@routes.Assets.versioned("javascripts/pjax/pjaxCtrl.js")",*@
+			@*"@routes.Assets.versioned("javascripts/simplecart.js")",*@
+			"@routes.Assets.versioned("javascripts/main.min.js")",
+			"@routes.Assets.versioned("javascripts/jquery.easing.min.js")",
 			function() {});
 		</script>
 	}

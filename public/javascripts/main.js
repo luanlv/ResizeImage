@@ -1,18 +1,14 @@
 (function(jQuery, simpleCart){
 	// simpleCart setup
-	simpleCart.email = "info@mframing.com";
+	simpleCart.email = "luanlv2591@gmail.com";
 	simpleCart.checkoutTo = PayPal;
 	simpleCart.currency = "VND";
-	simpleCart.successUrl = "http://basicblackframe.com/thank-you.html";
-	simpleCart.cancelUrl = "http://basicblackframe.com/order-black-frames.html";
+	//simpleCart.successUrl = "http://basicblackframe.com/thank-you.html";
+	//simpleCart.cancelUrl = "http://basicblackframe.com/order-black-frames.html";
 	simpleCart.cartHeaders = ["Name" ,  "Price", "Quantity", 'Total', 'remove'];
 	simpleCart.sandbox = false;
 	simpleCart.paypalHTTPMethod = "GET";
 
-	simpleCart.shipping = function(){
-		// return 0 if there is nothing in the cart or if the order is $100 or more
-		return simpleCart.quantity === 0 || simpleCart.total >= 100 ? 0 : 20;
-	};
 
 	CartItem.prototype.sku = function(){
 		var base_sku =  this.name == "1 1/2\" Large Black Cap" ? "102" :
@@ -55,7 +51,7 @@
 				};
 
 				// check the price and quantity
-				CartItem.prototype.checkQuantityAndPrice.call( itemObject );
+				//CartItem.prototype.checkQuantityAndPrice.call( itemObject );
 				// calculate the cost based on the current values
 				running_total.html( simpleCart.valueToCurrencyString( itemObject.quantity * itemObject.price ) );
 			},
@@ -124,11 +120,17 @@
       }
 		});
 
-
+    simpleCart.bind('afterRemove',function(item,isNew){
+      if(!simpleCart.quantity){
+        $(".simpleCart_empty").trigger('click');
+      }
+    });
 
 		if(simpleCart.quantity){
 			lowerCartBar();
 		}
+
+    $('.item_add').prop("disabled", false); // Element(s) are now enabled.
 
 	});
 

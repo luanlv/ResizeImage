@@ -143,15 +143,17 @@ function Cart(){
 
 
 	me.remove = function( id ){
-		var tempArray = {};
-			
-		me.each(function(item){
+    var tempArray = {};
+    var itemDelete = {};
+    me.each(function(item){
 			if( item.id !== id ){
 				tempArray[item.id] = item;
 			}
 		});
-		this.items = tempArray;
-	};
+    this.items = tempArray;
+    me.update();
+    me.trigger('afterRemove', [itemDelete , false] );
+  };
 
 	me.empty = function () {
 		me.items = {};
@@ -553,7 +555,7 @@ function Cart(){
 			newCell = document.createElement('div');
 			headerInfo = me.cartHeaders[y].split("_");
 
-			newCell.innerHTML = me.print( headerInfo[0] === "Name" ? "Tên sản phẩm" : headerInfo[0] );
+			newCell.innerHTML = me.print( headerInfo[0] === "Name" ? "Mã sản phẩm" : headerInfo[0] );
 			newCell.className = "item" + headerInfo[0];
 
 			for(var z=1,zlen=headerInfo.length;z<zlen;z++){
