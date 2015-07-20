@@ -11,12 +11,12 @@ play.twirl.sbt.Import.TwirlKeys.templateImports ++= Vector("com.ybrikman.ping.sc
 
 resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 
-libraryDependencies ++= Seq(  javaJdbc,
+libraryDependencies ++= Seq(
   cache,
   filters,
   javaWs,
   "javax.inject" % "javax.inject" % "1",
-  "org.reactivemongo" %% "play2-reactivemongo" % "0.11.0.play24",
+  "org.reactivemongo" %% "play2-reactivemongo" % "0.11.1.play24",
   "org.mockito" % "mockito-core" % "1.9.5" % "test",
   "com.sksamuel.scrimage" %% "scrimage-core" % "2.0.1",
   "com.sksamuel.scrimage" %% "scrimage-io" % "2.0.1",
@@ -24,6 +24,7 @@ libraryDependencies ++= Seq(  javaJdbc,
   "com.ybrikman.ping" %% "big-pipe" % "0.0.12",
   "joda-time" % "joda-time" % "2.8.1",
   "org.joda" % "joda-convert" % "1.7"
+
 )
 
 routesGenerator := InjectedRoutesGenerator

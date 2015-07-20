@@ -6,8 +6,15 @@
 @import "nprogress";
 @import "susylayout";
 @import "cart";
-
+@import "aside";
 a {
+  color: #0654ba;
   text-decoration: none;
+  &:visited{
+    color: #0654ba;
+  }
+  &:hover{
+    text-decoration: underline;
+  }
 }
 

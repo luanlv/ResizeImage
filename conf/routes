@@ -3,22 +3,25 @@
 # ~~~~
 
 
-GET           /                               controllers.ProductCtrl.index
-GET           /d                              controllers.ProductCtrl.index2
+GET         /                            controllers.ProductCtrl.index
+GET         /tim-kiem.html                  controllers.ProductCtrl.search(_sup:String ?="", _sub:String ?="", _gro:String ?="", _kw:String ?="", _li:Int ?=8)
 
-GET           /image/list                      controllers.ImageCtrl.getList(name: String ?="")
-GET           /image/upload   controllers.Application.upload
-POST          /image/upload                    controllers.ImageCtrl.upload
+GET         /san-pham/:subTypeUrl/:groupUrl.html            controllers.ProductCtrl.collection( subTypeUrl:String, groupUrl:String, _kw:String ?="", _li:Int ?=8, _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" )
+GET         /san-pham/:subTypeUrl/:groupUrl/:pUrl.html      controllers.ProductCtrl.viewProduct( subTypeUrl:String, groupUrl: String, pUrl: String)
+GET         /san-pham/create                    controllers.ProductCtrl.viewCreate
+POST        /san-pham/create                    controllers.ProductCtrl.create
+
+GET         /delay                       controllers.ProductCtrl.index2
+
+GET         /image/list                  controllers.ImageCtrl.getList(name: String ?="", page: Int ?=1)
+GET         /image/upload                controllers.Application.upload
+POST        /image/upload                controllers.ImageCtrl.upload
+
+
 #GET           //cdn2.lvlblog.com/image/v2/:size/:uuid           controllers.ImageCtrl.get(uuid: String, size: String)
-GET           /image/v2/:size/:uuid             controllers.ImageCtrl.get(uuid: String, size: String)
-
-GET           /product/create                  controllers.ProductCtrl.viewCreate
-POST          /product/create                  controllers.ProductCtrl.create
-
-GET           /product/view/:code              controllers.ProductCtrl.viewProduct(code: String)
-
+GET         /image/v2/:size/:uuid        controllers.ImageCtrl.get(uuid: String, size: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET           //cdn2.lvlblog.com/assets/v8/*file             controllers.Assets.versioned(path="/public", file)
+#GET           //cdn2.lvlblog.com/assets/v8/*file             controllers.Assets.versioned(path="/public", file)
 GET           /assets/v8/*file             controllers.Assets.versioned(path="/public", file)
 #GET          /assets/v1/*file             controllers.Assets.at(path="/public", file)

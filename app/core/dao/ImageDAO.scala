@@ -23,7 +23,7 @@ object ImageDAO {
     gfs.find[JsObject, JSONReadFile](Json.obj("metadata.uuid" -> uuid, "metadata.size" -> size ))
   }
 
-  def scaleTo(gfs: G, f:  ReadFile[JSONSerializationPack.type, JsValue], uuid: String, width: Int, height: Int) = {
+  def scaleTo(gfs: G, f:  ReadFile[JSONSerializationPack.type, JsValue], uuid: String, size: String, width: Int, height: Int) = {
     val iterator = gfs
         .enumerate[JSONSerializationPack.Value](f)
         .run(Iteratee.consume[Array[Byte]]())
@@ -43,7 +43,7 @@ object ImageDAO {
           uploadDate = Some(DateTime.now().getMillis),
           metadata =  Json.obj(
             "uuid" -> uuid,
-            "size" -> "thumb"
+            "size" -> size
           )
         )
         gfs.save(enumerator, data).map {

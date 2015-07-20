@@ -11,14 +11,22 @@
 	<div class="pImg">
 		<em>Hình ảnh có thể chỉ là đại diện, xem datasheet để có thông số chính xác hơn</em>
 		<div class="img">
-			<img src='@routes.ImageCtrl.get(data.image.getOrElse(""), "thumb")' alt="" width="180px">
+			<div class="targetarea"><img id="multizoom1"  alt="zoomable" title=""  src="@data.image.head.thumb" width="180" height="150"/></div>
+			@*<div id="description">Milla Jojovitch</div>*@
+			<div class="multizoom1 thumbs">
+				@for(image <- data.image) {
+					<a href="@image.small" data-large="@image.origin" data-title="Milla Jojovitch"><img src="@image.thumb" alt="Milla" title="" width="35" height="35"/></a>
+				}
+			</div>
 		</div>
+
+
 	</div>
 
 	<div class=" pDetail">
 		<fieldset>
 			<legend><div align="center">@data.code</div></legend>
-			<div style=" float:left;"><span class="pdName">@data.name</span></div>
+			<div style=" float:left;"><span class="pdName item_name">@data.name</span></div>
 			<div style="display:table;width:100%;color:#086e98;border-color:red;">
 
 				<div class="lbl">

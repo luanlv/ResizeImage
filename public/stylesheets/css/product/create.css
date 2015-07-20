@@ -2,18 +2,21 @@ body {
   background: #E0FFFF;
 }
 
-.container {
+.mainDiv{
+  margin-top: 10px;
 }
 
-
-img {
- max-width: 100%;
+.divLeft, .divRight{
+  width: 49.8%;
+  float: left;
 }
 
-#img-view {
-  width: 120px;
-  height: 120px;
+.divLeft{
+
 }
+.divRight{
+}
+
 
 .well {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
@@ -50,8 +53,8 @@ pre.prettyprint {
 
 
 #slide {
-  width: 930px;
-  height: 650px;
+  width: 1200px;
+  height: 630px;
   overflow-y: auto;
 }
 
@@ -82,4 +85,27 @@ pre.prettyprint {
 
 .img-container{
   cursor: pointer;
+}
+
+
+
+.dropdown-menu div.sel:hover {
+  cursor: pointer;
+  background: deepskyblue;
+}
+.dropdown-menu p{
+  color: #999
+}
+.dropdown-menu div.subType{
+  margin-left: 5px;
+}
+
+.dropdown-menu div.sel{
+  margin-left: 30px;
+}
+.dropdown-menu div>span:first-child{
+  display: none;
+}
+.dropdown-menu div>span:nth-child(2){
+  display: none;
 }

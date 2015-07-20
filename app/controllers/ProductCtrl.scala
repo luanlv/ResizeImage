@@ -52,6 +52,7 @@ class ProductCtrl @Inject() (
   }
 
   def create = Action.async { implicit request =>
+    println(request.body)
     Product.form.bindFromRequest.fold(
       errors => Future.successful(
         BadGateway(views.html.product.create(errors, ""))),
@@ -79,9 +80,16 @@ class ProductCtrl @Inject() (
   //-------------------------  Index page   ----------------------------------------------------------
 
   def index2 = PjaxAction.async { implicit request =>
-    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 8)
-    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8)
-    val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8)
+    val futureColection1 = cProduct.find(Json.obj("supType" -> "pctb"))
+        .sort(Json.obj("updateDate" -> -1))
+        .cursor[Product]().collect[List](8)
+    val futureColection2 = cProduct.find(Json.obj("supType" -> "bdcb"))
+        .sort(Json.obj("updateDate" -> -1))
+        .cursor[Product]().collect[List](8)
+
+    val futureColection3 = cProduct.find(Json.obj("supType" -> "lkpk"))
+        .sort(Json.obj("updateDate" -> -1))
+        .cursor[Product]().collect[List](8)
 
     val delay1 = 0.75
     val delayed1 =  Promise.timeout(futureColection1, delay1.second).flatMap(x => x)
@@ -102,9 +110,16 @@ class ProductCtrl @Inject() (
   }
 
   def index = PjaxAction.async { implicit request =>
-    val futureColection1 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "1"), 8)
-    val futureColection2 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "2"), 8)
-    val futureColection3 = DocumentDAO.find[Product](cProduct, Json.obj("group" -> "3"), 8)
+    val futureColection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
+        .sort(Json.obj("updateDate" -> -1))
+        .cursor[Product]().collect[List](8)
+    val futureColection2 = cProduct.find(Json.obj("supTypeUrl" -> "ban-dan-cam-bien"))
+        .sort(Json.obj("updateDate" -> -1))
+        .cursor[Product]().collect[List](8)
+
+    val futureColection3 = cProduct.find(Json.obj("supTypeUrl" -> "lk-khac-phu-kien"))
+        .sort(Json.obj("updateDate" -> -1))
+        .cursor[Product]().collect[List](8)
 
     val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
     val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
@@ -118,9 +133,9 @@ class ProductCtrl @Inject() (
 
   //---------------------------View product--------------------------------------------------------
 
-  def viewProduct(code: String) = PjaxAction.async { implicit request =>
+  def viewProduct( sub: String, gro: String, pUrl: String) = PjaxAction.async { implicit request =>
 
-    val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("code" -> code))
+    val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("pUrl" -> pUrl))
 
     if (request.pjaxEnabled)
       futureProduct.map { p => p match {
@@ -138,12 +153,72 @@ class ProductCtrl @Inject() (
     }
   }
 
+
+  //-----------------View Collection -------------------------------------------------------------
+
+
+  def collection(subTypeUrl:String = "", groupUrl: String = "", _kw:String = "", _li:Int = 8,
+                 _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ) = PjaxAction.async { implicit request =>
+    println("br="+_br)
+    println("li="+_li)
+    println("lt="+_lt)
+    println("kw="+_kw)
+    val futureList = cProduct.find(Json.obj(
+        "subTypeUrl" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
+        "groupUrl" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
+        "name" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i"),
+        "brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
+        "origin" -> Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i"),
+        "legType" -> Json.obj("$regex" -> (".*" + _lt + ".*"), "$options" -> "-i"),
+        "legNumber" -> Json.obj("$regex" -> (".*" + _ln + ".*"), "$options" -> "-i")
+      ))
+      .cursor[Product]().collect[List](_li)
+
+    if (request.pjaxEnabled){
+      futureList.map{
+        list => Ok(views.html.category(list, subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln))
+      }
+    }else{
+
+      val pageletColelction = HtmlPagelet("collection", futureList.map(x => views.html.product.collection(x)))
+
+      val bigPipe = new BigPipe(renderOptions(request), pageletColelction)
+      Future.successful(Ok.chunked(views.stream.category(bigPipe, pageletColelction, subTypeUrl, groupUrl, _kw, _li)))
+    }
+  }
+
+    //----------------------search----------------------------------------------------------------------
+
+  def search(sup:String = "" , sub:String = "", gro: String = "", _kw:String = "", _li:Int = 8) = PjaxAction.async { implicit request =>
+
+    val futureList = cProduct.find(Json.obj(
+      "subType" -> Json.obj("$regex" -> (".*" + sup + ".*"), "$options" -> "-i"),
+      "subType" -> Json.obj("$regex" -> (".*" + sub + ".*"), "$options" -> "-i"),
+      "group" -> Json.obj("$regex" -> (".*" + gro + ".*"), "$options" -> "-i"),
+      "name" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i")))
+      .cursor[Product]().collect[List](_li)
+
+    if (request.pjaxEnabled){
+      futureList.map{
+        list => Ok(views.html.category(list, sub, gro, _kw, _li))
+      }
+    }else{
+
+      val pageletColelction = HtmlPagelet("collection", futureList.map(x => views.html.product.collection(x)))
+
+      val bigPipe = new BigPipe(renderOptions(request), pageletColelction)
+      Future.successful(Ok.chunked(views.stream.category(bigPipe, pageletColelction, sub, gro, _kw, _li)))
+    }
+  }
+
+  //--------------------------------------------------------------------------------------------------
+
   //----------------- Server render for google bot    ----------------------------------------------
 
   private def renderOptions(request: RequestHeader): PageletRenderOptions = {
     request.getQueryString("server") match {
       case Some("true") =>
-        PageletRenderOptions.ServerSide
+      PageletRenderOptions.ServerSide
 
       case _            => {
         request.headers.get(HeaderNames.USER_AGENT) match {

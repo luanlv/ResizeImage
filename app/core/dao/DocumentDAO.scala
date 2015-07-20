@@ -17,7 +17,7 @@ import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
 object DocumentDAO{
 
   type C = JSONCollection
-  
+
   def find[T](collection: C, query: JsObject = Json.obj(), limit: Int = 1)(implicit reader: Reads[T]): Future[List[T]] = {
     collection.find(query).cursor[T]().collect[List](limit)
   }

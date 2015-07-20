@@ -14,6 +14,14 @@ import play.modules.reactivemongo.json.BSONFormats._
 case class Metadata(uuid: String, size: String)
 
 object Metadata {
+
+  implicit object MetadataWrites extends OWrites[Metadata] {
+    def writes(metadata: Metadata): JsObject = Json.obj(
+      "uuid" -> metadata.uuid,
+      "size" -> metadata.size
+    )
+  }
+
   implicit object MetadataReads extends Reads[Metadata] {
     def reads(json: JsValue): JsResult[Metadata] = json match {
       case obj: JsObject => try {
@@ -32,6 +40,16 @@ object Metadata {
 case class Image(filename: String, length: Int, contentType: String, metadata: Metadata)
 
 object Image {
+
+  implicit object ImageWrites extends OWrites[Image] {
+    def writes(image: Image): JsObject = Json.obj(
+      "filename" -> image.filename,
+      "length" -> image.length,
+      "contentType" -> image.contentType,
+      "metadata" -> image.metadata
+    )
+  }
+
   implicit object ImageReads extends Reads[Image] {
     def reads(json: JsValue): JsResult[Image] = json match {
       case obj: JsObject => try {

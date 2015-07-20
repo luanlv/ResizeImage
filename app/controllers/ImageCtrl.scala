@@ -11,18 +11,22 @@ import play.api.mvc.{Action, Controller, Request}
 import play.modules.reactivemongo.json.collection.JSONCollection
 import play.modules.reactivemongo.{MongoController, ReactiveMongoApi, ReactiveMongoComponents}
 import MongoController.readFileReads
-import play.modules.reactivemongo.json._
-import reactivemongo.api.QueryOpts
 
+import play.modules.reactivemongo.json.JSONSerializationPack
+import reactivemongo.api.QueryOpts
 import reactivemongo.api.gridfs.ReadFile
 import reactivemongo.bson.BSONDocument
 import models.Image
-
-import ImplicitBSONHandlers._
+import models.Image._
+import reactivemongo.api.gridfs.Implicits._
 import core.dao.ImageDAO
 import java.util.UUID
+import play.modules.reactivemongo.json._
+import reactivemongo.bson._
+import play.api.libs.json._
 
-import scala.concurrent.Future
+
+import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
 
 class ImageCtrl @Inject() (
     val messagesApi: MessagesApi,
@@ -42,18 +46,25 @@ class ImageCtrl @Inject() (
       Logger.info(s"Checked index, result is $index")
   }
 
-  def getList(name: String) = Action.async { request =>
-    val futureList = cImage.find(Json.obj(
-            "metadata.size" -> "thumb",
+  def getList(name: String, page: Int) = Action.async { request =>
+
+    val futureJson = cImage.find(Json.obj(
+            "metadata.size" -> "small",
             "filename" -> Json.obj("$regex" ->  (".*" + name + ".*"), "$options" -> "-i")))
+    val futureTotalPage = futureJson.cursor().collect[List]().map(x => Math.ceil(x.length/12.0).toInt)
+    val futureList = futureJson.sort(Json.obj("uploadDate" -> -1))
+        .options(QueryOpts((page-1) * 12))
 //        .options(QueryOpts(0))
         .cursor[Image]()
-        .collect[List](20)
+        .collect[List](12)
 
-    futureList.map {
-      listImage => {
-        Ok(views.html.image.list_Image(listImage))
-      }
+    val futureView = for {
+      total <- futureTotalPage
+      list <- futureList
+    } yield (total, list)
+
+    futureView.map{
+      data => Ok(views.html.image.list_Image(data._2, data._1, page, name))
     }
   }
 
@@ -68,11 +79,12 @@ class ImageCtrl @Inject() (
         gridFS.files.update(
           BSONDocument("_id" -> image.id),
           BSONDocument("$set" ->
-              BSONDocument("metadata" -> BSONDocument("uuid" -> uuid, "size" -> "original"))
+              BSONDocument("metadata" -> BSONDocument("uuid" -> uuid, "size" -> "origin"))
           )
         )
         // Create resized image
-        ImageDAO.scaleTo(gridFS, image, uuid, 120, 90)
+        ImageDAO.scaleTo(gridFS, image, uuid, "small", 180, 150)
+        ImageDAO.scaleTo(gridFS, image, uuid, "thumb", 60, 60)
       }
     } yield (updateResult, image.id, image.filename, image.length)
 
@@ -82,7 +94,7 @@ class ImageCtrl @Inject() (
           "id" -> id,
           "name" -> filename,
           "size" -> length,
-          "url" -> routes.ImageCtrl.get(uuid, "original").url,
+          "url" -> routes.ImageCtrl.get(uuid, "origin").url,
           "thumbnailUrl" -> routes.ImageCtrl.get(uuid, "thumb").url,
           "deleteUrl" -> "",
           "deleteType" -> "DELETE"

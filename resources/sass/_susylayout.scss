@@ -81,13 +81,14 @@ $susy:(
 }
 .aside {
   min-height: 550px;
-  border : solid 1px blue;
-  @include span( 2.9 of 15);
+  border-right: solid 1px gray;
+  @include span( 18 of 100);
+  @include pad(5px);
 }
 .content{
   min-height: 500px;
   @include clearfix();
-  @include span( 12 of 15 last);
+  @include span( 80 of 100 last);
 }
 
 .thongbao-left{

@@ -1,10 +1,18 @@
-@(images: List[models.Image])
+@(images: List[models.Image], total: Int, page: Int, name: String)
+<div style="margin-bottom: 10px">
+	<input style="margin-bottom: 0px" type="text" class="search-image" value="@name">
+	<button  class="btn back" type="submit" @if(page ==1){disabled}>&larr;</button>
+	<span class="page">@page</span>/<span class="total">@total</span>
+	<button  class="btn next" type="submit" @if(page == total){disabled}>&rarr;</button>
+	<span class="slide_close" style="display:inline; float: right; cursor: pointer">Close</span>
+</div>
+<div>
 	@for(img <- images){
-		<div class="img-container  slide_close"
-				style="display: inline-block; width: 120px; height: 160px; overflow : hidden;">
-			<img src="@routes.ImageCtrl.get(img.metadata.uuid, "thumb")" alt="">
+		<div class="img-container" style="display: inline-block; overflow: hidden">
+			<img src="@routes.ImageCtrl.get(img.metadata.uuid, "small")" alt="">
 			<br/>
 			<p class="uuid hide">@img.metadata.uuid</p>
-			<p>@img.filename</p>
+			<p style="width: 180px; height: 35px; overflow: hidden">@img.filename</p>
 		</div>
 	}
+</div>

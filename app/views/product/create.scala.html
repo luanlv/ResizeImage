@@ -8,6 +8,7 @@
 		<title></title>
 		<link href='@routes.Assets.versioned("stylesheets/css/product/create.css")' rel="stylesheet">
 		<link rel="stylesheet" href='@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")' />
+		<link rel="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" />
 	</head>
 	<body>
 		<div class="container">
@@ -25,52 +26,280 @@
 			@flash.get("error").map{m =>
 				<div class="alert alert-error">@m</div>
 			}
+
 			@helper.form(action = routes.ProductCtrl.create){
-				<img id="img-view" src="" alt="image">
-				<button class="initialism slide_open btn btn-success">Choose image</button>
-				<input type="hidden" id="image" name="image" value="" />
-				<br/><br/>
+				<button style="margin-top: 5px;" class="initialism slide_open btn btn-success">Chọn ảnh</button>
+				<div class="image-wrap" style="min-width: 180px; height: 150px; border: solid 1px #ddd; margin-top: 5px; margin-bottom: 5px;"></div>
+				<div class="listImage"></div>
+				<input type="hidden" id="supTypeUrl" name="supTypeUrl" value="" />
+				<input type="hidden" id="supType" name="supType" value="" />
+				<input type="hidden" id="subTypeUrl" name="subTypeUrl" value="" />
+				<input type="hidden" id="subType" name="subType" value="" />
+				<input type="hidden" id="groupUrl" name="groupUrl" value="" />
+
+				<input style="float: right" class="btn btn-group" type="submit">
+				<input type="text" name="pUrl" placeholder="Url cho sản phẩm" style="float: right">
+				<br>
+				<div class="btn-group" >
+					<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span class="sr-only">Chọn nhóm</span>
+						<span class="caret"></span>
+					</button>
+					<div class="dropdown-menu">
+						<div >
+							<div class="supType"><span>phan-cung-thiet-bi</span><p>Phần cứng, Thiết bị</p></div>
+							<div class="subType">
+								<div class="subType"><span>may-nap-adapter</span><p>Máy Nạp & Adapter</p></div>
+								<div class="sel">
+									<span>universal-programmer</span>
+									<span>
+										<select name="group">
+											<option value="Universal Programmer" selected="selected">Universal Programmer</option>
+											<option value="USB Programmer">USB Programmer</option>
+
+										</select>
+									</span>
+									<span>Máy nạp ĐA NĂNG</span>
+								</div>
+								<div class="sel">
+									<span>8051-usb-programmer</span>
+									<span>
+										<select name="group">
+											<option value="Firmware Master Chip" selected="selected">Firmware Master Chip</option>
+											<option value="ISP Programmer">ISP Programmer</option>
+											<option value="ISP Programmer / Emulator">ISP Programmer / Emulator</option>
+											<option value="ISP/Parallel Programmer Mode">ISP/Parallel Programmer Mode</option>
+											<option value="Parallel Programmer mode">Parallel Programmer mode</option>
+										</select>
+									</span>
+									<span>Mạch nạp 8051</span></div>
+								<div class="sel">
+									<span>arm-debug-programmer</span>
+									<span>Mạch nạp ARM</span>
+								</div>
+							</div>
+							<div >
+								<div class="subType"><span>board-phat-trien</span><p>Board Phát triển</p></div>
+								<div class="sel">
+									<span>raspberry-pi</span>
+									<span>
+										<select name="group">
+											<option value="mini PC" selected="selected">mini PC</option>
+											<option value="Raspberry Pi Case">Raspberry Pi Case</option>
+										</select>
+									</span>
+									<span>Raspberry PI</span>
+								</div>
+								<div class="sel">
+									<span>arduino-shield</span>
+									<span>
+										<select name="group">
+											<option value="Arduino" selected="selected">Arduino</option>
+											<option value="Arduino Shield">Arduino Shield</option>
+										</select>
+									</span>
+									<span>Arduino and Shields</span>
+								</div>
+							</div>
+						</div>
+
+						<div role="separator" class="divider"></div>
+
+						<div>
+							<div class="supType"><span>ban-dan-cam-bien</span><p>LK Bán dẫn & Cảm biến</p></div>
+							<div >
+								<div class="subType"><span>sensor-transducer</span><p>Sensors, Transducers</p></div>
+								<div class="sel">
+									<span>gyroscopes</span>
+									<span>
+										<select name="group">
+											<option value="Accelerometer and Gyro Breakout" selected="selected">Accelerometer and Gyro Breakout</option>
+											<option value="Gyroscope sensor">Gyroscope sensor</option>
+										</select>
+									</span>
+									<span>Gyroscopes</span>
+								</div>
+								<div class="sel">
+									<span>light-sensor</span>
+									<span>
+										<select name="group">
+											<option selected="selected" value="Light Sensor">Light Sensor</option>
+											<option value="Sensors">Sensors</option>
+										</select>
+									</span>
+									<span>Cảm biến ánh sáng</span>
+								</div>
+							</div>
+							<div>
+								<div class="subType"><span>memory-ic</span><p>Memory ICs</p></div>
+								<div class="sel">
+									<span>memory</span>
+									<span>
+										<select name="group">
+											<option selected="selected" value="Memory">Memory</option>
+										</select>
+									</span>
+									<span>AT88SC0104C-SU</span>
+								</div>
+								<div class="sel">
+									<span>24cxx-serial-eeprom</span>
+									<span>
+										<select name="group">
+											<option selected="selected" value="Memory-I2C Serial EEPROM">Memory-I2C Serial EEPROM</option>
+										</select>
+									</span>
+									<span>24Cxx Serial EEPROM</span>
+								</div>
+							</div>
+						</div>
+						<div role="separator" class="divider"></div>
+
+						<div>
+							<div class="supType"><span>lk-khac-phu-kien</span><p>LK Khác và Phụ kiện</p></div>
+							<div class>
+								<div class="subType"><span>led</span><p>LEDs</p></div>
+								<div class="sel">
+									<span>led-1w</span>
+									<span>
+										<select name="group">
+											<option selected="selected" value="LED 1W">LED 1W</option>
+										</select>
+									</span>
+									<span>LED 1W</span>
+								</div>
+								<div class="sel">
+									<span>led-smd-0805</span>
+									<span>
+										<select name="group">
+											<option selected="selected" value="LEDs">LEDs</option>
+										</select>
+									</span>
+									<span>LEDs SMD-0805 (2012)</span>
+								</div>
+							</div>
+							<div>
+								<div class="subType"><span>lcd-display</span><p>LCDs Display</p></div>
+								<div class="sel">
+									<span>character-lcd</span>
+									<span>
+										<select name="group">
+											<option selected="selected" value="LEDs">LEDs</option>
+										</select>
+									</span>
+									<span>Character LCDs</span>
+								</div>
+								<div class="sel">
+									<span>graphic-lcd</span>
+									<span>
+										<select name="group">
+											<option selected="selected" value="Graphic LCDs">Graphic LCDs</option>
+											<option value="LCDs">LCDs</option>
+										</select>
+									</span>
+									<span>Graphic LCDs</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="mainDiv container">
+						<div class="divLeft">
+							Phân nhóm
+							<div style="margin-top: 3px;" id="groupSelect">
+								<select name="" id=""></select>
+							</div>
+
+							@bootstrap3.text(form("code"),
+								label = "Mã sản phẩm",
+								placeholder = "",
+								help = "")
+
+							@bootstrap3.text(form("name"),
+								label = "Tên sản phẩm",
+								placeholder = "",
+								help = "")
+
+							Nhãn hiệu
+							<div style="margin-top: 3px;">
+								<select name="brand" >
+									<option value="Other">Other</option>
+									<option value="Xeltek">Xeltek</option>
+									<option value="ATMEL">ATMEL</option>
+								</select>
+							</div>
+
+							Xuất xứ
+							<div style="margin-top: 3px;">
+								<select name="origin" >
+									<option value="Việt Nam">Việt Nam</option>
+									<option value="Trung Quốc">Trung Quốc</option>
+									<option value="Chính hãng">Chính hãng</option>
+									<option value="Taiwan">Taiwan</option>
+								</select>
+							</div>
+
+						</div>
+						<div class="divRight">
+
+							Kiểu chân"
+							<div style="margin-top: 3px;">
+								<select name="legType">
+									<option selected="selected" value="">--Kiểu Chân--</option>
+									<option value="DIP">DIP</option>
+									<option value="LQFP">LQFP</option>
+									<option value="PQFP">PQFP</option>
+									<option value="QFN">QFN</option>
+									<option value="SOIC">SOIC</option>
+									<option value="TQFP">TQFP</option>
+								</select>
+							</div>
+
+							Số chân
+							<div style="margin-top: 3px;">
+								<select name="legNumber">
+									<option selected="selected" value="">--Số chân--</option>
+									<option value="100">100</option>
+									<option value="20">20</option>
+									<option value="208">208</option>
+									<option value="28">28</option>
+									<option value="32">32</option>
+									<option value="40">40</option>
+									<option value="44">44</option>
+									<option value="64">64</option>
+									<option value="8">8</option>
+								</select>
+							</div>
 
 
-				@bootstrap3.text(form("code"),
-					label = "Ma san pham",
-					placeholder = "",
-					help = "")
-				@bootstrap3.text(form("name"),
-					label = "Ten san pham",
-					placeholder = "",
-					help = "")
+							@bootstrap3.text(form("stock"),
+								label = "Stock (Trong kho)",
+								placeholder = "",
+								help = "")
 
-				@bootstrap3.text(form("group"),
-					label = "Nhom",
-					placeholder = "",
-					help = "")
+							Đơn vị
+							<div style="margin-top: 3px;">
+								<select name="unit" >
+									<option value="Cái">Cái</option>
+									<option value="Con">Con</option>
+								</select>
+							</div>
 
-				@bootstrap3.text(form("unit"),
-					label = "Don vi",
-					placeholder = "",
-					help = "")
-
-				@bootstrap3.text(form("stock"),
-					label = "Trong kho con",
-					placeholder = "",
-					help = "")
-
-				@bootstrap3.text(form("price"),
-					label = "Gia san pham",
-					placeholder = "",
-					help = "")
-
-				<input class="btn" type="submit">
+							@bootstrap3.text(form("price"),
+								label = "Giá sản phẩm",
+								placeholder = "",
+								help = "")
+						</div>
+				</div>
 				}
 		</div>
 		<div id="slide" class="well">
-			<div>
-				<input type="text" class="search-image">
-
-				<button class="slide_close btn btn-default">Close</button>
+			<div class="list-images" style="height: 430px;"></div>
+			<hr/>
+			<div class="images-view" style="float: left; cursor: no-drop"><div></div></div>
+			<div style="display: inline; float: right; cursor: pointer" class="imageOk slide_close">
+				<button>ok</button>
 			</div>
-			<div class="list-images"></div>
 		</div>
 
 		<script src='@routes.Assets.versioned("javascripts/jquery/jquery-1.11.3.min.js")'></script>
@@ -80,7 +309,7 @@
 		<script>
 $(document).ready(function () {
 
-//  return false;
+	var x = 0;
 
   $('#slide').popup({
       focusdelay: 400,
@@ -99,11 +328,37 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '.img-container', function(){
-		$('#image').val($(this).children('.uuid').html());
-		$('#img-view').attr(
-      'src',
-      $(this).children('img')[0].src
-		);
+    if(x<5){
+    var smallUrl = $(this).find('img:first').attr('src');
+			$('.images-view > div').append(
+				'<img class="view" src="' + smallUrl + '" alt=""/>'
+			);
+			x +=1;
+		}
+	});
+
+	$(document).on('click', '.images-view > div > img', function(){
+		$(this).remove();
+		x-=1;
+	});
+
+	$(document).on('click', '.slide_open', function(){
+		var images = $('.image-wrap > div');
+		$('.images-view').append(images);
+	});
+
+	$(document).on('click', '.imageOk', function(){
+		var images = $('.images-view > div');
+		$('.image-wrap').append(images);
+		var z = 0;
+		$('.listImage').empty();
+		$('.image-wrap > div').children('img').each(function () {
+      var smallUrl = $(this).attr('src');
+			$('.listImage').append('<input type="hidden" name="image['+ z +'].origin" class="" value="'+ smallUrl.replace('/small/', '/origin/') +'">');
+			$('.listImage').append('<input type="hidden" name="image['+ z +'].small" class="" value="'+ smallUrl +'">');
+			$('.listImage').append('<input type="hidden" name="image['+ z +'].thumb" class="" value="'+ smallUrl.replace('/small/', '/thumb/') +'">');
+			z+=1;
+		});
 	});
 
   $(document).on('keypress', '.search-image', function (event) {
@@ -116,10 +371,61 @@ $(document).ready(function () {
 							}
 						});
          }
-   });
+  });
+
+	$(document).on('click', '.back', function (event) {
+        $.ajax({
+					type: "GET", // or GET
+					url: "/image/list" + "?name=" + $(".search-image").val() + "&page=" + (parseInt($('.page').text())-1).toString(),
+					success: function(data){
+						 $(".list-images").html(data)
+					}
+				});
+  });
+
+  $(document).on('click', '.next', function (event) {
+        $.ajax({
+					type: "GET", // or GET
+					url: "/image/list" + "?name=" + $(".search-image").val() + "&page=" + (parseInt($('.page').text())+1).toString(),
+					success: function(data){
+						 $(".list-images").html(data)
+					}
+				});
+  });
 
 });
 
 </script>
-	</body>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+	$(".dropdown-menu div.sel").on('click' , function(){
+		var supTypeUrl = $(this).parent().parent().children().first().children().first().text();
+		console.log("supTypeUrl:" + supTypeUrl);
+		var supType = $(this).parent().parent().children().first().children().last().text();
+		console.log("supType:" + supType);
+
+		var subTypeUrl = $(this).parent().children().first().children().first().text();
+		console.log("subTypeUrl:" + subTypeUrl);
+		var subType = $(this).parent().children().first().children().last().text();
+		console.log("subType:" + subType);
+
+		var groupUrl = $(this).children().first().text();
+		console.log("groupUrl:" + groupUrl);
+		var group = $(this).children().eq(1).children().first().clone();
+		console.log(group);
+
+		$(".sr-only").html($(this).children().last().text());
+
+		$("#subTypeUrl").val(subTypeUrl);
+		$("#subType").val(subType);
+		$("#supTypeUrl").val(supTypeUrl);
+		$("#supType").val(supType);
+		$("#groupUrl").val(groupUrl);
+		$("#groupSelect").empty().append(group);
+
+	})
+</script>
+</body>
 </html>

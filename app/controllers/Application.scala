@@ -12,5 +12,4 @@ class Application  extends Controller{
   def upload = Action { implicit request =>
      Ok(views.html.image.upload())
   }
-
 }

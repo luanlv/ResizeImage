@@ -1,4 +1,11 @@
-@(bigPipe: BigPipe, product: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
+@(bigPipe: BigPipe, collection: Pagelet, _sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
+
+@link(_kw: String) = @{
+	if(_kw != null) {
+		routes.ProductCtrl.collection( _sub, _gro, _kw, _li)
+	}
+}
+
 
 <html>
 	<head>
@@ -9,6 +16,7 @@
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
+
 	@bigPipe.render { pagelets =>
 		<div class="container" id="container">
 			<div class="cartBar">
@@ -33,16 +41,24 @@
 			</div>
 
 			<div class="header"></div>
+
 			<nav class="nav"></nav>
+
 			<div class="main">
-				@HtmlStream.fromHtml(views.html.aside())
+				@HtmlStream.fromHtml(views.html.aside( _sub, _gro, _kw, _li))
 				<div id="pjax-container" class="content">
-					@pagelets("product")
+
+					<div class="menuCol1" > &rarr; Phần cứng, Thiết bị.</div>
+
+					<div class="col1">@pagelets("collection")</div>
+					
 				</div>
 			</div>
 			<div class="footer"></div>
 		</div>
+
 	@HtmlStream.fromHtml(views.html.import_b())
 	}
+
 	</body>
 </html>
