@@ -22,6 +22,6 @@ GET         //cdn.lvlblog.com/image/v2/:size/:uuid           controllers.ImageCt
 GET         /image/v2/:size/:uuid        controllers.ImageCtrl.get(uuid: String, size: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET           //cdn.lvlblog.com/assets/v9/*file             controllers.Assets.versioned(path="/public", file)
-GET           /assets/v9/*file             controllers.Assets.versioned(path="/public", file)
+GET           //cdn.lvlblog.com/assets/v10/*file             controllers.Assets.versioned(path="/public", file)
+GET           /assets/v10/*file             controllers.Assets.versioned(path="/public", file)
 #GET          /assets/v1/*file             controllers.Assets.at(path="/public", file)
