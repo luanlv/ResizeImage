@@ -66,7 +66,6 @@ class ProductCtrl @Inject() (
         )
         val f = insert[Product](cProduct, tmp)
         f.map{
-
           lastError => Ok("ok")
         }.recover{
           case e => {
