@@ -8,8 +8,12 @@ GET         /tim-kiem.html                  controllers.ProductCtrl.search(_sup:
 
 GET         /san-pham/:subTypeUrl/:groupUrl.html            controllers.ProductCtrl.collection( subTypeUrl:String, groupUrl:String, _kw:String ?="", _li:Int ?=8, _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" )
 GET         /san-pham/:subTypeUrl/:groupUrl/:pUrl.html      controllers.ProductCtrl.viewProduct( subTypeUrl:String, groupUrl: String, pUrl: String)
-GET         /san-pham/create                    controllers.ProductCtrl.viewCreate
-POST        /san-pham/create                    controllers.ProductCtrl.create
+GET         /admin/create                    controllers.ProductCtrl.viewCreate
+POST        /admin/create                    controllers.ProductCtrl.create
+
+
+GET         /admin/edit/:pUrl            controllers.ProductCtrl.viewEdit(pUrl: String)
+POST         /admin/edit/:pUrl            controllers.ProductCtrl.update(pUrl: String)
 
 GET         /delay                       controllers.ProductCtrl.index2
 

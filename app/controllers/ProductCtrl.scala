@@ -52,7 +52,7 @@ class ProductCtrl @Inject() (
   }
 
   def create = Action.async { implicit request =>
-    println(request.body)
+
     Product.form.bindFromRequest.fold(
       errors => Future.successful(
         BadGateway(views.html.product.create(errors, ""))),
@@ -72,6 +72,61 @@ class ProductCtrl @Inject() (
             Ok(views.html.product.create(Product.form.fill(product), e.getMessage()))
           }
         }
+      }
+    )
+  }
+
+  //-------------------------  Edit product ---------------------------------------------------------
+  def viewEdit(pUrl: String) = PjaxAction.async { implicit request =>
+    println(pUrl)
+    val futureProduct = cProduct.find(Json.obj("pUrl" -> pUrl))
+        .cursor[Product]().headOption
+    futureProduct.map {
+      p => p match {
+        case None => Ok("san pham khong ton tai")
+        case Some(product) => Ok(views.html.product.edit(Product.form.fill(product), ""))
+      }
+    }
+  }
+
+  def update(pUrl: String) = PjaxAction.async {implicit request =>
+    import reactivemongo.bson.BSONDateTime
+    Product.form.bindFromRequest.fold(
+      errors => Future.successful(
+        BadGateway(views.html.product.create(errors, " ??????????????"))),
+
+      // if no error, then insert the article into the 'articles' collection
+      product => {
+        // create a modifier document, ie a document that contains the update operations to run onto the documents matching the query
+        val modifier = Json.obj(
+          // this modifier will set the fields
+          // 'updateDate', 'title', 'content', and 'publisher'
+          "$set" -> Json.obj(
+            "supTypeUrl" -> product.supTypeUrl,
+            "supType" -> product.supType,
+            "subTypeUrl" -> product.subTypeUrl,
+            "subType" -> product.subType,
+            "pUrl" -> product.pUrl,
+            "image" -> Json.toJsFieldJsValueWrapper(product.image),
+            "code" -> product.code,
+            "name" -> product.name,
+            "unit" -> product.unit,
+            "stock" -> product.stock,
+            "price" -> product.price,
+            "groupUrl" -> product.groupUrl,
+            "group" -> product.group,
+            "brand" -> product.brand,
+            "origin" -> product.origin,
+            "legType" -> product.legType,
+            "legNumber" -> product.legNumber,
+            "info" -> product.info,
+            "note" -> product.note,
+            "updateDate" -> BSONDateTime(new DateTime().getMillis)
+          ))
+
+        // ok, let's do the update
+        cProduct.update(Json.obj("pUrl" -> pUrl), modifier).
+            map { _ => Redirect(routes.ProductCtrl.viewEdit(product.pUrl)).flashing("success" -> "update OK!") }
       }
     )
   }

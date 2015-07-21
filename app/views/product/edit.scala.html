@@ -32,7 +32,7 @@
 				<div class="alert alert-error">@m</div>
 			}
 
-			@helper.form(action = routes.ProductCtrl.create){
+			@helper.form(action = routes.ProductCtrl.update(form("pUrl").value.getOrElse("error"))){
 				<button style="margin-top: 5px;" class="initialism slide_open btn btn-success">Chọn ảnh</button>
 				<div class="image-wrap" style="min-width: 180px; height: 150px; border: solid 1px #ddd; margin-top: 5px; margin-bottom: 5px;">
 					<div>
@@ -62,11 +62,11 @@
 
 
 				</div>
-				<input type="hidden" id="supTypeUrl" name="supTypeUrl" value="" />
-				<input type="hidden" id="supType" name="supType" value="" />
-				<input type="hidden" id="subTypeUrl" name="subTypeUrl" value="" />
-				<input type="hidden" id="subType" name="subType" value="" />
-				<input type="hidden" id="groupUrl" name="groupUrl" value=""/>
+				<input type="hidden" id="supTypeUrl" name="supTypeUrl" value="@form("supTypeUrl").value.getOrElse("")" />
+				<input type="hidden" id="supType" name="supType" value="@form("supType").value.getOrElse("")" />
+				<input type="hidden" id="subTypeUrl" name="subTypeUrl" value="@form("subTypeUrl").value.getOrElse("")" />
+				<input type="hidden" id="subType" name="subType" value="@form("subType").value.getOrElse("")" />
+				<input type="hidden" id="groupUrl" name="groupUrl" value="@form("groupUrl").value.getOrElse("")"/>
 
 				<input style="float: right" class="btn btn-group" type="submit">
 				<input type="text" name="pUrl" placeholder="Url cho sản phẩm" value="@form("pUrl").value.getOrElse("")" style="float: right">
@@ -238,7 +238,7 @@
 						<div class="divLeft">
 							Phân nhóm
 							<div style="margin-top: 3px;" id="groupSelect">
-								<select name="" id=""></select>
+								<input type="text" name="group" disabled value="@form("group").value.getOrElse("")">
 							</div>
 
 							@bootstrap3.text(form("code"),
@@ -473,7 +473,7 @@ $(document).ready(function () {
 </script>
 
 
-<script src="@routes.Assets.versioned("bootstrap/js/bootstrap.min.js")"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
 	$(".dropdown-menu div.sel").on('click' , function(){
 		var supTypeUrl = $(this).parent().parent().children().first().children().first().text();
