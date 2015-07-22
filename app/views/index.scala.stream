@@ -1,5 +1,5 @@
 @(bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
-
+<!DOCTYPE html>
 <html>
 	<head>
 		@HtmlStream.fromHtml(views.html.import_t())
@@ -22,7 +22,7 @@
 						<li class="last"><a href="javascript:;" class="simpleCart_checkout">Thanh toán</a></li>
 					</ul>
 				</span>
-				<div id="cart">
+				<div id="cart" class="hide_cart">
 					<div class="simpleCart_items">
 						<div class="cartHeaders">
 							<div class="itemName">Tên sản phẩm</div>
@@ -33,7 +33,9 @@
 				</div>
 			</div>
 
-			<div class="header"></div>
+			<div class="header">
+				<input style="margin-left: 300px; margin-top: 40px;  ;width: 300px; " type="search">
+			</div>
 
 			<nav class="nav"></nav>
 

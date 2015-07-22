@@ -19,6 +19,7 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import play.modules.reactivemongo.json.collection.JSONCollection
 import play.modules.reactivemongo.{ReactiveMongoComponents, MongoController, ReactiveMongoApi}
+import reactivemongo.api.QueryOpts
 import reactivemongo.api.indexes.{IndexType, Index}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
@@ -265,7 +266,22 @@ class ProductCtrl @Inject() (
     }
   }
 
-  //--------------------------------------------------------------------------------------------------
+  //-------------------  view list products ----------------------------------------------------------
+
+  def listProduct(page: Int, _pp : Int, _n: String, _c:String, _g: String,
+                  _min: Int = 0, _max: Int = 100000000) = PjaxAction.async { implicit request =>
+    val futureList = cProduct.find(Json.obj(
+      "name" -> Json.obj("$regex" -> (".*" + _n + ".*"), "$options" -> "-i"),
+      "code" -> Json.obj("$regex" -> (".*" + _c + ".*"), "$options" -> "-i"),
+      "group" -> Json.obj("$regex" -> (".*" + _g + ".*"), "$options" -> "-i"),
+      "price" -> Json.obj("$gte" -> _min),
+      "price" -> Json.obj("$lte" -> _max)))
+      .options(QueryOpts((page-1) * _pp))
+      .cursor[Product]().collect[List](_pp)
+    futureList.map{
+      list => Ok(views.html.product.list(list))
+    }
+  }
 
   //----------------- Server render for google bot    ----------------------------------------------
 

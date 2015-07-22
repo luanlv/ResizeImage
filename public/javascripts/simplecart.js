@@ -299,6 +299,7 @@ function Cart(){
 			counter = iter+1;
 		
 			form.appendChild( me.createHiddenElement( "item_name_"		+ counter, item.name		) );
+			form.appendChild( me.createHiddenElement( "item_link_"		+ counter, item.link		) );
 			form.appendChild( me.createHiddenElement( "quantity_"		+ counter, item.quantity	) );
 			form.appendChild( me.createHiddenElement( "amount_"			+ counter, item.price		) );
 			form.appendChild( me.createHiddenElement( "item_number_"	+ counter, counter			) );
@@ -353,6 +354,7 @@ function Cart(){
 			counter = iter+1;
 		
 			form.appendChild( me.createHiddenElement( "item_name_"		+ counter, item.name		) );
+			form.appendChild( me.createHiddenElement( "item_link_"		+ counter, item.link		) );
 			form.appendChild( me.createHiddenElement( "item_quantity_"	+ counter, item.quantity	) );
 			form.appendChild( me.createHiddenElement( "item_price_"		+ counter, item.price		) );
 			form.appendChild( me.createHiddenElement( "item_currency_"	+ counter, me.currency		) );
@@ -415,6 +417,7 @@ function Cart(){
 		me.items = {};
 		me.total = 0.00;
 		me.quantity = 0;
+		me.link = "";
 
 		/* retrieve item data from cookie */
 		if( readCookie(simpleCart.storagePrefix + 'simpleCart_' + "chunks") ){
@@ -556,8 +559,15 @@ function Cart(){
 			newCell = document.createElement('div');
 			headerInfo = me.cartHeaders[y].split("_");
 
-			newCell.innerHTML = me.print( headerInfo[0] === "Name" ? "Mã sản phẩm" : headerInfo[0] );
+			newCell.innerHTML = me.print(
+          headerInfo[0] === "Name" ? "Mã sản phẩm" :
+              headerInfo[0] === "Price" ? "Giá" :
+                  headerInfo[0] === "Quantity" ? "Số lượng" :
+                      headerInfo[0] === "Total" ? "Tổng cộng" :
+                          headerInfo[0] === "remove" ? "" : headerInfo[0]);
+
 			newCell.className = "item" + headerInfo[0];
+
 
 			for(var z=1,zlen=headerInfo.length;z<zlen;z++){
 				if( headerInfo[z].toLowerCase() == "noheader" ){
@@ -612,6 +622,9 @@ function Cart(){
 	me.createCartRow = function( info , item , outputValue ){
 				
 		switch( info[0].toLowerCase() ){
+      case "name":
+        outputValue = '<a href="'+ item.link +'" class="pjContainer pLink">'+ item.name +'</a> ';
+        break;
       case "quantity":
         outputValue = me.valueToLink( "&larr;" , "javascript:;" , "onclick=\"simpleCart.items[\'" + item.id + "\'].decrement();\"" ) + ' '+ item.quantity + ' ' + me.valueToLink( "&rarr;" , "javascript:;" , "onclick=\"simpleCart.items[\'" + item.id + "\'].increment();\"" );
         break;
@@ -910,7 +923,7 @@ function Cart(){
 			
 		me.total = 0 ;
 		me.quantity	 = 0;
-		me.each(function(item){ 
+		me.each(function(item){
 			
 			if( item.quantity < 1 ){
 				item.remove();

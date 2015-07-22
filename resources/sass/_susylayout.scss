@@ -227,7 +227,6 @@ $susy:(
 .pExtra{
   @include full();
   @include clearfix();
-  padding: 0;
   ol{
     @include clearfix();
     li{
@@ -248,6 +247,7 @@ $susy:(
     margin-bottom: 0;
   }
   .pcExtra{
+    padding-left: 10px;
     border-top: solid 1px #BEDAEC;
     border-bottom: solid 1px #BEDAEC;
   }

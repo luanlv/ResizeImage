@@ -15,6 +15,7 @@
 			<div class="nameP item_name">
 			@product.name
 			</div>
+			<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
 			<div class="priceP ">
 				Giá bán lẻ:
 				<div class="price item_price"><b>@java.text.NumberFormat.getIntegerInstance.format(product.price)</b></div>

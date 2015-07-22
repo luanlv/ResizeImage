@@ -1,3 +1,5 @@
+@(products: List[models.Product])
+
 <!doctype html>
 <html lang="vi">
 	<head>
@@ -5,6 +7,17 @@
 		<title>Document</title>
 	</head>
 	<body>
-
+		@for(product <- products){
+			<a href="@routes.ProductCtrl.viewEdit(product.pUrl)">
+				<p>@product.code</p>
+			</a>
+			<a href="@routes.ProductCtrl.viewEdit(product.pUrl)">
+					<p>@product.name</p>
+			</a>
+			<a href="@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)">
+				<p>@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl).url</p>
+			</a>
+			<br> <br> <br>
+		}
 	</body>
 </html>

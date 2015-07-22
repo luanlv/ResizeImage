@@ -14,6 +14,7 @@ POST        /admin/create                    controllers.ProductCtrl.create
 
 GET         /admin/edit/:pUrl            controllers.ProductCtrl.viewEdit(pUrl: String)
 POST         /admin/edit/:pUrl            controllers.ProductCtrl.update(pUrl: String)
+GET         /admin/listProduct/:page      controllers.ProductCtrl.listProduct(page: Int, _pp:Int ?=10, _n: String ?= "", _c:String ?= "", _g: String ?="", _min:Int ?= 0, _max: Int ?= 100000000)
 
 GET         /delay                       controllers.ProductCtrl.index2
 

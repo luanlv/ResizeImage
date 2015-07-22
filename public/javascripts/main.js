@@ -10,23 +10,6 @@
 	simpleCart.paypalHTTPMethod = "GET";
 
 
-	CartItem.prototype.sku = function(){
-		var base_sku =  this.name == "1 1/2\" Large Black Cap" ? "102" :
-						this.name == "1 1/4\" Large Black Cap" ? "101" :
-						this.name == "2 1/4\" Large Black Cap" ? "103" :
-						"104";
-		if( this.options == "None" ){
-			return base_sku + "-0";
-		} else {
-			return base_sku + "-1";
-		}
-	};
-
-	CartItem.prototype.gaVariation = function(){
-		return this.size;
-	};
-
-
 	var lowerCartBar = function(){
 			$(".cartBar").animate({marginTop:0}, 100);
 			$("#container").animate({marginTop:24}, 100);
@@ -126,6 +109,7 @@
         $(".simpleCart_empty").trigger('click');
       }
     });
+
 
 		if(simpleCart.quantity){
 			lowerCartBar();

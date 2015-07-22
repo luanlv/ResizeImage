@@ -41,7 +41,14 @@ $(function() {
       $(".cursorshade").remove();
       $(".magnifyarea").remove();
     }
+
+    if ($('#lightbox').length) {
+      $('#lightbox a').slimbox();
+      console.log("slimbox initial");
+    }
+
   });
+
 
 
   $(document).on('click',".laside > div > span", function(){
