@@ -9,7 +9,6 @@
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
-
 	@bigPipe.render { pagelets =>
 		<div class="container" id="container">
 			<div class="cartBar">

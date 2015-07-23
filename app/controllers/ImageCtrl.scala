@@ -25,7 +25,6 @@ import play.modules.reactivemongo.json._
 import reactivemongo.bson._
 import play.api.libs.json._
 
-
 import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
 
 class ImageCtrl @Inject() (
@@ -38,7 +37,6 @@ class ImageCtrl @Inject() (
 
   val cImage = db[JSONCollection]("fs.files")
 
-
   val gridFS = reactiveMongoApi.gridFS
 
   gridFS.ensureIndex().onComplete {
@@ -47,6 +45,7 @@ class ImageCtrl @Inject() (
   }
 
   def getList(name: String, page: Int) = Action.async { request =>
+
 
     val futureJson = cImage.find(Json.obj(
             "metadata.size" -> "small",

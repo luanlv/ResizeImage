@@ -12,17 +12,16 @@
 				<b><a class="pjContainer " href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>@product.code</a></b>
 				<div class="stock">(@product.stock)</div>
 			</div>
-			<div class="nameP item_name">
-			@product.name
-			</div>
-			<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
+			<div class="nameP item_name">@product.name</div>
 			<div class="priceP ">
 				Giá bán lẻ:
 				<div class="price item_price"><b>@java.text.NumberFormat.getIntegerInstance.format(product.price)</b></div>
 				<b>VNĐ</b>
 			</div>
 			<input type="text" value="1" class="item_quantity" size="1"  id="item-quantity">
+			<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
 			<button class="item_add">Add to Cart</button>
+			<div class="hide more"> more more morem more more moremore more more more </div>
 		</li>
 	}
 </ul>

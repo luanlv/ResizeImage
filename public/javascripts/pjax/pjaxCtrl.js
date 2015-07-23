@@ -34,6 +34,7 @@ $(function() {
         cursorshadecolor: '#fdffd5',
         cursorshade: true //<-- No comma after last option!
       });
+
     }
     else {
       $(".zoomtracker").remove();
@@ -47,12 +48,19 @@ $(function() {
       console.log("slimbox initial");
     }
 
+
+
+  // Pjax-end!
   });
 
 
 
   $(document).on('click',".laside > div > span", function(){
     $(this).siblings("div").toggleClass("hide");
+  });
+
+  $(document).on('mouseenter', '.multizoom1 > a', function(){
+    $(this).trigger('click');
   });
 
 });
