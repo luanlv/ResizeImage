@@ -9,9 +9,6 @@
 		<link href='@routes.Assets.versioned("stylesheets/css/product/create.css")' rel="stylesheet">
 		<link rel="stylesheet" href='@routes.Assets.versioned("bootstrap/css/bootstrap.min.css")' />
 		<link rel="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.5/css/bootstrap-select.min.css" />
-		@*<link rel="stylesheet" href="@routes.Assets.versioned("ckeditor/samples/css/samples.css")">*@
-		@*<link rel="stylesheet" href="@routes.Assets.versioned("ckeditor/samples/toolbarconfigurator/lib/codemirror/neo.css")">*@
-
 		<script src='@routes.Assets.versioned("ckeditor/ckeditor.js")'></script>
 		<script src='@routes.Assets.versioned("ckeditor/samples/js/sample.js")'></script>
 	</head>
@@ -36,37 +33,23 @@
 				<button style="margin-top: 5px;" class="initialism slide_open btn btn-success">Chọn ảnh</button>
 				<div class="image-wrap" style="min-width: 180px; height: 150px; border: solid 1px #ddd; margin-top: 5px; margin-bottom: 5px;">
 					<div>
-						@if(form("image[0].small").value.nonEmpty){<img class="view" src="@form("image[0].small").value" alt="">}
-						@if(form("image[1].small").value.nonEmpty){<img class="view" src="@form("image[1].small").value" alt="">}
-						@if(form("image[2].small").value.nonEmpty){<img class="view" src="@form("image[2].small").value" alt="">}
-						@if(form("image[3].small").value.nonEmpty){<img class="view" src="@form("image[3].small").value" alt="">}
-						@if(form("image[4].small").value.nonEmpty){<img class="view" src="@form("image[4].small").value" alt="">}
+						@for(i <- 0 to 4){
+							@if(form("image["+i+"].small").value.nonEmpty){<img class="view" src="@form("image["+i+"].small").value" alt="">}
+						}
 					</div>
 				</div>
 				<div class="listImage">
-					@if(form("image[0].origin").value.nonEmpty){<input type="hidden" name="image[0].origin" class="" value="@form("image[0].origin").value">}
-					@if(form("image[0].small").value.nonEmpty){<input type="hidden" name="image[0].small" class="" value="@form("image[0].small").value">}
-					@if(form("image[0].thumb").value.nonEmpty){<input type="hidden" name="image[0].thumb" class="" value="@form("image[0].thumb").value">}
-					@if(form("image[1].origin").value.nonEmpty){<input type="hidden" name="image[1].origin" class="" value="@form("image[1].origin").value">}
-					@if(form("image[1].small").value.nonEmpty){<input type="hidden" name="image[1].small" class="" value="@form("image[1].small").value">}
-					@if(form("image[1].thumb").value.nonEmpty){<input type="hidden" name="image[1].thumb" class="" value="@form("image[1].thumb").value">}
-					@if(form("image[2].origin").value.nonEmpty){<input type="hidden" name="image[2].origin" class="" value="@form("image[2].origin").value">}
-					@if(form("image[2].small").value.nonEmpty){<input type="hidden" name="image[2].small" class="" value="@form("image[2].small").value">}
-					@if(form("image[2].thumb").value.nonEmpty){<input type="hidden" name="image[2].thumb" class="" value="@form("image[2].thumb").value">}
-					@if(form("image[3].origin").value.nonEmpty){<input type="hidden" name="image[3].origin" class="" value="@form("image[3].origin").value">}
-					@if(form("image[3].small").value.nonEmpty){<input type="hidden" name="image[3].small" class="" value="@form("image[3].small").value">}
-					@if(form("image[3].thumb").value.nonEmpty){<input type="hidden" name="image[3].thumb" class="" value="@form("image[3].thumb").value">}
-					@if(form("image[4].origin").value.nonEmpty){<input type="hidden" name="image[4].origin" class="" value="@form("image[4].origin").value">}
-					@if(form("image[4].small").value.nonEmpty){<input type="hidden" name="image[4].small" class="" value="@form("image[4].small").value">}
-					@if(form("image[4].thumb").value.nonEmpty){<input type="hidden" name="image[4].thumb" class="" value="@form("image[4].thumb").value">}
-
-
+					@for(i <- 0 to 4){
+						@for(t <- List("origin", "small", "thumb")){
+							@if(form("image[" + i + "]." + t +"").value.nonEmpty){<input type="hidden" name="image[@i].@t" class="" value="@form("image["+i+"]."+t+"").value">}
+						}
+					}
 				</div>
-				<input type="hidden" id="supTypeUrl" name="supTypeUrl" value="" />
-				<input type="hidden" id="supType" name="supType" value="" />
-				<input type="hidden" id="subTypeUrl" name="subTypeUrl" value="" />
-				<input type="hidden" id="subType" name="subType" value="" />
-				<input type="hidden" id="groupUrl" name="groupUrl" value=""/>
+				<input type="text" id="supTypeUrl" name="supTypeUrl" value="" />
+				<input type="text" id="supType" name="supType" value="" />
+				<input type="text" id="subTypeUrl" name="subTypeUrl" value="" />
+				<input type="text" id="subType" name="subType" value="" />
+				<input type="text" id="groupUrl" name="groupUrl" value=""/>
 
 				<input style="float: right" class="btn btn-group" type="submit">
 				<input type="text" name="pUrl" placeholder="Url cho sản phẩm" value="@form("pUrl").value.getOrElse("")" style="float: right">
@@ -214,7 +197,7 @@
 									<span>character-lcd</span>
 									<span>
 										<select name="">
-											<option selected="selected" value="LEDs">LEDs</option>
+											<option selected="selected" value="Graphic LEDs">Graphic LEDs</option>
 										</select>
 									</span>
 									<span>Character LCDs</span>

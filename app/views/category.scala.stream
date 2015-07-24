@@ -9,7 +9,7 @@
 
 <html>
 	<head>
-		@HtmlStream.fromHtml(views.html.import_t())
+		@HtmlStream.fromHtml(views.html.partials.import_t())
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,7 +45,7 @@
 			<nav class="nav"></nav>
 
 			<div class="main">
-				@HtmlStream.fromHtml(views.html.aside( _sub, _gro, _kw, _li))
+				@HtmlStream.fromHtml(views.html.partials.aside( _sub, _gro, _kw, _li))
 				<div id="pjax-container" class="content">
 
 					<div class="menuCol1" > &rarr; Phần cứng, Thiết bị.</div>
@@ -57,7 +57,7 @@
 			<div class="footer"></div>
 		</div>
 
-	@HtmlStream.fromHtml(views.html.import_b())
+	@HtmlStream.fromHtml(views.html.partials.import_b())
 	}
 
 	</body>

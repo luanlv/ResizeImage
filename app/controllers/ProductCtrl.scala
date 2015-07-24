@@ -23,6 +23,8 @@ import reactivemongo.api.QueryOpts
 import reactivemongo.api.indexes.{IndexType, Index}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
+import reactivemongo.bson.BSONDocument
+import reactivemongo.core.commands._
 import scala.concurrent.Future
 
 import play.api.libs.concurrent.Execution.Implicits._
@@ -75,6 +77,14 @@ class ProductCtrl @Inject() (
         }
       }
     )
+  }
+
+  //-------------------------  delete product --------------------------------------------------------
+
+  def deleteProduct(id: String) = PjaxAction.async { implicit  request =>
+    cProduct.remove(Json.obj("_id" -> id))
+    .map(_ => Redirect(routes.ProductCtrl.listProduct(1, 10, "", "", ""))).recover { case _ => InternalServerError }
+
   }
 
   //-------------------------  Edit product ---------------------------------------------------------
@@ -135,21 +145,21 @@ class ProductCtrl @Inject() (
   //-------------------------  Index page   ----------------------------------------------------------
 
   def index2 = PjaxAction.async { implicit request =>
-    val futureColection1 = cProduct.find(Json.obj("supType" -> "pctb"))
+    val futureColection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
         .sort(Json.obj("updateDate" -> -1))
         .cursor[Product]().collect[List](8)
-    val futureColection2 = cProduct.find(Json.obj("supType" -> "bdcb"))
-        .sort(Json.obj("updateDate" -> -1))
-        .cursor[Product]().collect[List](8)
-
-    val futureColection3 = cProduct.find(Json.obj("supType" -> "lkpk"))
+    val futureColection2 = cProduct.find(Json.obj("supTypeUrl" -> "ban-dan-cam-bien"))
         .sort(Json.obj("updateDate" -> -1))
         .cursor[Product]().collect[List](8)
 
-    val delay1 = 0.75
+    val futureColection3 = cProduct.find(Json.obj("supTypeUrl" -> "lk-khac-phu-kien"))
+        .sort(Json.obj("updateDate" -> -1))
+        .cursor[Product]().collect[List](8)
+
+    val delay1 = 0.5
     val delayed1 =  Promise.timeout(futureColection1, delay1.second).flatMap(x => x)
 
-    val delay2 = 0.5
+    val delay2 = 25
     val delayed2 =  Promise.timeout(futureColection2, delay2.second).flatMap(x => x)
 
     val delay3 = 0.25
@@ -160,11 +170,18 @@ class ProductCtrl @Inject() (
     val pageletColelction2 = HtmlPagelet("collection2", delayed2.map(x => views.html.product.collection(x)))
     val pageletColelction3 = HtmlPagelet("collection3", delayed3.map(x => views.html.product.collection(x)))
 
-    val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3)
-    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
+    val futureAside2 = Future(1)
+    val delay4 = 0.25
+    val futureAside = Promise.timeout(futureAside2, delay4.second).flatMap(x => x)
+
+    val aside = HtmlPagelet("aside", futureAside.map(_ => views.html.partials.aside()))
+
+    val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
+    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside)))
   }
 
   def index = PjaxAction.async { implicit request =>
+
     val futureColection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
         .sort(Json.obj("updateDate" -> -1))
         .cursor[Product]().collect[List](8)
@@ -180,8 +197,14 @@ class ProductCtrl @Inject() (
     val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
     val pageletColelction3 = HtmlPagelet("collection3", futureColection3.map(x => views.html.product.collection(x)))
 
-    val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3)
-    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3)))
+    val futureAside2 = Future(1)
+    val delay4 = 0
+    val futureAside = Promise.timeout(futureAside2, delay4.second).flatMap(x => x)
+
+    val aside = HtmlPagelet("aside", futureAside.map(_ => views.html.partials.aside()))
+
+    val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
+    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside)))
   }
 
 
@@ -190,7 +213,9 @@ class ProductCtrl @Inject() (
 
   def viewProduct( sub: String, gro: String, pUrl: String) = PjaxAction.async { implicit request =>
 
-    val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("pUrl" -> pUrl))
+    val futureProduct2 = DocumentDAO.findOne[Product](cProduct, Json.obj("pUrl" -> pUrl))
+    val delay1 = 0
+    val futureProduct =  Promise.timeout(futureProduct2, delay1.second).flatMap(x => x)
 
     if (request.pjaxEnabled)
       futureProduct.map { p => p match {
@@ -204,7 +229,7 @@ class ProductCtrl @Inject() (
         }
       })
       val bigPipe = new BigPipe(renderOptions(request), pageletProduct)
-      Future(Ok.chunked(views.stream.view(bigPipe, pageletProduct)))
+      Future(Ok.chunked(views.stream.product.view(bigPipe, pageletProduct)))
     }
   }
 
@@ -231,7 +256,7 @@ class ProductCtrl @Inject() (
 
     if (request.pjaxEnabled){
       futureList.map{
-        list => Ok(views.html.category(list, subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln))
+        list => Ok(views.html.partials.category(list, subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln))
       }
     }else{
 
@@ -255,7 +280,7 @@ class ProductCtrl @Inject() (
 
     if (request.pjaxEnabled){
       futureList.map{
-        list => Ok(views.html.category(list, sub, gro, _kw, _li))
+        list => Ok(views.html.partials.category(list, sub, gro, _kw, _li))
       }
     }else{
 
@@ -301,4 +326,14 @@ class ProductCtrl @Inject() (
   }
 
   //--------------------------------------------------------------------------------------------------
+
+  def test = Action.async {
+    val command = Aggregate("product", Seq(
+      Match(BSONDocument("supType" -> "LK Bán dẫn & Cảm biến")),
+      GroupField("subType")("total" -> SumValue(1))
+      )
+    )
+    val result = cProduct.db.command(command)
+    result.map {x => Ok(Json.toJson(x))}
+  }
 }

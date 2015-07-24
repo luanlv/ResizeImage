@@ -8,16 +8,31 @@
 	</head>
 	<body>
 		@for(product <- products){
-			<a href="@routes.ProductCtrl.viewEdit(product.pUrl)">
+
 				<p>@product.code</p>
-			</a>
-			<a href="@routes.ProductCtrl.viewEdit(product.pUrl)">
-					<p>@product.name</p>
-			</a>
-			<a href="@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)">
+				<p>@product.name</p>
 				<p>@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl).url</p>
-			</a>
-			<br> <br> <br>
+			<br>
+			<a href="@routes.ProductCtrl.viewEdit(product.pUrl)">Edit</a>
+			|
+			<a href="@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)">view</a>
+			|
+			<form action="@routes.ProductCtrl.deleteProduct(product.id.getOrElse(""))" method="POST">
+				<button type="submit">Delete</button>
+			</form>
+			<br> <br>
 		}
+		<style>
+			p{
+			display: inline;
+			margin-right: 30px;
+			}
+			button{
+				display: inline;
+			}
+			form{
+				display: inline;
+			}
+		</style>
 	</body>
 </html>

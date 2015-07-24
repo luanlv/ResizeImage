@@ -1,0 +1,15 @@
+.gallery{
+  @include clearfix();
+  @include pad(gutter(16));
+}
+
+.gallery > li{
+  @include gallery(3 of 12);
+  padding-bottom: 5px;
+  margin-bottom: gutter(12);
+  @include clearfix();
+  text-align: center;
+  @include pad(3px);
+  border: 1px solid black;
+}
+

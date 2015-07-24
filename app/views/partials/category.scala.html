@@ -1,0 +1,40 @@
+@(products: List[models.Product], _sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8,
+	_br:String = "", _or:String = "", _lt:String = "", _ln:String = "" )(implicit pjaxVersion: pjax.PjaxVersion)
+
+@aside(_sub, _gro, _kw, _li)
+
+
+
+<div id="pjax-container" class="content">
+				<div class="menuCol1" > &rarr; Phần cứng, Thiết bị.</div>
+
+				<div class="col1">
+					<ul class="gallery">
+					@for(product <- products){
+						<li class="simpleCart_shelfItem ra-5">
+						<a class="pjContainer item_name" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>
+							<div class="img">
+								<img src='@product.image.head.small' alt="" width="120" height="100">
+							</div>
+						</a>
+
+						<div class="codeP">
+							<b><a class="pjContainer item_name" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>@product.code</a></b>
+							<div class="stock">(@product.stock)</div>
+						</div>
+
+						<div class="nameP">@product.name</div>
+						<div class="priceP ">
+							<b>VNĐ</b>
+						</div>
+						<input type="text" value="1" class="item_quantity" size="1"  id="item-quantity">
+							<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
+						<button class="item_add">Add to Cart</button>
+					</li>
+				}
+				</ul>
+
+			</div>
+
+	</div>
+

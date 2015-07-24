@@ -53,7 +53,7 @@ $susy:(
 
 
 .container{
-  @include container(960px);
+  @include container(100%);
   background: white;
   display: block;
 }
@@ -121,53 +121,7 @@ $susy:(
 }
 
 
-.gallery{
-  @include clearfix();
-  @include pad(gutter(16));
-}
 
-.gallery > li{
-  @include gallery(6 of 24);
-  padding-bottom: 5px;
-  margin-bottom: gutter(24);
-  background: rgba(#999, 0.05);
-  @include clearfix();
-  color: #999;
-  text-align: center;
-  .codeP, .nameP, .priceP {
-    @include full();
-    padding: 0;
-  }
-
-  .img {
-    @include container(120px);
-    margin-top: 10px;
-    margin-bottom: 5px;
-  }
-  p {
-    font-size: 11px;
-  }
-
-  .codeP{
-    a{color: #088ACA}
-    height: 14px;
-  }
-
-  .nameP{
-    height: 28px;
-  }
-  .price{
-    height: 14px;
-    display: inline;
-    font-size: 12px;
-    color: #f00;
-  }
-  .stock{
-    display: inline;
-    color: #000;
-  }
-  
-}
 
 .pContainer{
   margin-top: 10px;

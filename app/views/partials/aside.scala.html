@@ -1,0 +1,52 @@
+@( _sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
+
+<aside class="aside">
+	<div class="laside">
+
+		<hr/>
+		<span>Phần cứng, Thiết bị</span>
+		<div>
+			<span>Máy Nạp & Adapter</span>
+			<div @if(_sub != "may-nap-adapter"){class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer", "", 8)">Máy nạp ĐA NĂNG</a></div>
+			<div @if(_sub != "may-nap-adapter"){class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer", "", 8)">Mạch nạp 8051</a></div>
+		</div>
+		<div>
+			<span>Board Phát triển</span>
+			<div @if(_sub != "board-phat-trien"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "raspberry-pi", "", 8)">Raspberry PI</a></div>
+			<div @if(_sub != "board-phat-trien"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "arduino-shield", "", 8)">Arduino and Shields</a></div>
+		</div>
+
+		<hr/>
+		<span>LK Bán dẫn & Cảm biến</span>
+		<div>
+			<span>Sensors, Transducers</span>
+			<div @if(_sub != "sensor-transducer"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes", "", 8)">Gyroscopes</a></div>
+			<div @if(_sub != "sensor-transducer"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor", "", 8)">Cảm biến ánh sáng</a></div>
+		</div>
+		<div>
+			<span>Memory ICs</span>
+			<div @if(_sub != "memory-ic"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "memory", "", 8)">AT88SC0104C-SU</a></div>
+			<div @if(_sub != "memory-ic"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "24cxx-serial-eeprom", "", 8)">24Cxx Serial EEPROM</a></div>
+		</div>
+
+		<hr/>
+		<span>LK Khác và Phụ kiện</span>
+		<div>
+			<span>LEDs</span>
+			<div @if(_sub != "led"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-1w", "", 8)">LED 1W</a></div>
+			<div @if(_sub != "led"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-smd-0805", "", 8)">LEDs SMD-0805 (2012)</a></div>
+		</div>
+		<div>
+			<span>LCDs Display</span>
+			<div @if(_sub != "lcd-display"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd", "", 8)">Character LCDs</a></div>
+			<div @if(_sub != "lcd-display"){ class="hide"}><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd", "", 8)">Graphic LCDs</a></div>
+		</div>
+	</div>
+	<hr>
+	<span>Bộ lọc:</span>
+	<form action="@routes.ProductCtrl.search()" method="GET" data-pjax>
+		<br/>
+		<input type="search" name="_kw" value="@_kw" placeholder="Filter by mssv ...">
+		<button class="btn btn-default" id="searchsubmit" type="submit" data-pjax>Go!</button>
+	</form>
+</aside>

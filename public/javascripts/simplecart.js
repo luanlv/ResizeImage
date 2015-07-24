@@ -563,7 +563,7 @@ function Cart(){
           headerInfo[0] === "Name" ? "Mã sản phẩm" :
               headerInfo[0] === "Price" ? "Giá" :
                   headerInfo[0] === "Quantity" ? "Số lượng" :
-                      headerInfo[0] === "Total" ? "Tổng cộng" :
+                      headerInfo[0] === "Total" ? "Thành tiền" :
                           headerInfo[0] === "remove" ? "" : headerInfo[0]);
 
 			newCell.className = "item" + headerInfo[0];

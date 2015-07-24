@@ -12,7 +12,7 @@ gulp.task('sass', function() {
         errLogToConsole: true
       }))
       .pipe(sourcemaps.write())
-      .pipe(minifyCss({compatibility: 'ie8'}))
+      //.pipe(minifyCss({compatibility: 'ie8'}))
       .pipe(gulp.dest('./public/stylesheets'));
 });
 

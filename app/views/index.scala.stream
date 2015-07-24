@@ -1,8 +1,8 @@
-@(bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
+@(bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
 <!DOCTYPE html>
 <html>
 	<head>
-		@HtmlStream.fromHtml(views.html.import_t())
+		@HtmlStream.fromHtml(views.html.partials.import_t())
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +10,7 @@
 	</head>
 	<body>
 	@bigPipe.render { pagelets =>
+		<div id="main" class="m-scene">
 		<div class="container" id="container">
 			<div class="cartBar">
 				<span class="cartMeta">
@@ -39,7 +40,7 @@
 			<nav class="nav"></nav>
 
 			<div class="main">
-				@HtmlStream.fromHtml(views.html.aside())
+				@pagelets("aside")
 				<div id="pjax-container" class="content">
 					<div class="thongbao-left">
 						<p><strong>Quý Khách nên sử dụng chức năng mua hàng online </strong>để tiết kiệm thời gian và chi phí giao dịch, tránh sai sót khi giao nhận hàng, đồng thời nhận điểm tích lũy để quy đổi thành Voucher giảm giá.<br>
@@ -65,8 +66,8 @@
 			</div>
 			<div class="footer"></div>
 		</div>
-
-	@HtmlStream.fromHtml(views.html.import_b())
+		</div>
+	@HtmlStream.fromHtml(views.html.partials.import_b())
 	}
 
 	</body>

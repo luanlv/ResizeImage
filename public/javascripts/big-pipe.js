@@ -1,1 +1,65 @@
-(function(){"use strict";var e="json",n="html",r="text",t=this,d=t.BigPipe={},o=t.document,a=t.console,m=function(e){a&&a.log&&a.log(e)};d.unescapeForEmbedding=function(e){return e?e.replace(new RegExp("\\\\u002d\\\\u002d","gi"),"--"):e},d.readEmbeddedContentFromDom=function(e){var n=o.getElementById(e);return n?d.unescapeForEmbedding(n.firstChild.nodeValue):(m("ERROR"),"")},d.parseEmbeddedJsonFromDom=function(e){var n=d.readEmbeddedContentFromDom(e);return JSON.parse(n)},d.renderPagelet=function(e,n){var r=o.getElementById(e);r?r.innerHTML=n:m("ERROR")},d.onPagelet=function(t,o,a){if(a===e){var i=d.parseEmbeddedJsonFromDom(o);d.renderPagelet(t,i)}else if(a===n||a===r){var l=d.readEmbeddedContentFromDom(o);d.renderPagelet(t,l)}else m("ERROR")}}).call(this);
+/**
+ * JavaScript helper functions for BigPipe-style streaming. This code has no external dependencies.
+ */
+(function() {
+  "use strict";
+
+  var JSON_CONTENT_TYPE = "json";
+  var HTML_CONTENT_TYPE = "html";
+  var TEXT_CONTENT_TYPE = "text";
+
+  var root = this;
+  var BigPipe = root.BigPipe = {};
+  var document = root.document;
+  var console = root.console;
+
+  var log = function(msg) {
+    if (console && console.log) {
+      console.log(msg);
+    }
+  };
+
+  BigPipe.unescapeForEmbedding = function(str) {
+    if (str) {
+      return str.replace(new RegExp('\\\\u002d\\\\u002d', "gi"), '--');
+    } else {
+      return str;
+    }
+  };
+
+  BigPipe.readEmbeddedContentFromDom = function(domId) {
+    var contentElem = document.getElementById(domId);
+    if (contentElem) {
+      return BigPipe.unescapeForEmbedding(contentElem.firstChild.nodeValue);
+    } else {
+      log("ERROR: Unable to read content from DOM node with id " + domId + " so return an empty String.");
+      return "";
+    }
+  };
+
+  BigPipe.parseEmbeddedJsonFromDom = function(domId) {
+    var content = BigPipe.readEmbeddedContentFromDom(domId);
+    return JSON.parse(content);
+  };
+
+  BigPipe.renderPagelet = function(id, content) {
+    var domElement = document.getElementById(id);
+    if (domElement) {
+      domElement.innerHTML = content;
+    } else {
+      log("ERROR: cannot insert pagelet content because DOM node with id " + id + " does not exist");
+    }
+  };
+
+    BigPipe.onPagelet = function(id, contentId, contentType) {
+    if (contentType === JSON_CONTENT_TYPE) {
+      var json = BigPipe.parseEmbeddedJsonFromDom(contentId);
+      BigPipe.renderPagelet(id, json);
+    } else if (contentType === HTML_CONTENT_TYPE || contentType === TEXT_CONTENT_TYPE) {
+      var content = BigPipe.readEmbeddedContentFromDom(contentId);
+      BigPipe.renderPagelet(id, content);
+    } else {
+      log("ERROR: unsupported contentType " + contentType + " for pagelet with id " + id);
+    }
+  };
+}.call(this));

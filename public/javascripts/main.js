@@ -12,9 +12,9 @@
 
 	var lowerCartBar = function(){
 			$(".cartBar").animate({marginTop:0}, 100);
-			$("#container").animate({marginTop:24}, 100);
+			$("#container").animate({marginTop:27}, 100);
       if($(".zoomtracker").length) {
-        $(".zoomtracker").animate({marginTop: 24}, 100);
+        $(".zoomtracker").animate({marginTop: 27}, 100);
       }
 	};
 
@@ -68,7 +68,7 @@
 		});
 
     $(".simpleCart_empty").click(function(){
-      $(".cartBar").animate({marginTop:-24}, 200);
+      $(".cartBar").animate({marginTop:-27}, 200);
       $("#container").animate({marginTop:0}, 200);
       if($(".zoomtracker").length){
         $(".zoomtracker").animate({marginTop:0}, 100);

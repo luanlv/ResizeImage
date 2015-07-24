@@ -19,7 +19,6 @@ $(function() {
   $(document).on('pjax:end',   function() {
     simpleCart.initialize();
     NProgress.done();
-
     if ($('#multizoom1').length)
     {
       $('#multizoom1').addimagezoom({ // multi-zoom: options same as for previous Featured Image Zoomer's addimagezoom unless noted as '- new'
@@ -62,5 +61,6 @@ $(function() {
   $(document).on('mouseenter', '.multizoom1 > a', function(){
     $(this).trigger('click');
   });
+
 
 });

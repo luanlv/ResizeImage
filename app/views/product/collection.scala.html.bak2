@@ -1,0 +1,30 @@
+@(products: List[models.Product])
+
+<ul class="gallery">
+	@for(product <- products){
+		<li class="s-result-item s-result-card-for-container a-declarative">
+			<div class="s-item-container" style="height: 348px;">
+				<div class="a-row a-spacing-base">
+					<div class="a-column a-span12 a-text-center s-position-relative">
+						<a class="a-link-normal a-text-normal" href="#">
+							<img alt="Product Details" src="http://ecx.images-amazon.com/images/I/21ZBRAQP2LL._AA200_.jpg"  class="s-access-image cfMarker" height="200" width="200">
+						</a>
+						<div class="a-section a-spacing-none a-text-center"></div>
+					</div>
+				</div>
+				<div class="a-row a-spacing-none">
+					<div class="a-row a-spacing-mini">
+						<a class="a-link-normal s-access-detail-page  a-text-normal" title="Set of 10 pieces LM555 LM555CN (IC TIMER) (8 pins DIP)" href="http://www.amazon.com/pieces-LM555-LM555CN-TIMER-pins/dp/B007Q1EMWI/ref=sr_1_1?s=industrial&amp;ie=UTF8&amp;qid=1437657924&amp;sr=1-1&amp;keywords=ic">
+							<h2 class="a-size-base a-color-null s-inline s-access-title a-text-normal">Set of 10 pieces LM555 LM555CN (IC TIMER) (8 pins DIP)</h2>
+						</a>
+					</div>
+					<div class="a-row a-spacing-none"><a class="a-link-normal a-text-normal" href="http://www.amazon.com/pieces-LM555-LM555CN-TIMER-pins/dp/B007Q1EMWI/ref=sr_1_1?s=industrial&amp;ie=UTF8&amp;qid=1437657924&amp;sr=1-1&amp;keywords=ic"><span class="a-size-base a-color-price s-price a-text-bold">$6.99</span></a>&nbsp;<i class="a-icon a-icon-prime a-icon-small s-align-text-bottom"></i></div>
+					<div class="a-row a-spacing-top-mini a-spacing-none"><span name="B007Q1EMWI">
+						<span class="a-declarative" data-action="a-popover" data-a-popover="{&quot;max-width&quot;:&quot;700&quot;,&quot;closeButton&quot;:&quot;false&quot;,&quot;position&quot;:&quot;triggerBottom&quot;,&quot;url&quot;:&quot;/review/widgets/average-customer-review/popover/ref=acr_search__popover?ie=UTF8&amp;asin=B007Q1EMWI&amp;contextId=search&amp;ref=acr_search__popover&quot;}"><a href="javascript:void(0)" class="a-popover-trigger a-declarative"><i class="a-icon a-icon-star a-star-4-5"><span class="a-icon-alt">4.7 out of 5 stars</span></i><i class="a-icon a-icon-popover"></i></a></span></span>
+						<a class="a-size-small a-link-normal a-text-normal" href="http://www.amazon.com/pieces-LM555-LM555CN-TIMER-pins/dp/B007Q1EMWI/ref=sr_1_1?s=industrial&amp;ie=UTF8&amp;qid=1437657924&amp;sr=1-1&amp;keywords=ic#customerReviews">23</a>
+					</div>
+				</div>
+			</div>
+		</li>
+	}
+</ul>
