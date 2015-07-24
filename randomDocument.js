@@ -260,8 +260,14 @@ var imageArray = [
   ]
 ];
 
+var listStock =  [1, 30, 42, 53, 66, 11, 442, 532, 345, 124, 431, 532, 545, 353, 121, 343, 545, 0];
+var listName = ["Bộ Hẹn Giờ", "Cảm Biến Khoảng Cách ", "Module Điều Khiển ", "Case Arduino UNO", "Module Nguồn"];
+var listPrice = [10000, 20000, 15000, 3000, 2000, 50000, 43000, 99000, 120000, 200000, 11000, 1500, 9000];
 while(index < documentNumber) {
   var group = listGroup[Math.floor(Math.random() * listGroup.length)];
+  var stock = listStock[Math.floor(Math.random() * listStock.length)];
+  var name = listName[Math.floor(Math.random() * listName.length)];
+  var price = listPrice[Math.floor(Math.random() * listPrice.length)];
 
   var groupUrl = getGroupUrl(group, listGroup);
   var subType = getSubType(group, listGroup);
@@ -283,10 +289,10 @@ while(index < documentNumber) {
     pUrl: id,
     code: id,
     image: listImage,
-    name: "test",
+    name: name,
     unit: "cái",
-    stock: 20,
-    price: 20000,
+    stock: stock,
+    price: price,
     groupUrl: groupUrl,
     group: group,
     brand: "Other",
