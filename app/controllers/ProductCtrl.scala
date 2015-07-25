@@ -5,6 +5,8 @@ import com.ybrikman.ping.scalaapi.bigpipe.{JsonPagelet, BigPipe, HtmlPagelet}
 import com.ybrikman.ping.scalaapi.bigpipe.HtmlStreamImplicits._
 import play.api.Configuration
 
+import play.api.cache.Cached
+import play.api.Play.current
 import java.util.UUID
 import javax.inject.Inject
 import core.dao.DocumentDAO
@@ -180,31 +182,32 @@ class ProductCtrl @Inject() (
     Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside)))
   }
 
-  def index = PjaxAction.async { implicit request =>
+  def index = Cached((_: RequestHeader) => "index", 10){
+    PjaxAction.async { implicit request =>
+      val futureColection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
+          .sort(Json.obj("updateDate" -> -1))
+          .cursor[Product]().collect[List](8)
+      val futureColection2 = cProduct.find(Json.obj("supTypeUrl" -> "ban-dan-cam-bien"))
+          .sort(Json.obj("updateDate" -> -1))
+          .cursor[Product]().collect[List](8)
 
-    val futureColection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
-        .sort(Json.obj("updateDate" -> -1))
-        .cursor[Product]().collect[List](8)
-    val futureColection2 = cProduct.find(Json.obj("supTypeUrl" -> "ban-dan-cam-bien"))
-        .sort(Json.obj("updateDate" -> -1))
-        .cursor[Product]().collect[List](8)
+      val futureColection3 = cProduct.find(Json.obj("supTypeUrl" -> "lk-khac-phu-kien"))
+          .sort(Json.obj("updateDate" -> -1))
+          .cursor[Product]().collect[List](8)
 
-    val futureColection3 = cProduct.find(Json.obj("supTypeUrl" -> "lk-khac-phu-kien"))
-        .sort(Json.obj("updateDate" -> -1))
-        .cursor[Product]().collect[List](8)
+      val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
+      val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
+      val pageletColelction3 = HtmlPagelet("collection3", futureColection3.map(x => views.html.product.collection(x)))
 
-    val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
-    val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
-    val pageletColelction3 = HtmlPagelet("collection3", futureColection3.map(x => views.html.product.collection(x)))
+      val futureAside2 = Future(1)
+      val delay4 = 0
+      val futureAside = Promise.timeout(futureAside2, delay4.second).flatMap(x => x)
 
-    val futureAside2 = Future(1)
-    val delay4 = 0
-    val futureAside = Promise.timeout(futureAside2, delay4.second).flatMap(x => x)
+      val aside = HtmlPagelet("aside", futureAside.map(_ => views.html.partials.aside()))
 
-    val aside = HtmlPagelet("aside", futureAside.map(_ => views.html.partials.aside()))
-
-    val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
-    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside)))
+      val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
+      Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside)))
+    }
   }
 
 
@@ -327,13 +330,14 @@ class ProductCtrl @Inject() (
 
   //--------------------------------------------------------------------------------------------------
 
-  def test = Action.async {
-    val command = Aggregate("product", Seq(
-      Match(BSONDocument("supType" -> "LK Bán dẫn & Cảm biến")),
-      GroupField("subType")("total" -> SumValue(1))
+  def test = Cached((_: RequestHeader) => "index", 10){
+    Action.async {
+      val command = Aggregate("product", Seq(
+        GroupField("subType")("total" -> SumValue(1))
+        )
       )
-    )
-    val result = cProduct.db.command(command)
-    result.map {x => Ok(Json.toJson(x))}
+      val result = cProduct.db.command(command)
+      result.map {x => Ok(Json.toJson(x))}
+    }
   }
 }
