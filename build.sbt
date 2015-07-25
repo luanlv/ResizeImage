@@ -12,6 +12,7 @@ play.twirl.sbt.Import.TwirlKeys.templateImports ++= Vector("com.ybrikman.ping.sc
 resolvers += "Sonatype Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/"
 
 libraryDependencies ++= Seq(
+  ws,
   cache,
   filters,
   javaWs,

@@ -23,9 +23,13 @@ GET         /image/list                  controllers.ImageCtrl.getList(name: Str
 GET         /image/upload                controllers.Application.upload
 POST        /image/upload                controllers.ImageCtrl.upload
 
-GET          /test  controllers.ProductCtrl.test
+GET          /test                controllers.ProductCtrl.test
+GET          /test2               controllers.ProductCtrl.test2
 #GET         //cdn.lvlblog.com/image/:size/:uuid           controllers.ImageCtrl.get(uuid: String, size: String)
 GET          /image/:size/:uuid        controllers.ImageCtrl.get(uuid: String, size: String)
+
+
+GET         /apiListCollection         controllers.ProductCtrl.apiListCollection
 
 # Map static resources from the /public folder to the /assets URL path
 #GET           //cdn.lvlblog.com/assets/v10/*file             controllers.Assets.versioned(path="/public", file)
