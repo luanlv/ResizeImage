@@ -977,10 +977,10 @@ class ProductCtrl @Inject() (
     val data = cache.get[Brand]( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
-
+        val vnKw = vnSearch(keyword)
         val command = Aggregate("product", Seq(
           Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + keyword + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
@@ -1096,10 +1096,10 @@ class ProductCtrl @Inject() (
     val data = cache.get[Origin]( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
-
+        val vnKw = vnSearch(keyword)
         val command = Aggregate("product", Seq(
           Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + keyword + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
@@ -1163,15 +1163,13 @@ class ProductCtrl @Inject() (
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
     val cacheName = "filter" + group + brand + origin + "legType" + legNumber + minPrice + maxPrice
 
-
-
     val data = cache.get[LegType]( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
-
+        val vnKw = vnSearch(keyword)
         val command = Aggregate("product", Seq(
           Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + keyword + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
@@ -1261,10 +1259,10 @@ class ProductCtrl @Inject() (
     val data = cache.get[LegNumber]( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
-
+        val vnKw = vnSearch(keyword)
         val command = Aggregate("product", Seq(
           Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + keyword + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
