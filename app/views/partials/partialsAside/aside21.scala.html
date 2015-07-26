@@ -2,15 +2,10 @@
 	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
 
 
-<aside class="aside">
-	<div class="laside">
-	<hr/>
-	<span>LK Bán dẫn & Cảm biến (@supType.s2)</span>
-	<div>
-		<span>Sensors, Transducers (@subType.s21)</span>
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes", "", 8)">Gyroscopes </a>(@group.s211)</div>
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor", "", 8)">Cảm biến ánh sáng </a>(@group.s212)</div>
-	</div>
-	<hr/>
-	</div>
-</aside>
+@(_gro)
+<span>LK Bán dẫn & Cảm biến (@supType.s2)</span>
+<div>
+	<span>Sensors, Transducers (@subType.s21)</span>
+	<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes", "", 8)">Gyroscopes </a>(@group.s211)</div>
+	<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor", "", 8)">Cảm biến ánh sáng </a>(@group.s212)</div>
+</div>

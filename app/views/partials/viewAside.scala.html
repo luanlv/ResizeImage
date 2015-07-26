@@ -1,0 +1,42 @@
+@(supType: models.SupType, subType: models.SubType , group: models.GroupP,
+	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8,
+	_br: String = "", _or: String = "", _lt: String = "", _ln: String = "")
+
+
+
+
+<aside class="aside">
+	<div class="laside">
+		<hr>
+		@if(_sub == "may-nap-adapter"){
+			@views.html.partials.partialsAside.aside11(supType, subType, group, _sub, _gro, _kw, _li)
+		}
+
+		@if(_sub == "board-phat-trien"){
+			@views.html.partials.partialsAside.aside12(supType, subType, group, _sub, _gro, _kw, _li)
+		}
+
+		@if(_sub == "sensor-transducer"){
+			@views.html.partials.partialsAside.aside21(supType, subType, group, _sub, _gro, _kw, _li)
+		}
+		@if(_sub == "memory-ic"){
+			@views.html.partials.partialsAside.aside22(supType, subType, group, _sub, _gro, _kw, _li)
+		}
+		@if(_sub == "led"){
+			@views.html.partials.partialsAside.aside31(supType, subType, group, _sub, _gro, _kw, _li)
+		}
+		@if(_sub == "lcd-display"){
+			@views.html.partials.partialsAside.aside32(supType, subType, group, _sub, _gro, _kw, _li)
+		}
+		<hr>
+		Cùng loại: <a href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br , _or, _lt, _ln)">@_gro</a>
+		<br>
+		<br>
+		Sản phẩm tương tự
+		.... <br/>
+		.... <br/>
+		.... <br/>
+		.... <br/>
+		.... <br/>
+	</div>
+</aside>

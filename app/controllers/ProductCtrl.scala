@@ -167,7 +167,7 @@ class ProductCtrl @Inject() (
   //-------------------------  Index page   ----------------------------------------------------------
 
 
-  def index = PjaxAction.async { implicit request =>
+  def index = Cached((rh: RequestHeader) => rh.uri, 10) { PjaxAction.async { implicit request =>
 
     val cacheName1 = "phan-cung-thiet-bi"
     val futureCollection1 = cache.get[List[Product]]( cacheName1 ) match {
@@ -267,12 +267,13 @@ class ProductCtrl @Inject() (
         }
       }
     }
-  }
+  }}
 
 
   //---------------------------View product--------------------------------------------------------
 
-  def viewProduct( sub: String, gro: String, pUrl: String) = PjaxAction.async { implicit request =>
+  def viewProduct( sub: String, gro: String, pUrl: String) =
+    Cached((rh: RequestHeader) => rh.uri + pUrl, 10)  { PjaxAction.async { implicit request =>
 
 
     val futureProduct = cache.get[Option[Product]]( pUrl ) match {
@@ -316,32 +317,34 @@ class ProductCtrl @Inject() (
           }
         else {
           val v = result._1 match {
-            case Some(data) => Future(views.html.product.view(data, result._2, result._3, result._4))
+            case Some(data) => Future(views.html.product.viewWithoutAside(data, result._2, result._3, result._4))
             case _ => Future(views.html.product.view2())
           }
           val pageletProduct = HtmlPagelet("product" , v)
 
-          val pageletAside = HtmlPagelet("aside", Future(views.html.partials.aside(result._2,result._3, result._4)))
+          val pageletAside = HtmlPagelet("aside", Future(views.html.partials.viewAside(result._2,result._3, result._4, sub, gro)))
 
           val bigPipe = new BigPipe(renderOptions(request), pageletProduct, pageletAside)
-          val sub = result._1 match {
+          val subType = result._1 match {
             case Some(data) => data.subTypeUrl
             case _ => ""
           }
           Ok.chunked(views.stream.product.view(bigPipe, result._2, result._3, result._4,
-            pageletProduct, pageletAside, sub))
+            pageletProduct, pageletAside, subType))
         }
       }
     }
-  }
+  }}
 
 
   //-----------------View Collection -------------------------------------------------------------
 //routes.ProductCtrl.collection(subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln).url
 
-  def collection(subTypeUrl:String = "", groupUrl: String = "", _kw:String = "", _li:Int = 8,
-                 _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ) =
-    PjaxAction.async { implicit request =>
+  def collection(subTypeUrl:String = "", groupUrl: String = "",
+                 _kw:String = "", _li:Int = 8,
+                 _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ,
+                 _min:Int = 0, _max: Int = 500000000) =
+    Cached((rh: RequestHeader) => rh.uri + groupUrl, 10) {PjaxAction.async { implicit request =>
 
       val cacheName = "collection-" + groupUrl + _kw + _li + _br + _or + _lt + _ln
 
@@ -351,11 +354,14 @@ class ProductCtrl @Inject() (
           val futureList = cProduct.find(Json.obj(
           "subTypeUrl" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
           "groupUrl" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
-          "name" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i"),
+          "$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i")),
+            Json.obj("code" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i"))),
           "brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
           "origin" -> Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i"),
           "legType" -> Json.obj("$regex" -> (".*" + _lt + ".*"), "$options" -> "-i"),
-          "legNumber" -> Json.obj("$regex" -> (".*" + _ln + ".*"), "$options" -> "-i")
+          "legNumber" -> Json.obj("$regex" -> (".*" + _ln + ".*"), "$options" -> "-i"),
+          "price" -> Json.obj("$gte" -> _min),
+          "price" -> Json.obj("$lte" -> _max)
         ))
         .cursor[Product]().collect[List](_li)
 
@@ -374,22 +380,29 @@ class ProductCtrl @Inject() (
       }
 
       val supType = getSupType()
-
       val subType = getSubType()
-
       val group = getGroup()
+      val brand = getBrand(groupUrl, _kw, _or, _lt, _ln, _min, _max)
+      val origin = getOrigin(groupUrl, _kw, _br, _lt, _ln, _min, _max)
+      val legType = getLegType(groupUrl, _kw, _br, _or, _ln, _min, _max)
+      val legNumber = getLegNumber(groupUrl, _kw, _br, _or, _lt, _min, _max)
 
       val futureResult = for {
         futureList <- futureList
         supType <- supType
         subType <- subType
         group <- group
-      } yield (futureList, supType, subType, group)
+        brand <- brand
+        origin <- origin
+        legType <- legType
+        legNumber <- legNumber
+      } yield (futureList, supType, subType, group, brand, origin, legType, legNumber)
 
       if (request.pjaxEnabled){
         futureResult.map{
           result => Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
-            subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln))
+            result._5, result._6, result._7, result._8,
+            subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln, _min, _max))
         }
       }else{
         futureResult.map {
@@ -397,80 +410,83 @@ class ProductCtrl @Inject() (
             val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1)))
 
             val pageletAside = HtmlPagelet("aside",
-              Future(views.html.partials.aside(result._2, result._3, result._4, subTypeUrl)))
+              Future(views.html.partials.aside(result._2, result._3, result._4,
+                result._5, result._6, result._7, result._8,
+                subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln, _min, _max)))
 
             val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
 
             Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
+              result._5, result._6, result._7, result._8,
               pageletColelction, pageletAside, subTypeUrl, groupUrl, _kw, _li))
 
           }
         }
       }
-  }
+  }}
 
 
     //----------------------search----------------------------------------------------------------------
 
-  def search(sup:String = "" , sub:String = "", gro: String = "", _kw:String = "", _li:Int = 8) = PjaxAction.async { implicit request =>
-
-    val cacheName = "search" + sup + sub + gro + _kw + _li
-    val futureList = cache.get[List[Product]](cacheName) match {
-      case None => {
-        println(s"Not found $cacheName")
-        val futureList = cProduct.find(Json.obj(
-          "subType" -> Json.obj("$regex" -> (".*" + sup + ".*"), "$options" -> "-i"),
-          "subType" -> Json.obj("$regex" -> (".*" + sub + ".*"), "$options" -> "-i"),
-          "group" -> Json.obj("$regex" -> (".*" + gro + ".*"), "$options" -> "-i"),
-          "name" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i")))
-          .cursor[Product]().collect[List](_li)
-
-        futureList.map{
-          list => cache.set("search" + sup + sub + gro + _kw + _li, list, 30 days)
-            cacheList += "search" + sup + sub + gro + _kw + _li
-        }
-        futureList
-      }
-
-      case Some(p) => {
-        println(s"found $cacheName")
-        Future(p)
-      }
-    }
-
-    val supType = getSupType()
-
-    val subType = getSubType()
-
-    val group = getGroup()
-
-    val futureResult = for {
-      futureList <- futureList
-      supType <- supType
-      subType <- subType
-      group <- group
-    } yield (futureList, supType, subType, group)
-
-
-    futureResult.map{
-      result => {
-        if (request.pjaxEnabled){
-            Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
-              sub, gro, _kw, _li))
-
-        }else{
-          val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1)))
-
-          val pageletAside = HtmlPagelet("aside",
-            Future(views.html.partials.aside(result._2, result._3, result._4, sub)))
-
-          val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
-          Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
-            pageletColelction, pageletAside, sub, gro, _kw, _li))
-        }
-      }
-    }
-  }
+//  def search(sup:String = "" , sub:String = "", gro: String = "", _kw:String = "", _li:Int = 8) = PjaxAction.async { implicit request =>
+//
+//    val cacheName = "search" + sup + sub + gro + _kw + _li
+//    val futureList = cache.get[List[Product]](cacheName) match {
+//      case None => {
+//        println(s"Not found $cacheName")
+//        val futureList = cProduct.find(Json.obj(
+//          "subType" -> Json.obj("$regex" -> (".*" + sup + ".*"), "$options" -> "-i"),
+//          "subType" -> Json.obj("$regex" -> (".*" + sub + ".*"), "$options" -> "-i"),
+//          "group" -> Json.obj("$regex" -> (".*" + gro + ".*"), "$options" -> "-i"),
+//          "name" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i")))
+//          .cursor[Product]().collect[List](_li)
+//
+//        futureList.map{
+//          list => cache.set("search" + sup + sub + gro + _kw + _li, list, 30 days)
+//            cacheList += "search" + sup + sub + gro + _kw + _li
+//        }
+//        futureList
+//      }
+//
+//      case Some(p) => {
+//        println(s"found $cacheName")
+//        Future(p)
+//      }
+//    }
+//
+//    val supType = getSupType()
+//
+//    val subType = getSubType()
+//
+//    val group = getGroup()
+//
+//    val futureResult = for {
+//      futureList <- futureList
+//      supType <- supType
+//      subType <- subType
+//      group <- group
+//    } yield (futureList, supType, subType, group)
+//
+//
+//    futureResult.map{
+//      result => {
+//        if (request.pjaxEnabled){
+//            Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
+//              sub, gro, _kw, _li))
+//
+//        }else{
+//          val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1)))
+//
+//          val pageletAside = HtmlPagelet("aside",
+//            Future(views.html.partials.aside(result._2, result._3, result._4, sub)))
+//
+//          val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
+//          Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
+//            pageletColelction, pageletAside, sub, gro, _kw, _li))
+//        }
+//      }
+//    }
+//  }
 
   //-------------------  view list products ----------------------------------------------------------
 
@@ -526,9 +542,8 @@ class ProductCtrl @Inject() (
 
   //--------------------------------------------------------------------------------------------------
 
-  def test = cached((request: RequestHeader) => request.toString(), 10){
+  def test = cached((request: RequestHeader) => request.uri, 10){
     Action.async { implicit request =>
-
       clearCache()
 
       val command = Aggregate("product", Seq(
@@ -542,13 +557,8 @@ class ProductCtrl @Inject() (
   }
 
   def test2 = Action.async {implicit request =>
-    val futureResult: Future[String] = ws.url("http://localhost:9000/test").get().map {
-      response =>
-        response.body
-    }
-    futureResult.map{
-      r => Ok(Json.toJson(r))
-    }
+    clearCache()
+    Future(Ok(""))
   }
 
   def apiListCollection = Action.async {
@@ -950,4 +960,399 @@ class ProductCtrl @Inject() (
     }
     subType
   }
+
+  def getBrand(group: String, keyword:String = "", origin: String = "", legType: String = "",
+               legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
+//    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
+    val cacheName = "filter" + group + "brand" + origin + legType + legNumber + minPrice + maxPrice
+
+
+    val data = cache.get[Brand]( cacheName ) match {
+      case None => {
+        println(s"Not found $cacheName")
+
+        val command = Aggregate("product", Seq(
+          Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + keyword + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
+          Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
+          GroupField("brand")("total" -> SumValue(1))
+        )
+        )
+
+        val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
+          jsvalue => {
+            val listId = jsvalue.\\("_id").toList.map(x => {
+              val y = x.toString()
+              y.substring(1, y.length - 1)
+            }
+            )
+
+            val listValue = jsvalue.\\("total").map(x => x.toString().toInt)
+
+              val s1 = {
+                val index = listId.indexOf("Other")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s2 = {
+                val index = listId.indexOf("Xeltek")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s3 = {
+                val index = listId.indexOf("ATMEL")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s4 = {
+                val index = listId.indexOf("ELNEC")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s5 = {
+                val index = listId.indexOf("TOP")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s6 = {
+                val index = listId.indexOf("SOFI-TECH")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s7 = {
+                val index = listId.indexOf("Raspberry Pi")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s8 = {
+                val index = listId.indexOf("ST")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s9 = {
+                val index = listId.indexOf("InvenSense")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s10 = {
+                val index = listId.indexOf("Eagle Power")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s11 = {
+                val index = listId.indexOf("VISHAY")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s12 = {
+                val index = listId.indexOf("Harvatek")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s13 = {
+                val index = listId.indexOf("Andorin")
+                if (index != -1) listValue(index) else 0
+              }
+
+              val s14 = {
+                val index = listId.indexOf("Sharp")
+                if (index != -1) listValue(index) else 0
+              }
+              Brand(s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14)
+          }
+
+        }
+        result.map {
+          list => cache.set(cacheName, list, 30 days)
+            cacheList += cacheName
+        }
+        result
+      }
+      case Some(p) => {
+        println(s"Found $cacheName")
+        Future(p)
+      }
+    }
+    data
+  }
+
+  def getOrigin(group: String, keyword: String = "", brand: String = "", legType: String = "",
+                 legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
+
+    //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
+    val cacheName = "filter" + group + brand + "origin" + legType + legNumber + minPrice + maxPrice
+
+    val data = cache.get[Origin]( cacheName ) match {
+      case None => {
+        println(s"Not found $cacheName")
+
+        val command = Aggregate("product", Seq(
+          Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + keyword + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
+          Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
+          GroupField("origin")("total" -> SumValue(1))
+        )
+        )
+
+        val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
+          jsvalue => {
+            val listId = jsvalue.\\("_id").toList.map(x => {
+              val y = x.toString()
+              y.substring(1, y.length - 1)
+            }
+            )
+
+            val listValue = jsvalue.\\("total").map(x => x.toString().toInt)
+
+            val s1 = {
+              val index = listId.indexOf("Việt Nam")
+              if (index != -1) listValue(index) else 0
+            }
+            val s2 = {
+              val index = listId.indexOf("Trung Quốc")
+              if (index != -1) listValue(index) else 0
+            }
+            val s3 = {
+              val index = listId.indexOf("Chính hãng")
+              if (index != -1) listValue(index) else 0
+            }
+            val s4 = {
+              val index = listId.indexOf("Taiwan")
+              if (index != -1) listValue(index) else 0
+            }
+            val s5 = {
+              val index = listId.indexOf("UK")
+              if (index != -1) listValue(index) else 0
+            }
+
+            Origin(s1,s2,s3,s4,s5)
+          }
+
+        }
+        result.map {
+          list => cache.set(cacheName, list, 30 days)
+            cacheList += cacheName
+        }
+        result
+      }
+      case Some(p) => {
+        println(s"Found $cacheName")
+        Future(p)
+      }
+    }
+    data
+  }
+
+  def getLegType(group: String, keyword: String = "", brand: String = "", origin: String = "",
+                  legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
+    //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
+    val cacheName = "filter" + group + brand + origin + "legType" + legNumber + minPrice + maxPrice
+
+
+
+    val data = cache.get[LegType]( cacheName ) match {
+      case None => {
+        println(s"Not found $cacheName")
+
+        val command = Aggregate("product", Seq(
+          Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + keyword + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
+          Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
+          GroupField("legType")("total" -> SumValue(1))
+        )
+        )
+
+        val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
+          jsvalue => {
+            val listId = jsvalue.\\("_id").toList.map(x => {
+              val y = x.toString()
+              y.substring(1, y.length - 1)
+            }
+            )
+
+            val listValue = jsvalue.\\("total").map(x => x.toString().toInt)
+
+            val s1 = {
+              val index = listId.indexOf("")
+              if (index != -1) listValue(index) else 0
+            }
+            val s2 = {
+              val index = listId.indexOf("DIP")
+              if (index != -1) listValue(index) else 0
+            }
+            val s3 = {
+              val index = listId.indexOf("SIP")
+              if (index != -1) listValue(index) else 0
+            }
+            val s4 = {
+              val index = listId.indexOf("LQFP")
+              if (index != -1) listValue(index) else 0
+            }
+            val s5 = {
+              val index = listId.indexOf("PQFP")
+              if (index != -1) listValue(index) else 0
+            }
+            val s6 = {
+              val index = listId.indexOf("QFN")
+              if (index != -1) listValue(index) else 0
+            }
+            val s7 = {
+              val index = listId.indexOf("SOIC")
+              if (index != -1) listValue(index) else 0
+            }
+            val s8 = {
+              val index = listId.indexOf("TQFP")
+              if (index != -1) listValue(index) else 0
+            }
+            val s9 = {
+              val index = listId.indexOf("T-1 3/4")
+              if (index != -1) listValue(index) else 0
+            }
+            val s10 = {
+              val index = listId.indexOf("SMD")
+              if (index != -1) listValue(index) else 0
+            }
+            val s11 = {
+              val index = listId.indexOf("SMD0805")
+              if (index != -1) listValue(index) else 0
+            }
+            LegType(s1,s2,s3,s4,s5, s6, s7, s8, s9, s10, s11)
+          }
+
+        }
+        result.map {
+          list => cache.set(cacheName, list, 30 days)
+            cacheList += cacheName
+        }
+        result
+      }
+      case Some(p) => {
+        println(s"Found $cacheName")
+        Future(p)
+      }
+    }
+    data
+  }
+
+  def getLegNumber(group: String, keyword: String = "", brand: String = "", origin: String = "",
+                   legType: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
+    //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
+    val cacheName = "filter" + group + brand + origin + legType + "legNumber" + minPrice + maxPrice
+
+    val data = cache.get[LegNumber]( cacheName ) match {
+      case None => {
+        println(s"Not found $cacheName")
+
+        val command = Aggregate("product", Seq(
+          Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + keyword + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
+          Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
+          GroupField("legNumber")("total" -> SumValue(1))
+        )
+        )
+
+        val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
+          jsvalue => {
+            val listId = jsvalue.\\("_id").toList.map(x => {
+              val y = x.toString()
+              y.substring(1, y.length - 1)
+            }
+            )
+
+            val listValue = jsvalue.\\("total").map(x => x.toString().toInt)
+
+            val s1 = {
+              val index = listId.indexOf("")
+              if (index != -1) listValue(index) else 0
+            }
+            val s2 = {
+              val index = listId.indexOf("208")
+              if (index != -1) listValue(index) else 0
+            }
+            val s3 = {
+              val index = listId.indexOf("100")
+              if (index != -1) listValue(index) else 0
+            }
+            val s4 = {
+              val index = listId.indexOf("64")
+              if (index != -1) listValue(index) else 0
+            }
+            val s5 = {
+              val index = listId.indexOf("44")
+              if (index != -1) listValue(index) else 0
+            }
+            val s6 = {
+              val index = listId.indexOf("40")
+              if (index != -1) listValue(index) else 0
+            }
+            val s7 = {
+              val index = listId.indexOf("32")
+              if (index != -1) listValue(index) else 0
+            }
+            val s8 = {
+              val index = listId.indexOf("28")
+              if (index != -1) listValue(index) else 0
+            }
+            val s9 = {
+              val index = listId.indexOf("24")
+              if (index != -1) listValue(index) else 0
+            }
+            val s10 = {
+              val index = listId.indexOf("20")
+              if (index != -1) listValue(index) else 0
+            }
+            val s11 = {
+              val index = listId.indexOf("16")
+              if (index != -1) listValue(index) else 0
+            }
+            val s12 = {
+              val index = listId.indexOf("14")
+              if (index != -1) listValue(index) else 0
+            }
+            val s13 = {
+              val index = listId.indexOf("8")
+              if (index != -1) listValue(index) else 0
+            }
+            val s14 = {
+              val index = listId.indexOf("4")
+              if (index != -1) listValue(index) else 0
+            }
+            val s15 = {
+              val index = listId.indexOf("2")
+              if (index != -1) listValue(index) else 0
+            }
+            LegNumber(s1,s2,s3,s4,s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15)
+          }
+
+        }
+        result.map {
+          list => cache.set(cacheName, list, 30 days)
+            cacheList += cacheName
+        }
+        result
+      }
+      case Some(p) => {
+        println(s"Found $cacheName")
+        Future(p)
+      }
+    }
+    data
+  }
+
 }

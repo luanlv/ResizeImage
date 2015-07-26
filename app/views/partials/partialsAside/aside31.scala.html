@@ -1,17 +1,10 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
 
-
-<aside class="aside">
-
-	<div class="laside">
-		<hr/>
-		<span>LK Bán dẫn & Cảm biến (@supType.s2)</span>
-		<div>
-			<span>Sensors, Transducers (@subType.s21)</span>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes", "", 8)">Gyroscopes </a>(@group.s211)</div>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor", "", 8)">Cảm biến ánh sáng </a>(@group.s212)</div>
-		</div>
-	<hr>
-	</div>
-</aside>
+@(_gro)
+<span>LK Khác và Phụ kiện (@supType.s3)</span>
+<div>
+	<span>LEDs (@subType.s31)</span>
+	<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-1w", "", 8)">LED 1W </a>(@group.s311)</div>
+	<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-smd-0805", "", 8)">LEDs SMD-0805 (2012) </a>(@group.s312)</div>
+</div>

@@ -260,14 +260,31 @@ var imageArray = [
   ]
 ];
 
-var listStock =  [1, 30, 42, 53, 66, 11, 442, 532, 345, 124, 431, 532, 545, 353, 121, 343, 545, 0];
-var listName = ["Bộ Hẹn Giờ", "Cảm Biến Khoảng Cách ", "Module Điều Khiển ", "Case Arduino UNO", "Module Nguồn"];
-var listPrice = [10000, 20000, 15000, 3000, 2000, 50000, 43000, 99000, 120000, 200000, 11000, 1500, 9000];
+var listBrand = ["Other", "Xeltek", "ATMEL", "ELNEC", "TOP", "SOFI-TECH", "Raspberry Pi", "ST",
+  "InvenSense", "Eagle Power", "VISHAY", "Harvatek", "Andorin", "Sharp"];
+var listOrigin = ["Việt Nam", "Trung Quốc", "Chính hãng", "Taiwan", "UK"];
+var listLegType = ["", "DIP", "SIP", "LQFP", "PQFP", "QFN", "SOIC", "TQFP", "T-1 3/4", "SMD", "SMD0805"];
+var listLegNumber = ["", "208", "100", "64", "44", "40", "32", "28", "24", "20", "16", "14", "8", "4"];
+var listUnit = ["Cái", "Con", "Bộ"];
+var listStock =  [1, 3, 7, 19, 15, 25, 60, 63, 70, 95, 150, 176, 210, 320, 333, 346, 425, 555, 100, 299];
+var listName = ["Bộ Hẹn Giờ", "Cảm Biến Khoảng Cách ", "Module Điều Khiển ", "Case Arduino UNO", "Module Nguồn",
+                "WiFi Serial Transceiver", "STM32F103VCT6 100-pin ARM ", "STM32F103ZET6 144-pin ARM ",
+                "Bluetooth Module HC05 master / slave Breakout board", "Opamp Instrumentation Amplifier 1MHz",
+                "10 - 80cm Distance Measuring ", "Full H-Bridge Driver Parallel 2A PowerSO-20"];
+var listPrice = [5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000,
+                  65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 150000, 200000, 250000,
+                  300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000];
 while(index < documentNumber) {
   var group = listGroup[Math.floor(Math.random() * listGroup.length)];
   var stock = listStock[Math.floor(Math.random() * listStock.length)];
   var name = listName[Math.floor(Math.random() * listName.length)];
   var price = listPrice[Math.floor(Math.random() * listPrice.length)];
+
+  var brand = listBrand[Math.floor(Math.random() * listBrand.length)];
+  var origin = listOrigin[Math.floor(Math.random() * listOrigin.length)];
+  var legType = listLegType[Math.floor(Math.random() * listLegType.length)];
+  var legNumber = listLegNumber[Math.floor(Math.random() * listLegNumber.length)];
+  var unit = listUnit[Math.floor(Math.random() * listUnit.length)];
 
   var groupUrl = getGroupUrl(group, listGroup);
   var subType = getSubType(group, listGroup);
@@ -290,15 +307,15 @@ while(index < documentNumber) {
     code: id,
     image: listImage,
     name: name,
-    unit: "cái",
+    unit: unit,
     stock: stock,
     price: price,
     groupUrl: groupUrl,
     group: group,
-    brand: "Other",
-    origin: "Việt Nam",
-    legType: "",
-    legNumber: "",
+    brand: brand,
+    origin: origin,
+    legType: legType,
+    legNumber: legNumber,
     info: null,
     note: null
   };

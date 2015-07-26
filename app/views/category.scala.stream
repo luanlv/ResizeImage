@@ -1,4 +1,5 @@
 @(bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
+	brand: models.Brand, origin: models.Origin, legType: models.LegType, legNumber: models.LegNumber,
 	collection: Pagelet, aside: Pagelet, _sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
 
 @link(_kw: String) = @{

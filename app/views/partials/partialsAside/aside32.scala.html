@@ -1,16 +1,10 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
 
-
-<aside class="aside">
-
-	<div class="laside">
-		<hr/>
-		<div>
-			<span>LCDs Display (@subType.s32)</span>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd", "", 8)">Character LCDs </a>(@group.s321)</div>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd", "", 8)">Graphic LCDs </a>(@group.s322)</div>
-		</div>
-	</div>
-	<hr>
-</aside>
+@(_gro)
+<span>LK Khác và Phụ kiện (@supType.s3)</span>
+<div>
+	<span>LCDs Display (@subType.s32)</span>
+	<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd", "", 8)">Character LCDs </a>(@group.s321)</div>
+	<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd", "", 8)">Graphic LCDs </a>(@group.s322)</div>
+</div>

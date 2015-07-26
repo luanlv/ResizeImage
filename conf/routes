@@ -4,9 +4,9 @@
 
 
 GET         /                            controllers.ProductCtrl.index
-GET         /tim-kiem.html                  controllers.ProductCtrl.search(_sup:String ?="", _sub:String ?="", _gro:String ?="", _kw:String ?="", _li:Int ?=8)
+#GET         /tim-kiem.html                  controllers.ProductCtrl.search(_sup:String ?="", _sub:String ?="", _gro:String ?="", _kw:String ?="", _li:Int ?=8)
 
-GET         /san-pham/:subTypeUrl/:groupUrl.html            controllers.ProductCtrl.collection( subTypeUrl:String, groupUrl:String, _kw:String ?="", _li:Int ?=8, _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" )
+GET         /san-pham/:subTypeUrl/:groupUrl.html            controllers.ProductCtrl.collection( subTypeUrl:String, groupUrl:String, _kw:String ?="", _li:Int ?=8, _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" , _min: Int ?=0, _max: Int ?= 500000000)
 GET         /san-pham/:subTypeUrl/:groupUrl/:pUrl.html      controllers.ProductCtrl.viewProduct( subTypeUrl:String, groupUrl: String, pUrl: String)
 GET         /admin/create                    controllers.ProductCtrl.viewCreate
 POST        /admin/create                    controllers.ProductCtrl.create

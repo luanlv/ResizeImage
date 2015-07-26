@@ -1,8 +1,6 @@
 @(product: models.Product, supType: models.SupType, subType: models.SubType , group: models.GroupP)
 
-@views.html.partials.viewAside(supType, subType, group, product.subTypeUrl, product.groupUrl)
 
-<div id="pjax-container" class="content">
 	<div class="pContainer simpleCart_shelfItem">
 		<div class="pHeader">
 			<div>
@@ -17,9 +15,9 @@
 				<div class="targetarea"><img id="multizoom1"  alt="zoomable" title=""  src="@product.image.head.thumb" width="180" height="150"/></div>
 				@*<div id="description">Milla Jojovitch</div>*@
 				<div class="multizoom1 thumbs">
-				@for(image <- product.image) {
-					<a href="@image.small" data-large="@image.origin"  data-title="Milla Jojovitch"><img src="@image.thumb" alt="Milla" title="" width="35" height="35"/></a>
-				}
+					@for(image <- product.image) {
+						<a href="@image.small" data-large="@image.origin"  data-title="Milla Jojovitch"><img src="@image.thumb" alt="Milla" title="" width="35" height="35"/></a>
+					}
 				</div>
 				<div id="lightbox">
 				@for(image <- product.image) {
@@ -48,9 +46,10 @@
 				<p>Giá: @product.price</p>
 			</fieldset>
 		</div>
-		<div style="float:right">Số lượng mua: <input type="text" value="1" class="item_quantity" size="1"  id="item-quantity"></div>
-		<div style="float:right" class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
-		<button style="float:right" class="item_add">Add to Cart</button>
+
+		Số lượng mua: <input type="text" value="1" class="item_quantity" size="1"  id="item-quantity">
+		<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
+		<button  class="item_add">Add to Cart</button>
 
 		<div class="pExtra">
 			<ol id="toc">
@@ -59,9 +58,7 @@
 			</ol>
 
 			<div class="pcExtra" id="pro_info">
-			@Html(product.info.getOrElse(""))
+				@Html(product.info.getOrElse(""))
 			</div>
 		</div>
 	</div>
-
-</div>
