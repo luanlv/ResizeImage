@@ -1,75 +1,79 @@
-@(product: models.Product)
+@(product: models.Product, supType: models.SupType, subType: models.SubType , group: models.GroupP)
 
-<div class="pContainer simpleCart_shelfItem">
-	<div class="pHeader">
-		<div>
-			Phần cứng, Thiết bị... >
-			Accessory Booard > Keypad Modules > TOUCH-CAP-4x4
+@views.html.partials.aside(supType, subType, group, product.subTypeUrl)
+
+<div id="pjax-container" class="content">
+	<div class="pContainer simpleCart_shelfItem">
+		<div class="pHeader">
+			<div>
+				Phần cứng, Thiết bị... >
+				Accessory Booard > Keypad Modules > TOUCH-CAP-4x4
+			</div>
 		</div>
-	</div>
 
-	<div class="pImg">
-		<em>Hình ảnh có thể chỉ là đại diện, xem datasheet để có thông số chính xác hơn</em>
-		<div class="img">
-			<div class="targetarea"><img id="multizoom1"  alt="zoomable" title=""  src="@product.image.head.thumb" width="180" height="150"/></div>
-			@*<div id="description">Milla Jojovitch</div>*@
-			<div class="multizoom1 thumbs">
+		<div class="pImg">
+			<em>Hình ảnh có thể chỉ là đại diện, xem datasheet để có thông số chính xác hơn</em>
+			<div class="img">
+				<div class="targetarea"><img id="multizoom1"  alt="zoomable" title=""  src="@product.image.head.thumb" width="180" height="150"/></div>
+				@*<div id="description">Milla Jojovitch</div>*@
+				<div class="multizoom1 thumbs">
+					@for(image <- product.image) {
+						<a href="@image.small" data-large="@image.origin"  data-title="Milla Jojovitch"><img src="@image.thumb" alt="Milla" title="" width="35" height="35"/></a>
+					}
+				</div>
+				<div id="lightbox">
 				@for(image <- product.image) {
-					<a href="@image.small" data-large="@image.origin"  data-title="Milla Jojovitch"><img src="@image.thumb" alt="Milla" title="" width="35" height="35"/></a>
+					@if(image.origin == product.image.head.origin){
+						<a href="@image.origin" rel="lightbox-cats"> Click để phóng to!</a>
+					} else {<a href="@image.origin" rel="lightbox-cats"></a>}
 				}
+				</div>
+
 			</div>
-			<div id="lightbox">
-			@for(image <- product.image) {
-				@if(image.origin == product.image.head.origin){
-					<a href="@image.origin" rel="lightbox-cats"> Click để phóng to!</a>
-				} else {<a href="@image.origin" rel="lightbox-cats"></a>}
-			}
-			</div>
+
 
 		</div>
 
+		<div class=" pDetail">
+			<fieldset>
+				<legend><div align="center">@product.code</div></legend>
+				<div style=" float:left;"><span class="pdName item_name">@product.name</span></div>
+				<div style="display:table;width:100%;color:#086e98;border-color:red;">
 
-	</div>
-
-	<div class=" pDetail">
-		<fieldset>
-			<legend><div align="center">@product.code</div></legend>
-			<div style=" float:left;"><span class="pdName item_name">@product.name</span></div>
-			<div style="display:table;width:100%;color:#086e98;border-color:red;">
-
-				<div class="lbl">
-					<div class="pdCode lbl2"> Mã hàng:&nbsp;
-						<span class="pdcCode item_name">@product.code</span></div>
-					<div id="">Ngày đăng:&nbsp;
-						<span id="">@product.creationDate.map(u => org.joda.time.format.DateTimeFormat.forPattern("MMM dd, yyyy").print(u)).orElse(Some("n/a"))</span></div>
-				</div>
-				<div >Gia: <span class="item_price"> @product.price</span></div>
-				<div class="lbl">
-					<div class="pdUnit lbl2" >Đơn vị tính:&nbsp;
-						<span class="pdcUnit">@product.unit</span>
+					<div class="lbl">
+						<div class="pdCode lbl2"> Mã hàng:&nbsp;
+							<span class="pdcCode item_name">@product.code</span></div>
+						<div id="">Ngày đăng:&nbsp;
+							<span id="">@product.creationDate.map(u => org.joda.time.format.DateTimeFormat.forPattern("MMM dd, yyyy").print(u)).orElse(Some("n/a"))</span></div>
 					</div>
+					<div >Gia: <span class="item_price"> @product.price</span></div>
+					<div class="lbl">
+						<div class="pdUnit lbl2" >Đơn vị tính:&nbsp;
+							<span class="pdcUnit">@product.unit</span>
+						</div>
 
-					<div class="pdStock lbl3" >
-						Stock:&nbsp;
-						<span class="pdcStock">41 Cái</span>
+						<div class="pdStock lbl3" >
+							Stock:&nbsp;
+							<span class="pdcStock">41 Cái</span>
+						</div>
 					</div>
 				</div>
+			</fieldset>
+		</div>
+		Số lượng mua: <input type="text" value="1" class="item_quantity" size="1"  id="item-quantity">
+		<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
+		<button class="item_add">Add to Cart</button>
+
+		<div class="pExtra">
+			<ol id="toc">
+				<li><a class=" active" href="#pro_info"><div><span>Thông tin sản phẩm</span></div></a></li>
+				<li><a class=" inactive" href="#"><div><span>Sản phẩm cùng chức năng</span></div></a></li>
+			</ol>
+
+			<div class="pcExtra" id="pro_info">
+				@Html(product.info.getOrElse(""))
 			</div>
-		</fieldset>
-	</div>
-	Số lượng mua: <input type="text" value="1" class="item_quantity" size="1"  id="item-quantity">
-	<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
-	<button class="item_add">Add to Cart</button>
-
-	<div class="pExtra">
-		<ol id="toc">
-			<li><a class=" active" href="#pro_info"><div><span>Thông tin sản phẩm</span></div></a></li>
-			<li><a class=" inactive" href="#"><div><span>Sản phẩm cùng chức năng</span></div></a></li>
-		</ol>
-
-		<div class="pcExtra" id="pro_info">
-			@Html(product.info.getOrElse(""))
 		</div>
 	</div>
+
 </div>
-

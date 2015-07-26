@@ -15,7 +15,7 @@ import java.util.UUID
 import javax.inject.Inject
 import core.dao.DocumentDAO
 import core.dao.DocumentDAO._
-import models.Product
+import models._
 import org.joda.time.DateTime
 import pjax.Pjax
 import play.api.http.HeaderNames
@@ -80,7 +80,7 @@ class ProductCtrl @Inject() (
         val f = insert[Product](cProduct, tmp)
         f.map{
           lastError => {
-            clearCache()
+            clearCache(List("search", "supType", "subType", "cachegroup", tmp.supTypeUrl, tmp.subTypeUrl, tmp.groupUrl, tmp.pUrl))
             Ok("ok")
           }
         }.recover{
@@ -166,111 +166,108 @@ class ProductCtrl @Inject() (
 
   //-------------------------  Index page   ----------------------------------------------------------
 
-  def index2 = PjaxAction.async { implicit request =>
-    val futureColection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
-        .sort(Json.obj("updateDate" -> -1))
-        .cursor[Product]().collect[List](8)
-    val futureColection2 = cProduct.find(Json.obj("supTypeUrl" -> "ban-dan-cam-bien"))
-        .sort(Json.obj("updateDate" -> -1))
-        .cursor[Product]().collect[List](8)
-
-    val futureColection3 = cProduct.find(Json.obj("supTypeUrl" -> "lk-khac-phu-kien"))
-        .sort(Json.obj("updateDate" -> -1))
-        .cursor[Product]().collect[List](8)
-
-
-    val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
-    val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
-    val pageletColelction3 = HtmlPagelet("collection3", futureColection3.map(x => views.html.product.collection(x)))
-
-    val futureAside = Future(1)
-//    val delay4 = 0.25
-//    val futureAside = Promise.timeout(futureAside2, delay4.second).flatMap(x => x)
-
-    val aside = HtmlPagelet("aside", futureAside.map(_ => views.html.partials.aside()))
-
-    val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
-    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside)))
-  }
 
   def index = PjaxAction.async { implicit request =>
 
-    val futureColection1 = cache.get[List[Product]]( "index1" ) match {
+    val cacheName1 = "phan-cung-thiet-bi"
+    val futureCollection1 = cache.get[List[Product]]( cacheName1 ) match {
       case None => {
-        println("Not found index1 result in cache")
-        val futureColection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
+        println(s"Not found $cacheName1")
+        val futureCollection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
           .sort(Json.obj("updateDate" -> -1))
           .cursor[Product]().collect[List](8)
 
-        futureColection1.map{
-          list => cache.set("index1", list, 30 days)
-            cacheList += "index1"
+        futureCollection1.map {
+          list => cache.set(cacheName1, list, 30 days)
+            cacheList += cacheName1
         }
-        futureColection1
+        futureCollection1
       }
 
       case Some(p) => {
-        println("found index1 result")
+        println(s"found $cacheName1")
         Future(p)
       }
     }
 
-    val futureColection2 = cache.get[List[Product]]( "index2" ) match {
+    val cacheName2 = "ban-dan-cam-bien"
+    val futureCollection2 = cache.get[List[Product]]( cacheName2 ) match {
       case None => {
-        println("Not found index2 result in cache")
+        println(s"Not found $cacheName2")
         val futureColection2 = cProduct.find(Json.obj("supTypeUrl" -> "ban-dan-cam-bien"))
           .sort(Json.obj("updateDate" -> -1))
           .cursor[Product]().collect[List](8)
 
-        futureColection2.map{
-          list => cache.set("index2", list, 30 days)
-          cacheList += "index2"
+        futureColection2.map {
+          list => cache.set(cacheName2, list, 30 days)
+            cacheList += cacheName2
         }
         futureColection2
       }
       case Some(p) => {
-        println("found index2 result")
+        println(s"found $cacheName2")
         Future(p)
       }
     }
 
-    val futureColection3 = cache.get[List[Product]]( "index3" ) match {
+    val cacheName3 = "lk-khac-phu-kien"
+    val futureCollection3 = cache.get[List[Product]]( cacheName3 ) match {
       case None => {
-        println("Not found index3 result in cache")
+        println(s"Not found $cacheName3")
 
-        val futureColection3 = cProduct.find(Json.obj("supTypeUrl" -> "lk-khac-phu-kien"))
+        val futureCollection3 = cProduct.find(Json.obj("supTypeUrl" -> "lk-khac-phu-kien"))
           .sort(Json.obj("updateDate" -> -1))
           .cursor[Product]().collect[List](8)
 
-        futureColection3.map{
-
-          list => cache.set("index3", list, 30 days)
-
-            cacheList += "index3"        }
-        futureColection2
+        futureCollection3.map {
+          list => cache.set(cacheName3, list, 30 days)
+          cacheList += cacheName3
+        }
+        futureCollection3
       }
 
       case Some(p) => {
-        println("found index3 result")
+        println(s"found $cacheName3")
         Future(p)
       }
     }
 
-    val pageletColelction1 = HtmlPagelet("collection1", futureColection1.map(x => views.html.product.collection(x)))
-    val pageletColelction2 = HtmlPagelet("collection2", futureColection2.map(x => views.html.product.collection(x)))
-    val pageletColelction3 = HtmlPagelet("collection3", futureColection3.map(x => views.html.product.collection(x)))
 
-    val futureAside = Future(1)
-//    val delay4 = 0
-//    val futureAside = Promise.timeout(futureAside2, delay4.second).flatMap(x => x)
+    val supType = getSupType()
 
-    val aside = HtmlPagelet("aside", futureAside.map(_ => views.html.partials.aside()))
+    val subType = getSubType()
 
-    val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
-    Future.successful(Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside)))
+    val group = getGroup()
+
+
+    val futureResult = for {
+      futureCollection1 <- futureCollection1
+      futureCollection2 <- futureCollection2
+      futureCollection3 <- futureCollection3
+      supType <- supType
+      subType <- subType
+      group <- group
+    } yield (futureCollection1, futureCollection2, futureCollection3, supType, subType, group)
+
+
+
+    futureResult.map{
+      result => {
+        if (request.pjaxEnabled){
+          Ok(views.html.partials.index(result._1, result._2, result._3, result._4, result._5, result._6))
+        }else {
+          val pageletColelction1 = HtmlPagelet("collection1", Future(views.html.product.collection(result._1)))
+          val pageletColelction2 = HtmlPagelet("collection2", Future(views.html.product.collection(result._2)))
+          val pageletColelction3 = HtmlPagelet("collection3", Future(views.html.product.collection(result._3)))
+
+          val aside = HtmlPagelet("aside", Future(views.html.partials.asideIndex(result._4, result._5, result._6)))
+
+          val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
+          Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside))
+        }
+      }
+    }
   }
-
-
 
 
   //---------------------------View product--------------------------------------------------------
@@ -278,10 +275,9 @@ class ProductCtrl @Inject() (
   def viewProduct( sub: String, gro: String, pUrl: String) = PjaxAction.async { implicit request =>
 
 
-
     val futureProduct = cache.get[Option[Product]]( pUrl ) match {
       case None => {
-        println(s"Not found $pUrl result in cache")
+        println(s"Not found $pUrl")
         val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("pUrl" -> pUrl))
 //        val delay1 = 1
 //        val futureProduct =  Promise.timeout(futureProduct2, delay1.second).flatMap(x => x)
@@ -293,24 +289,49 @@ class ProductCtrl @Inject() (
         futureProduct
       }
       case Some(p) => {
-        println(s"found $pUrl result")
+        println(s"found $pUrl")
         Future(p)
       }
     }
 
-    if (request.pjaxEnabled)
-      futureProduct.map { p => p match {
-        case Some(data) => Ok(views.html.product.view(data))
-        case None => Ok("ko ton tai")
-      }}
-    else {
-      val pageletProduct = HtmlPagelet("product" , futureProduct.map{x => x match {
-        case Some(data) => views.html.product.view(data)
-        case None     => views.html.product.view2()
+    val supType = getSupType()
+
+    val subType = getSubType()
+
+    val group = getGroup()
+
+    val futureResult = for {
+      futureProduct <- futureProduct
+      supType <- supType
+      subType <- subType
+      group <- group
+    } yield (futureProduct, supType, subType, group)
+
+    futureResult.map{
+      result => {
+        if (request.pjaxEnabled)
+          result._1 match {
+            case Some(data) => Ok(views.html.product.view(data, result._2, result._3, result._4))
+            case None => Ok("ko ton tai")
+          }
+        else {
+          val v = result._1 match {
+            case Some(data) => Future(views.html.product.view(data, result._2, result._3, result._4))
+            case _ => Future(views.html.product.view2())
+          }
+          val pageletProduct = HtmlPagelet("product" , v)
+
+          val pageletAside = HtmlPagelet("aside", Future(views.html.partials.aside(result._2,result._3, result._4)))
+
+          val bigPipe = new BigPipe(renderOptions(request), pageletProduct, pageletAside)
+          val sub = result._1 match {
+            case Some(data) => data.subTypeUrl
+            case _ => ""
+          }
+          Ok.chunked(views.stream.product.view(bigPipe, result._2, result._3, result._4,
+            pageletProduct, pageletAside, sub))
         }
-      })
-      val bigPipe = new BigPipe(renderOptions(request), pageletProduct)
-      Future(Ok.chunked(views.stream.product.view(bigPipe, pageletProduct)))
+      }
     }
   }
 
@@ -322,10 +343,11 @@ class ProductCtrl @Inject() (
                  _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ) =
     PjaxAction.async { implicit request =>
 
-      val futureList = cache.get[List[Product]]("collection" +
-            subTypeUrl + groupUrl + _kw + _li + _br + _or + _lt + _ln) match {
+      val cacheName = "collection-" + groupUrl + _kw + _li + _br + _or + _lt + _ln
+
+      val futureList = cache.get[List[Product]](cacheName) match {
         case None => {
-          println("Not found collection result in cache")
+          println(s"Not found $cacheName ")
           val futureList = cProduct.find(Json.obj(
           "subTypeUrl" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
           "groupUrl" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
@@ -339,32 +361,51 @@ class ProductCtrl @Inject() (
 
           futureList.map{
 
-            list => cache.set("collection" +
-                subTypeUrl + groupUrl + _kw + _li + _br + _or + _lt + _ln, list, 30 days)
-
-              cacheList += "collection" +
-                  subTypeUrl + groupUrl + _kw + _li + _br + _or + _lt + _ln
+            list => cache.set(cacheName, list, 30 days)
+              cacheList += cacheName
           }
           futureList
         }
 
         case Some(p) => {
-          println("found collection result")
+          println(s"found $cacheName ")
           Future(p)
         }
       }
 
+      val supType = getSupType()
+
+      val subType = getSubType()
+
+      val group = getGroup()
+
+      val futureResult = for {
+        futureList <- futureList
+        supType <- supType
+        subType <- subType
+        group <- group
+      } yield (futureList, supType, subType, group)
 
       if (request.pjaxEnabled){
-        futureList.map{
-          list => Ok(views.html.partials.category(list, subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln))
+        futureResult.map{
+          result => Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
+            subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln))
         }
       }else{
+        futureResult.map {
+          result => {
+            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1)))
 
-        val pageletColelction = HtmlPagelet("collection", futureList.map(x => views.html.product.collection(x)))
+            val pageletAside = HtmlPagelet("aside",
+              Future(views.html.partials.aside(result._2, result._3, result._4, subTypeUrl)))
 
-        val bigPipe = new BigPipe(renderOptions(request), pageletColelction)
-        Future.successful(Ok.chunked(views.stream.category(bigPipe, pageletColelction, subTypeUrl, groupUrl, _kw, _li)))
+            val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
+
+            Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
+              pageletColelction, pageletAside, subTypeUrl, groupUrl, _kw, _li))
+
+          }
+        }
       }
   }
 
@@ -373,9 +414,10 @@ class ProductCtrl @Inject() (
 
   def search(sup:String = "" , sub:String = "", gro: String = "", _kw:String = "", _li:Int = 8) = PjaxAction.async { implicit request =>
 
-    val futureList = cache.get[List[Product]]("search" + sup + sub + gro + _kw + _li) match {
+    val cacheName = "search" + sup + sub + gro + _kw + _li
+    val futureList = cache.get[List[Product]](cacheName) match {
       case None => {
-        println("Not found search result in cache")
+        println(s"Not found $cacheName")
         val futureList = cProduct.find(Json.obj(
           "subType" -> Json.obj("$regex" -> (".*" + sup + ".*"), "$options" -> "-i"),
           "subType" -> Json.obj("$regex" -> (".*" + sub + ".*"), "$options" -> "-i"),
@@ -391,22 +433,42 @@ class ProductCtrl @Inject() (
       }
 
       case Some(p) => {
-        println("found search result")
+        println(s"found $cacheName")
         Future(p)
       }
     }
 
+    val supType = getSupType()
 
-    if (request.pjaxEnabled){
-      futureList.map{
-        list => Ok(views.html.partials.category(list, sub, gro, _kw, _li))
+    val subType = getSubType()
+
+    val group = getGroup()
+
+    val futureResult = for {
+      futureList <- futureList
+      supType <- supType
+      subType <- subType
+      group <- group
+    } yield (futureList, supType, subType, group)
+
+
+    futureResult.map{
+      result => {
+        if (request.pjaxEnabled){
+            Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
+              sub, gro, _kw, _li))
+
+        }else{
+          val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1)))
+
+          val pageletAside = HtmlPagelet("aside",
+            Future(views.html.partials.aside(result._2, result._3, result._4, sub)))
+
+          val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
+          Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
+            pageletColelction, pageletAside, sub, gro, _kw, _li))
+        }
       }
-    }else{
-
-      val pageletColelction = HtmlPagelet("collection", futureList.map(x => views.html.product.collection(x)))
-
-      val bigPipe = new BigPipe(renderOptions(request), pageletColelction)
-      Future.successful(Ok.chunked(views.stream.category(bigPipe, pageletColelction, sub, gro, _kw, _li)))
     }
   }
 
@@ -470,7 +532,7 @@ class ProductCtrl @Inject() (
       clearCache()
 
       val command = Aggregate("product", Seq(
-        GroupField("subType")("total" -> SumValue(1))
+        GroupField("supType")("total" -> SumValue(1))
         )
       )
       val result = cProduct.db.command(command)
@@ -496,13 +558,396 @@ class ProductCtrl @Inject() (
     }
   }
 
-  def clearCache() = {
-    cacheList.toList.foreach(
-      key => {
-        println("removing:" + key)
-        cache.remove(key)
+  def clearCache(list: List[String] = List("")) = {
+    if(!list.isEmpty){
+      list.foreach {
+        ele => {
+          val pattern = s"$ele".r
+          cacheList.toList.foreach {
+            s => {
+              if(!pattern.findAllIn(s).isEmpty){
+                println("removing:" + s)
+                cacheList.-(s)
+                cache.remove(s)
+              }
+            }
+          }
+        }
       }
-    )
+    }
   }
 
+  def getGroup() = {
+    val cacheGroup = "cachegroup"
+    val group = cache.get[GroupP]( cacheGroup ) match {
+      case None => {
+        println(s"Not found $cacheGroup")
+
+        val command = Aggregate("product", Seq(
+          GroupField("group")("total" -> SumValue(1))
+        )
+        )
+
+        val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
+          jsvalue => {
+            val listId = jsvalue.\\("_id").toList.map(x => {
+              val y = x.toString()
+              y.substring(1, y.length - 1)
+            }
+            )
+
+            val listValue = jsvalue.\\("total").map (x => x.toString().toInt)
+            val s111 = {
+              val index1 = listId.indexOf("Universal Programmer")
+              val index2 = listId.indexOf("USB Programmer")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              val value2 =
+                if(index2 != -1)
+                  listValue(index2)
+                else
+                  0
+              value1 + value2
+            }
+
+            val s112 = {
+              val index1 = listId.indexOf("Firmware Master Chip")
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              val index2 = listId.indexOf("ISP Programmer")
+              val value2 =
+                if(index2 != -1)
+                  listValue(index2)
+                else
+                  0
+
+              val index3 = listId.indexOf("ISP Programmer / Emulator")
+              val value3 =
+                if(index3 != -1)
+                  listValue(index3)
+                else
+                  0
+
+              val index4 = listId.indexOf("ISP/Parallel Programmer Mode")
+              val value4 =
+                if(index4 != -1)
+                  listValue(index4)
+                else
+                  0
+
+              val index5 = listId.indexOf("Parallel Programmer mode")
+              val value5 =
+                if(index5 != -1)
+                  listValue(index5)
+                else
+                  0
+              value1 + value2 + value3 + value4 + value5
+            }
+
+            val s121 = {
+              val index1 = listId.indexOf("mini PC")
+              val index2 = listId.indexOf("Raspberry Pi Case")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              val value2 =
+                if(index2 != -1)
+                  listValue(index2)
+                else
+                  0
+              value1 + value2
+            }
+
+
+            val s122 = {
+              val index1 = listId.indexOf("Arduino")
+              val index2 = listId.indexOf("Arduino Shield")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              val value2 =
+                if(index2 != -1)
+                  listValue(index2)
+                else
+                  0
+              value1 + value2
+            }
+
+            val s211 = {
+              val index1 = listId.indexOf("Accelerometer and Gyro Breakout")
+              val index2 = listId.indexOf("Gyroscope sensor")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              val value2 =
+                if(index1 != -1)
+                  listValue(index2)
+                else
+                  0
+              value1 + value2
+            }
+
+            val s212 = {
+              val index1 = listId.indexOf("Light Sensor")
+              val index2 = listId.indexOf("Sensors")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              val value2 =
+                if(index2 != -1)
+                  listValue(index2)
+                else
+                  0
+              value1 + value2
+            }
+
+            val s221 = {
+              val index1 = listId.indexOf("Memory")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              value1
+            }
+
+            val s222 = {
+              val index1 = listId.indexOf("Memory-I2C Serial EEPROM")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              value1
+            }
+
+
+            val s311 = {
+              val index1 = listId.indexOf("LED 1W")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              value1
+            }
+
+
+            val s312 = {
+              val index1 = listId.indexOf("LEDs")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              value1
+            }
+
+
+            val s321 = {
+              val index1 = listId.indexOf("Graphic LEDs")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+              value1
+            }
+
+            val s322 = {
+              val index1 = listId.indexOf("Graphic LCDs")
+              val index2 = listId.indexOf("LCDs")
+
+              val value1 =
+                if(index1 != -1)
+                  listValue(index1)
+                else
+                  0
+
+              val value2 =
+                if(index2 != -1)
+                  listValue(index2)
+                else
+                  0
+              value1 + value2
+            }
+
+
+            GroupP(s111, s112, s121, s122, s211, s212, s221, s222, s311, s312, s321,  s322)
+          }
+        }
+        result.map {
+          list => cache.set(cacheGroup, list, 30 days)
+            cacheList += cacheGroup
+        }
+        result
+      }
+      case Some(p) => {
+        println(s"Found $cacheGroup")
+        Future(p)
+      }
+    }
+    group
+  }
+
+  def getSupType() = {
+    val cacheSupType = "supType"
+    val supType = cache.get[SupType]( cacheSupType ) match {
+      case None => {
+        println(s"Not found $cacheSupType")
+
+        val command = Aggregate("product", Seq(
+          GroupField("supType")("total" -> SumValue(1))
+        )
+        )
+
+        val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
+          jsvalue => {
+            val listId = jsvalue.\\("_id").toList.map(x => {
+              val y = x.toString()
+              y.substring(1, y.length - 1)
+            }
+            )
+
+            val listValue = jsvalue.\\("total").map (x => x.toString().toInt)
+            val s1 = {
+              val index = listId.indexOf("Phần cứng, Thiết bị")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            val s2 = {
+              val index = listId.indexOf("LK Bán dẫn & Cảm biến")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            val s3 = {
+              val index = listId.indexOf("LK Khác và Phụ kiện")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            SupType(s1, s2, s3)
+          }
+        }
+        result.map {
+          list => cache.set(cacheSupType, list, 30 days)
+            cacheList += cacheSupType
+        }
+        result
+      }
+      case Some(p) => {
+        println(s"Found $cacheSupType")
+        Future(p)
+      }
+    }
+    supType
+  }
+
+  def getSubType() = {
+    val cacheSubType = "subType"
+    val subType = cache.get[SubType]( cacheSubType ) match {
+      case None => {
+        println(s"Not found $cacheSubType")
+
+        val command = Aggregate("product", Seq(
+          GroupField("subType")("total" -> SumValue(1))
+        )
+        )
+
+        val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
+          jsvalue => {
+            val listId = jsvalue.\\("_id").toList.map(x => {
+              val y = x.toString()
+              y.substring(1, y.length - 1)
+            }
+            )
+
+            val listValue = jsvalue.\\("total").map (x => x.toString().toInt)
+            val s11 = {
+              val index = listId.indexOf("Máy Nạp & Adapter")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            val s12 = {
+              val index = listId.indexOf("Board Phát triển")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            val s21 = {
+              val index = listId.indexOf("Sensors, Transducers")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            val s22 = {
+              val index = listId.indexOf("Memory ICs")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            val s31 = {
+              val index = listId.indexOf("LEDs")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            val s32 = {
+              val index = listId.indexOf("LCDs Display")
+              if(index != -1)
+                listValue(index)
+              else
+                0
+            }
+            SubType(s11, s12, s21, s22, s31, s32)
+          }
+        }
+        result.map {
+          list => cache.set(cacheSubType, list, 30 days)
+            cacheList += cacheSubType
+        }
+        result
+      }
+      case Some(p) => {
+        println(s"Found $cacheSubType")
+        Future(p)
+      }
+    }
+    subType
+  }
 }

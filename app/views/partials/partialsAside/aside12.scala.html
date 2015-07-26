@@ -1,0 +1,17 @@
+@(supType: models.SupType, subType: models.SubType , group: models.GroupP,
+	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
+
+
+<aside class="aside">
+
+	<div class="laside">
+		<hr/>
+		<span>Phần cứng, Thiết bị (@supType.s1)</span>
+		<div>
+			<span>Board Phát triển (@subType.s12)</span>
+			<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "raspberry-pi", "", 8)">Raspberry PI </a>(@group.s121)</div>
+			<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "arduino-shield", "", 8)">Arduino and Shields </a>(@group.s122)</div>
+		</div>
+		<hr>
+	</div>
+</aside>

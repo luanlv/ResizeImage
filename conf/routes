@@ -17,7 +17,6 @@ POST         /admin/edit/:pUrl            controllers.ProductCtrl.update(pUrl: S
 GET         /admin/listProduct/:page      controllers.ProductCtrl.listProduct(page: Int, _pp:Int ?=10, _n: String ?= "", _c:String ?= "", _g: String ?="", _min:Int ?= 0, _max: Int ?= 100000000)
 POST        /admin/delete/:id            controllers.ProductCtrl.deleteProduct(id: String)
 
-GET         /delay                       controllers.ProductCtrl.index2
 
 GET         /image/list                  controllers.ImageCtrl.getList(name: String ?="", page: Int ?=1)
 GET         /image/upload                controllers.Application.upload

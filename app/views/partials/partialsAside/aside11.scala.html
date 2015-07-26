@@ -1,0 +1,17 @@
+@(supType: models.SupType, subType: models.SubType , group: models.GroupP,
+	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
+
+
+<aside class="aside">
+
+	<div class="laside">
+		<hr/>
+		<span>Phần cứng, Thiết bị (@supType.s1)</span>
+		<div>
+			<span>Máy Nạp & Adapter (@subType.s11)</span>
+			<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer", "", 8)">Máy nạp ĐA NĂNG </a> (@group.s111)</div>
+			<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer", "", 8)">Mạch nạp 8051 </a>(@group.s112)</div>
+		</div>
+		<hr>
+	</div>
+</aside>

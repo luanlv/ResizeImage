@@ -1,4 +1,5 @@
-@(bigPipe: BigPipe, collection: Pagelet, _sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
+@(bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
+	collection: Pagelet, aside: Pagelet, _sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
 
 @link(_kw: String) = @{
 	if(_kw != null) {
@@ -42,10 +43,12 @@
 
 			<div class="header"></div>
 
-			<nav class="nav"></nav>
+			<nav class="nav">
+				<a class="pfull" href="@routes.ProductCtrl.index()">Trang chủ</a>
+			</nav>
 
 			<div class="main">
-				@HtmlStream.fromHtml(views.html.partials.aside( _sub, _gro, _kw, _li))
+				@pagelets(aside.id)
 				<div id="pjax-container" class="content">
 
 					<div class="menuCol1" > &rarr; Phần cứng, Thiết bị.</div>

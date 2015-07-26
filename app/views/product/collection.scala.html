@@ -3,13 +3,13 @@
 <ul class="gallery">
 	@for(product <- products){
 		<li class="simpleCart_shelfItem ra-5">
-			<a class="pjContainer item_name" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>
+			<a class="pfull item_name" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>
 				<div class="img">
 					<img src='@product.image.head.small' alt="" width="120" height="100">
 				</div>
 			</a>
 			<div class="codeP">
-				<b><a class="pjContainer " href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>@product.code</a></b>
+				<b><a class="pfull" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>@product.code</a></b>
 				<div class="stock">(@product.stock)</div>
 			</div>
 			<div class="nameP item_name">@product.name</div>

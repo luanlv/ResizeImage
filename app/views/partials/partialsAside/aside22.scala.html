@@ -1,0 +1,15 @@
+@(supType: models.SupType, subType: models.SubType , group: models.GroupP,
+	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
+
+
+<aside class="aside">
+	<div class="laside">
+	<span>LK Bán dẫn & Cảm biến (@supType.s2)</span>
+	<div>
+		<span>Memory ICs (@subType.s22)</span>
+		<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "memory", "", 8)">AT88SC0104C-SU </a>(@group.s221)</div>
+		<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "24cxx-serial-eeprom", "", 8)">24Cxx Serial EEPROM </a>(@group.s222)</div>
+	</div>
+	<hr/>
+	</div>
+</aside>
