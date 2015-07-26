@@ -49,6 +49,9 @@ class ProductCtrl @Inject() (
     extends Controller with MongoController with ReactiveMongoComponents with Pjax{
 
   //--------------------    SETUP   ------------------------------------------------------------
+  val cacheQueriesDay = 7 days
+
+
   val cProduct = {
     val cProduct = db[JSONCollection]("product")
     cProduct.indexesManager.ensure(
@@ -167,7 +170,7 @@ class ProductCtrl @Inject() (
   //-------------------------  Index page   ----------------------------------------------------------
 
 
-  def index = Cached((rh: RequestHeader) => rh.uri, 10) { PjaxAction.async { implicit request =>
+  def index = Cached((rh: RequestHeader) => rh.uri, 5) { PjaxAction.async { implicit request =>
 
     val cacheName1 = "phan-cung-thiet-bi"
     val futureCollection1 = cache.get[List[Product]]( cacheName1 ) match {
@@ -178,7 +181,7 @@ class ProductCtrl @Inject() (
           .cursor[Product]().collect[List](8)
 
         futureCollection1.map {
-          list => cache.set(cacheName1, list, 30 days)
+          list => cache.set(cacheName1, list, cacheQueriesDay)
             cacheList += cacheName1
         }
         futureCollection1
@@ -199,7 +202,7 @@ class ProductCtrl @Inject() (
           .cursor[Product]().collect[List](8)
 
         futureColection2.map {
-          list => cache.set(cacheName2, list, 30 days)
+          list => cache.set(cacheName2, list, cacheQueriesDay)
             cacheList += cacheName2
         }
         futureColection2
@@ -220,7 +223,7 @@ class ProductCtrl @Inject() (
           .cursor[Product]().collect[List](8)
 
         futureCollection3.map {
-          list => cache.set(cacheName3, list, 30 days)
+          list => cache.set(cacheName3, list, cacheQueriesDay)
           cacheList += cacheName3
         }
         futureCollection3
@@ -273,7 +276,7 @@ class ProductCtrl @Inject() (
   //---------------------------View product--------------------------------------------------------
 
   def viewProduct( sub: String, gro: String, pUrl: String) =
-    Cached((rh: RequestHeader) => rh.uri + pUrl, 10)  { PjaxAction.async { implicit request =>
+    Cached((rh: RequestHeader) => rh.uri + pUrl, 5)  { PjaxAction.async { implicit request =>
 
 
     val futureProduct = cache.get[Option[Product]]( pUrl ) match {
@@ -284,7 +287,7 @@ class ProductCtrl @Inject() (
 //        val futureProduct =  Promise.timeout(futureProduct2, delay1.second).flatMap(x => x)
 
         futureProduct.map{
-          list => cache.set(pUrl, list, 30 days)
+          list => cache.set(pUrl, list, cacheQueriesDay)
             cacheList += pUrl
         }
         futureProduct
@@ -344,9 +347,10 @@ class ProductCtrl @Inject() (
                  _kw:String = "", _li:Int = 8,
                  _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ,
                  _min:Int = 0, _max: Int = 500000000) =
-    Cached((rh: RequestHeader) => rh.uri + groupUrl, 10) {PjaxAction.async { implicit request =>
+    Cached((rh: RequestHeader) => rh.uri + groupUrl, 5) {PjaxAction.async { implicit request =>
 
-      val cacheName = "collection-" + groupUrl + _kw + _li + _br + _or + _lt + _ln
+      val newKw = vnSearch(_kw)
+      val cacheName = "collection-" + groupUrl + _kw + _li + _br + _or + _lt + _ln + _min + _max
 
       val futureList = cache.get[List[Product]](cacheName) match {
         case None => {
@@ -354,21 +358,24 @@ class ProductCtrl @Inject() (
           val futureList = cProduct.find(Json.obj(
           "subTypeUrl" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
           "groupUrl" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
-          "$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i")),
-            Json.obj("code" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i"))),
+          "$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i")),
+            Json.obj("code" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i"))),
           "brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
           "origin" -> Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i"),
           "legType" -> Json.obj("$regex" -> (".*" + _lt + ".*"), "$options" -> "-i"),
           "legNumber" -> Json.obj("$regex" -> (".*" + _ln + ".*"), "$options" -> "-i"),
-          "price" -> Json.obj("$gte" -> _min),
-          "price" -> Json.obj("$lte" -> _max)
+          "$and" -> Json.arr(Json.obj("price" -> Json.obj("$gte" -> _min)),
+                              Json.obj("price" -> Json.obj("$lte" -> _max)))
         ))
         .cursor[Product]().collect[List](_li)
 
           futureList.map{
 
-            list => cache.set(cacheName, list, 30 days)
+            list => {
+              cache.set(cacheName, list, cacheQueriesDay)
               cacheList += cacheName
+              list
+            }
           }
           futureList
         }
@@ -442,7 +449,7 @@ class ProductCtrl @Inject() (
 //          .cursor[Product]().collect[List](_li)
 //
 //        futureList.map{
-//          list => cache.set("search" + sup + sub + gro + _kw + _li, list, 30 days)
+//          list => cache.set("search" + sup + sub + gro + _kw + _li, list, cacheQueriesDay)
 //            cacheList += "search" + sup + sub + gro + _kw + _li
 //        }
 //        futureList
@@ -507,7 +514,7 @@ class ProductCtrl @Inject() (
         .cursor[Product]().collect[List](_pp)
 
         futureList.map{
-          list => cache.set("listProduct" + page, list, 30 days)
+          list => cache.set("listProduct" + page, list, cacheQueriesDay)
           cacheList += "listProduct" + page
         }
         futureList
@@ -811,7 +818,7 @@ class ProductCtrl @Inject() (
           }
         }
         result.map {
-          list => cache.set(cacheGroup, list, 30 days)
+          list => cache.set(cacheGroup, list, cacheQueriesDay)
             cacheList += cacheGroup
         }
         result
@@ -869,7 +876,7 @@ class ProductCtrl @Inject() (
           }
         }
         result.map {
-          list => cache.set(cacheSupType, list, 30 days)
+          list => cache.set(cacheSupType, list, cacheQueriesDay)
             cacheList += cacheSupType
         }
         result
@@ -948,7 +955,7 @@ class ProductCtrl @Inject() (
           }
         }
         result.map {
-          list => cache.set(cacheSubType, list, 30 days)
+          list => cache.set(cacheSubType, list, cacheQueriesDay)
             cacheList += cacheSubType
         }
         result
@@ -1067,7 +1074,7 @@ class ProductCtrl @Inject() (
 
         }
         result.map {
-          list => cache.set(cacheName, list, 30 days)
+          list => cache.set(cacheName, list, cacheQueriesDay)
             cacheList += cacheName
         }
         result
@@ -1138,7 +1145,7 @@ class ProductCtrl @Inject() (
 
         }
         result.map {
-          list => cache.set(cacheName, list, 30 days)
+          list => cache.set(cacheName, list, cacheQueriesDay)
             cacheList += cacheName
         }
         result
@@ -1233,7 +1240,7 @@ class ProductCtrl @Inject() (
 
         }
         result.map {
-          list => cache.set(cacheName, list, 30 days)
+          list => cache.set(cacheName, list, cacheQueriesDay)
             cacheList += cacheName
         }
         result
@@ -1342,7 +1349,7 @@ class ProductCtrl @Inject() (
 
         }
         result.map {
-          list => cache.set(cacheName, list, 30 days)
+          list => cache.set(cacheName, list, cacheQueriesDay)
             cacheList += cacheName
         }
         result
@@ -1355,4 +1362,14 @@ class ProductCtrl @Inject() (
     data
   }
 
+  def vnSearch(s: String) = {
+    s.toLowerCase
+        .replaceAll("a", "[a|á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ]")
+        .replaceAll("e", "[e|é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ]")
+        .replaceAll("i", "[i|í|ì|ỉ|ĩ|ị]")
+        .replaceAll("o", "[o|ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ]")
+        .replaceAll("u", "[u|ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự]")
+        .replaceAll("y", "[y|ý|ỳ|ỷ|ỹ|ỵ]")
+        .replaceAll("d", "[d|đ]")
+  }
 }

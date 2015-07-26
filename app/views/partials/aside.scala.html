@@ -34,33 +34,17 @@
 		<hr>
 		Bộ lọc:
 		<div>
-			<form action="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, _ln, _min, _max)" method="GET">
+			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, "", _li, _br, _or, _lt, _ln, _min, _max)" method="GET">
 				<input type="text" placeholder="Tên/Mã sản phẩm" name="_kw" value="@_kw">
-				@if(_br != "") {<input type="hidden"  name="_br" value="@_br">}
-				@if(_or != "") {<input type="hidden"  name="_or" value="@_or">}
-				@if(_lt != "") {<input type="hidden"  name="_lt" value="@_lt">}
-				@if(_ln != "") {<input type="hidden"  name="_ln" value="@_ln">}
-				@if(_min != 0) {<input type="hidden"  name="_min" value="@_min">}
-				@if(_max != 500000000) {<input type="hidden"  name="_max" value="">}
 				<button type="submit">OK</button>
 			</form>
-			@if(_kw != ""){
-				<a href="@routes.ProductCtrl.collection(_sub, _gro, "", _li, _br, _or, _lt, _ln, _min, _max)">xóa</a>
-			}
+
 			<br>
-			<form action="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, _ln, _min, _max)" method="GET">
-			@if(_kw != "") {<input type="hidden" placeholder="Tên/Mã sản phẩm" name="_kw" value="@_kw">}
-				@if(_br != "") {<input type="hidden"  name="_br" value="@_br">}
-				@if(_or != "") {<input type="hidden"  name="_or" value="@_or">}
-				@if(_lt != "") {<input type="hidden"  name="_lt" value="@_lt">}
-				@if(_ln != "") {<input type="hidden"  name="_ln" value="@_ln">}
+			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, _ln)" method="GET">
 				<input type="number" placeholder="Giá thấp nhất" name="_min" value="@_min">
 				<input type="number" placeholder="Giá cao nhất" name="_max" value="@_max">
 				<button type="submit">OK</button>
 			</form>
-			@if(_min != 0 || _max != 500000000){
-				<a href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, _ln)">xóa</a>
-			}
 		</div>
 		<div>
 			<h3>Nhãn hiệu</h3>

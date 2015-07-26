@@ -257,7 +257,63 @@ var imageArray = [
       "small": "/assets/imageDemo/small7.jpg",
       "thumb": "/assets/imageDemo/thumb7.jpg"
     }
-  ]
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin8.jpg",
+      "small": "/assets/imageDemo/small8.jpg",
+      "thumb": "/assets/imageDemo/thumb8.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin9.jpg",
+      "small": "/assets/imageDemo/small9.jpg",
+      "thumb": "/assets/imageDemo/thumb9.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin10.jpg",
+      "small": "/assets/imageDemo/small10.jpg",
+      "thumb": "/assets/imageDemo/thumb10.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin11.jpg",
+      "small": "/assets/imageDemo/small11.jpg",
+      "thumb": "/assets/imageDemo/thumb11.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin12.jpg",
+      "small": "/assets/imageDemo/small12.jpg",
+      "thumb": "/assets/imageDemo/thumb12.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin13.jpg",
+      "small": "/assets/imageDemo/small13.jpg",
+      "thumb": "/assets/imageDemo/thumb13.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin14.jpg",
+      "small": "/assets/imageDemo/small14.jpg",
+      "thumb": "/assets/imageDemo/thumb14.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin15.jpg",
+      "small": "/assets/imageDemo/small15.jpg",
+      "thumb": "/assets/imageDemo/thumb15.jpg"
+    }
+  ],
 ];
 
 var listBrand = ["Other", "Xeltek", "ATMEL", "ELNEC", "TOP", "SOFI-TECH", "Raspberry Pi", "ST",
