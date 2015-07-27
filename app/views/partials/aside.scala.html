@@ -7,7 +7,7 @@
 
 
 <aside class="aside">
-
+	<hr class="style-menu">
 	<div class="laside">
 		@if(_sub == "may-nap-adapter"){
 			@views.html.partials.partialsAside.aside11(supType, subType, group, _sub, _gro, _kw, _li)
@@ -30,11 +30,10 @@
 			@views.html.partials.partialsAside.aside32(supType, subType, group, _sub, _gro, _kw, _li)
 		}
 
-		<hr>
 	</div>
 
 	<div class="filter">
-		<b>Tìm kiếm:</b>
+		<hr class="filter-menu">
 		<div>
 			<br>
 			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, "", _li, _br, _or, _lt, _ln, _min, _max)" method="GET">
@@ -48,62 +47,72 @@
 				<button type="submit"> > </button>
 			</form>
 		</div>
-		<div>
-			<h4>Nhãn hiệu</h4>
-			@if(_br != ""){
-				<a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, "", _or, _lt, _ln, _min, _max)">&empty; @_br</a>
-			} else {
-				<ul class="lshow">
-					@for(
-						o <- List("Other", "Xeltek", "ATMEL", "ELNEC", "TOP")
-							.zip(List(brand.s1, brand.s2, brand.s3, brand.s4, brand.s5))
-					){
-						@if(o._2 >0){
-							<li><div class="br"><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, o._1, _or, _lt, _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div></li>
-							}
-					}
-				</ul>
-				<ul class="lhide hide">
-					@for(
-						o <- List("SOFI-TECH", "Raspberry Pi", "ST",
-							"InvenSense", "Eagle Power", "VISHAY", "Harvatek", "Andorin", "Sharp")
-							.zip(List( brand.s6, brand.s7, brand.s8, brand.s9, brand.s10, brand.s11, brand.s12, brand.s13, brand.s14))
-					){
-						@if(o._2 >0){
-							<li><div class="br"><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, o._1, _or, _lt, _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div></li>
-						}
-					}
-				</ul>
-				<a aria-label="Show more categories" href="#" class="cat-sh" onclick="return false;"><span class="cat-more fewer">More</span><span class="icon"></span></a>
-			}
-		</div>
 
-		<div>
-			<h4>Xuất xứ</h4>
-			@if(_or != ""){
-				<a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, "", _lt, _ln, _min, _max)">&empty; @_or</a>
-			} else {
-				<ul class="lshow">
+		<div class="lt-ln">
+			<div class="lt">
+				<span class="f-title">Xuất xứ</span>
+				@if(_or != ""){
+					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, "", _lt, _ln, _min, _max)">&empty; @_or</a></div>
+				} else {
+					<ul class="lshow">
 					@for(
 						o <- List("Việt Nam", "Trung Quốc", "Chính hãng", "Taiwan", "UK")
 							.zip(List(origin.s1, origin.s2, origin.s3, origin.s4, origin.s5))
 					){
 						@if(o._2 >0){
 							<li>
-								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, o._1, _lt, _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
+								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, o._1, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
-							}
+						}
 					}
-				</ul>
-			}
+					</ul>
+				}
+			</div>
+
+			<div class="ln">
+				<span class="f-title">Nhãn hiệu</span>
+				@if(_br != ""){
+					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, "", _or, _lt, _ln, _min, _max)">&empty; @_br</a></div>
+				} else {
+					<ul class="lshow">
+					@for(
+						o <- List("Other", "Xeltek", "ATMEL", "ELNEC", "TOP")
+							.zip(List(brand.s1, brand.s2, brand.s3, brand.s4, brand.s5))
+					){
+						@if(o._2 >0){
+							<li><div class="br"><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, o._1, _or, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div></li>
+						}
+					}
+					</ul>
+					<ul class="lhide @if((brand.s1 + brand.s2 + brand.s3 + brand.s4 + brand.s5)>0){hide}">
+					@for(
+						o <- List("SOFI-TECH", "Raspberry Pi", "ST",
+							"InvenSense", "Eagle Power", "VISHAY", "Harvatek", "Andorin", "Sharp")
+							.zip(List( brand.s6, brand.s7, brand.s8, brand.s9, brand.s10, brand.s11, brand.s12, brand.s13, brand.s14))
+					){
+						@if(o._2 >0){
+							<li><div class="br"><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, o._1, _or, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div></li>
+						}
+					}
+					</ul>
+					@if((brand.s1 + brand.s2 + brand.s3 + brand.s4 + brand.s5)>0 && (brand.s6 + brand.s7 + brand.s8 + brand.s9 + brand.s10 + brand.s11 + brand.s12 + brand.s13 + brand.s14)>0) {
+						<a aria-label="Show more categories" href="#" class="cat-sh" onclick="return false;"><span class="cat-more fewer">
+							Hiện thêm</span><span class="icon"></span></a>
+					}
+				}
+			</div>
+
 		</div>
 
-		<div>
-			<h4>Kiểu chân</h4>
-			@if(_lt != ""){
-				<a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, "", _ln, _min, _max)">&empty; @_lt</a>
-			} else {
-				<ul class="lshow">
+
+
+		<div class="lt-ln">
+			<div class="lt">
+				<span class="f-title">Kiểu chân</span>
+				@if(_lt != ""){
+					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, "", _ln, _min, _max)">&empty; @_lt</a></div>
+				} else {
+					<ul class="lshow">
 					@for(o <- List( "DIP", "SIP", "LQFP", "PQFP", "QFN")
 						.zip(List( legType.s2, legType.s3, legType.s4, legType.s5, legType.s6))
 					){
@@ -111,32 +120,35 @@
 							<li>
 								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, o._1 , _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
-							}
+						}
 					}
-				</ul>
-				<ul class="lhide hide">
-				@for(o <- List( "SOIC", "TQFP", "T-1 3/4", "SMD", "SMD0805")
-					.zip(List( legType.s7, legType.s8, legType.s9, legType.s10, legType.s11))
-				){
-					@if(o._2>0) {
-						<li>
-							<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, o._1 , _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
-						</li>
+					</ul>
+					<ul class="lhide @if(( legType.s2 + legType.s3 + legType.s4 + legType.s5 + legType.s6)>0){ hide}">
+					@for(o <- List( "SOIC", "TQFP", "T-1 3/4", "SMD", "SMD0805")
+						.zip(List( legType.s7, legType.s8, legType.s9, legType.s10, legType.s11))
+					){
+						@if(o._2>0) {
+							<li>
+								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, o._1 , _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
+							</li>
 
 						}
+					}
+					</ul>
+					@if(( legType.s2 + legType.s3 + legType.s4 + legType.s5 + legType.s6)>0 && ( legType.s7 + legType.s8 + legType.s9 + legType.s10 + legType.s11) > 0) {
+						<a aria-label="Show more categories" href="#" class="cat-sh" onclick="return false;"><span class="cat-more fewer">
+							Hiện thêm</span><span class="icon"></span></a>
+					}
 				}
-				</ul>
-				<a aria-label="Show more categories" href="#" class="cat-sh" onclick="return false;"><span class="cat-more fewer">More</span><span class="icon"></span></a>
-			}
 
-		</div>
+			</div>
 
-		<div>
-			<h4>Số chân</h4>
-			@if(_ln != ""){
-				<a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, "", _min, _max)">&empty; @_ln</a>
-			} else {
-				<ul class="lshow">
+			<div class="ln">
+				<span class="f-title">Số chân</span>
+				@if(_ln != ""){
+					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, "", _min, _max)">&empty; @_ln</a></div>
+				} else {
+					<ul class="lshow">
 					@for(o <- List( "208", "100", "64", "44", "40")
 						.zip(List( legNumber.s2, legNumber.s3, legNumber.s4, legNumber.s5, legNumber.s6))
 					){
@@ -144,10 +156,11 @@
 							<li>
 								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, o._1, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
-							}
+						}
 					}
-				</ul>
-				<ul class="lhide hide">
+					</ul>
+
+					<ul class="lhide @if((legNumber.s2 + legNumber.s3 + legNumber.s4 + legNumber.s5 + legNumber.s6)> 0){ hide }">
 					@for(o <- List( "32", "28", "24", "20", "16", "14", "8", "4")
 						.zip(List(legNumber.s7, legNumber.s8, legNumber.s9, legNumber.s10, legNumber.s11, legNumber.s12,
 						legNumber.s13, legNumber.s14, legNumber.s15))
@@ -156,12 +169,19 @@
 							<li>
 								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, o._1, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
-							}
+						}
 					}
-				</ul>
-				<a aria-label="Show more categories" href="#" class="cat-sh" onclick="return false;"><span class="cat-more fewer">More</span><span class="icon"></span></a>
-			}
+					</ul>
+					@if((legNumber.s7 + legNumber.s8 + legNumber.s9 + legNumber.s10 + legNumber.s11 + legNumber.s12 +
+						legNumber.s13 + legNumber.s14 + legNumber.s15) > 0 && (legNumber.s2 + legNumber.s3 + legNumber.s4 + legNumber.s5 + legNumber.s6) > 0  ) {
+						<a aria-label="Show more categories" href="#" class="cat-sh" onclick="return false;"><span class="cat-more fewer">
+							Hiện thêm</span><span class="icon"></span></a>
+					}
+				}
+			</div>
 		</div>
+
+
 		<hr>
 	</div>
 </aside>

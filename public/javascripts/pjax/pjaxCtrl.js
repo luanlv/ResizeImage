@@ -65,11 +65,11 @@ $(function() {
   $(document).on('click', 'a.cat-sh', function(){
     $(this).parent().children('ul.lhide').toggleClass('hide');
     var tmp = $(this).children().first();
-    if(tmp.text() === 'Fewer'){
-      tmp.text('More');
+    if(tmp.text() === 'Ẩn bớt'){
+      tmp.text('Hiện thêm');
       tmp.attr('aria-label', 'Show more categories');
     }else{
-      tmp.text('Fewer');
+      tmp.text('Ẩn bớt');
       tmp.attr('aria-label', 'Show fewer categories');
     }
   });

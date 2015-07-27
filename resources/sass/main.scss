@@ -7,6 +7,7 @@
 @import "susylayout";
 @import "gallery";
 @import "cart";
+@import "nav";
 @import "aside";
 @import "slimbox";
 a {
@@ -37,11 +38,51 @@ a.pLink {
 }
 
 hr{
-  margin-top: 15px;
   border: 0;
-  height: 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+hr.filter-menu {
+  padding: 0;
+  border: none;
+  border-top: 1px solid #ddd;
+  color: #333;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  font-size: 10px;
+}
+
+hr.filter-menu:after {
+  content: "Lọc sản phẩm";
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  font-size: 1.5em;
+  padding: 0 0.25em;
+  background: white;
+}
+
+hr.style-menu {
+  padding: 0;
+  border: none;
+  border-top: medium double #ddd;
+  color: #333;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+  font-size: 10px;
+}
+
+hr.style-menu:after {
+  content: "Danh mục";
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  font-size: 1.5em;
+  padding: 0 0.25em;
+  background: white;
 }
 
 
@@ -72,3 +113,4 @@ hr{
   padding-right: 15px;
   background: -webkit-gradient(linear,left top,left bottom,from(#0079bc),to(#00509d));
 }
+
