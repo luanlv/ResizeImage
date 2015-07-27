@@ -1,15 +1,18 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
 
-
-<h3>LK Khác và Phụ kiện (@supType.s3)</h3>
-<div>
-	<h3>LCDs Display</h3><span class="num">(@subType.s32)</span>
-	@if(_gro == "character-lcd"){
-		<div class="active">&diams; Character LCDs <span class="num">(@group.s321)</span></div>
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd", "", 8)">&rarr;Graphic LCDs </a><span class="num">(@group.s322)</span></div>
-	} else {
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd", "", 8)">&rarr;Character LCDs</a><span class="num">(@group.s321)</span></div>
-		<div class="active">&diams; Graphic LCDs <span class="num">(@group.s322)</span></div>
-	}
+<div class="sup">
+	<h3>LK Khác và Phụ kiện (@supType.s3)</h3>
+	<div class="sub">
+		<h3>LCDs Display</h3><span class="num">(@subType.s32)</span>
+		<div class="group">
+			@if(_gro == "character-lcd"){
+				<div class="active">&diams; Character LCDs <span class="num">(@group.s321)</span></div>
+				<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd", "", 8)">&rarr;Graphic LCDs </a><span class="num">(@group.s322)</span></div>
+			} else {
+				<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd", "", 8)">&rarr;Character LCDs</a><span class="num">(@group.s321)</span></div>
+				<div class="active">&diams; Graphic LCDs <span class="num">(@group.s322)</span></div>
+			}
+		</div>
+	</div>
 </div>

@@ -39,7 +39,12 @@
 			<div class="main">
 					@pagelets("aside")
 				<div id="pjax-container" class="content">
-					@pagelets("product")
+					<div class="c-left">
+						@pagelets("product")
+					</div>
+					<div class="c-right ra-5">
+						<div class="demo"></div>
+					</div>
 				</div>
 			</div>
 			<div class="footer"></div>

@@ -1,17 +1,18 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
 
-
-<h3>LK Bán dẫn & Cảm biến </h3><span class="num">(@supType.s2)</span>
-<div>
-	<h3>Sensors, Transducers</h3><span class="num">(@subType.s21)</span>
-
-	@if(_gro == "gyroscopes"){
-		<div class="active">&diams; Gyroscopes <span class="num">(@group.s211)</span></div>
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor", "", 8)">&rarr;Cảm biến ánh sáng </a><span class="num">(@group.s212)</span></div>
-	} else {
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes", "", 8)">&rarr;Gyroscopes </a><span class="num">(@group.s211)</span></div>
-		<div class="active">&diams; Cảm biến ánh sáng <span class="num">(@group.s212)</span></div>
-	}
-
+<div class="sup">
+	<h3>LK Bán dẫn & Cảm biến </h3><span class="num">(@supType.s2)</span>
+	<div class="sub">
+		<h3>Sensors, Transducers</h3><span class="num">(@subType.s21)</span>
+		<div class="group">
+			@if(_gro == "gyroscopes"){
+				<div class="active">&diams; Gyroscopes <span class="num">(@group.s211)</span></div>
+				<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor", "", 8)">&rarr;Cảm biến ánh sáng </a><span class="num">(@group.s212)</span></div>
+			} else {
+				<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes", "", 8)">&rarr;Gyroscopes </a><span class="num">(@group.s211)</span></div>
+				<div class="active">&diams; Cảm biến ánh sáng <span class="num">(@group.s212)</span></div>
+			}
+		</div>
+	</div>
 </div>

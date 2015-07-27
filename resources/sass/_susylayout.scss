@@ -55,6 +55,7 @@ $susy:(
   @include container(100%);
   background: white;
   display: block;
+  @include clearfix();
 }
 
 .header{
@@ -77,16 +78,29 @@ $susy:(
   @include clearfix();
 }
 .aside {
-  min-height: 550px;
-  @include span( 18 of 100);
-  @include pad(5px);
-}
-.content{
-  min-height: 500px;
-  @include clearfix();
-  @include span( 80 of 100 last);
+  position: absolute;
+  width: span(210px static);
 }
 
+.content{
+  padding-left: span(220px static wide);
+  @include clearfix();
+}
+
+.c-left{
+  @include span(10 of 12 );
+  @include clearfix()
+}
+.c-right{
+  @include span(2 of 12 last);
+  @include clearfix();
+  min-height: 1100px;
+
+  .demo{
+    min-height: 600px;
+    background: lightblue;
+  }
+}
 .thongbao-left{
   @include span(6 of 10);
 }
@@ -109,14 +123,12 @@ $susy:(
 }
 
 .col1, .col2, .col3 {
+  @include full();
   border: solid 1px #BEDAEC ;
   border-top: 0;
-  @include full();
   min-height: 150px;
   margin-bottom: 19px;
 }
-
-
 
 
 .pContainer{

@@ -3,65 +3,69 @@
 @views.html.partials.viewAside(supType, subType, group, product.subTypeUrl, product.groupUrl)
 
 <div id="pjax-container" class="content">
-	<div class="pContainer simpleCart_shelfItem">
-		<div class="pHeader">
-			<div>
-				Phần cứng, Thiết bị... >
-				Accessory Booard > Keypad Modules > TOUCH-CAP-4x4
-			</div>
-		</div>
-
-		<div class="pImg">
-			<em>Hình ảnh có thể chỉ là đại diện, xem datasheet để có thông số chính xác hơn</em>
-			<div class="img">
-				<div class="targetarea"><img id="multizoom1"  alt="zoomable" title=""  src="@product.image.head.thumb" width="180" height="150"/></div>
-				@*<div id="description">Milla Jojovitch</div>*@
-				<div class="multizoom1 thumbs">
-				@for(image <- product.image) {
-					<a href="@image.small" data-large="@image.origin"  data-title="Milla Jojovitch"><img src="@image.thumb" alt="Milla" title="" width="35" height="35"/></a>
-				}
+	<div class="c-left">
+		<div class="pContainer simpleCart_shelfItem">
+			<div class="pHeader">
+				<div>
+					Phần cứng, Thiết bị... >
+					Accessory Booard > Keypad Modules > TOUCH-CAP-4x4
 				</div>
-				<div id="lightbox">
-				@for(image <- product.image) {
-					@if(image.origin == product.image.head.origin){
-						<a href="@image.origin" rel="lightbox-cats"> Click để phóng to!</a>
-					} else {<a href="@image.origin" rel="lightbox-cats"></a>}
-				}
-				</div>
-
 			</div>
 
+			<div class="pImg">
+				<em>Hình ảnh có thể chỉ là đại diện, xem datasheet để có thông số chính xác hơn</em>
+				<div class="img">
+					<div class="targetarea"><img id="multizoom1"  alt="zoomable" title=""  src="@product.image.head.thumb" width="180" height="150"/></div>
+					@*<div id="description">Milla Jojovitch</div>*@
+					<div class="multizoom1 thumbs">
+					@for(image <- product.image) {
+						<a href="@image.small" data-large="@image.origin"  data-title="Milla Jojovitch"><img src="@image.thumb" alt="Milla" title="" width="35" height="35"/></a>
+					}
+					</div>
+					<div id="lightbox">
+					@for(image <- product.image) {
+						@if(image.origin == product.image.head.origin){
+							<a href="@image.origin" rel="lightbox-cats"> Click để phóng to!</a>
+						} else {<a href="@image.origin" rel="lightbox-cats"></a>}
+					}
+					</div>
 
-		</div>
+				</div>
 
-		<div class=" pDetail">
-			<fieldset>
-				<legend><div align="center">@product.code</div></legend>
-				<div style=" float:left;"><span class="pdName item_name">@product.name</span></div>
-				<br>
-				<p>Nhân nhóm: @product.group</p>
-				<p>Nhãn hiệu: @product.brand</p>
-				<p>Xuất xứ: @product.origin</p>
-				<p>Kiểu chân: @product.legType</p>
-				<p>Số chân: @product.legNumber</p>
-				<p>Trong kho còn: @product.stock</p>
-				<p>Giá: @product.price</p>
-			</fieldset>
-		</div>
-		<div style="float:right">Số lượng mua: <input type="text" value="1" class="item_quantity" size="1"  id="item-quantity"></div>
-		<div style="float:right" class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
-		<button style="float:right" class="item_add">Add to Cart</button>
 
-		<div class="pExtra">
-			<ol id="toc">
-				<li><a class=" active" href="#pro_info"><div><span>Thông tin sản phẩm</span></div></a></li>
-				<li><a class=" inactive" href="#"><div><span>Sản phẩm cùng chức năng</span></div></a></li>
-			</ol>
+			</div>
 
-			<div class="pcExtra" id="pro_info">
-			@Html(product.info.getOrElse(""))
+			<div class=" pDetail">
+				<fieldset>
+					<legend><div align="center">@product.code</div></legend>
+					<div style=" float:left;"><span class="pdName item_name">@product.name</span></div>
+					<br>
+					<p>Nhân nhóm: @product.group</p>
+					<p>Nhãn hiệu: @product.brand</p>
+					<p>Xuất xứ: @product.origin</p>
+					<p>Kiểu chân: @product.legType</p>
+					<p>Số chân: @product.legNumber</p>
+					<p>Trong kho còn: @product.stock</p>
+					<p>Giá: @product.price</p>
+				</fieldset>
+			</div>
+			<div style="float:right">Số lượng mua: <input type="text" value="1" class="item_quantity" size="1"  id="item-quantity"></div>
+			<div style="float:right" class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
+			<button style="float:right" class="item_add">Add to Cart</button>
+
+			<div class="pExtra">
+				<ol id="toc">
+					<li><a class=" active" href="#pro_info"><div><span>Thông tin sản phẩm</span></div></a></li>
+					<li><a class=" inactive" href="#"><div><span>Sản phẩm cùng chức năng</span></div></a></li>
+				</ol>
+
+				<div class="pcExtra" id="pro_info">
+				@Html(product.info.getOrElse(""))
+				</div>
 			</div>
 		</div>
 	</div>
-
+	<div class="c-right ra-5">
+		<div class="demo"></div>
+	</div>
 </div>

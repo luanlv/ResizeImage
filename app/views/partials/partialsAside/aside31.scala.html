@@ -1,14 +1,18 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
 
-<h3>LK Khác và Phụ kiện</h3><span class="num">(@supType.s3)</span>
-<div>
-	<h3>LEDs</h3><span class="num">(@subType.s31)</span>
-	@if(_gro == "led-1w"){
-		<div class="active">&diams; LED 1W <span class="num">(@group.s311)</span></div>
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-smd-0805", "", 8)">&rarr;LEDs SMD-0805 (2012) </a><span class="num">(@group.s312)</span></div>
-	} else {
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-1w", "", 8)">&rarr;LED 1W </a><span class="num">(@group.s311)</span></div>
-		<div class="active">&diams; LEDs SMD-0805 (2012) <span class="num">(@group.s312)</span></div>
-	}
+<div class="sup">
+	<h3>LK Khác và Phụ kiện</h3><span class="num">(@supType.s3)</span>
+	<div class="sub">
+		<h3>LEDs</h3><span class="num">(@subType.s31)</span>
+		<div class="group">
+			@if(_gro == "led-1w"){
+				<div class="active">&diams; LED 1W <span class="num">(@group.s311)</span></div>
+				<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-smd-0805", "", 8)">&rarr;LEDs SMD-0805 (2012) </a><span class="num">(@group.s312)</span></div>
+			} else {
+				<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-1w", "", 8)">&rarr;LED 1W </a><span class="num">(@group.s311)</span></div>
+				<div class="active">&diams; LEDs SMD-0805 (2012) <span class="num">(@group.s312)</span></div>
+			}
+		</div>
+	</div>
 </div>

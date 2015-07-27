@@ -5,42 +5,73 @@
 <aside class="aside">
 
 	<div class="laside">
-		<h3>Phần cứng, Thiết bị</h3><span class="num">(@supType.s1)</span>
-		<div>
-			<h3>Máy Nạp & Adapter</h3><span class="num">(@subType.s11)</span>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer", "", 8)">&rarr;Máy nạp ĐA NĂNG</a><span class="num">(@group.s111)</span></div>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer", "", 8)">&rarr;Mạch nạp 8051</a><span class="num">(@group.s112)</span></div>
-		</div>
-		<div>
-			<h3>Board Phát triển</h3><span class="num">(@subType.s12)</span>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "raspberry-pi", "", 8)">&rarr;Raspberry PI</a><span class="num">(@group.s121)</span></div>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "arduino-shield", "", 8)">&rarr;Arduino and Shields</a><span class="num">(@group.s122)</span></div>
+		<div class="sup">
+			<h3>Phần cứng, Thiết bị</h3><span class="num">(@supType.s1)</span>
+			<div class="sub">
+				<h3>Máy Nạp & Adapter</h3><span class="num">(@subType.s11)</span>
+
+				<div class="group">
+					<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer", "", 8)">&rarr;Máy nạp ĐA NĂNG</a><span class="num">(@group.s111)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer", "", 8)">&rarr;Mạch nạp 8051</a><span class="num">(@group.s112)</span></div>
+				</div>
+
+			</div>
+			<div class="sub">
+				<h3>Board Phát triển</h3><span class="num">(@subType.s12)</span>
+
+				<div class="group">
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "raspberry-pi", "", 8)">&rarr;Raspberry PI</a><span class="num">(@group.s121)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "arduino-shield", "", 8)">&rarr;Arduino and Shields</a><span class="num">(@group.s122)</span></div>
+				</div>
+
+			</div>
 		</div>
 
 		<hr/>
-		<h3>LK Bán dẫn & Cảm biến</h3><span class="num">(@supType.s2)</span>
-		<div>
-			<h3>Sensors, Transducers</h3><span class="num">(@subType.s21)</span>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes", "", 8)">&rarr;Gyroscopes</a><span class="num">(@group.s211)</span></div>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor", "", 8)">&rarr;Cảm biến ánh sáng</a><span class="num">(@group.s212)</span></div>
+		<div class="sub">
+			<h3>LK Bán dẫn & Cảm biến</h3><span class="num">(@supType.s2)</span>
+			<div class="sub">
+				<h3>Sensors, Transducers</h3><span class="num">(@subType.s21)</span>
+				<div class="group">
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes", "", 8)">&rarr;Gyroscopes</a><span class="num">(@group.s211)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor", "", 8)">&rarr;Cảm biến ánh sáng</a><span class="num">(@group.s212)</span></div>
+				</div>
+
+			</div>
+			<div class="sub">
+				<h3>Memory ICs</h3><span class="num">(@subType.s22)</span>
+
+				<div class="group">
+					<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "memory", "", 8)">&rarr;AT88SC0104C-SU</a><span class="num">(@group.s221)</span></div>
+					<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "24cxx-serial-eeprom", "", 8)">&rarr;24Cxx Serial EEPROM</a><span class="num">(@group.s222)</span></div>
+				</div>
+			</div>
 		</div>
-		<div>
-			<h3>Memory ICs</h3><span class="num">(@subType.s22)</span>
-			<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "memory", "", 8)">&rarr;AT88SC0104C-SU</a><span class="num">(@group.s221)</span></div>
-			<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "24cxx-serial-eeprom", "", 8)">&rarr;24Cxx Serial EEPROM</a><span class="num">(@group.s222)</span></div>
-		</div>
+
 		<hr/>
-		<h3>LK Khác và Phụ kiện</h3><span class="num">(@supType.s3)</span>
-		<div>
-			<h3>LEDs</h3><span class="num">(@subType.s31)</span>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-1w", "", 8)">&rarr;LED 1W</a><span class="num">(@group.s311)</span></div>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-smd-0805", "", 8)">&rarr;LEDs SMD-0805 (2012)</a><span class="num">(@group.s312)</span></div>
-		</div>
-		<div>
-			<h3>LCDs Display</h3><span class="num">(@subType.s32)</span>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd", "", 8)">&rarr;Character LCDs</a><span class="num">(@group.s321)</span></div>
-			<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd", "", 8)">&rarr;Graphic LCDs</a><span class="num">(@group.s322)</span></div>
+
+		<div class="sub">
+			<h3>LK Khác và Phụ kiện</h3><span class="num">(@supType.s3)</span>
+			<div class="sub">
+				<h3>LEDs</h3><span class="num">(@subType.s31)</span>
+
+				<div class="group">
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-1w", "", 8)">&rarr;LED 1W</a><span class="num">(@group.s311)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-smd-0805", "", 8)">&rarr;LEDs SMD-0805 (2012)</a><span class="num">(@group.s312)</span></div>
+				</div>
+
+			</div>
+			<div class="sub">
+				<h3>LCDs Display</h3><span class="num">(@subType.s32)</span>
+
+				<div class="group">
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd", "", 8)">&rarr;Character LCDs</a><span class="num">(@group.s321)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd", "", 8)">&rarr;Graphic LCDs</a><span class="num">(@group.s322)</span></div>
+				</div>
+
+			</div>
 		</div>
 		<hr>
+
 	</div>
 </aside>
