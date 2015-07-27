@@ -32,5 +32,5 @@ GET         /apiListCollection         controllers.ProductCtrl.apiListCollection
 
 # Map static resources from the /public folder to the /assets URL path
 #GET           //cdn.lvlblog.com/assets/v10/*file             controllers.Assets.versioned(path="/public", file)
-GET           /assets/*file?2707             controllers.Assets.versioned(path="/public", file)
-#GET          /assets/*file             controllers.Assets.at(path="/public", file)
+GET           /assets/*file/2707             controllers.Assets.versioned(path="/public", file)
+GET           /assets/*file                  controllers.Assets.at(path="/public", file)
