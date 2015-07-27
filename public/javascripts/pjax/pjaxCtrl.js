@@ -62,5 +62,16 @@ $(function() {
     $(this).trigger('click');
   });
 
+  $(document).on('click', 'a.cat-sh', function(){
+    $(this).parent().children('ul.lhide').toggleClass('hide');
+    var tmp = $(this).children().first();
+    if(tmp.text() === 'Fewer'){
+      tmp.text('More');
+      tmp.attr('aria-label', 'Show more categories');
+    }else{
+      tmp.text('Fewer');
+      tmp.attr('aria-label', 'Show fewer categories');
+    }
+  });
 
 });
