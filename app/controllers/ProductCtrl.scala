@@ -83,7 +83,7 @@ class ProductCtrl @Inject() (
         val f = insert[Product](cProduct, tmp)
         f.map{
           lastError => {
-            clearCache(List("search", "supType", "subType", "cachegroup", tmp.supTypeUrl, tmp.subTypeUrl, tmp.groupUrl, tmp.pUrl))
+            clearCache(List("search", "supType", "subType", "cachegroup", tmp.supTypeUrl, tmp.subTypeUrl, tmp.groupUrl, tmp.pUrl, tmp.group))
             Ok("ok")
           }
         }.recover{
@@ -100,7 +100,7 @@ class ProductCtrl @Inject() (
   def deleteProduct(id: String) = PjaxAction.async { implicit  request =>
     cProduct.remove(Json.obj("_id" -> id))
     .map(_ => {
-      clearCache()
+      clearCache(List("search", "supType", "subType", "cachegroup", "wfilter", "collection-"))
       Redirect(routes.ProductCtrl.listProduct(1, 10, "", "", ""))
     }).recover {
       case _ => InternalServerError
@@ -159,7 +159,7 @@ class ProductCtrl @Inject() (
         // ok, let's do the update
         cProduct.update(Json.obj("pUrl" -> pUrl), modifier).
             map { _ => {
-                clearCache()
+              clearCache(List("search", "supType", "subType", "cachegroup", "wfilter", "collection-"))
                 Redirect(routes.ProductCtrl.viewEdit(product.pUrl)).flashing("success" -> "update OK!")
               }
             }
@@ -349,12 +349,25 @@ class ProductCtrl @Inject() (
                  _min:Int = 0, _max: Int = 500000000) =
     Cached((rh: RequestHeader) => rh.uri + groupUrl, 5) {PjaxAction.async { implicit request =>
 
-      val newKw = vnSearch(_kw)
+
       val cacheName = "collection-" + groupUrl + _kw + _li + _br + _or + _lt + _ln + _min + _max
 
       val futureList = cache.get[List[Product]](cacheName) match {
         case None => {
           println(s"Not found $cacheName ")
+          val newKw = vnSearch(_kw)
+          val jsLegType =
+            if(_lt == "") {
+              Json.obj("$regex" -> (".*" + _lt + ".*"), "$options" -> "-i")
+            } else {
+              Json.obj("$eq" -> _lt)
+            }
+          val jsLegNumber =
+            if(_ln == "") {
+              Json.obj("$regex" -> (".*" + _ln + ".*"), "$options" -> "-i")
+            } else {
+              Json.obj("$eq" -> _ln)
+            }
           val futureList = cProduct.find(Json.obj(
           "subTypeUrl" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
           "groupUrl" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
@@ -362,8 +375,8 @@ class ProductCtrl @Inject() (
             Json.obj("code" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i"))),
           "brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
           "origin" -> Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i"),
-          "legType" -> Json.obj("$regex" -> (".*" + _lt + ".*"), "$options" -> "-i"),
-          "legNumber" -> Json.obj("$regex" -> (".*" + _ln + ".*"), "$options" -> "-i"),
+          "legType" -> jsLegType,
+          "legNumber" -> jsLegNumber,
           "$and" -> Json.arr(Json.obj("price" -> Json.obj("$gte" -> _min)),
                               Json.obj("price" -> Json.obj("$lte" -> _max)))
         ))
@@ -971,19 +984,32 @@ class ProductCtrl @Inject() (
   def getBrand(group: String, keyword:String = "", origin: String = "", legType: String = "",
                legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
 //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "filter" + group + keyword + "brand" + origin + legType + legNumber + minPrice + maxPrice
+    val cacheName = "wfilter" + group + keyword + "brand" + origin + legType + legNumber + minPrice + maxPrice
 
 
     val data = cache.get[Brand]( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
         val vnKw = vnSearch(keyword)
+        val bsLegType =
+          if(legType == "") {
+            BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> legType)
+          }
+        val bsLegNumber =
+          if(legNumber == "") {
+            BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> legNumber)
+          }
         val command = Aggregate("product", Seq(
           Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legType" -> bsLegType)),
+          Match(BSONDocument("legNumber" -> bsLegNumber)),
           Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
           Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
           GroupField("brand")("total" -> SumValue(1))
@@ -1091,18 +1117,31 @@ class ProductCtrl @Inject() (
                  legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
 
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "filter" + group + keyword + brand + "origin" + legType + legNumber + minPrice + maxPrice
+    val cacheName = "wfilter" + group + keyword + brand + "origin" + legType + legNumber + minPrice + maxPrice
 
     val data = cache.get[Origin]( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
         val vnKw = vnSearch(keyword)
+        val bsLegType =
+          if(legType == "") {
+            BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> legType)
+          }
+        val bsLegNumber =
+          if(legNumber == "") {
+            BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> legNumber)
+          }
         val command = Aggregate("product", Seq(
           Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legType" -> bsLegType)),
+          Match(BSONDocument("legNumber" -> bsLegNumber)),
           Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
           Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
           GroupField("origin")("total" -> SumValue(1))
@@ -1161,18 +1200,25 @@ class ProductCtrl @Inject() (
   def getLegType(group: String, keyword: String = "", brand: String = "", origin: String = "",
                   legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "filter" + group + keyword + brand + origin + "legType" + legNumber + minPrice + maxPrice
+    val cacheName = "wfilter" + group + keyword + brand + origin + "legType" + legNumber + minPrice + maxPrice
 
     val data = cache.get[LegType]( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
         val vnKw = vnSearch(keyword)
+        val bsLegNumber =
+          if(legNumber == "") {
+            BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> legNumber)
+          }
         val command = Aggregate("product", Seq(
           Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legNumber" -> BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legNumber" -> bsLegNumber)),
           Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
           Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
           GroupField("legType")("total" -> SumValue(1))
@@ -1254,18 +1300,26 @@ class ProductCtrl @Inject() (
   def getLegNumber(group: String, keyword: String = "", brand: String = "", origin: String = "",
                    legType: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "filter" + group + keyword + brand + origin + legType + "legNumber" + minPrice + maxPrice
+    val cacheName = "wfilter" + group + keyword + brand + origin + legType + "legNumber" + minPrice + maxPrice
 
     val data = cache.get[LegNumber]( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
         val vnKw = vnSearch(keyword)
+        val bsLegType =
+          if(legType == "") {
+            BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> legType)
+          }
+
         val command = Aggregate("product", Seq(
           Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("name" -> BSONDocument("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
           Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legType" -> BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("legType" -> bsLegType)),
           Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
           Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
           GroupField("legNumber")("total" -> SumValue(1))
