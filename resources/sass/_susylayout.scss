@@ -12,8 +12,7 @@ $susy: (
 body {
   background-color: $silver;
   padding: 0 auto;
-  font-family: arial;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 html, body{
@@ -59,16 +58,14 @@ $susy:(
 }
 
 .header{
-  height: 100px;
+  height: 80px;
   margin-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 0 10px #ddd;
+  -webkit-box-shadow: 0 0 10px #ddd;
+  -moz-box-shadow: 0 0 10px #ddd;
 }
 
-.nav{
-  height: 30px;
-  border-top: solid 1px royalblue;
-  border-bottom: solid 1px royalblue;
-  margin-bottom: 5px;
-}
 
 .footer{
   height: 50px;
@@ -81,7 +78,6 @@ $susy:(
 }
 .aside {
   min-height: 550px;
-  border-right: solid 1px gray;
   @include span( 18 of 100);
   @include pad(5px);
 }
@@ -206,4 +202,34 @@ $susy:(
     border-top: solid 1px #BEDAEC;
     border-bottom: solid 1px #BEDAEC;
   }
+}
+
+
+.hm-left{
+  @include span(260px);
+  width: 260px;
+  height: 80px;
+  margin-left: 10px;
+  .logo{
+    position: absolute;
+    margin: 10px;
+    img{
+      width: 150px;
+      height: 60px;
+    }
+  }
+  .menu{
+    margin: 20px;
+    float: right;
+    img{
+      width: 80px;
+      height: 40px;
+    }
+  }
+}
+
+.hm-middle{
+  padding: 13px;
+  position: relative;
+  left:-60px;
 }

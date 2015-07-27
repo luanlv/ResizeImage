@@ -623,7 +623,7 @@ function Cart(){
 				
 		switch( info[0].toLowerCase() ){
       case "name":
-        outputValue = '<a href="'+ item.link +'" class="pjContainer pLink">'+ item.name +'</a> ';
+        outputValue = '<a href="'+ item.link +'" class="pfull pLink">'+ item.name +'</a> ';
         break;
       case "quantity":
         outputValue = me.valueToLink( "&larr;" , "javascript:;" , "onclick=\"simpleCart.items[\'" + item.id + "\'].decrement();\"" ) + ' '+ item.quantity + ' ' + me.valueToLink( "&rarr;" , "javascript:;" , "onclick=\"simpleCart.items[\'" + item.id + "\'].increment();\"" );

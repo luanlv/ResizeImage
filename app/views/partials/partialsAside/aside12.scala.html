@@ -1,15 +1,14 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
 
-@_gro
-<span>Phần cứng, Thiết bị (@supType.s1)</span>
+<h3>Phần cứng, Thiết bị</h3><span class="num">(@supType.s1)</span>
 <div>
-	<span>Board Phát triển (@subType.s12)</span>
+	<h3>Board Phát triển</h3><span class="num">(@subType.s12)</span>
 	@if(_gro == "raspberry-pi"){
-		<div>>Raspberry PI (@group.s121)</div>
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "arduino-shield", "", 8)">Arduino and Shields </a>(@group.s122)</div>
+		<div class="active">&diams; Raspberry PI <span class="num">(@group.s121)</span></div>
+		<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "arduino-shield", "", 8)">&rarr;Arduino and Shields </a><span class="num">(@group.s122)</span></div>
 	} else {
-		<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "raspberry-pi", "", 8)">Raspberry PI </a>(@group.s121)</div>
-		<div>>Arduino and Shields (@group.s122)</div>
+		<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "raspberry-pi", "", 8)">&rarr;Raspberry PI </a><span class="num">(@group.s121)</span></div>
+		<div class="active" >&diams; Arduino and Shields <span class="num">(@group.s122)</span></div>
 	}
 </div>

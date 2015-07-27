@@ -1,17 +1,16 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
 
-<span>Phần cứng, Thiết bị (@supType.s1)</span>
+<h3>Phần cứng, Thiết bị</h3><span class="num">(@supType.s1)</span>
 <div>
-	<span>Máy Nạp & Adapter (@subType.s11)</span>
-
+	<h3>Máy Nạp & Adapter</h3><span class="num">(@subType.s11)</span>
 	@if(_gro == "universal-programmer") {
-		<div>>Máy nạp ĐA NĂNG  (@group.s111)</div>
+		<div class="active">&diams; Máy nạp ĐA NĂNG <span class="num">(@group.s111)</span></div>
 		<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer", "", 8)">
-			Mạch nạp 8051 </a>(@group.s112)</div>
+				&rarr;Mạch nạp 8051 </a><span class="num">(@group.s112)</span></div>
 	} else {
 		<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer", "", 8)">
-			Máy nạp ĐA NĂNG </a> (@group.s111)</div>
-		<div>>Mạch nạp 8051 (@group.s112)</div>
+				&rarr;Máy nạp ĐA NĂNG </a><span class="num">(@group.s111)</span></div>
+		<div class="active">&diams; Mạch nạp 8051 <span class="num">(@group.s112)</span></div>
 	}
 </div>

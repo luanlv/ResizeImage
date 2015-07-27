@@ -33,12 +33,7 @@
 				</div>
 			</div>
 
-			<div class="header">
-			</div>
-
-			<nav class="nav">
-				<a class="pfull" href="@routes.ProductCtrl.index()">Trang chủ</a>
-			</nav>
+			@HtmlStream.fromHtml(views.html.partials_extra.header())
 
 			<div class="main">
 				@pagelets("aside")
