@@ -15,6 +15,7 @@ case class Metadata(uuid: String, size: String)
 
 object Metadata {
 
+
   implicit object MetadataWrites extends OWrites[Metadata] {
     def writes(metadata: Metadata): JsObject = Json.obj(
       "uuid" -> metadata.uuid,

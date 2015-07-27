@@ -971,7 +971,7 @@ class ProductCtrl @Inject() (
   def getBrand(group: String, keyword:String = "", origin: String = "", legType: String = "",
                legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
 //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "filter" + group + "brand" + origin + legType + legNumber + minPrice + maxPrice
+    val cacheName = "filter" + group + keyword + "brand" + origin + legType + legNumber + minPrice + maxPrice
 
 
     val data = cache.get[Brand]( cacheName ) match {
@@ -1091,7 +1091,7 @@ class ProductCtrl @Inject() (
                  legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
 
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "filter" + group + brand + "origin" + legType + legNumber + minPrice + maxPrice
+    val cacheName = "filter" + group + keyword + brand + "origin" + legType + legNumber + minPrice + maxPrice
 
     val data = cache.get[Origin]( cacheName ) match {
       case None => {
@@ -1161,7 +1161,7 @@ class ProductCtrl @Inject() (
   def getLegType(group: String, keyword: String = "", brand: String = "", origin: String = "",
                   legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "filter" + group + brand + origin + "legType" + legNumber + minPrice + maxPrice
+    val cacheName = "filter" + group + keyword + brand + origin + "legType" + legNumber + minPrice + maxPrice
 
     val data = cache.get[LegType]( cacheName ) match {
       case None => {
@@ -1254,7 +1254,7 @@ class ProductCtrl @Inject() (
   def getLegNumber(group: String, keyword: String = "", brand: String = "", origin: String = "",
                    legType: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "filter" + group + brand + origin + legType + "legNumber" + minPrice + maxPrice
+    val cacheName = "filter" + group + keyword + brand + origin + legType + "legNumber" + minPrice + maxPrice
 
     val data = cache.get[LegNumber]( cacheName ) match {
       case None => {

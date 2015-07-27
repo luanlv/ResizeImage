@@ -50,6 +50,7 @@ class ImageCtrl @Inject() (
     val futureJson = cImage.find(Json.obj(
             "metadata.size" -> "small",
             "filename" -> Json.obj("$regex" ->  (".*" + name + ".*"), "$options" -> "-i")))
+
     val futureTotalPage = futureJson.cursor().collect[List]().map(x => Math.ceil(x.length/12.0).toInt)
     val futureList = futureJson.sort(Json.obj("uploadDate" -> -1))
         .options(QueryOpts((page-1) * 12))

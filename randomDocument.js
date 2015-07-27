@@ -319,8 +319,8 @@ var imageArray = [
 var listBrand = ["Other", "Xeltek", "ATMEL", "ELNEC", "TOP", "SOFI-TECH", "Raspberry Pi", "ST",
   "InvenSense", "Eagle Power", "VISHAY", "Harvatek", "Andorin", "Sharp"];
 var listOrigin = ["Việt Nam", "Trung Quốc", "Chính hãng", "Taiwan", "UK"];
-var listLegType = ["", "DIP", "SIP", "LQFP", "PQFP", "QFN", "SOIC", "TQFP", "T-1 3/4", "SMD", "SMD0805"];
-var listLegNumber = ["", "208", "100", "64", "44", "40", "32", "28", "24", "20", "16", "14", "8", "4"];
+var listLegType = ["NOPE", "DIP", "SIP", "LQFP", "PQFP", "QFN", "SOIC", "TQFP", "T-1 3/4", "SMD", "SMD0805"];
+var listLegNumber = ["NOPE", "208", "100", "64", "44", "40", "32", "28", "24", "20", "16", "14", "8", "4"];
 var listUnit = ["Cái", "Con", "Bộ"];
 var listStock =  [1, 3, 7, 19, 15, 25, 60, 63, 70, 95, 150, 176, 210, 320, 333, 346, 425, 555, 100, 299];
 var listName = ["Bộ Hẹn Giờ", "Cảm Biến Khoảng Cách ", "Module Điều Khiển ", "Case Arduino UNO", "Module Nguồn",
