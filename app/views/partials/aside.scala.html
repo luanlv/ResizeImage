@@ -1,6 +1,6 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	brand: models.Brand, origin: models.Origin, legType: models.LegType, legNumber: models.LegNumber,
-	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8,
+	_sub: String = "", _gro: String = "", _sb: String = "", _kw: String = "", _li: Int = 8, _v: String = "",
 	_br: String = "", _or: String = "", _lt: String = "", _ln: String = "", _min:Int = 0, _max: Int = 500000000)
 
 
@@ -10,24 +10,24 @@
 	<hr class="style-menu">
 	<div class="laside">
 		@if(_sub == "may-nap-adapter"){
-			@views.html.partials.partialsAside.aside11(supType, subType, group, _sub, _gro, _kw, _li)
+			@views.html.partials.partialsAside.aside11(supType, subType, group, _sub, _gro, _sb, _kw, _li, _v)
 		}
 
 		@if(_sub == "board-phat-trien"){
-			@views.html.partials.partialsAside.aside12(supType, subType, group, _sub, _gro, _kw, _li)
+			@views.html.partials.partialsAside.aside12(supType, subType, group, _sub, _gro, _sb, _kw, _li, _v)
 		}
 
 		@if(_sub == "sensor-transducer"){
-			@views.html.partials.partialsAside.aside21(supType, subType, group, _sub, _gro, _kw, _li)
+			@views.html.partials.partialsAside.aside21(supType, subType, group, _sub, _gro, _sb, _kw, _li, _v)
 		}
 		@if(_sub == "memory-ic"){
-			@views.html.partials.partialsAside.aside22(supType, subType, group, _sub, _gro, _kw, _li)
+			@views.html.partials.partialsAside.aside22(supType, subType, group, _sub, _gro, _sb, _kw, _li, _v)
 		}
 		@if(_sub == "led"){
-			@views.html.partials.partialsAside.aside31(supType, subType, group, _sub, _gro, _kw, _li)
+			@views.html.partials.partialsAside.aside31(supType, subType, group, _sub, _gro, _sb, _kw, _li, _v)
 		}
 		@if(_sub == "lcd-display"){
-			@views.html.partials.partialsAside.aside32(supType, subType, group, _sub, _gro, _kw, _li)
+			@views.html.partials.partialsAside.aside32(supType, subType, group, _sub, _gro, _sb, _kw, _li, _v)
 		}
 
 	</div>
@@ -36,12 +36,12 @@
 		<hr class="filter-menu">
 		<div>
 			<br>
-			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, "", _li, _br, _or, _lt, _ln, _min, _max)" method="GET">
+			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb,  "", _li, _v, _br, _or, _lt, _ln, _min, _max)" method="GET">
 				Tên:<input type="text" size="18" placeholder="Tên/Mã sản phẩm" name="_kw" value="@_kw">
 				<button type="submit"> > </button>
 			</form>
 			<br>
-			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, _ln)" method="GET">
+			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, _or, _lt, _ln)" method="GET">
 				Giá:<input type="text" size="5" maxlength="13" name="_min"  value="@_min">
 				-  <input type="text" size="5" maxlength="13" name="_max"  value="@_max">
 				<button type="submit"> > </button>
@@ -52,7 +52,7 @@
 			<div class="lt">
 				<span class="f-title">Xuất xứ</span>
 				@if(_or != ""){
-					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, "", _lt, _ln, _min, _max)">&empty; @_or</a></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, "", _lt, _ln, _min, _max)">&empty; @_or</a></div>
 				} else {
 					<ul class="lshow">
 					@for(
@@ -61,7 +61,7 @@
 					){
 						@if(o._2 >0){
 							<li>
-								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, o._1, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div>
+								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, o._1, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
 						}
 					}
@@ -72,7 +72,7 @@
 			<div class="ln">
 				<span class="f-title">Nhãn hiệu</span>
 				@if(_br != ""){
-					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, "", _or, _lt, _ln, _min, _max)">&empty; @_br</a></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, "", _or, _lt, _ln, _min, _max)">&empty; @_br</a></div>
 				} else {
 					<ul class="lshow">
 					@for(
@@ -80,7 +80,7 @@
 							.zip(List(brand.s1, brand.s2, brand.s3, brand.s4, brand.s5))
 					){
 						@if(o._2 >0){
-							<li><div class="br"><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, o._1, _or, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div></li>
+							<li><div class="br"><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, o._1, _or, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div></li>
 						}
 					}
 					</ul>
@@ -91,7 +91,7 @@
 							.zip(List( brand.s6, brand.s7, brand.s8, brand.s9, brand.s10, brand.s11, brand.s12, brand.s13, brand.s14))
 					){
 						@if(o._2 >0){
-							<li><div class="br"><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, o._1, _or, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div></li>
+							<li><div class="br"><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, o._1, _or, _lt, _ln, _min, _max)">@o._1</a><span class="num">(@o._2)</span></div></li>
 						}
 					}
 					</ul>
@@ -110,7 +110,7 @@
 			<div class="lt">
 				<span class="f-title">Kiểu chân</span>
 				@if(_lt != ""){
-					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, "", _ln, _min, _max)">&empty; @_lt</a></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, _or, "", _ln, _min, _max)">&empty; @_lt</a></div>
 				} else {
 					<ul class="lshow">
 					@for(o <- List( "DIP", "SIP", "LQFP", "PQFP", "QFN")
@@ -118,7 +118,7 @@
 					){
 						@if(o._2>0) {
 							<li>
-								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, o._1 , _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
+								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, _or, o._1 , _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
 						}
 					}
@@ -129,7 +129,7 @@
 					){
 						@if(o._2>0) {
 							<li>
-								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, o._1 , _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
+								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, _or, o._1 , _ln, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
 
 						}
@@ -146,7 +146,7 @@
 			<div class="ln">
 				<span class="f-title">Số chân</span>
 				@if(_ln != ""){
-					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, "", _min, _max)">&empty; @_ln</a></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, _or, _lt, "", _min, _max)">&empty; @_ln</a></div>
 				} else {
 					<ul class="lshow">
 					@for(o <- List( "208", "100", "64", "44", "40")
@@ -154,7 +154,7 @@
 					){
 						@if(o._2>0){
 							<li>
-								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, o._1, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
+								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, _or, _lt, o._1, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
 						}
 					}
@@ -167,7 +167,7 @@
 					){
 						@if(o._2>0){
 							<li>
-								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, _kw, _li, _br, _or, _lt, o._1, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
+								<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, _or, _lt, o._1, _min, _max)">&rarr;@o._1</a><span class="num">(@o._2)</span></div>
 							</li>
 						}
 					}

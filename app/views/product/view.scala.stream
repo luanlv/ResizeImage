@@ -1,5 +1,5 @@
 @(bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
-	product: Pagelet, aside: Pagelet, _sub: String = "")(implicit pjaxVersion: pjax.PjaxVersion)
+	product: Pagelet, aside: Pagelet, _sub: String = "", _sb: String = "", _v: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
 <!DOCTYPE html>
 <html>
 	<head>

@@ -1,5 +1,5 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
-	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
+	_sub: String = "", _gro: String = "", _sb: String = "", _kw: String = "", _li: Int = 8, _v: String = "")
 
 <div class="sup">
 	<h3>LK Bán dẫn & Cảm biến </h3><span class="num">(@supType.s2)</span>
@@ -7,11 +7,11 @@
 		<h3>Memory ICs</h3><span class="num">(@subType.s22)</span>
 		<div class="group">
 			@if(_gro == "memory"){
-				<div class="active">&diams; AT88SC0104C-SU <span class="num">(@group.s221)</span></div>
-				<div><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "24cxx-serial-eeprom", "", 8)">&rarr;24Cxx Serial EEPROM </a><span class="num">(@group.s222)</span></div>
+				<div class="active">&diams;&nbsp; AT88SC0104C-SU <span class="num">(@group.s221)</span></div>
+				<div><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "24cxx-serial-eeprom", 1, _sb, _kw, _li, _v)">&rarr;24Cxx Serial EEPROM </a><span class="num">(@group.s222)</span></div>
 			} else {
-				<div><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "memory", "", 8)">&rarr;AT88SC0104C-SU </a><span class="num">(@group.s221)</span></div>
-				<div class="active">&diams; 24Cxx Serial EEPROM <span class="num">(@group.s222)</span></div>
+				<div><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "memory", 1, _sb, _kw, _li, _v)">&rarr;AT88SC0104C-SU </a><span class="num">(@group.s221)</span></div>
+				<div class="active">&diams;&nbsp; 24Cxx Serial EEPROM <span class="num">(@group.s222)</span></div>
 			}
 		</div>
 	</div>

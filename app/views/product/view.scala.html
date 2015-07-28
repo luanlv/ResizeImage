@@ -1,6 +1,6 @@
-@(product: models.Product, supType: models.SupType, subType: models.SubType , group: models.GroupP)
+@(product: models.Product, supType: models.SupType, subType: models.SubType , group: models.GroupP,  _sb: String = "", _v: String = "", _li: Int = 8)
 
-@views.html.partials.viewAside(supType, subType, group, product.subTypeUrl, product.groupUrl)
+@views.html.partials.viewAside(supType, subType, group, product.subTypeUrl, product.groupUrl, _sb, "", _li, _v)
 
 <div id="pjax-container" class="content">
 	<div class="c-left">
@@ -50,7 +50,7 @@
 				</fieldset>
 			</div>
 			<div style="float:right">Số lượng mua: <input type="text" value="1" class="item_quantity" size="1"  id="item-quantity"></div>
-			<div style="float:right" class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
+			<div style="float:right" class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl, _sb, _v, _li)</div>
 			<button style="float:right" class="item_add">Add to Cart</button>
 
 			<div class="pExtra">

@@ -1,5 +1,5 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
-	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
+	_sub: String = "", _gro: String = "", _sb: String = "", _kw: String = "", _li: Int = 8, _v: String = "")
 
 <div class="sub">
 	<h3>Phần cứng, Thiết bị</h3><span class="num">(@supType.s1)</span>
@@ -7,13 +7,13 @@
 		<h3>Máy Nạp & Adapter</h3><span class="num">(@subType.s11)</span>
 		<div class="group">
 			@if(_gro == "universal-programmer") {
-				<div class="active">&diams; Máy nạp ĐA NĂNG <span class="num">(@group.s111)</span></div>
-				<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer", "", 8)">
+				<div class="active">&diams;&nbsp; Máy nạp ĐA NĂNG <span class="num">(@group.s111)</span></div>
+				<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer", 1, _sb, _kw, _li, _v)">
 						&rarr;Mạch nạp 8051 </a><span class="num">(@group.s112)</span></div>
 			} else {
-				<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer", "", 8)">
+				<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer", 1, _sb, _kw, _li, _v)">
 						&rarr;Máy nạp ĐA NĂNG </a><span class="num">(@group.s111)</span></div>
-				<div class="active">&diams; Mạch nạp 8051 <span class="num">(@group.s112)</span></div>
+				<div class="active">&diams;&nbsp; Mạch nạp 8051 <span class="num">(@group.s112)</span></div>
 			}
 		</div>
 	</div>

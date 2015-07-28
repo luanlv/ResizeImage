@@ -1,12 +1,7 @@
 @(bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	brand: models.Brand, origin: models.Origin, legType: models.LegType, legNumber: models.LegNumber,
-	collection: Pagelet, aside: Pagelet, _sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
-
-@link(_kw: String) = @{
-	if(_kw != null) {
-		routes.ProductCtrl.collection( _sub, _gro, _kw, _li)
-	}
-}
+	collection: Pagelet, aside: Pagelet, _sub: String = "", _gro: String = "",
+	_page: Int = 1, _sb: String = "", _kw: String = "", _li: Int = 8, _v: String = "")(implicit pjaxVersion: pjax.PjaxVersion)
 
 
 <html>

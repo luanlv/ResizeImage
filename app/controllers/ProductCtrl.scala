@@ -50,7 +50,7 @@ class ProductCtrl @Inject() (
 
   //--------------------    SETUP   ------------------------------------------------------------
   val cacheQueriesDay = 7 days
-
+  val cachePage = 5
 
   val cProduct = {
     val cProduct = db[JSONCollection]("product")
@@ -170,7 +170,7 @@ class ProductCtrl @Inject() (
   //-------------------------  Index page   ----------------------------------------------------------
 
 
-  def index = Cached((rh: RequestHeader) => rh.uri, 5) { PjaxAction.async { implicit request =>
+  def index = Cached((rh: RequestHeader) => rh.uri, cachePage) { PjaxAction.async { implicit request =>
 
     val cacheName1 = "phan-cung-thiet-bi"
     val futureCollection1 = cache.get[List[Product]]( cacheName1 ) match {
@@ -275,8 +275,8 @@ class ProductCtrl @Inject() (
 
   //---------------------------View product--------------------------------------------------------
 
-  def viewProduct( sub: String, gro: String, pUrl: String) =
-    Cached((rh: RequestHeader) => rh.uri + pUrl, 5)  { PjaxAction.async { implicit request =>
+  def viewProduct( sub: String, gro: String, pUrl: String, _sb: String = "", _v: String = "", _li: Int = 8) =
+    Cached((rh: RequestHeader) => rh.uri + pUrl, cachePage)  { PjaxAction.async { implicit request =>
 
 
     val futureProduct = cache.get[Option[Product]]( pUrl ) match {
@@ -315,17 +315,17 @@ class ProductCtrl @Inject() (
       result => {
         if (request.pjaxEnabled)
           result._1 match {
-            case Some(data) => Ok(views.html.product.view(data, result._2, result._3, result._4))
+            case Some(data) => Ok(views.html.product.view(data, result._2, result._3, result._4, _sb, _v, _li))
             case None => Ok("ko ton tai")
           }
         else {
           val v = result._1 match {
-            case Some(data) => Future(views.html.product.viewWithoutAside(data, result._2, result._3, result._4))
+            case Some(data) => Future(views.html.product.viewWithoutAside(data, result._2, result._3, result._4, _sb, _v, _li))
             case _ => Future(views.html.product.view2())
           }
           val pageletProduct = HtmlPagelet("product" , v)
 
-          val pageletAside = HtmlPagelet("aside", Future(views.html.partials.viewAside(result._2,result._3, result._4, sub, gro)))
+          val pageletAside = HtmlPagelet("aside", Future(views.html.partials.viewAside(result._2,result._3, result._4, sub, gro, _sb, _v, _li)))
 
           val bigPipe = new BigPipe(renderOptions(request), pageletProduct, pageletAside)
           val subType = result._1 match {
@@ -344,11 +344,10 @@ class ProductCtrl @Inject() (
 //routes.ProductCtrl.collection(subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln).url
 
   def collection(subTypeUrl:String = "", groupUrl: String = "",
-                 _kw:String = "", _li:Int = 8,
+                 _page: Int = 1, _sb: String = "", _kw:String = "", _li:Int = 8, _v:String = "",
                  _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ,
                  _min:Int = 0, _max: Int = 500000000) =
-    Cached((rh: RequestHeader) => rh.uri + groupUrl, 5) {PjaxAction.async { implicit request =>
-
+    Cached((rh: RequestHeader) => rh.uri + groupUrl, cachePage) {PjaxAction.async { implicit request =>
 
       val cacheName = "collection-" + groupUrl + _kw + _li + _br + _or + _lt + _ln + _min + _max
 
@@ -368,6 +367,11 @@ class ProductCtrl @Inject() (
             } else {
               Json.obj("$eq" -> _ln)
             }
+          val jsSort = if(_sb == "") {
+            Json.obj("updateDate" -> -1)
+          } else {
+            Json.obj("updateDate" -> -1)
+          }
           val futureList = cProduct.find(Json.obj(
           "subTypeUrl" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
           "groupUrl" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
@@ -380,6 +384,8 @@ class ProductCtrl @Inject() (
           "$and" -> Json.arr(Json.obj("price" -> Json.obj("$gte" -> _min)),
                               Json.obj("price" -> Json.obj("$lte" -> _max)))
         ))
+        .sort(jsSort)
+        .options(QueryOpts((_page - 1) * _li))
         .cursor[Product]().collect[List](_li)
 
           futureList.map{
@@ -422,24 +428,23 @@ class ProductCtrl @Inject() (
         futureResult.map{
           result => Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
             result._5, result._6, result._7, result._8,
-            subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln, _min, _max))
+            subTypeUrl, groupUrl, _page, _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max))
         }
       }else{
         futureResult.map {
           result => {
-            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1)))
+            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1, _sb, _v)))
 
             val pageletAside = HtmlPagelet("aside",
               Future(views.html.partials.aside(result._2, result._3, result._4,
                 result._5, result._6, result._7, result._8,
-                subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln, _min, _max)))
+                subTypeUrl, groupUrl, _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max)))
 
             val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
 
             Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
               result._5, result._6, result._7, result._8,
-              pageletColelction, pageletAside, subTypeUrl, groupUrl, _kw, _li))
-
+              pageletColelction, pageletAside, subTypeUrl, groupUrl, _page, _sb, _kw, _li, _v))
           }
         }
       }

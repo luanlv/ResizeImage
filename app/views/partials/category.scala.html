@@ -1,11 +1,11 @@
 @(products: List[models.Product], supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	brand: models.Brand, origin: models.Origin, legType: models.LegType, legNumber: models.LegNumber,
-	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8,
+	_sub: String = "", _gro: String = "", _page: Int = 1, _sb: String = "", _kw: String = "", _li: Int = 8, _v: String = "",
 	_br:String = "", _or:String = "", _lt:String = "", _ln:String = "",
 	_min: Int = 0, _max: Int = 500000000)(implicit pjaxVersion: pjax.PjaxVersion)
 
 
-@views.html.partials.aside(supType, subType, group, brand, origin, legType, legNumber, _sub, _gro, _kw, _li, _br, _or, _lt, _ln, _min, _max)
+@views.html.partials.aside(supType, subType, group, brand, origin, legType, legNumber, _sub, _gro, _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max)
 
 <div id="pjax-container" class="content">
 		<div class="c-left">
@@ -14,13 +14,13 @@
 					<ul class="gallery">
 					@for(product <- products){
 						<li class="simpleCart_shelfItem ra-5">
-							<a class="pfull item_name" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>
+							<a class="pfull item_name" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl, _sb, _v)'>
 								<div class="img">
 									<img src='@product.image.head.small' alt="" width="120" height="100">
 								</div>
 							</a>
 							<div class="codeP">
-								<b><a class="pfull" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl)'>@product.code</a></b>
+								<b><a class="pfull" href='@routes.ProductCtrl.viewProduct( product.subTypeUrl, product.groupUrl, product.pUrl, _sb, _v)'>@product.code</a></b>
 								<div class="stock">(@product.stock)</div>
 							</div>
 							<div class="nameP item_name">@product.name</div>
@@ -30,7 +30,7 @@
 								<b>VNĐ</b>
 							</div>
 							<input type="text" value="1" class="item_quantity" size="1"  id="item-quantity">
-							<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)</div>
+							<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl, _sb, _v)</div>
 							<button class="item_add">Add to Cart</button>
 							<div class="hide more"> more more morem more more moremore more more more </div>
 						</li>

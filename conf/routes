@@ -6,31 +6,31 @@
 GET         /                            controllers.ProductCtrl.index
 #GET         /tim-kiem.html                  controllers.ProductCtrl.search(_sup:String ?="", _sub:String ?="", _gro:String ?="", _kw:String ?="", _li:Int ?=8)
 
-GET         /san-pham/:subTypeUrl/:groupUrl.html            controllers.ProductCtrl.collection( subTypeUrl:String, groupUrl:String, _kw:String ?="", _li:Int ?=8, _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" , _min: Int ?= 0, _max: Int ?= 500000000)
-GET         /san-pham/:subTypeUrl/:groupUrl/:pUrl.html      controllers.ProductCtrl.viewProduct( subTypeUrl:String, groupUrl: String, pUrl: String)
-GET         /admin/create                    controllers.ProductCtrl.viewCreate
-POST        /admin/create                    controllers.ProductCtrl.create
+GET      /san-pham/:subTypeUrl/:groupUrl.html            controllers.ProductCtrl.collection( subTypeUrl:String, groupUrl:String, _page: Int ?=1, _sb: String ?="", _kw:String ?="", _li:Int ?=8, _v:String ?= "", _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" , _min: Int ?= 0, _max: Int ?= 500000000)
+GET      /san-pham/:subTypeUrl/:groupUrl/:pUrl.html      controllers.ProductCtrl.viewProduct( subTypeUrl:String, groupUrl: String, pUrl: String, _sb: String ?= "", _v: String ?="", _li: Int?=8)
+GET      /admin/create                    controllers.ProductCtrl.viewCreate
+POST     /admin/create                    controllers.ProductCtrl.create
 
 
-GET         /admin/edit/:pUrl            controllers.ProductCtrl.viewEdit(pUrl: String)
-POST         /admin/edit/:pUrl           controllers.ProductCtrl.update(pUrl: String)
-GET         /admin/listProduct/:page     controllers.ProductCtrl.listProduct(page: Int, _pp:Int ?=10, _n: String ?= "", _c:String ?= "", _g: String ?="", _min:Int ?= 0, _max: Int ?= 100000000)
-POST        /admin/delete/:id            controllers.ProductCtrl.deleteProduct(id: String)
+GET      /admin/edit/:pUrl            controllers.ProductCtrl.viewEdit(pUrl: String)
+POST     /admin/edit/:pUrl           controllers.ProductCtrl.update(pUrl: String)
+GET      /admin/listProduct/:page     controllers.ProductCtrl.listProduct(page: Int, _pp:Int ?=10, _n: String ?= "", _c:String ?= "", _g: String ?="", _min:Int ?= 0, _max: Int ?= 100000000)
+POST     /admin/delete/:id            controllers.ProductCtrl.deleteProduct(id: String)
 
 
-GET         /image/list                  controllers.ImageCtrl.getList(name: String ?="", page: Int ?=1)
-GET         /image/upload                controllers.Application.upload
-POST        /image/upload                controllers.ImageCtrl.upload
+GET      /image/list                  controllers.ImageCtrl.getList(name: String ?="", page: Int ?=1)
+GET      /image/upload                controllers.Application.upload
+POST     /image/upload                controllers.ImageCtrl.upload
 
-GET          /test                controllers.ProductCtrl.test
-GET          /test2               controllers.ProductCtrl.test2
-#GET         //cdn.lvlblog.com/image/:size/:uuid           controllers.ImageCtrl.get(uuid: String, size: String)
-GET          /image/:size/:uuid        controllers.ImageCtrl.get(uuid: String, size: String)
+GET       /test                controllers.ProductCtrl.test
+GET       /test2               controllers.ProductCtrl.test2
+#GET       //cdn.lvlblog.com/image/:size/:uuid           controllers.ImageCtrl.get(uuid: String, size: String)
+GET       /image/:size/:uuid        controllers.ImageCtrl.get(uuid: String, size: String)
 
 
-GET         /apiListCollection         controllers.ProductCtrl.apiListCollection
+GET       /apiListCollection         controllers.ProductCtrl.apiListCollection
 
 # Map static resources from the /public folder to the /assets URL path
 #GET           //cdn.lvlblog.com/assets/v10/*file             controllers.Assets.versioned(path="/public", file)
-GET           /assets/*file?v=3              controllers.Assets.versioned(path="/public", file)
-GET           /assets/*file                  controllers.Assets.at(path="/public", file)
+GET        /assets/*file?v=3              controllers.Assets.versioned(path="/public", file)
+GET         /assets/*file                  controllers.Assets.at(path="/public", file)
