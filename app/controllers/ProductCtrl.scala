@@ -83,7 +83,7 @@ class ProductCtrl @Inject() (
         val f = insert[Product](cProduct, tmp)
         f.map{
           lastError => {
-            clearCache(List("search", "supType", "subType", "cachegroup", tmp.supTypeUrl, tmp.subTypeUrl, tmp.groupUrl, tmp.pUrl, tmp.group))
+            clearCache(List("search", "supType", "subType", "cachegroup", tmp.url.supType, tmp.url.subType, tmp.url.group, tmp.url.pUrl, tmp.info.group))
             Ok("ok")
           }
         }.recover{
@@ -126,32 +126,48 @@ class ProductCtrl @Inject() (
       errors => Future.successful(
         BadGateway(views.html.product.create(errors, " ??????????????"))),
 
-      // if no error, then insert the article into the 'articles' collection
+//    case class Core(code: String, name: String, price: List[ListPrice])
+//
+//
+//    case class Info(image: List[ImageUrl], unit: String, stock: Int, sold: Int, vote: Int, group: String, brand:String,
+//                    origin: String, legType: String, legNumber: String)
+//
+//    case class Extra(saleOff1: Int, saleOff2: Int, info: String, note: String)
+//
+//    case class Product(id: Option[String], url: Url, core: Core, info: Info, extra: Extra,
+//                       creationDate: Option[DateTime], updateDate: Option[DateTime])
+
       product => {
-        // create a modifier document, ie a document that contains the update operations to run onto the documents matching the query
         val modifier = Json.obj(
-          // this modifier will set the fields
-          // 'updateDate', 'title', 'content', and 'publisher'
           "$set" -> Json.obj(
-            "supTypeUrl" -> product.supTypeUrl,
-            "supType" -> product.supType,
-            "subTypeUrl" -> product.subTypeUrl,
-            "subType" -> product.subType,
-            "pUrl" -> product.pUrl,
-            "image" -> Json.toJsFieldJsValueWrapper(product.image),
-            "code" -> product.code,
-            "name" -> product.name,
-            "unit" -> product.unit,
-            "stock" -> product.stock,
-            "price" -> product.price,
-            "groupUrl" -> product.groupUrl,
-            "group" -> product.group,
-            "brand" -> product.brand,
-            "origin" -> product.origin,
-            "legType" -> product.legType,
-            "legNumber" -> product.legNumber,
-            "info" -> product.info,
-            "note" -> product.note,
+            "url" -> Json.obj(
+              "supType" -> product.url.supType,
+              "subType" -> product.url.subType,
+              "pUrl" -> product.url.pUrl,
+              "tag" -> Json.toJsFieldJsValueWrapper(product.url.tag)
+            ),
+            "core" -> Json.obj(
+              "code" -> product.core.code,
+              "name" -> product.core.name,
+              "price" -> Json.toJsFieldJsValueWrapper(product.core.price)
+            ),
+            "info" -> Json.obj(
+              "image" -> Json.toJsFieldJsValueWrapper(product.info.image),
+              "unit" -> product.info.unit,
+              "stock" -> product.info.stock,
+              "sold" -> product.info.sold,
+              "vote" -> product.info.group,
+              "brand" -> product.info.brand,
+              "origin" -> product.info.origin,
+              "legType" -> product.info.legType,
+              "legNumber" -> product.info.legNumber
+            ),
+            "extra" -> Json.obj(
+              "saleOff1" -> product.extra.saleOff1,
+              "saleOff2" -> product.extra.saleOff2,
+              "info" -> product.extra.info,
+              "note" -> product.extra.note
+            ),
             "updateDate" -> BSONDateTime(new DateTime().getMillis)
           )
         )
@@ -160,7 +176,7 @@ class ProductCtrl @Inject() (
         cProduct.update(Json.obj("pUrl" -> pUrl), modifier).
             map { _ => {
               clearCache(List("search", "supType", "subType", "cachegroup", "wfilter", "collection-"))
-                Redirect(routes.ProductCtrl.viewEdit(product.pUrl)).flashing("success" -> "update OK!")
+                Redirect(routes.ProductCtrl.viewEdit(product.url.pUrl)).flashing("success" -> "update OK!")
               }
             }
       }
@@ -176,7 +192,7 @@ class ProductCtrl @Inject() (
     val futureCollection1 = cache.get[List[Product]]( cacheName1 ) match {
       case None => {
         println(s"Not found $cacheName1")
-        val futureCollection1 = cProduct.find(Json.obj("supTypeUrl" -> "phan-cung-thiet-bi"))
+        val futureCollection1 = cProduct.find(Json.obj("url.supType" -> "phan-cung-thiet-bi"))
           .sort(Json.obj("updateDate" -> -1))
           .cursor[Product]().collect[List](8)
 
@@ -197,7 +213,7 @@ class ProductCtrl @Inject() (
     val futureCollection2 = cache.get[List[Product]]( cacheName2 ) match {
       case None => {
         println(s"Not found $cacheName2")
-        val futureColection2 = cProduct.find(Json.obj("supTypeUrl" -> "ban-dan-cam-bien"))
+        val futureColection2 = cProduct.find(Json.obj("url.supType" -> "ban-dan-cam-bien"))
           .sort(Json.obj("updateDate" -> -1))
           .cursor[Product]().collect[List](8)
 
@@ -218,7 +234,7 @@ class ProductCtrl @Inject() (
       case None => {
         println(s"Not found $cacheName3")
 
-        val futureCollection3 = cProduct.find(Json.obj("supTypeUrl" -> "lk-khac-phu-kien"))
+        val futureCollection3 = cProduct.find(Json.obj("url.supType" -> "lk-khac-phu-kien"))
           .sort(Json.obj("updateDate" -> -1))
           .cursor[Product]().collect[List](8)
 
@@ -282,7 +298,7 @@ class ProductCtrl @Inject() (
     val futureProduct = cache.get[Option[Product]]( pUrl ) match {
       case None => {
         println(s"Not found $pUrl")
-        val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("pUrl" -> pUrl))
+        val futureProduct = DocumentDAO.findOne[Product](cProduct, Json.obj("url.pUrl" -> pUrl))
 //        val delay1 = 1
 //        val futureProduct =  Promise.timeout(futureProduct2, delay1.second).flatMap(x => x)
 
@@ -329,7 +345,7 @@ class ProductCtrl @Inject() (
 
           val bigPipe = new BigPipe(renderOptions(request), pageletProduct, pageletAside)
           val subType = result._1 match {
-            case Some(data) => data.subTypeUrl
+            case Some(data) => data.url.subType
             case _ => ""
           }
           Ok.chunked(views.stream.product.view(bigPipe, result._2, result._3, result._4,
@@ -348,6 +364,7 @@ class ProductCtrl @Inject() (
                  _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ,
                  _min:Int = 0, _max: Int = 500000000) =
     Cached((rh: RequestHeader) => rh.uri + groupUrl, cachePage) {PjaxAction.async { implicit request =>
+
 
       val cacheName = "collection-" + groupUrl + _kw + _li + _br + _or + _lt + _ln + _min + _max
 
@@ -373,16 +390,14 @@ class ProductCtrl @Inject() (
             Json.obj("updateDate" -> -1)
           }
           val futureList = cProduct.find(Json.obj(
-          "subTypeUrl" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
-          "groupUrl" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
-          "$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i")),
-            Json.obj("code" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i"))),
-          "brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
-          "origin" -> Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i"),
-          "legType" -> jsLegType,
-          "legNumber" -> jsLegNumber,
-          "$and" -> Json.arr(Json.obj("price" -> Json.obj("$gte" -> _min)),
-                              Json.obj("price" -> Json.obj("$lte" -> _max)))
+          "url.subType" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
+          "url.group" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
+          "$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i")),
+            Json.obj("core.code" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i"))),
+          "info.brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
+          "info.origin" -> Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i"),
+          "info.legType" -> jsLegType,
+          "core.price.0.price" -> Json.obj("$gte" -> _min, "$lte" -> _max)
         ))
         .sort(jsSort)
         .options(QueryOpts((_page - 1) * _li))
@@ -433,6 +448,7 @@ class ProductCtrl @Inject() (
       }else{
         futureResult.map {
           result => {
+            println(result._1)
             val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1, _sb, _v)))
 
             val pageletAside = HtmlPagelet("aside",
@@ -451,68 +467,6 @@ class ProductCtrl @Inject() (
   }}
 
 
-    //----------------------search----------------------------------------------------------------------
-
-//  def search(sup:String = "" , sub:String = "", gro: String = "", _kw:String = "", _li:Int = 8) = PjaxAction.async { implicit request =>
-//
-//    val cacheName = "search" + sup + sub + gro + _kw + _li
-//    val futureList = cache.get[List[Product]](cacheName) match {
-//      case None => {
-//        println(s"Not found $cacheName")
-//        val futureList = cProduct.find(Json.obj(
-//          "subType" -> Json.obj("$regex" -> (".*" + sup + ".*"), "$options" -> "-i"),
-//          "subType" -> Json.obj("$regex" -> (".*" + sub + ".*"), "$options" -> "-i"),
-//          "group" -> Json.obj("$regex" -> (".*" + gro + ".*"), "$options" -> "-i"),
-//          "name" -> Json.obj("$regex" -> (".*" + _kw + ".*"), "$options" -> "-i")))
-//          .cursor[Product]().collect[List](_li)
-//
-//        futureList.map{
-//          list => cache.set("search" + sup + sub + gro + _kw + _li, list, cacheQueriesDay)
-//            cacheList += "search" + sup + sub + gro + _kw + _li
-//        }
-//        futureList
-//      }
-//
-//      case Some(p) => {
-//        println(s"found $cacheName")
-//        Future(p)
-//      }
-//    }
-//
-//    val supType = getSupType()
-//
-//    val subType = getSubType()
-//
-//    val group = getGroup()
-//
-//    val futureResult = for {
-//      futureList <- futureList
-//      supType <- supType
-//      subType <- subType
-//      group <- group
-//    } yield (futureList, supType, subType, group)
-//
-//
-//    futureResult.map{
-//      result => {
-//        if (request.pjaxEnabled){
-//            Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
-//              sub, gro, _kw, _li))
-//
-//        }else{
-//          val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1)))
-//
-//          val pageletAside = HtmlPagelet("aside",
-//            Future(views.html.partials.aside(result._2, result._3, result._4, sub)))
-//
-//          val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
-//          Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
-//            pageletColelction, pageletAside, sub, gro, _kw, _li))
-//        }
-//      }
-//    }
-//  }
-
   //-------------------  view list products ----------------------------------------------------------
 
   def listProduct(page: Int, _pp : Int, _n: String, _c:String, _g: String,
@@ -523,11 +477,10 @@ class ProductCtrl @Inject() (
         println("case 1")
 
         val futureList = cProduct.find(Json.obj(
-        "name" -> Json.obj("$regex" -> (".*" + _n + ".*"), "$options" -> "-i"),
-        "code" -> Json.obj("$regex" -> (".*" + _c + ".*"), "$options" -> "-i"),
-        "group" -> Json.obj("$regex" -> (".*" + _g + ".*"), "$options" -> "-i"),
-        "price" -> Json.obj("$gte" -> _min),
-        "price" -> Json.obj("$lte" -> _max)))
+        "core.name" -> Json.obj("$regex" -> (".*" + _n + ".*"), "$options" -> "-i"),
+        "core.code" -> Json.obj("$regex" -> (".*" + _c + ".*"), "$options" -> "-i"),
+        "info.group" -> Json.obj("$regex" -> (".*" + _g + ".*"), "$options" -> "-i"),
+        "core.price.0.price" -> Json.obj("$gte" -> _min, "$lte" -> _max)))
         .options(QueryOpts((page-1) * _pp))
         .cursor[Product]().collect[List](_pp)
 
@@ -572,7 +525,7 @@ class ProductCtrl @Inject() (
       clearCache()
 
       val command = Aggregate("product", Seq(
-        GroupField("supType")("total" -> SumValue(1))
+        GroupField("info.supType")("total" -> SumValue(1))
         )
       )
       val result = cProduct.db.command(command)
@@ -619,8 +572,8 @@ class ProductCtrl @Inject() (
         println(s"Not found $cacheGroup")
 
         val command = Aggregate("product", Seq(
-          GroupField("group")("total" -> SumValue(1))
-        )
+            GroupField("info.group")("total" -> SumValue(1))
+          )
         )
 
         val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
@@ -856,7 +809,7 @@ class ProductCtrl @Inject() (
         println(s"Not found $cacheSupType")
 
         val command = Aggregate("product", Seq(
-          GroupField("supType")("total" -> SumValue(1))
+          GroupField("info.supType")("total" -> SumValue(1))
         )
         )
 
@@ -914,7 +867,7 @@ class ProductCtrl @Inject() (
         println(s"Not found $cacheSubType")
 
         val command = Aggregate("product", Seq(
-          GroupField("subType")("total" -> SumValue(1))
+          GroupField("info.subType")("total" -> SumValue(1))
         )
         )
 
@@ -1009,15 +962,14 @@ class ProductCtrl @Inject() (
             BSONDocument("$eq" -> legNumber)
           }
         val command = Aggregate("product", Seq(
-          Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
-            Json.obj("code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
-          Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legType" -> bsLegType)),
-          Match(BSONDocument("legNumber" -> bsLegNumber)),
-          Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
-          Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
-          GroupField("brand")("total" -> SumValue(1))
+          Match(BSONDocument("url.group" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
+          Match(BSONDocument("info.origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("info.legType" -> bsLegType)),
+          Match(BSONDocument("info.legNumber" -> bsLegNumber)),
+          Match(BSONDocument("core.price.0.price" -> BSONDocument("$gte" -> minPrice, "$lte" -> maxPrice))),
+          GroupField("info.brand")("total" -> SumValue(1))
         )
         )
 
@@ -1141,15 +1093,14 @@ class ProductCtrl @Inject() (
             BSONDocument("$eq" -> legNumber)
           }
         val command = Aggregate("product", Seq(
-          Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
-            Json.obj("code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
-          Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legType" -> bsLegType)),
-          Match(BSONDocument("legNumber" -> bsLegNumber)),
-          Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
-          Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
-          GroupField("origin")("total" -> SumValue(1))
+          Match(BSONDocument("url.group" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
+          Match(BSONDocument("info.brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("info.legType" -> bsLegType)),
+          Match(BSONDocument("info.legNumber" -> bsLegNumber)),
+          Match(BSONDocument("core.price.0.price" -> BSONDocument("$gte" -> minPrice, "$lte" -> maxPrice))),
+          GroupField("info.origin")("total" -> SumValue(1))
         )
         )
 
@@ -1218,15 +1169,14 @@ class ProductCtrl @Inject() (
             BSONDocument("$eq" -> legNumber)
           }
         val command = Aggregate("product", Seq(
-          Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
-            Json.obj("code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
-          Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legNumber" -> bsLegNumber)),
-          Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
-          Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
-          GroupField("legType")("total" -> SumValue(1))
+          Match(BSONDocument("url.group" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
+          Match(BSONDocument("info.brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("info.origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("info.legNumber" -> bsLegNumber)),
+          Match(BSONDocument("core.price.0.price" -> BSONDocument("$gte" -> minPrice, "$lte" -> maxPrice))),
+          GroupField("info.legType")("total" -> SumValue(1))
         )
         )
 
@@ -1319,15 +1269,14 @@ class ProductCtrl @Inject() (
           }
 
         val command = Aggregate("product", Seq(
-          Match(BSONDocument("groupUrl" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("$or" -> Json.arr(Json.obj("name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
-            Json.obj("code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
-          Match(BSONDocument("brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
-          Match(BSONDocument("legType" -> bsLegType)),
-          Match(BSONDocument("price" -> BSONDocument("$gte" -> minPrice))),
-          Match(BSONDocument("price" -> BSONDocument("$lte" -> maxPrice))),
-          GroupField("legNumber")("total" -> SumValue(1))
+          Match(BSONDocument("url.group" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
+          Match(BSONDocument("info.brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("info.origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("info.legType" -> bsLegType)),
+          Match(BSONDocument("core.price.0.price" -> BSONDocument("$gte" -> minPrice, "$lte" -> maxPrice))),
+          GroupField("info.legNumber")("total" -> SumValue(1))
         )
         )
 

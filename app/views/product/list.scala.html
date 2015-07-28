@@ -9,13 +9,13 @@
 	<body>
 		@for(product <- products){
 
-				<p>@product.code</p>
-				<p>@product.name</p>
-				<p>@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl).url</p>
+				<p>@product.core.code</p>
+				<p>@product.core.name</p>
+				<p>@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl).url</p>
 			<br>
-			<a href="@routes.ProductCtrl.viewEdit(product.pUrl)">Edit</a>
+			<a href="@routes.ProductCtrl.viewEdit(product.url.pUrl)">Edit</a>
 			|
-			<a href="@routes.ProductCtrl.viewProduct(product.subTypeUrl, product.groupUrl, product.pUrl)">view</a>
+			<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl)">view</a>
 			|
 			<form action="@routes.ProductCtrl.deleteProduct(product.id.getOrElse(""))" method="POST">
 				<button type="submit">Delete</button>

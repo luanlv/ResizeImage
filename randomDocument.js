@@ -327,9 +327,30 @@ var listName = ["Bộ Hẹn Giờ", "Cảm Biến Khoảng Cách ", "Module Đi�
                 "WiFi Serial Transceiver", "STM32F103VCT6 100-pin ARM ", "STM32F103ZET6 144-pin ARM ",
                 "Bluetooth Module HC05 master / slave Breakout board", "Opamp Instrumentation Amplifier 1MHz",
                 "10 - 80cm Distance Measuring ", "Full H-Bridge Driver Parallel 2A PowerSO-20"];
-var listPrice = [5000, 10000, 15000, 20000, 25000, 30000, 35000, 40000, 45000, 50000, 55000, 60000,
-                  65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 150000, 200000, 250000,
-                  300000, 350000, 400000, 450000, 500000, 550000, 600000, 650000, 700000];
+var listPrice = [
+    [{num:1, price: 10000}],
+    [{num:1, price: 15000}],
+    [{num:1, price: 25000}],
+    [{num:1, price: 35000}],
+    [{num:1, price: 45000}],
+    [{num:1, price: 55000}],
+    [{num:1, price: 60000}],
+    [{num:1, price: 100000}],
+    [{num:1, price: 150000}],
+    [{num:1, price: 300000}],
+    [{num: 1, price: 10000},{num:10, price: 9000},{num:100,price:8000}],
+    [{num: 1, price: 15000},{num:10, price: 14500},{num:100,price:14000}],
+    [{num: 1, price: 30000},{num:10, price: 28000},{num:100,price:26000}],
+    [{num: 1, price: 40000},{num:10, price: 35000},{num:100,price:30000}],
+    [{num: 1, price: 90000},{num:10, price: 86000},{num:100,price:82000}],
+    [{num: 1, price: 100000},{num:10, price: 90000},{num:100,price:80000}],
+    [{num: 1, price: 150000},{num:10, price: 140000},{num:100,price:130000}],
+    [{num: 1, price: 200000},{num:10, price: 190000},{num:100,price:180000}],
+    [{num: 1, price: 300000},{num:10, price: 250000},{num:100,price:100000}]
+];
+
+var listSaleOff1 = [5, 10, 15];
+var listSaleOff2 = [1000, 2000, 3000 , 4000];
 
 
 
@@ -356,27 +377,55 @@ while(index < documentNumber) {
 
   var listImage = imageArray[Math.floor(Math.random() * imageArray.length)];
 
+  var saleOff1;
+  var saleOff2;
+  var tmp = Math.random()*100;
+  if(tmp < 2){
+    saleOff1 = listSaleOff1[Math.floor(Math.random() * listSaleOff1.length)];
+    saleOff2 = 0;
+  } else if(tmp < 4){
+    saleOff1 = 0;
+    saleOff2 = listSaleOff2[Math.floor(Math.random() * listSaleOff2.length)];
+  } else {
+    saleOff1 = 0;
+    saleOff2 = 0;
+  }
+
+
   var document = {
     _id : id,
-    supTypeUrl: supTypeUrl,
-    supType: supType,
-    subTypeUrl: subTypeUrl,
-    subType: subType,
-    pUrl: id,
-    code: id,
-    image: listImage,
-    name: name,
-    unit: unit,
-    stock: stock,
-    price: price,
-    groupUrl: groupUrl,
-    group: group,
-    brand: brand,
-    origin: origin,
-    legType: legType,
-    legNumber: legNumber,
-    info: null,
-    note: null
+    url: {
+      supType: supTypeUrl,
+      subType: subTypeUrl,
+      group: groupUrl,
+      pUrl: id
+    },
+    core: {
+      code: id,
+      name: name,
+      price: price
+    },
+    info: {
+      supType: supType,
+      subType: subType,
+      group: group,
+      image: listImage,
+      unit: unit,
+      stock: stock,
+      sold: Math.floor(Math.random() * 1000),
+      vote: Math.floor(Math.random() * 100),
+      brand: brand,
+      origin: origin,
+      legType: legType,
+      legNumber: legNumber
+    },
+
+    extra: {
+      saleOff1: saleOff1,
+      saleOff2: saleOff2,
+      info: "",
+      note: ""
+    }
   };
 
   batchDocuments[index % batchNumber] = document;
