@@ -1,15 +1,19 @@
 package controllers
 
+
+import javax.inject.Inject
+
+import play.api.Configuration
 import play.api.mvc.{Action, Controller, Request}
 
 
-class Application  extends Controller{
+class Application @Inject() (config: Configuration)  extends Controller{
 
-  def index = Action { implicit request =>
-    Redirect(routes.ProductCtrl.index())
+
+  def assetUrl(file: String): String = {
+    val versionedUrl = routes.Assets.versioned(file).url
+    val maybeAssetsUrl = config.getString("assets.url")
+    maybeAssetsUrl.fold(versionedUrl)(_ + versionedUrl)
   }
-  // list all articles and sort them
-  def upload = Action { implicit request =>
-     Ok(views.html.image.upload())
-  }
+
 }

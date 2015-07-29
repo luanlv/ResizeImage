@@ -1,14 +1,15 @@
-@(bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
+@(assetCDN: String => String, bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
 <!DOCTYPE html>
 <html>
 	<head>
-		@HtmlStream.fromHtml(views.html.partials.import_t())
+		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN))
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
+	@assetCDN(routes.ImageCtrl.get("a6b0e6db-6b6f-4738-8b11-b4fa16884a7e", "small").url)
 	@bigPipe.render { pagelets =>
 		<div id="main" class="m-scene">
 		<div class="container" id="container">
@@ -33,7 +34,7 @@
 				</div>
 			</div>
 
-			@HtmlStream.fromHtml(views.html.partials_extra.header())
+			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN))
 
 			<div class="main">
 				@pagelets("aside")
@@ -41,7 +42,7 @@
 					<div class="c-left">
 
 					<div class="image-top">
-						<img src="@routes.Assets.versioned("/imageDemo/slide2.jpg")" alt="">
+						<img src="@assetCDN(routes.Assets.versioned("imageDemo/slide2.jpg").url)" alt="">
 					</div>
 
 
@@ -65,7 +66,7 @@
 			<div class="footer"></div>
 		</div>
 		</div>
-	@HtmlStream.fromHtml(views.html.partials.import_b())
+	@HtmlStream.fromHtml(views.html.partials.import_b(assetCDN))
 	}
 
 	</body>

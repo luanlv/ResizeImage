@@ -1,10 +1,12 @@
+@(assetCDN: String => String)
+
 <div class="header">
 	<div class="hm-left">
 		<div class="logo">
-			<img src="/assets/imageDemo/logo2.png" alt="" >
+			<img src="@assetCDN(routes.Assets.versioned("imageDemo/logo2.png").url)" alt="" >
 		</div>
 		<div class="menu">
-			<img src="/assets/imageDemo/menu-icon.png" alt="">
+			<img src="@assetCDN(routes.Assets.versioned("imageDemo/menu-icon.png").url)" alt="">
 		</div>
 	</div>
 	<div class="hm-middle">

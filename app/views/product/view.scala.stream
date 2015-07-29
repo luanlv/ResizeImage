@@ -1,9 +1,9 @@
-@(bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
+@(assetCDN: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	product: Pagelet, aside: Pagelet, _sub: String = "", _sb: String = "", _v: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
 <!DOCTYPE html>
 <html>
 	<head>
-		@HtmlStream.fromHtml(views.html.partials.import_t())
+		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN))
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 
-			@HtmlStream.fromHtml(views.html.partials_extra.header())
+			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN))
 
 			<div class="main">
 					@pagelets("aside")
@@ -50,7 +50,7 @@
 			<div class="footer"></div>
 		</div>
 		</div>
-	@HtmlStream.fromHtml(views.html.partials.import_b())
+	@HtmlStream.fromHtml(views.html.partials.import_b(assetCDN))
 	}
 	</body>
 </html>

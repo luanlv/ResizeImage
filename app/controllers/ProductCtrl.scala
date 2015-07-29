@@ -45,7 +45,8 @@ class ProductCtrl @Inject() (
      val reactiveMongoApi: ReactiveMongoApi,
      ws: WSClient,
      cache: CacheApi,
-     cached: Cached)
+     cached: Cached,
+     config: Configuration)
     extends Controller with MongoController with ReactiveMongoComponents with Pjax{
 
   //--------------------    SETUP   ------------------------------------------------------------
@@ -276,14 +277,14 @@ class ProductCtrl @Inject() (
 //          Ok(views.html.partials.index(result._1, result._2, result._3, result._4, result._5, result._6))
           Ok("")
         }else {
-          val pageletColelction1 = HtmlPagelet("collection1", Future(views.html.product.collection(result._1)))
-          val pageletColelction2 = HtmlPagelet("collection2", Future(views.html.product.collection(result._2)))
-          val pageletColelction3 = HtmlPagelet("collection3", Future(views.html.product.collection(result._3)))
+          val pageletColelction1 = HtmlPagelet("collection1", Future(views.html.product.collection(assetCDN, result._1)))
+          val pageletColelction2 = HtmlPagelet("collection2", Future(views.html.product.collection(assetCDN, result._2)))
+          val pageletColelction3 = HtmlPagelet("collection3", Future(views.html.product.collection(assetCDN, result._3)))
 
           val aside = HtmlPagelet("aside", Future(views.html.partials.asideIndex(result._4, result._5, result._6)))
 
           val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
-          Ok.chunked(views.stream.index(bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside))
+          Ok.chunked(views.stream.index(assetCDN, bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside))
         }
       }
     }
@@ -338,7 +339,7 @@ class ProductCtrl @Inject() (
           Ok("")
         else {
           val v = result._1 match {
-            case Some(data) => Future(views.html.product.viewWithoutAside(data, result._2, result._3, result._4, _sb, _v, _li))
+            case Some(data) => Future(views.html.product.viewWithoutAside(assetCDN, data, result._2, result._3, result._4, _sb, _v, _li))
             case _ => Future(views.html.product.view2())
           }
           val pageletProduct = HtmlPagelet("product" , v)
@@ -350,7 +351,7 @@ class ProductCtrl @Inject() (
             case Some(data) => data.url.subType
             case _ => ""
           }
-          Ok.chunked(views.stream.product.view(bigPipe, result._2, result._3, result._4,
+          Ok.chunked(views.stream.product.view(assetCDN, bigPipe, result._2, result._3, result._4,
             pageletProduct, pageletAside, subType))
         }
       }
@@ -470,7 +471,7 @@ class ProductCtrl @Inject() (
             Ok("")
           } else {
 
-            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1, _sb, _v)))
+            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(assetCDN, result._1, _sb, _v)))
 
             val pageletAside = HtmlPagelet("aside",
               Future(views.html.partials.aside(result._2, result._3, result._4,
@@ -480,7 +481,7 @@ class ProductCtrl @Inject() (
             )
             val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
 
-            Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
+            Ok.chunked(views.stream.category(assetCDN, bigPipe, result._2, result._3, result._4,
               result._5, result._6, result._7, result._8,
               pageletColelction, pageletAside, subTypeUrl, groupUrl, _page, _sb, _kw, _li, _v))
           }
@@ -527,21 +528,7 @@ class ProductCtrl @Inject() (
     }
   }
 
-  //----------------- Server render for google bot    ----------------------------------------------
 
-  private def renderOptions(request: RequestHeader): PageletRenderOptions = {
-    request.getQueryString("server") match {
-      case Some("true") =>
-      PageletRenderOptions.ServerSide
-
-      case _            => {
-        request.headers.get(HeaderNames.USER_AGENT) match {
-          case Some(header) if header.contains("GoogleBot") => PageletRenderOptions.ServerSide
-          case _ => PageletRenderOptions.ClientSide
-        }
-      }
-    }
-  }
 
   //--------------------------------------------------------------------------------------------------
 
@@ -1403,4 +1390,40 @@ class ProductCtrl @Inject() (
         .replaceAll("y", "[y|ý|ỳ|ỷ|ỹ|ỵ]")
         .replaceAll("d", "[d|đ]")
   }
+
+
+  //----------------- Server render for google bot    ----------------------------------------------
+
+  private def renderOptions(request: RequestHeader): PageletRenderOptions = {
+    request.getQueryString("server") match {
+      case Some("true") =>
+        PageletRenderOptions.ServerSide
+
+      case _            => {
+        request.headers.get(HeaderNames.USER_AGENT) match {
+          case Some(header) if header.contains("GoogleBot") => PageletRenderOptions.ServerSide
+          case _ => PageletRenderOptions.ClientSide
+        }
+      }
+    }
+  }
+  var maybeAssetsUrl = Option("")
+
+  private def assetCDN(url: String): String = {
+    val result =
+      if(url.take(2) == "//")
+        url
+      else
+        maybeAssetsUrl.fold(url)(_ + url)
+    result
+  }
+
+
+   def setCDN(name: String) = Action {
+     val newCdn = "//" + name
+     maybeAssetsUrl = Option(newCdn)
+     Ok("Set cdn to: " + name + " ok!")
+   }
 }
+
+

@@ -1,4 +1,4 @@
-@(products: List[models.Product], _sb: String = "", _v: String = "")
+@(assetCDN: String => String, products: List[models.Product], _sb: String = "", _v: String = "")
 
 <ul class="gallery">
 	@for(product <- products){

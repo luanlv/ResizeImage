@@ -113,4 +113,7 @@ class ImageCtrl @Inject() (
     val image = ImageDAO.get(gridFS, uuid, size)
     serve[JsString, JSONReadFile](gridFS)(image, CONTENT_DISPOSITION_INLINE).map(_.withHeaders("Cache-Control" ->"max-age=%d, public".format(60*60*24*365)))
   }
+
+
+
 }
