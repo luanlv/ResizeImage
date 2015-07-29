@@ -9,7 +9,6 @@
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
-	@assetCDN(routes.ImageCtrl.get("a6b0e6db-6b6f-4738-8b11-b4fa16884a7e", "small").url)
 	@bigPipe.render { pagelets =>
 		<div id="main" class="m-scene">
 		<div class="container" id="container">

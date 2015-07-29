@@ -1419,6 +1419,11 @@ class ProductCtrl @Inject() (
   }
 
 
+  def clearCDN() = Action {
+    maybeAssetsUrl = Option("")
+    Ok("clear CDN ok!")
+  }
+
    def setCDN(name: String) = Action {
      val newCdn = "//" + name
      maybeAssetsUrl = Option(newCdn)
