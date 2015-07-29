@@ -1,9 +1,10 @@
 div.laside{
   list-style: none;
-  div.active{
-    color: #0654ba;
+  .sub>div.active{
     font-weight: bold;
-    font-size: 11px;
+  }
+  div.active{
+    color: $red;
     span{
       font-size: 12px;
       font-weight: normal;
@@ -16,6 +17,12 @@ div.laside{
     display: inline;
   }
 
+  h2{
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    display: inline;
+  }
 
   .sub{
     margin-top: 3px;
@@ -47,28 +54,37 @@ div.laside{
     list-style: none;
     margin-top: 0;
     margin-bottom: 0;
-    &.lhide{
-      margin-bottom: 5px;
+    &.lshow{
+      margin-top:3px;
     }
   }
   ul li{
-    //margin-left: 10px;
+    margin-bottom: 3px;
   }
-  .cat-sh span{
-    color: #999;
-    font-weight: bold;
-    font-style: italic;
-    //margin-left: 10px;
+
+  .cat-sh {
+    font-size: 12px;
+    span {
+      color: #333;
+      font-weight: bold;
+      font-style: italic;
+    }
   }
   .lt-ln{
+    font-size: 11px;
     @include full();
     @include clearfix();
   }
   .lt{
-    @include span(47 of 100);
+    @include span(50 of 100);
   }
   .ln{
-    @include span(53 of 100 last);
+    @include span(50 of 100 last);
+  }
+
+  .f-selected{
+    margin-top: 5px;
+    font-size: 12px;
   }
 }
 
@@ -77,7 +93,17 @@ div.laside{
   padding: 5px;
   padding-top: 10px;
   @include clearfix();
+  .active{
+
+    &:before{
+      content: "\00a0\2666\00a0";
+    }
+  }
   a {
+    position:relative;
+    &:before{
+      content: "→"
+    }
     color: #0654ba;
     &:visited{
       color: #0654ba;

@@ -1,12 +1,13 @@
 
 $(function() {
   // pjaxify links inside of #pjax-container
-  $(document).pjax('a.pjContainer', '#pjax-container');
-  $(document).pjax('a.pfull', '.main');
-  // pjaxify forms that with data-pjax attribute
-  $(document).on('submit', 'form[data-pjax]', function(event) {
-    $.pjax.submit(event, '.main')
-  });
+
+  //$(document).pjax('a.pjContainer', '#pjax-container');
+  //$(document).pjax('a.pfull', '.main');
+  //// pjaxify forms that with data-pjax attribute
+  //$(document).on('submit', 'form[data-pjax]', function(event) {
+  //  $.pjax.submit(event, '.main')
+  //});
 
   // this is needed if you want the body of 400 etc. to show
   $(document).on('pjax:error', function(event, xhr, textStatus, errorThrown, options){

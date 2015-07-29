@@ -1,0 +1,19 @@
+@(listGroup: List[(String, String, Int)], _sub: String, _gro: String, _sb: String = "", _kw: String = "", _li: Int = 8, _v: String = "")
+
+<div class="group">
+	@if(_gro == ""){
+		@for(group <- listGroup){
+			<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, group._1, 1, _sb, _kw, _li, _v)">
+						group._2 </a><span class="num">(@group._3)</span></div>
+		}
+	} else {
+		@for(group <- listGroup){
+			@if(group._1 == _gro){
+				<div class="active"> @group._2 <span class="num">(@group._3)</span></div>
+			} else {
+				<div><a class="pfull" href="@routes.ProductCtrl.collection(_sub, group._1, 1, _sb, _kw, _li, _v)">
+					@group._2 </a><span class="num">(@group._3)</span></div>
+			}
+		}
+	}
+</div>

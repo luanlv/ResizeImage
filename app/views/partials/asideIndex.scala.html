@@ -1,71 +1,72 @@
 @(supType: models.SupType, subType: models.SubType , group: models.GroupP,
-	_sub: String = "", _gro: String = "", _kw: String = "", _li: Int = 8)
+	_sub: String = "", _kw: String = "", _li: Int = 8)
 
 
 <aside class="aside">
 	<hr class="style-menu">
 	<div class="laside">
 		<div class="sup">
-			<h3>Phần cứng, Thiết bị</h3><span class="num">(@supType.s1)</span>
+			<h2>Phần cứng, Thiết bị</h2><span class="num">(@supType.s1)</span>
 			<div class="sub">
-				<h3>Máy Nạp & Adapter</h3><span class="num">(@subType.s11)</span>
+				<h3><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "list")">Máy Nạp & Adapter</a></h3><span class="num">(@subType.s11)</span>
 
 				<div class="group">
-					<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer")">&rarr;Máy nạp ĐA NĂNG</a><span class="num">(@group.s111)</span></div>
-					<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer")">&rarr;Mạch nạp 8051</a><span class="num">(@group.s112)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "universal-programmer")">Máy nạp ĐA NĂNG</a><span class="num">(@group.s111)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "8051-usb-programmer")">Mạch nạp 8051</a><span class="num">(@group.s112)</span></div>
 				</div>
 			</div>
 
-		<div class="sub">
-				<h3>Board Phát triển</h3><span class="num">(@subType.s12)</span>
-
-				<div class="group">
-					<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "raspberry-pi")">&rarr;Raspberry PI</a><span class="num">(@group.s121)</span></div>
-					<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "arduino-shield")">&rarr;Arduino and Shields</a><span class="num">(@group.s122)</span></div>
-				</div>
-		</div>
-
-		<hr/>
-		<div class="sup">
-			<h3>LK Bán dẫn & Cảm biến</h3><span class="num">(@supType.s2)</span>
 			<div class="sub">
-				<h3>Sensors, Transducers</h3><span class="num">(@subType.s21)</span>
-				<div class="group">
-					<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes")">&rarr;Gyroscopes</a><span class="num">(@group.s211)</span></div>
-					<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor")">&rarr;Cảm biến ánh sáng</a><span class="num">(@group.s212)</span></div>
-				</div>
-
-			</div>
-
-			<div class="sub">
-				<h3>Memory ICs</h3><span class="num">(@subType.s22)</span>
+				<h3><a class="pufll" href="@routes.ProductCtrl.collection("board-phat-trien", "list")">Board Phát triển</a></h3><span class="num">(@subType.s12)</span>
 
 				<div class="group">
-					<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "memory")">&rarr;AT88SC0104C-SU</a><span class="num">(@group.s221)</span></div>
-					<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "24cxx-serial-eeprom")">&rarr;24Cxx Serial EEPROM</a><span class="num">(@group.s222)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "raspberry-pi")">Raspberry PI</a><span class="num">(@group.s121)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "board-phat-trien", "arduino-shield")">Arduino and Shields</a><span class="num">(@group.s122)</span></div>
 				</div>
 			</div>
 		</div>
+		<hr/>
+		<div class="sup">
+			<h2>LK Bán dẫn & Cảm biến</h2><span class="num">(@supType.s2)</span>
+
+			<div class="sub">
+				<h3><a class="pufll" href="@routes.ProductCtrl.collection("sensor-transducer", "list")">Sensors, Transducers</a></h3><span class="num">(@subType.s21)</span>
+				<div class="group">
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "gyroscopes")">Gyroscopes</a><span class="num">(@group.s211)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "sensor-transducer", "light-sensor")">Cảm biến ánh sáng</a><span class="num">(@group.s212)</span></div>
+				</div>
+
+			</div>
+
+			<div class="sub">
+				<h3><a class="pufll" href="@routes.ProductCtrl.collection("memory-ic", "list")">Memory ICs</a></h3><span class="num">(@subType.s22)</span>
+
+				<div class="group">
+					<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "memory")">AT88SC0104C-SU</a><span class="num">(@group.s221)</span></div>
+					<div ><a class="pfull" href="@routes.ProductCtrl.collection( "memory-ic", "24cxx-serial-eeprom")">24Cxx Serial EEPROM</a><span class="num">(@group.s222)</span></div>
+				</div>
+			</div>
+		</div>
 
 		<hr/>
 
 		<div class="sup">
-			<h3>LK Khác và Phụ kiện</h3><span class="num">(@supType.s3)</span>
+			<h2>LK Khác và Phụ kiện</h2><span class="num">(@supType.s3)</span>
 			<div class="sub">
-				<h3>LEDs</h3><span class="num">(@subType.s31)</span>
+				<h3><a class="pufll" href="@routes.ProductCtrl.collection("led", "list")">LEDs</a></h3><span class="num">(@subType.s31)</span>
 
 				<div class="group">
-					<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-1w")">&rarr;LED 1W</a><span class="num">(@group.s311)</span></div>
-					<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-smd-0805")">&rarr;LEDs SMD-0805 (2012)</a><span class="num">(@group.s312)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-1w")">LED 1W</a><span class="num">(@group.s311)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "led", "led-smd-0805")">LEDs SMD-0805 (2012)</a><span class="num">(@group.s312)</span></div>
 				</div>
 
 			</div>
 			<div class="sub">
-				<h3>LCDs Display</h3><span class="num">(@subType.s32)</span>
+				<h3><a class="pufll" href="@routes.ProductCtrl.collection("lcd-display", "list")">LCDs Display</a></h3><span class="num">(@subType.s32)</span>
 
 				<div class="group">
-					<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd")">&rarr;Character LCDs</a><span class="num">(@group.s321)</span></div>
-					<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd")">&rarr;Graphic LCDs</a><span class="num">(@group.s322)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "character-lcd")">Character LCDs</a><span class="num">(@group.s321)</span></div>
+					<div><a class="pfull" href="@routes.ProductCtrl.collection( "lcd-display", "graphic-lcd")">Graphic LCDs</a><span class="num">(@group.s322)</span></div>
 				</div>
 
 			</div>

@@ -273,7 +273,8 @@ class ProductCtrl @Inject() (
     futureResult.map{
       result => {
         if (request.pjaxEnabled){
-          Ok(views.html.partials.index(result._1, result._2, result._3, result._4, result._5, result._6))
+//          Ok(views.html.partials.index(result._1, result._2, result._3, result._4, result._5, result._6))
+          Ok("")
         }else {
           val pageletColelction1 = HtmlPagelet("collection1", Future(views.html.product.collection(result._1)))
           val pageletColelction2 = HtmlPagelet("collection2", Future(views.html.product.collection(result._2)))
@@ -330,10 +331,11 @@ class ProductCtrl @Inject() (
     futureResult.map{
       result => {
         if (request.pjaxEnabled)
-          result._1 match {
-            case Some(data) => Ok(views.html.product.view(data, result._2, result._3, result._4, _sb, _v, _li))
-            case None => Ok("ko ton tai")
-          }
+//          result._1 match {
+//            case Some(data) => Ok(views.html.product.view(data, result._2, result._3, result._4, _sb, _v, _li))
+//            case None => Ok("ko ton tai")
+//          }
+          Ok("")
         else {
           val v = result._1 match {
             case Some(data) => Future(views.html.product.viewWithoutAside(data, result._2, result._3, result._4, _sb, _v, _li))
@@ -366,12 +368,25 @@ class ProductCtrl @Inject() (
     Cached((rh: RequestHeader) => rh.uri + groupUrl, cachePage) {PjaxAction.async { implicit request =>
 
 
-      val cacheName = "collection-" + groupUrl + _kw + _li + _br + _or + _lt + _ln + _min + _max
+      val cacheName = "collection-" + subTypeUrl +  groupUrl + _kw + _li + _br + _or + _lt + _ln + _min + _max
 
       val futureList = cache.get[List[Product]](cacheName) match {
         case None => {
           println(s"Not found $cacheName ")
           val newKw = vnSearch(_kw)
+
+          val jsSubType =
+            if(subTypeUrl != "")
+              Json.obj("$eq" -> subTypeUrl)
+            else
+              Json.obj("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+
+          val jsGroup =
+            if(groupUrl != "list"){
+              Json.obj("$eq" -> groupUrl)
+            } else {
+              Json.obj("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+            }
           val jsLegType =
             if(_lt == "") {
               Json.obj("$regex" -> (".*" + _lt + ".*"), "$options" -> "-i")
@@ -390,8 +405,8 @@ class ProductCtrl @Inject() (
             Json.obj("updateDate" -> -1)
           }
           val futureList = cProduct.find(Json.obj(
-          "url.subType" -> Json.obj("$regex" -> (".*" + subTypeUrl + ".*"), "$options" -> "-i"),
-          "url.group" -> Json.obj("$regex" -> (".*" + groupUrl + ".*"), "$options" -> "-i"),
+          "url.subType" -> jsSubType,
+          "url.group" -> jsGroup,
           "$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i")),
             Json.obj("core.code" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i"))),
           "info.brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
@@ -404,7 +419,6 @@ class ProductCtrl @Inject() (
         .cursor[Product]().collect[List](_li)
 
           futureList.map{
-
             list => {
               cache.set(cacheName, list, cacheQueriesDay)
               cacheList += cacheName
@@ -420,13 +434,19 @@ class ProductCtrl @Inject() (
         }
       }
 
+      val tmpGroupUrl =
+        if(groupUrl == "list")
+          ""
+        else
+          groupUrl
+
       val supType = getSupType()
       val subType = getSubType()
       val group = getGroup()
-      val brand = getBrand(groupUrl, _kw, _or, _lt, _ln, _min, _max)
-      val origin = getOrigin(groupUrl, _kw, _br, _lt, _ln, _min, _max)
-      val legType = getLegType(groupUrl, _kw, _br, _or, _ln, _min, _max)
-      val legNumber = getLegNumber(groupUrl, _kw, _br, _or, _lt, _min, _max)
+      val brand = getBrand(subTypeUrl, tmpGroupUrl, _kw, _or, _lt, _ln, _min, _max)
+      val origin = getOrigin(subTypeUrl, tmpGroupUrl, _kw, _br, _lt, _ln, _min, _max)
+      val legType = getLegType(subTypeUrl, tmpGroupUrl, _kw, _br, _or, _ln, _min, _max)
+      val legNumber = getLegNumber(subTypeUrl, tmpGroupUrl, _kw, _br, _or, _lt, _min, _max)
 
       val futureResult = for {
         futureList <- futureList
@@ -439,23 +459,25 @@ class ProductCtrl @Inject() (
         legNumber <- legNumber
       } yield (futureList, supType, subType, group, brand, origin, legType, legNumber)
 
-      if (request.pjaxEnabled){
-        futureResult.map{
-          result => Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
-            result._5, result._6, result._7, result._8,
-            subTypeUrl, groupUrl, _page, _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max))
-        }
-      }else{
-        futureResult.map {
-          result => {
-            println(result._1)
+      futureResult.map {
+        result => {
+          if (request.pjaxEnabled) {
+            //        futureResult.map{
+            //          result => Ok(views.html.partials.category(result._1, result._2, result._3, result._4,
+            //            result._5, result._6, result._7, result._8,
+            //            subTypeUrl, groupUrl, _page, _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max))
+            //        }
+            Ok("")
+          } else {
+
             val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(result._1, _sb, _v)))
 
             val pageletAside = HtmlPagelet("aside",
               Future(views.html.partials.aside(result._2, result._3, result._4,
                 result._5, result._6, result._7, result._8,
-                subTypeUrl, groupUrl, _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max)))
+                subTypeUrl, groupUrl, _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max))
 
+            )
             val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
 
             Ok.chunked(views.stream.category(bigPipe, result._2, result._3, result._4,
@@ -464,10 +486,13 @@ class ProductCtrl @Inject() (
           }
         }
       }
-  }}
+   }
+  }
 
 
-  //-------------------  view list products ----------------------------------------------------------
+
+
+  //-------------------  view list products --------------------------------------------------------
 
   def listProduct(page: Int, _pp : Int, _n: String, _c:String, _g: String,
                   _min: Int = 0, _max: Int = 100000000) = PjaxAction.async { implicit request =>
@@ -939,10 +964,10 @@ class ProductCtrl @Inject() (
     subType
   }
 
-  def getBrand(group: String, keyword:String = "", origin: String = "", legType: String = "",
+  def getBrand(subTypeUrl: String, group: String, keyword:String = "", origin: String = "", legType: String = "",
                legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
 //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "wfilter" + group + keyword + "brand" + origin + legType + legNumber + minPrice + maxPrice
+    val cacheName = "wfilter" + subTypeUrl + group + keyword + "brand" + origin + legType + legNumber + minPrice + maxPrice
 
 
     val data = cache.get[Brand]( cacheName ) match {
@@ -1070,11 +1095,11 @@ class ProductCtrl @Inject() (
     data
   }
 
-  def getOrigin(group: String, keyword: String = "", brand: String = "", legType: String = "",
+  def getOrigin(subTypeUrl: String, group: String, keyword: String = "", brand: String = "", legType: String = "",
                  legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
 
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "wfilter" + group + keyword + brand + "origin" + legType + legNumber + minPrice + maxPrice
+    val cacheName = "wfilter" + subTypeUrl + group + keyword + brand + "origin" + legType + legNumber + minPrice + maxPrice
 
     val data = cache.get[Origin]( cacheName ) match {
       case None => {
@@ -1153,10 +1178,10 @@ class ProductCtrl @Inject() (
     data
   }
 
-  def getLegType(group: String, keyword: String = "", brand: String = "", origin: String = "",
+  def getLegType( subTypeUrl: String, group: String, keyword: String = "", brand: String = "", origin: String = "",
                   legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "wfilter" + group + keyword + brand + origin + "legType" + legNumber + minPrice + maxPrice
+    val cacheName = "wfilter" + subTypeUrl + group + keyword + brand + origin + "legType" + legNumber + minPrice + maxPrice
 
     val data = cache.get[LegType]( cacheName ) match {
       case None => {
@@ -1252,10 +1277,10 @@ class ProductCtrl @Inject() (
     data
   }
 
-  def getLegNumber(group: String, keyword: String = "", brand: String = "", origin: String = "",
+  def getLegNumber(subTypeUrl: String, group: String, keyword: String = "", brand: String = "", origin: String = "",
                    legType: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "wfilter" + group + keyword + brand + origin + legType + "legNumber" + minPrice + maxPrice
+    val cacheName = "wfilter" + subTypeUrl + group + keyword + brand + origin + legType + "legNumber" + minPrice + maxPrice
 
     val data = cache.get[LegNumber]( cacheName ) match {
       case None => {
