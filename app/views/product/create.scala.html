@@ -34,25 +34,26 @@
 				<div class="image-wrap" style="min-width: 180px; height: 150px; border: solid 1px #ddd; margin-top: 5px; margin-bottom: 5px;">
 					<div>
 						@for(i <- 0 to 4){
-							@if(form("image["+i+"].small").value.nonEmpty){<img class="view" src="@form("image["+i+"].small").value" alt="">}
+							@if(form("info.image["+i+"].small").value.nonEmpty){<img class="view" src="@form("info.image["+i+"].small").value" alt="">}
 						}
 					</div>
 				</div>
 				<div class="listImage">
 					@for(i <- 0 to 4){
 						@for(t <- List("origin", "small", "thumb")){
-							@if(form("image[" + i + "]." + t +"").value.nonEmpty){<input type="hidden" name="image[@i].@t" class="" value="@form("image["+i+"]."+t+"").value">}
+							@if(form("info.image[" + i + "]." + t +"").value.nonEmpty){<input type="hidden" name="image[@i].@t" class="" value="@form("info.image["+i+"]."+t+"").value">}
 						}
 					}
 				</div>
-				<input type="hidden" id="supTypeUrl" name="supTypeUrl" value="" />
-				<input type="hidden" id="supType" name="supType" value="" />
-				<input type="hidden" id="subTypeUrl" name="subTypeUrl" value="" />
-				<input type="hidden" id="subType" name="subType" value="" />
-				<input type="hidden" id="groupUrl" name="groupUrl" value=""/>
+				<input type="hidden" id="supTypeUrl" name="url.supType" value="" />
+				@*<input type="hidden" id="url.supType" name="url.supType" value="" />*@
+				<input type="hidden" id="subTypeUrl" name="url.subType" value="" />
+				<input type="hidden" id="groupUrl" name="url.group" value=""/>
+				<input type="hidden" id="supType" name="info.supType" value="" />
+				<input type="hidden" id="subType" name="info.subType" value="" />
 
 				<input style="float: right" class="btn btn-group" type="submit">
-				<input type="text" name="pUrl" placeholder="Url cho sản phẩm" value="@form("pUrl").value.getOrElse("")" style="float: right">
+				<input type="text" name="url.pUrl" placeholder="Url cho sản phẩm" value="@form("url.pUrl").value.getOrElse("")" style="float: right">
 				<br>
 				<div class="btn-group" >
 					<button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -224,46 +225,46 @@
 								<select name="" id=""></select>
 							</div>
 
-							@bootstrap3.text(form("code"),
+							@bootstrap3.text(form("core.code"),
 								label = "Mã sản phẩm",
 								placeholder = "",
 								help = "",
-								value= form("code").value.getOrElse(""))
+								value= form("core.code").value.getOrElse(""))
 
-							@bootstrap3.text(form("name"),
+							@bootstrap3.text(form("core.name"),
 								label = "Tên sản phẩm",
 								placeholder = "",
 								help = "",
-								value= form("name").value.getOrElse(""))
+								value= form("core.name").value.getOrElse(""))
 
 							Nhãn hiệu
 							<div style="margin-top: 3px;">
-								<select name="brand" >
-									<option value="Other" @if(form("brand").value.getOrElse("") == "Other"){ selected }>Other</option>
-									<option value="Xeltek" @if(form("brand").value.getOrElse("") == "Xeltek"){ selected }>Xeltek</option>
-									<option value="ATMEL" @if(form("brand").value.getOrElse("") == "ATMEL"){ selected }>ATMEL</option>
-									<option value="ELNEC" @if(form("brand").value.getOrElse("") == "ELNEC"){ selected }>ELNEC</option>
-									<option value="TOP" @if(form("brand").value.getOrElse("") == "TOP"){ selected }>TOP</option>
-									<option value="SOFI-TECH" @if(form("brand").value.getOrElse("") == "SOFI-TECH"){ selected }>SOFI-TECH</option>
-									<option value="Raspberry Pi" @if(form("brand").value.getOrElse("") == "Raspberry Pi"){ selected }>Raspberry Pi </option>
-									<option value="ST" @if(form("brand").value.getOrElse("") == "ST"){ selected }>ST</option>
-									<option value="InvenSense" @if(form("brand").value.getOrElse("") == "InvenSense"){ selected }>InvenSense</option>
-									<option value="Eagle Power" @if(form("brand").value.getOrElse("") == "Eagle Power"){ selected }>Eagle Power</option>
-									<option value="VISHAY" @if(form("brand").value.getOrElse("") == "VISHAY"){ selected }>VISHAY</option>
-									<option value="Harvatek" @if(form("brand").value.getOrElse("") == "Harvatek"){ selected }>Harvatek</option>
-									<option value="Andorin" @if(form("brand").value.getOrElse("") == "Andorin"){ selected }>Andorin</option>
-									<option value="Sharp" @if(form("brand").value.getOrElse("") == "Sharp"){ selected }>Sharp</option>
+								<select name="info.brand" >
+									<option value="Other" @if(form("info.brand").value.getOrElse("") == "Other"){ selected }>Other</option>
+									<option value="Xeltek" @if(form("info.brand").value.getOrElse("") == "Xeltek"){ selected }>Xeltek</option>
+									<option value="ATMEL" @if(form("info.brand").value.getOrElse("") == "ATMEL"){ selected }>ATMEL</option>
+									<option value="ELNEC" @if(form("info.brand").value.getOrElse("") == "ELNEC"){ selected }>ELNEC</option>
+									<option value="TOP" @if(form("info.brand").value.getOrElse("") == "TOP"){ selected }>TOP</option>
+									<option value="SOFI-TECH" @if(form("info.brand").value.getOrElse("") == "SOFI-TECH"){ selected }>SOFI-TECH</option>
+									<option value="Raspberry Pi" @if(form("info.brand").value.getOrElse("") == "Raspberry Pi"){ selected }>Raspberry Pi </option>
+									<option value="ST" @if(form("info.brand").value.getOrElse("") == "ST"){ selected }>ST</option>
+									<option value="InvenSense" @if(form("info.brand").value.getOrElse("") == "InvenSense"){ selected }>InvenSense</option>
+									<option value="Eagle Power" @if(form("info.brand").value.getOrElse("") == "Eagle Power"){ selected }>Eagle Power</option>
+									<option value="VISHAY" @if(form("info.brand").value.getOrElse("") == "VISHAY"){ selected }>VISHAY</option>
+									<option value="Harvatek" @if(form("info.brand").value.getOrElse("") == "Harvatek"){ selected }>Harvatek</option>
+									<option value="Andorin" @if(form("info.brand").value.getOrElse("") == "Andorin"){ selected }>Andorin</option>
+									<option value="Sharp" @if(form("info.brand").value.getOrElse("") == "Sharp"){ selected }>Sharp</option>
 								</select>
 							</div>
 
 							Xuất xứ
 							<div style="margin-top: 3px;">
-								<select name="origin" >
-									<option value="Việt Nam" @if(form("origin").value.getOrElse("") == "Việt Nam"){ selected }>Việt Nam</option>
-									<option value="Trung Quốc" @if(form("origin").value.getOrElse("") == "Trung Quốc"){ selected }>Trung Quốc</option>
-									<option value="Chính hãng" @if(form("origin").value.getOrElse("") == "Chính hãng"){ selected }>Chính hãng</option>
-									<option value="Taiwan" @if(form("origin").value.getOrElse("") == "Taiwan"){ selected }>Taiwan</option>
-									<option value="UK" @if(form("origin").value.getOrElse("") == "UK"){ selected }>UK</option>
+								<select name="info.origin" >
+									<option value="Việt Nam" @if(form("info.origin").value.getOrElse("") == "Việt Nam"){ selected }>Việt Nam</option>
+									<option value="Trung Quốc" @if(form("info.origin").value.getOrElse("") == "Trung Quốc"){ selected }>Trung Quốc</option>
+									<option value="Chính hãng" @if(form("info.origin").value.getOrElse("") == "Chính hãng"){ selected }>Chính hãng</option>
+									<option value="Taiwan" @if(form("info.origin").value.getOrElse("") == "Taiwan"){ selected }>Taiwan</option>
+									<option value="UK" @if(form("info.origin").value.getOrElse("") == "UK"){ selected }>UK</option>
 								</select>
 							</div>
 
@@ -272,74 +273,85 @@
 
 							Kiểu chân"
 							<div style="margin-top: 3px;">
-								<select name="legType">
-									<option value="" @if(form("legType").value.getOrElse("") == ""){ selected }>--Kiểu Chân--</option>
-									<option value="DIP" @if(form("legType").value.getOrElse("") == "DIP"){ selected }>DIP</option>
-									<option value="SIP" @if(form("legType").value.getOrElse("") == "SIP"){ selected }>SIP</option>
-									<option value="LQFP" @if(form("legType").value.getOrElse("") == "LQFP"){ selected }>LQFP</option>
-									<option value="PQFP" @if(form("legType").value.getOrElse("") == "PQFP"){ selected }>PQFP</option>
-									<option value="QFN" @if(form("legType").value.getOrElse("") == "QFN"){ selected }>QFN</option>
-									<option value="SOIC" @if(form("legType").value.getOrElse("") == "SOIC"){ selected }>SOIC</option>
-									<option value="TQFP" @if(form("legType").value.getOrElse("") == "TQFP"){ selected }>TQFP</option>
-									<option value="T-1 3/4" @if(form("legType").value.getOrElse("") == "T-1 3/4"){ selected }>T-1 3/4</option>
-									<option value="SMD" @if(form("legType").value.getOrElse("") == "SMD"){ selected }>SMD</option>
-									<option value="SMD0805" @if(form("legType").value.getOrElse("") == "SMD0805"){ selected }>SMD0805</option>
+								<select name="info.legType">
+									<option value="" @if(form("info.legType").value.getOrElse("") == ""){ selected }>--Kiểu Chân--</option>
+									<option value="DIP" @if(form("info.legType").value.getOrElse("") == "DIP"){ selected }>DIP</option>
+									<option value="SIP" @if(form("info.legType").value.getOrElse("") == "SIP"){ selected }>SIP</option>
+									<option value="LQFP" @if(form("info.legType").value.getOrElse("") == "LQFP"){ selected }>LQFP</option>
+									<option value="PQFP" @if(form("info.legType").value.getOrElse("") == "PQFP"){ selected }>PQFP</option>
+									<option value="QFN" @if(form("info.legType").value.getOrElse("") == "QFN"){ selected }>QFN</option>
+									<option value="SOIC" @if(form("info.legType").value.getOrElse("") == "SOIC"){ selected }>SOIC</option>
+									<option value="TQFP" @if(form("info.legType").value.getOrElse("") == "TQFP"){ selected }>TQFP</option>
+									<option value="T-1 3/4" @if(form("info.legType").value.getOrElse("") == "T-1 3/4"){ selected }>T-1 3/4</option>
+									<option value="SMD" @if(form("info.legType").value.getOrElse("") == "SMD"){ selected }>SMD</option>
+									<option value="SMD0805" @if(form("info.legType").value.getOrElse("") == "SMD0805"){ selected }>SMD0805</option>
 								</select>
 							</div>
 
 							Số chân
 							<div style="margin-top: 3px;">
-								<select name="legNumber">
-									<option value="" @if(form("legNumber").value.getOrElse("") == ""){ selected }>--Số chân--</option>
-									<option value="208" @if(form("legNumber").value.getOrElse("") == "208"){ selected }>208</option>
-									<option value="100" @if(form("legNumber").value.getOrElse("") == "100"){ selected }>100</option>
-									<option value="64" @if(form("legNumber").value.getOrElse("") == "64"){ selected }>64</option>
-									<option value="44" @if(form("legNumber").value.getOrElse("") == "44"){ selected }>44</option>
-									<option value="40" @if(form("legNumber").value.getOrElse("") == "40"){ selected }>40</option>
-									<option value="32" @if(form("legNumber").value.getOrElse("") == "32"){ selected }>32</option>
-									<option value="28" @if(form("legNumber").value.getOrElse("") == "28"){ selected }>28</option>
-									<option value="24" @if(form("legNumber").value.getOrElse("") == "24"){ selected }>24</option>
-									<option value="20" @if(form("legNumber").value.getOrElse("") == "20"){ selected }>20</option>
-									<option value="16" @if(form("legNumber").value.getOrElse("") == "16"){ selected }>16</option>
-									<option value="14" @if(form("legNumber").value.getOrElse("") == "14"){ selected }>14</option>
-									<option value="8" @if(form("legNumber").value.getOrElse("") == "8"){ selected }>8</option>
-									<option value="4" @if(form("legNumber").value.getOrElse("") == "4"){ selected }>4</option>
-									<option value="2" @if(form("legNumber").value.getOrElse("") == "2"){ selected }>2</option>
+								<select name="info.legNumber">
+									<option value="" @if(form("info.legNumber").value.getOrElse("") == ""){ selected }>--Số chân--</option>
+									<option value="208" @if(form("info.legNumber").value.getOrElse("") == "208"){ selected }>208</option>
+									<option value="100" @if(form("info.legNumber").value.getOrElse("") == "100"){ selected }>100</option>
+									<option value="64" @if(form("info.legNumber").value.getOrElse("") == "64"){ selected }>64</option>
+									<option value="44" @if(form("info.legNumber").value.getOrElse("") == "44"){ selected }>44</option>
+									<option value="40" @if(form("info.legNumber").value.getOrElse("") == "40"){ selected }>40</option>
+									<option value="32" @if(form("info.legNumber").value.getOrElse("") == "32"){ selected }>32</option>
+									<option value="28" @if(form("info.legNumber").value.getOrElse("") == "28"){ selected }>28</option>
+									<option value="24" @if(form("info.legNumber").value.getOrElse("") == "24"){ selected }>24</option>
+									<option value="20" @if(form("info.legNumber").value.getOrElse("") == "20"){ selected }>20</option>
+									<option value="16" @if(form("info.legNumber").value.getOrElse("") == "16"){ selected }>16</option>
+									<option value="14" @if(form("info.legNumber").value.getOrElse("") == "14"){ selected }>14</option>
+									<option value="8" @if(form("info.legNumber").value.getOrElse("") == "8"){ selected }>8</option>
+									<option value="4" @if(form("info.legNumber").value.getOrElse("") == "4"){ selected }>4</option>
+									<option value="2" @if(form("info.legNumber").value.getOrElse("") == "2"){ selected }>2</option>
 								</select>
 							</div>
 
 
-							@bootstrap3.text(form("stock"),
+							@bootstrap3.text(form("info.stock"),
 								label = "Stock (Trong kho)",
 								placeholder = "",
 								help = "",
-								value = form("stock").value.getOrElse(""))
+								value = form("info.stock").value.getOrElse(""))
 
 							Đơn vị
 							<div style="margin-top: 3px;">
-								<select name="unit" >
-									<option value="Cái" @if(form("unit").value.getOrElse("") == "Cái"){ selected }>Cái</option>
-									<option value="Con" @if(form("unit").value.getOrElse("") == "Con"){ selected }>Con</option>
-									<option value="Bộ" @if(form("unit").value.getOrElse("") == "Bộ"){ selected }>Bộ</option>
+								<select name="info.unit" >
+									<option value="Cái" @if(form("info.unit").value.getOrElse("") == "Cái"){ selected }>Cái</option>
+									<option value="Con" @if(form("info.unit").value.getOrElse("") == "Con"){ selected }>Con</option>
+									<option value="Bộ" @if(form("info.unit").value.getOrElse("") == "Bộ"){ selected }>Bộ</option>
 								</select>
 							</div>
 
-							@bootstrap3.text(form("price"),
-								label = "Giá sản phẩm",
-								placeholder = "",
-								help = "",
-								value = form("price").value.getOrElse(""))
+							Giá sản phẩm:
+								<br>
+								<input type="hidden" name="core.price[0].num" value="1">
+								<input type="int" name="core.price[0].price" value="@form("core.price[0].price").value.getOrElse(0)">
 						</div>
 				</div>
+				<br>
+				Tag: <input type="text" name="url.tag[0]">
+				<br>
+				Vote: <input type="number" name="info.vote" value="@form("info.vote").value.getOrElse(0)">
+				<br>
+				Sold: <input type="number" name="info.sold" value="@form("info.sold").value.getOrElse(0)">
+				<br>
+				% saleOff: <input type="number" name="extra.saleOff1" value="@form("extra.saleOff1").value.getOrElse(0)">
+				<br>
+				$ saleOff: <input type="number" name="extra.saleOff2" value="@form("extra.saleOff2").value.getOrElse(0)" >
+
+				<br/>
 				Chú ý:
 				<br/>
-				<input name="note" id="" cols="30" rows="4" value="@form("note").value.getOrElse("")" style="width:940px">
+				<input name="extra.note" id="" cols="30" rows="4" value="@form("extra.note").value.getOrElse("")" style="width:940px">
 				<br/>
 				<br/>
 				Thông tin sản phẩm:
 				<br/>
-				<textarea name="info" id="editor" cols="30" rows="20" style="width:940px; ">
-					@form("info").value.getOrElse("")
+				<textarea name="extra.info" id="editor" cols="30" rows="20" style="width:940px; ">
+					@form("extra.info").value.getOrElse("")
 				</textarea>
 				}
 
@@ -347,7 +359,6 @@
 			<br><br><br>
 
 		</div>
-
 		<div id="slide" class="well">
 			<div class="list-images" style="height: 430px;"></div>
 			<hr/>
@@ -413,9 +424,9 @@ $(document).ready(function () {
 		$('.listImage').empty();
 		$('.image-wrap > div').children('img').each(function () {
       var smallUrl = $(this).attr('src');
-			$('.listImage').append('<input type="hidden" name="image['+ z +'].origin" class="" value="'+ smallUrl.replace('/small/', '/origin/') +'">');
-			$('.listImage').append('<input type="hidden" name="image['+ z +'].small" class="" value="'+ smallUrl +'">');
-			$('.listImage').append('<input type="hidden" name="image['+ z +'].thumb" class="" value="'+ smallUrl.replace('/small/', '/thumb/') +'">');
+			$('.listImage').append('<input type="hidden" name="info.image['+ z +'].origin" class="" value="'+ smallUrl.replace('/small/', '/origin/') +'">');
+			$('.listImage').append('<input type="hidden" name="info.image['+ z +'].small" class="" value="'+ smallUrl +'">');
+			$('.listImage').append('<input type="hidden" name="info.image['+ z +'].thumb" class="" value="'+ smallUrl.replace('/small/', '/thumb/') +'">');
 			z+=1;
 		});
 	});
@@ -483,7 +494,7 @@ $(document).ready(function () {
 		$("#supType").val(supType);
 		$("#groupUrl").val(groupUrl);
 		$("#groupSelect").empty().append(group);
-		$("#groupSelect").children().first().attr('name', 'group');
+		$("#groupSelect").children().first().attr('name', 'info.group');
 	})
 </script>
 </body>

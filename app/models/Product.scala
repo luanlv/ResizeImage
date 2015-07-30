@@ -175,7 +175,7 @@ object Extra {
   implicit object ExtraWrite extends OWrites[Extra]{
     def writes(obj: Extra): JsObject = Json.obj(
       "saleOff1" -> obj.saleOff1,
-      "saleoff2" -> obj.saleOff2,
+      "saleOff2" -> obj.saleOff2,
       "info" -> obj.info,
       "note" -> obj.note
     )

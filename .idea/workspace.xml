@@ -694,41 +694,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.scala.stream" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.scala.stream" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29126215">
+            <state vertical-scroll-proportion="0.0">
               <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.scala.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/partials/index.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.0">
-              <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="category.scala.stream" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/category.scala.stream">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="36" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="viewAside.scala.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/partials/viewAside.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="2" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -738,19 +708,17 @@
         <entry file="file://$PROJECT_DIR$/app/controllers/ProductCtrl.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="1423" column="21" selection-start-line="1423" selection-start-column="21" selection-end-line="1423" selection-end-column="21" />
-              <folding>
-                <element signature="e#21#82#0" expanded="true" />
-              </folding>
+              <caret line="86" column="12" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="collection.scala.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/product/collection.scala.html">
+      <file leaf-file-name="view.scala.stream" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/product/view.scala.stream">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="30" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="52" column="62" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -760,7 +728,39 @@
         <entry file="file://$PROJECT_DIR$/conf/routes">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="34" column="64" selection-start-line="34" selection-start-column="64" selection-end-line="34" selection-end-column="64" />
+              <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create.scala.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/product/create.scala.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6828479">
+              <caret line="328" column="20" selection-start-line="328" selection-start-column="20" selection-end-line="328" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Global.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Global.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Product.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/Product.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="177" column="12" selection-start-line="177" selection-start-column="12" selection-end-line="177" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -769,8 +769,8 @@
       <file leaf-file-name="view.scala.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/product/view.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="2" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="17" column="126" selection-start-line="17" selection-start-column="126" selection-end-line="17" selection-end-column="126" />
               <folding />
             </state>
           </provider>
@@ -779,7 +779,7 @@
       <file leaf-file-name="viewWithoutAside.scala.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/product/viewWithoutAside.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
+            <state vertical-scroll-proportion="0.0">
               <caret line="0" column="30" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
               <folding />
             </state>
@@ -789,8 +789,8 @@
       <file leaf-file-name="import_b.scala.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/partials/import_b.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.666667">
-              <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="62" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -820,16 +820,13 @@
         <option value="$PROJECT_DIR$/app/models/Image.scala" />
         <option value="$PROJECT_DIR$/build.sbt" />
         <option value="$PROJECT_DIR$/public/javascripts/simplecart.js" />
-        <option value="$PROJECT_DIR$/app/views/product/create.scala.html" />
         <option value="$PROJECT_DIR$/resources/sass/_gallery.scss" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/resources/sass/_nav.scss" />
         <option value="$PROJECT_DIR$/public/javascripts/main.js" />
         <option value="$PROJECT_DIR$/resources/sass/_susylayout.scss" />
-        <option value="$PROJECT_DIR$/app/Global.scala" />
         <option value="$PROJECT_DIR$/app/views/partials/category.scala.html" />
         <option value="$PROJECT_DIR$/app/views/product/list.scala.html" />
-        <option value="$PROJECT_DIR$/app/models/Product.scala" />
         <option value="$PROJECT_DIR$/resources/sass/main.scss" />
         <option value="$PROJECT_DIR$/app/views/subType.scala.stream" />
         <option value="$PROJECT_DIR$/app/views/partials/asideSubType.scala.html" />
@@ -852,15 +849,18 @@
         <option value="$PROJECT_DIR$/app/views/partials_extra/header.scala.html" />
         <option value="$PROJECT_DIR$/app/views/product/view.scala.stream" />
         <option value="$PROJECT_DIR$/app/views/category.scala.stream" />
-        <option value="$PROJECT_DIR$/app/views/product/collection.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/product/view.scala.html" />
         <option value="$PROJECT_DIR$/app/views/partials/viewAside.scala.html" />
         <option value="$PROJECT_DIR$/app/views/product/viewWithoutAside.scala.html" />
         <option value="$PROJECT_DIR$/app/views/partials/index.scala.html" />
-        <option value="$PROJECT_DIR$/app/views/partials/import_b.scala.html" />
         <option value="$PROJECT_DIR$/app/controllers/ProductCtrl.scala" />
         <option value="$PROJECT_DIR$/conf/routes" />
         <option value="$PROJECT_DIR$/app/views/index.scala.stream" />
+        <option value="$PROJECT_DIR$/app/views/partials/import_b.scala.html" />
+        <option value="$PROJECT_DIR$/app/views/product/collection.scala.html" />
+        <option value="$PROJECT_DIR$/app/views/product/view.scala.html" />
+        <option value="$PROJECT_DIR$/app/models/Product.scala" />
+        <option value="$PROJECT_DIR$/app/Global.scala" />
+        <option value="$PROJECT_DIR$/app/views/product/create.scala.html" />
       </list>
     </option>
   </component>
@@ -949,54 +949,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sass" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resize-image-demo-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ResizeImage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resize-image-demo-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ResizeImage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resize-image-demo-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ResizeImage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="conf" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resize-image-demo-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ResizeImage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Global.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1052,74 +1024,12 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="partials_extra" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resize-image-demo-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ResizeImage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="partials" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resize-image-demo-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ResizeImage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Resize-image-demo-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ResizeImage" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1131,7 +1041,7 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="routes&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;Product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;type&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Type.scala&#10;create&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/product/create.scala.html&#10;produ&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Product.scala&#10;produc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;pro&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;ImageC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ImageCtrl.scala&#10;cate&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/category.scala.html&#10;app&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;link.&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/link.scala.html&#10;appli&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;Ctrl&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;layout&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;main&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/public/javascripts/main.js&#10;index&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/index.scala.stream" />
+    <property name="SearchEverywhereHistoryKey" value="product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Product.scala&#10;rou&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;routes&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;Product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;type&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Type.scala&#10;create&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/product/create.scala.html&#10;produ&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Product.scala&#10;produc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;pro&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;ImageC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ImageCtrl.scala&#10;cate&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/category.scala.html&#10;app&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;link.&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/link.scala.html&#10;appli&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;Ctrl&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;layout&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;main&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/public/javascripts/main.js&#10;index&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/index.scala.stream" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
@@ -1301,7 +1211,7 @@
     </configuration>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1438188982558" />
+    <option name="lastUpdateTimestamp" value="1438244764802" />
     <option name="availableProjects">
       <map>
         <entry>
@@ -1467,7 +1377,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1475,7 +1384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1483,7 +1391,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1594,14 +1501,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/product/create.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6666667">
-          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/product/list.scala.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.888889">
@@ -1627,7 +1526,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1635,13 +1533,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/Product.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="251" column="13" selection-start-line="251" selection-start-column="13" selection-end-line="251" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1670,7 +1561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="3" selection-start-line="17" selection-start-column="3" selection-end-line="17" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1678,7 +1568,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1686,7 +1575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="56" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1694,9 +1582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="210" column="30" selection-start-line="210" selection-start-column="30" selection-end-line="210" selection-end-column="30" />
-          <folding>
-            <element signature="e#9444#9596#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1704,7 +1589,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="124" column="12" selection-start-line="11" selection-start-column="4" selection-end-line="124" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1712,7 +1596,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1738,7 +1621,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="29" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1746,23 +1628,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.3333335">
           <caret line="8" column="80" selection-start-line="8" selection-start-column="80" selection-end-line="8" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/product/view.scala.stream">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-34.666668">
-          <caret line="52" column="62" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/product/collection.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="30" selection-start-line="0" selection-start-column="30" selection-end-line="0" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1770,7 +1635,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="36" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1778,14 +1642,44 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="2" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/partials/index.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/product/collection.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="60" selection-start-line="7" selection-start-column="60" selection-end-line="7" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/product/view.scala.stream">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="62" selection-start-line="52" selection-start-column="62" selection-end-line="52" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/routes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="10" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/product/view.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="2" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="17" column="126" selection-start-line="17" selection-start-column="126" selection-end-line="17" selection-end-column="126" />
           <folding />
         </state>
       </provider>
@@ -1798,18 +1692,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/partials/index.scala.html">
+    <entry file="file://$PROJECT_DIR$/app/views/partials/import_b.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.0">
-          <caret line="27" column="45" selection-start-line="27" selection-start-column="45" selection-end-line="27" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="62" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/partials/import_b.scala.html">
+    <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.666667">
-          <caret line="19" column="64" selection-start-line="19" selection-start-column="64" selection-end-line="19" selection-end-column="64" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/Product.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="177" column="12" selection-start-line="177" selection-start-column="12" selection-end-line="177" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -1817,25 +1719,25 @@
     <entry file="file://$PROJECT_DIR$/app/controllers/ProductCtrl.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="1423" column="21" selection-start-line="1423" selection-start-column="21" selection-end-line="1423" selection-end-column="21" />
-          <folding>
-            <element signature="e#21#82#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/routes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="64" selection-start-line="34" selection-start-column="64" selection-end-line="34" selection-end-column="64" />
+          <caret line="86" column="12" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
+    <entry file="file://$PROJECT_DIR$/app/Global.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29126215">
-          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/product/create.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6828479">
+          <caret line="328" column="20" selection-start-line="328" selection-start-column="20" selection-end-line="328" selection-end-column="20" />
           <folding />
         </state>
       </provider>
