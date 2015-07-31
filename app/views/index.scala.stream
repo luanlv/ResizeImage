@@ -1,6 +1,6 @@
 @(assetCDN: String => String, bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
 <!DOCTYPE html>
-<html>
+<html class="no-touch">
 	<head>
 		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN))
 		<meta charset="utf-8">
@@ -37,30 +37,43 @@
 
 			<div class="main">
 				@pagelets("aside")
-				<div id="pjax-container" class="content">
-					<div class="c-left">
 
-					<div class="image-top">
-						<img src="@assetCDN(routes.Assets.versioned("imageDemo/slide2.jpg").url)" alt="">
+			<div id="pjax-container" class="content">
+
+					<div class="content-top">
+						<div class="i-slide ra-5 sa">
+							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slide2.jpg").url)" alt="">
+						</div>
+
+						<div class="i-info">
+
+						</div>
 					</div>
 
 
-						<div class="menuCol1" > &rarr; Phần cứng, Thiết bị.</div>
+					<div class="content-bottom">
 
-						<div class="col1">@pagelets("collection1")</div>
+						<div class="collection  ra-3 bo sa">
 
-						<div class="menuCol2"> &rarr; LK Bán dẫn & Cảm biến</div>
+							<div class="dataCol">
+								<div class="menuCol" > &rarr; Phần cứng, Thiết bị.</div>
+								@pagelets("collection1")
+							</div>
 
-						<div class="col2">@pagelets("collection2")</div>
+							<div class="dataCol">
+								<div class="menuCol"> &rarr; LK Bán dẫn & Cảm biến</div>
+								@pagelets("collection2")
+							</div>
 
-						<div class="menuCol3"> &rarr; LK Khác và Phụ kiện</div>
+							<div class="dataCol">
+								<div class="menuCol"> &rarr; LK Khác và Phụ kiện</div>
+								@pagelets("collection3")
+							</div>
 
-						<div class="col3">@pagelets("collection3")</div>
 					</div>
-					<div class="c-right ra-5">
-						<div class="demo"></div>
-					</div>
+
 				</div>
+
 			</div>
 			<div class="footer"></div>
 		</div>

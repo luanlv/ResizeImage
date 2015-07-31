@@ -63,16 +63,31 @@ $(function() {
     $(this).trigger('click');
   });
 
-  $(document).on('click', 'a.cat-sh', function(){
-    $(this).parent().children('ul.lhide').toggleClass('hide');
-    var tmp = $(this).children().first();
-    if(tmp.text() === 'Ẩn bớt'){
-      tmp.text('Hiện thêm');
-      tmp.attr('aria-label', 'Show more categories');
-    }else{
-      tmp.text('Ẩn bớt');
-      tmp.attr('aria-label', 'Show fewer categories');
-    }
+
+  $(document).on("click", ".show-more a", function() {
+    var $this = $(this);
+    var $content = $this.parent().prev("ul");
+    var linkText = $this.text();
+
+    if(linkText === 'Ẩn bớt'){
+      linkText = "Hiện thêm";
+      $content.toggleClass("hideContent showContent");
+    } else {
+      linkText = "Ẩn bớt";
+      $content.toggleClass("hideContent showContent");
+    };
+    $this.html(linkText);
+  });
+
+  $('.scroll-right').scrollbox({
+    linear: true,
+    step: 1,
+    delay: 0,
+    speed: 30
+  });
+
+  $('.scroll-left').scrollbox({
+    distance: 100
   });
 
 });

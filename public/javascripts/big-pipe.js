@@ -55,6 +55,7 @@
     if (contentType === JSON_CONTENT_TYPE) {
       var json = BigPipe.parseEmbeddedJsonFromDom(contentId);
       BigPipe.renderPagelet(id, json);
+
     } else if (contentType === HTML_CONTENT_TYPE || contentType === TEXT_CONTENT_TYPE) {
       var content = BigPipe.readEmbeddedContentFromDom(contentId);
       BigPipe.renderPagelet(id, content);

@@ -10,9 +10,9 @@ $susy: (
 );
 
 body {
-  background-color: $silver;
   padding: 0 auto;
   font-size: 12px;
+
 }
 
 html, body{
@@ -38,35 +38,32 @@ $susy:(
   @include border-radius(5px);
 }
 
-.ra-5{
+.ra-10{
   @include border-radius(10px);
 }
 
 .sa{
-  @include box-shadow(2px 2px 3px 0px rgba(grey, 0.5));
+  @include box-shadow(2px 2px 3px 0px #ddd);
 }
 
 .bo{
-  border: 1px solid rgba(grey, 0.5);
+  border: 1px solid #ddd;
 }
 
 
 .container{
   @include container(100%);
-  background: white;
+  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
   display: block;
   @include clearfix();
+
 }
 
 
 .header{
   background: #232f3e;
-  height: 80px;
+  height: 95px;
   margin-bottom: 5px;
-  border-bottom: 1px solid #ccc;
-  box-shadow: 0 0 20px #ddd;
-  -webkit-box-shadow: 0 0 20px #ddd;
-  -moz-box-shadow: 0 0 20px #ddd;
 }
 
 
@@ -92,24 +89,59 @@ $susy:(
 
 
 .c-left{
-  @include span(10 of 12 );
+  @include span(40 of 50 );
   @include clearfix()
 }
 .c-right{
-  @include span(2 of 12 last);
+  @include span(9 of 50 last);
   @include clearfix();
+  margin: 15px 10px 15px 0;
+
+  .support{
+    border: 1px solid #999;
+  }
+
+  .map{
+    margin-top: 10px;
+    min-height: 120px;
+    background: antiquewhite;
+  }
+  .box-heading{
+    background-color: #e55e5e;
+  }
+
+  .info{
+    min-height: 150px;
+    background: $blue;
+    margin-bottom: 20px;
+    margin-top: 15px;
+  }
+
   min-height: 1100px;
 
-  .demo{
-    min-height: 600px;
-    background: lightblue;
+  .sale-off{
+    margin: 15px 0 0 0 ;
   }
+
 }
-.image-top{
+.content-top{
   @include full();
-  height: 220px;
-  position: relative;
+  @include clearfix();
+  height: 230px;
   margin-top: 15px;
+}
+
+.content-bottom{
+  @include full();
+  @include clearfix();
+  margin-top: 15px;
+}
+
+.i-slide{
+  @include span(83 of 100);
+  @include clearfix();
+  height: 230px;
+  position: relative;
   img{
     position: absolute; top:0; left: 0;
     width: 100%;
@@ -117,25 +149,16 @@ $susy:(
   }
 }
 
-.menuCol1, .menuCol2, .menuCol3 {
-  margin-top: 10px;
-  @include full();
-  min-height: 20px;
-  background: #daebfa;
-  border: solid 1px #BEDAEC ;
-  border-bottom: 0;
-  padding-top: 5px;
-  padding-left: 5px;
+
+.collection{
+  @include span(83 of 100);
+  @include clearfix();
+  background: #fff;
 }
 
-.col1, .col2, .col3 {
-  @include full();
-  border: solid 1px #BEDAEC ;
-  border-top: 0;
-  min-height: 150px;
-  margin-bottom: 19px;
+.dataCol{
+  margin: 18px;
 }
-
 
 .pContainer{
   margin-top: 10px;

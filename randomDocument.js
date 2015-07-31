@@ -208,112 +208,110 @@ var start = new Date();
 var batchDocuments = new Array();
 var index = 0;
 
-var cdn = "//cdn.luanlv.info";
-
 var imageArray = [
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin1.jpg",
-      "small": cdn + "/assets/imageDemo/small1.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb1.jpg"
+      "origin": "/assets/imageDemo/origin1.jpg",
+      "small": "/assets/imageDemo/small1.jpg",
+      "thumb": "/assets/imageDemo/thumb1.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin2.jpg",
-      "small": cdn + "/assets/imageDemo/small2.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb2.jpg"
+      "origin": "/assets/imageDemo/origin2.jpg",
+      "small": "/assets/imageDemo/small2.jpg",
+      "thumb": "/assets/imageDemo/thumb2.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin3.jpg",
-      "small": cdn + "/assets/imageDemo/small3.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb3.jpg"
+      "origin": "/assets/imageDemo/origin3.jpg",
+      "small": "/assets/imageDemo/small3.jpg",
+      "thumb": "/assets/imageDemo/thumb3.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin4.jpg",
-      "small": cdn + "/assets/imageDemo/small4.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb4.jpg"
+      "origin": "/assets/imageDemo/origin4.jpg",
+      "small": "/assets/imageDemo/small4.jpg",
+      "thumb": "/assets/imageDemo/thumb4.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin5.jpg",
-      "small": cdn + "/assets/imageDemo/small5.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb5.jpg"
+      "origin": "/assets/imageDemo/origin5.jpg",
+      "small": "/assets/imageDemo/small5.jpg",
+      "thumb": "/assets/imageDemo/thumb5.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin6.jpg",
-      "small": cdn + "/assets/imageDemo/small6.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb6.jpg"
+      "origin": "/assets/imageDemo/origin6.jpg",
+      "small": "/assets/imageDemo/small6.jpg",
+      "thumb": "/assets/imageDemo/thumb6.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin7.jpg",
-      "small": cdn + "/assets/imageDemo/small7.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb7.jpg"
+      "origin": "/assets/imageDemo/origin7.jpg",
+      "small": "/assets/imageDemo/small7.jpg",
+      "thumb": "/assets/imageDemo/thumb7.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin8.jpg",
-      "small": cdn + "/assets/imageDemo/small8.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb8.jpg"
+      "origin": "/assets/imageDemo/origin8.jpg",
+      "small": "/assets/imageDemo/small8.jpg",
+      "thumb": "/assets/imageDemo/thumb8.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin9.jpg",
-      "small": cdn + "/assets/imageDemo/small9.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb9.jpg"
+      "origin": "/assets/imageDemo/origin9.jpg",
+      "small": "/assets/imageDemo/small9.jpg",
+      "thumb": "/assets/imageDemo/thumb9.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin10.jpg",
-      "small": cdn + "/assets/imageDemo/small10.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb10.jpg"
+      "origin": "/assets/imageDemo/origin10.jpg",
+      "small": "/assets/imageDemo/small10.jpg",
+      "thumb": "/assets/imageDemo/thumb10.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin11.jpg",
-      "small": cdn + "/assets/imageDemo/small11.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb11.jpg"
+      "origin": "/assets/imageDemo/origin11.jpg",
+      "small": "/assets/imageDemo/small11.jpg",
+      "thumb": "/assets/imageDemo/thumb11.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin12.jpg",
-      "small": cdn + "/assets/imageDemo/small12.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb12.jpg"
+      "origin": "/assets/imageDemo/origin12.jpg",
+      "small": "/assets/imageDemo/small12.jpg",
+      "thumb": "/assets/imageDemo/thumb12.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin13.jpg",
-      "small": cdn + "/assets/imageDemo/small13.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb13.jpg"
+      "origin": "/assets/imageDemo/origin13.jpg",
+      "small": "/assets/imageDemo/small13.jpg",
+      "thumb": "/assets/imageDemo/thumb13.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin14.jpg",
-      "small": cdn + "/assets/imageDemo/small14.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb14.jpg"
+      "origin": "/assets/imageDemo/origin14.jpg",
+      "small": "/assets/imageDemo/small14.jpg",
+      "thumb": "/assets/imageDemo/thumb14.jpg"
     }
   ],
   [
     {
-      "origin": cdn + "/assets/imageDemo/origin15.jpg",
-      "small": cdn + "/assets/imageDemo/small15.jpg",
-      "thumb": cdn + "/assets/imageDemo/thumb15.jpg"
+      "origin": "/assets/imageDemo/origin15.jpg",
+      "small": "/assets/imageDemo/small15.jpg",
+      "thumb": "/assets/imageDemo/thumb15.jpg"
     }
   ],
 ];
@@ -427,7 +425,9 @@ while(index < documentNumber) {
       saleOff2: saleOff2,
       info: "",
       note: ""
-    }
+    },
+
+    random_point: [Math.random(), 0]
   };
 
   batchDocuments[index % batchNumber] = document;

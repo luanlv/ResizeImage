@@ -7,6 +7,7 @@ import play.api.data.validation.Constraints._
 import play.api.data._
 import play.api.data.validation.Constraints.pattern
 import play.api.libs.json._
+import play.api.data.format.Formats._
 
 case class ImageUrl(origin: String, small: String, thumb: String)
 
@@ -25,7 +26,7 @@ case class Info(supType: String, subType: String, group: String, image: List[Ima
 
 case class Extra(saleOff1: Int, saleOff2: Int, info: String, note: String)
 
-case class Product(id: Option[String], url: Url, core: Core, info: Info, extra: Extra,
+case class Product(id: Option[String], url: Url, core: Core, info: Info, extra: Extra, random_point: Option[List[Double]],
                       creationDate: Option[DateTime], updateDate: Option[DateTime])
 
 object ImageUrl{
@@ -208,6 +209,7 @@ object Product{
       "core" -> Json.toJsFieldJsValueWrapper(product.core),
       "info" -> Json.toJsFieldJsValueWrapper(product.info),
       "extra" -> Json.toJsFieldJsValueWrapper(product.extra),
+      "random_point" -> product.random_point,
       "creationDate" -> product.creationDate.fold(-1L)(_.getMillis),
       "updateDate" -> product.updateDate.fold(-1L)(_.getMillis)
     )
@@ -221,9 +223,10 @@ object Product{
         val core = (obj \ "core").as[Core]
         val info = (obj \ "info").as[Info]
         val extra = (obj \ "extra").as[Extra]
+        val random_point = (obj \ "random_point").asOpt[List[Double]]
         val creationDate = (obj \ "creationDate").asOpt[Long]
         val updateDate = (obj \ "updateDate").asOpt[Long]
-        JsSuccess(Product(id, url, core, info, extra,
+        JsSuccess(Product(id, url, core, info, extra, random_point,
           creationDate.map(new DateTime(_)), updateDate.map(new DateTime(_))))
       } catch {
         case cause: Throwable  => JsError(cause.getMessage)
@@ -279,16 +282,18 @@ object Product{
         "info" -> text,
         "note" -> text
         )(Extra.apply)(Extra.unapply),
+      "random_point" -> optional(list(of(doubleFormat))),
       "creationDate" -> optional(longNumber),
       "updateDate" -> optional(longNumber)
     ){
-      (id, url, core, info, extra, creationDate, updateDate) =>
+      (id, url, core, info, extra, random_point, creationDate, updateDate) =>
         Product(
           id,
           url,
           core,
           info,
           extra,
+          random_point,
           creationDate.map(new DateTime(_)),
           updateDate.map(new DateTime(_))
         )
@@ -300,6 +305,7 @@ object Product{
           product.core,
           product.info,
           product.extra,
+          product.random_point,
           product.creationDate.map(_.getMillis),
           product.updateDate.map(_.getMillis)
         )

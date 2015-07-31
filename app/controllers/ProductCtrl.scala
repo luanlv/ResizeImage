@@ -27,6 +27,7 @@ import play.api.mvc._
 import play.modules.reactivemongo.json.collection.JSONCollection
 import play.modules.reactivemongo.{ReactiveMongoComponents, MongoController, ReactiveMongoApi}
 import reactivemongo.api.QueryOpts
+import reactivemongo.api.indexes.IndexType.{Geo2DSpherical, Geo2D}
 import reactivemongo.api.indexes.{IndexType, Index}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.modules.reactivemongo.json._, ImplicitBSONHandlers._
@@ -40,6 +41,10 @@ import scala.util.Random
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.concurrent.duration._
 
+import core.Cdn._
+
+
+
 class ProductCtrl @Inject() (
      val messagesApi: MessagesApi,
      val reactiveMongoApi: ReactiveMongoApi,
@@ -52,12 +57,16 @@ class ProductCtrl @Inject() (
   //--------------------    SETUP   ------------------------------------------------------------
   val cacheQueriesDay = 7 days
   val cachePage = 5
+  val timeCacheRandom = 60 second
 
   val cProduct = {
     val cProduct = db[JSONCollection]("product")
     cProduct.indexesManager.ensure(
-      Index(List("code" -> IndexType.Ascending), unique = true)
+      Index(List("core.code" -> IndexType.Ascending, "url.pUrl" -> IndexType.Ascending), unique = true)
     )
+    cProduct.indexesManager.ensure(Index(
+        List("random_point" -> Geo2DSpherical)
+    ))
     cProduct
   }
 
@@ -75,9 +84,12 @@ class ProductCtrl @Inject() (
         BadGateway(views.html.product.create(errors, ""))),
 
       // if no error, then insert the article into the 'articles' collection
+
       product => {
+        val r = Random.nextDouble()
         val tmp = product.copy(
           id = product.id.orElse(Some(UUID.randomUUID().toString)),
+          random_point =  Some(List(0.5, 0)),
           creationDate = Some(new DateTime()),
           updateDate = Some(new DateTime())
         )
@@ -316,6 +328,9 @@ class ProductCtrl @Inject() (
       }
     }
 
+    val FutureRelativeProduct = getRandomJson(sub, gro, 14)
+
+
     val supType = getSupType()
 
     val subType = getSubType()
@@ -471,7 +486,7 @@ class ProductCtrl @Inject() (
             Ok("")
           } else {
 
-            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(assetCDN, result._1, _sb, _v)))
+            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(assetCDN, result._1, _sb, _v, _li)))
 
             val pageletAside = HtmlPagelet("aside",
               Future(views.html.partials.aside(result._2, result._3, result._4,
@@ -533,22 +548,19 @@ class ProductCtrl @Inject() (
   //--------------------------------------------------------------------------------------------------
 
   def test = cached((request: RequestHeader) => request.uri, 10){
+    val rand = Random.nextDouble()
     Action.async { implicit request =>
-      clearCache()
-
-      val command = Aggregate("product", Seq(
-        GroupField("info.supType")("total" -> SumValue(1))
-        )
-      )
-      val result = cProduct.db.command(command)
-      //val result = Promise.timeout(result0, 0.second).flatMap(x => x)
-      result.map {x => Ok(Json.toJson(x))}
+      val result = getRandomJson("", "raspberry-pi", 10)
+      result.map {
+        data => Ok(Json.toJson(data))
+      }
     }
+
   }
 
-  def test2 = Action.async {implicit request =>
+  def clearAllCache = Action.async {implicit request =>
     clearCache()
-    Future(Ok(""))
+    Future(Ok("Clear all cache ok"))
   }
 
   def apiListCollection = Action.async {
@@ -575,6 +587,46 @@ class ProductCtrl @Inject() (
         }
       }
     }
+  }
+
+  def getRandomJson(subTypeUrl: String, groupUrl: String, limit: Int) = {
+    val cacheName = "R-a-n-d-o-m" + subTypeUrl + groupUrl + limit
+    val data = cache.get[List[Product]] ( cacheName ) match {
+      case None => {
+        println(s"Not found $cacheName")
+        val rand = Random.nextDouble()
+        val jsSubType =
+          if(subTypeUrl != "")
+            Json.obj("$eq" -> subTypeUrl)
+          else
+            Json.obj("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+        val jsGroupUrl =
+          if(groupUrl != "")
+            Json.obj("$eq" -> groupUrl)
+          else
+            Json.obj("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+
+        val result = cProduct.find(Json.obj(
+            "url.subType" -> jsSubType,
+            "url.group" -> jsGroupUrl,
+            "random_point" -> Json.obj("$near" -> Json.arr(rand, 0))
+          )).cursor[Product]().collect[List](limit)
+
+        result.map {
+          list =>
+            cache.set(cacheName, list, timeCacheRandom)
+            cacheList += cacheName
+            list
+        }
+        result
+      }
+
+      case Some(p) =>{
+        println(s"Found $cacheName")
+        Future(p)
+      }
+    }
+    data
   }
 
   def getGroup() = {
@@ -954,7 +1006,7 @@ class ProductCtrl @Inject() (
   def getBrand(subTypeUrl: String, group: String, keyword:String = "", origin: String = "", legType: String = "",
                legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
 //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "wfilter" + subTypeUrl + group + keyword + "brand" + origin + legType + legNumber + minPrice + maxPrice
+    val cacheName = "f-i-l-t-e-r" + subTypeUrl + group + keyword + "brand" + origin + legType + legNumber + minPrice + maxPrice
 
 
     val data = cache.get[Brand]( cacheName ) match {
@@ -1086,7 +1138,7 @@ class ProductCtrl @Inject() (
                  legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
 
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "wfilter" + subTypeUrl + group + keyword + brand + "origin" + legType + legNumber + minPrice + maxPrice
+    val cacheName = "f-i-l-t-e-r" + subTypeUrl + group + keyword + brand + "origin" + legType + legNumber + minPrice + maxPrice
 
     val data = cache.get[Origin]( cacheName ) match {
       case None => {
@@ -1168,7 +1220,7 @@ class ProductCtrl @Inject() (
   def getLegType( subTypeUrl: String, group: String, keyword: String = "", brand: String = "", origin: String = "",
                   legNumber: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "wfilter" + subTypeUrl + group + keyword + brand + origin + "legType" + legNumber + minPrice + maxPrice
+    val cacheName = "f-i-l-t-e-r" + subTypeUrl + group + keyword + brand + origin + "legType" + legNumber + minPrice + maxPrice
 
     val data = cache.get[LegType]( cacheName ) match {
       case None => {
@@ -1267,7 +1319,7 @@ class ProductCtrl @Inject() (
   def getLegNumber(subTypeUrl: String, group: String, keyword: String = "", brand: String = "", origin: String = "",
                    legType: String = "", minPrice: Int = 0, maxPrice: Int = 500000000) = {
     //    val cacheName = "filter" + group + brand + origin + legType + legNumber + minPrice + maxPrice
-    val cacheName = "wfilter" + subTypeUrl + group + keyword + brand + origin + legType + "legNumber" + minPrice + maxPrice
+    val cacheName = "f-i-l-t-e-r" + subTypeUrl + group + keyword + brand + origin + legType + "legNumber" + minPrice + maxPrice
 
     val data = cache.get[LegNumber]( cacheName ) match {
       case None => {
@@ -1407,28 +1459,7 @@ class ProductCtrl @Inject() (
       }
     }
   }
-  var maybeAssetsUrl = Option("")
 
-  private def assetCDN(url: String): String = {
-    val result =
-      if(url.take(2) == "//")
-        url
-      else
-        maybeAssetsUrl.fold(url)(_ + url)
-    result
-  }
-
-
-  def clearCDN() = Action {
-    maybeAssetsUrl = Option("")
-    Ok("clear CDN ok!")
-  }
-
-   def setCDN(name: String) = Action {
-     val newCdn = "//" + name
-     maybeAssetsUrl = Option(newCdn)
-     Ok("Set cdn to: " + name + " ok!")
-   }
 }
 
 

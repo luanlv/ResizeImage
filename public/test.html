@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link href="http://wmh.github.io/jquery-scrollbox/demo.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://wmh.github.io/jquery-scrollbox/jquery.scrollbox.js"></script>
+</head>
+<body>
+  <div id="demo2" class="scroll-text">
+    <ul>
+      <li><a href="http://news.yahoo.com/exclusive-u-directs-agents-cover-program-used-investigate-091643729.html" target="_blank">DEA Mines "National Security" Data To Spy On Americans, Now Concealing Program</a></li>
+      <li><a href="http://www.theguardian.com/science/2013/aug/05/google-sergey-brin-synthetic-beef-hamburger" target="_blank">Sergey Brin invests in synthetic beef</a></li>
+      <li><a href="http://darling.dolezel.info/en/Darling" target="_blank">OS X emulation layer for Linux</a></li>
+      <li><a href="http://www.infinum.co/the-capsized-eight/articles/is-your-android-emulator-just-too-slow" target="_blank">Fast android emulator using Virtualbox</a></li>
+      <li><a href="http://nakedsecurity.sophos.com/2013/08/05/latvia-blocking-extradition-of-gozi-writer-thanks-to-disproportionate-us-sentencing/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+nakedsecurity+%28Naked+Security+-+Sophos%29" target="_blank">Latvia blocking extradition of Gozi writer due to disproportionate US sentencing</a></li>
+      <li><a href="https://groups.google.com/forum/#!topic/google-tasks-api/T4kKnEDl6so" target="_blank">Please let me know if I should Stop developing apps for Google</a></li>
+    </ul>
+  </div>
+
+  <script>
+    $(function () {
+      $('#demo1').scrollbox();
+      $('#demo2').scrollbox({
+        linear: true,
+        step: 1,
+        delay: 0,
+        speed: 100
+      });
+      $('#demo3').scrollbox({
+        switchItems: 5,
+        distance: 144
+      });
+      $('#demo4').scrollbox({
+        direction: 'h',
+        switchItems: 5,
+        distance: 670
+      });
+      $('#demo5').scrollbox({
+        direction: 'h',
+        distance: 134
+      });
+      $('#demo5-backward').click(function () {
+        $('#demo5').trigger('backward');
+      });
+      $('#demo5-forward').click(function () {
+        $('#demo5').trigger('forward');
+      });
+      $('#demo6').scrollbox({
+        direction: 'h',
+        distance: 134,
+        queue: 'demo6-queue'
+      });
+      var queueNext = 7;
+      (function () {
+        $('#demo6-queue ul').append('<li><p>'+ queueNext +'</p></li>');
+        queueNext++;
+        setTimeout(arguments.callee, 2000 + parseInt(Math.random() * 2000, 10));
+      }());
+
+      $('#demo7').scrollbox({
+        linear: true,
+        delay: 0,
+        speed: 60,
+        autoPlay: false,
+        onMouseOverPause: false
+      });
+      $('#demo7-forward').mouseover (function () {
+        $('#demo7').trigger('forwardHover');
+      }).mouseout(function() {
+        $('#demo7').trigger('pauseHover');
+      });
+    });
+  </script>
+</body>
+</html>

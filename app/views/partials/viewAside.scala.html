@@ -8,135 +8,27 @@
 <aside class="aside">
 	<hr class="style-menu">
 	<div class="laside">
-		<div class="sup">
-			<h2>Phần cứng, Thiết bị</h2><span class="num">(@supType.s1)</span>
+		@views.html.partials.partialsAside.mainAside(supType, subType, group, _sub, _gro, _sb, _kw, _li, _v, _br, _or, _lt, _ln)
 
-			<div class="sub">
 
-				@if(_sub == "may-nap-adapter" && _gro == "list") {
-					<div class="active">Máy Nạp & Adapter <span class="num">(@subType.s11)</span></div>
-				} else {
-					<h3><a href="@routes.ProductCtrl.collection("may-nap-adapter", "list", 1, _sb, "", _li, _v)" class="pfull">Máy Nạp & Adapter</a></h3> <span class="num">(@subType.s11)</span>
-				}
+		<hr class="p-relative">
 
-				@views.html.partials.partialsAside.groupAside(
-					(List("universal-programmer", "8051-usb-programmer"),
-						List("Máy nạp ĐA NĂNG", "Mạch nạp 8051"),
-						List(group.s111, group.s112)
-						).zipped.toList,
-					"may-nap-adapter", _gro, _sb, _kw, _li, _v
-				)
-			</div>
-
-			<div class="sub">
-				@if(_sub == "board-phat-trien"  && _gro == "list") {
-					<div class="active">Board Phát triển<span class="num">(@subType.s12)</span></div>
-				} else {
-					<h3><a href="@routes.ProductCtrl.collection("board-phat-trien", "list", 1, _sb, "", _li, _v)" class="pfull">Board Phát triển</a></h3> <span class="num">(@subType.s12)</span>
-				}
-
-				@views.html.partials.partialsAside.groupAside(
-					(List("raspberry-pi", "arduino-shield"),
-						List("Raspberry PI", "Arduino and Shields"),
-						List(group.s121, group.s122)
-						).zipped.toList,
-					"board-phat-trien", _gro, _sb, _kw, _li, _v
-				)
-			</div>
+		<div class="scroll scroll-left">
+			<ul>
+				<li><div class="extra-product">1</div></li>
+				<li><div class="extra-product">2</div></li>
+				<li><div class="extra-product">3</div></li>
+				<li><div class="extra-product">4</div></li>
+				<li><div class="extra-product">5</div></li>
+				<li><div class="extra-product">6</div></li>
+				<li><div class="extra-product">7</div></li>
+				<li><div class="extra-product">8</div></li>
+				<li><div class="extra-product">9</div></li>
+				<li><div class="extra-product">10</div></li>
+				<li><div class="extra-product">11</div></li>
+				<li><div class="extra-product">12</div></li>
+			</ul>
 		</div>
 
-		<hr>
-
-		<div class="sup">
-
-			<h2>LK Bán dẫn & Cảm biến</h2><span class="num">(@supType.s2)</span>
-
-			<div class="sub">
-				@if(_sub == "sensor-transducer"  && _gro == "list") {
-					<div class="active">Sensors, Transducers<span class="num">(@subType.s21)</span></div>
-				} else {
-					<h3><a href="@routes.ProductCtrl.collection("sensor-transducer", "list", 1, _sb, "", _li, _v)" class="pfull">Sensors, Transducers</a></h3> <span class="num">(@subType.s21)</span>
-				}
-
-				@views.html.partials.partialsAside.groupAside(
-					(List("gyroscopes", "light-sensor"),
-						List("Gyroscopes", "Cảm biến ánh sáng"),
-						List(group.s211, group.s212)
-						).zipped.toList,
-					"sensor-transducer", _gro, _sb, _kw, _li, _v
-				)
-			</div>
-
-			<div class="sub">
-				@if(_sub == "memory-ic" && _gro == "list") {
-					<div class="active">Memory ICs<span class="num">(@subType.s22)</span></div>
-				} else {
-					<h3><a href="@routes.ProductCtrl.collection("memory-ic", "list", 1, _sb, "", _li, _v)" class="pfull">Memory ICs</a></h3> <span class="num">(@subType.s22)</span>
-				}
-
-				@views.html.partials.partialsAside.groupAside(
-					(List("memory", "24cxx-serial-eeprom"),
-						List("AT88SC0104C-SU", "24Cxx Serial EEPROM"),
-						List(group.s221, group.s222)
-						).zipped.toList,
-					"memory-ic", _gro, _sb, _kw, _li, _v
-				)
-			</div>
-
-		</div>
-
-		<hr>
-
-		<div class="sup">
-			<h2>LK Khác và Phụ kiện</h2><span class="num">(@supType.s3)</span>
-
-			<div class="sub">
-				@if(_sub == "led" && _gro == "list") {
-					<div class="active">LEDs<span class="num">(@subType.s31)</span></div>
-				} else {
-					<h3><a href="@routes.ProductCtrl.collection("led", "list", 1, _sb, "", _li, _v)" class="pfull">LEDs</a></h3> <span class="num">(@subType.s32)</span>
-				}
-
-				@views.html.partials.partialsAside.groupAside(
-					(List("led-1w", "led-smd-0805"),
-						List("LED 1W", "LEDs SMD-0805 (2012)"),
-						List(group.s311, group.s312)
-						).zipped.toList,
-					"led", _gro, _sb, _kw, _li, _v
-				)
-			</div>
-
-			<div class="sub">
-
-				@if(_sub == "lcd-display" && _gro == "list") {
-					<div class="active">LCDs Display<span class="num">(@subType.s32)</span></div>
-				} else {
-					<h3><a href="@routes.ProductCtrl.collection("lcd-display", "list", 1, _sb, "", _li, _v)" class="pfull">LCDs Display</a></h3> <span class="num">(@subType.s32)</span>
-				}
-
-				@views.html.partials.partialsAside.groupAside(
-					(List("character-lcd", "graphic-lcd"),
-						List("Character LCDs", "Graphic LCDs"),
-						List(group.s321, group.s322)
-						).zipped.toList,
-					"lcd-display", _gro, _sb, _kw, _li, _v
-				)
-			</div>
-
-		</div>
-
-	</div>
-
-		<hr>
-
-		Cùng loại: <a class="pfull" href="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br , _or, _lt, _ln)">@_gro</a>
-		<br>
-		<br>
-		Sản phẩm tương tự
-		.... <br/>
-		.... <br/>
-		.... <br/>
-		.... <br/>
-		.... <br/>
 	</div>
 </aside>

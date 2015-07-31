@@ -43,6 +43,8 @@
 				<p>Kiểu chân: @product.info.legType</p>
 				<p>Số chân: @product.info.legNumber</p>
 				<p>Trong kho còn: @product.info.stock</p>
+				<p>Vote: @product.info.vote</p>
+				<p>Đã bán được: @product.info.sold</p>
 				@if(product.core.price.length == 1) {
 					<p>Giá: @java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price) VND</p>
 				} else {

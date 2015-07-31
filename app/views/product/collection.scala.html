@@ -1,27 +1,57 @@
-@(assetCDN: String => String, products: List[models.Product], _sb: String = "", _v: String = "")
+@(assetCDN: String => String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 8)
+
 
 <ul class="gallery">
 	@for(product <- products){
-		<li class="simpleCart_shelfItem ra-5">
-			<a class="pfull item_name" href='@routes.ProductCtrl.viewProduct( product.url.subType, product.url.group, product.url.pUrl, _sb, _v)'>
-				<div class="img">
-					<img src='@assetCDN(product.info.image.head.small)' alt="" width="120" height="100">
+		<li  class="sresult gvresult">
+			<div class="full-width mimg itmcd itmcdV2">
+				<div class="lyr">
+
+					<div class="img l-shad lftd">
+						<div class="img full-width" count="0" iid="251381026668">
+							<div class="multiImgHolder wpr">
+								<div class="imgWr">
+									<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _li)" class="img imgWr2">
+										<img height="140" width="160" src="@assetCDN(product.info.image.head.small)" class="img" alt="50PCS NE555 555 DIP-8 IC Timers NEW GOOD QUALITY">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="gvtitle">
+						<h3>
+							<a href="http://www.ebay.com/itm/50PCS-NE555-555-DIP-8-IC-Timers-NEW-GOOD-QUALITY-/251381026668?hash=item3a877a0f6c" class="vip" title="Click this link to access 50PCS NE555 555 DIP-8 IC Timers NEW GOOD QUALITY">50PCS NE555 555 DIP-8 IC Timers NEW GOOD QUALITY</a>
+						</h3>
+					</div>
+
+					<div class="prices1">
+						<div class="timeLeftInfo">
+                        </div>
+						<div class="bin">
+							<span class="amt bold">
+								@java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price) <b>VND</b>
+							</span>
+						</div>
+					</div>
+
+					<div class="meta">
+
+						<div class="hotness-GV bold">
+							<div class="hotness-signal red">
+                  @product.info.sold sold - @product.info.vote voted</div>
+						</div>
+
+						@*<div class="lrow">*@
+							@*<span class="ship">*@
+								@*<span>*@
+									@*<span class="bfsp">Free international shipping</span></span>*@
+							@*</span></div>*@
+
+					</div>
+
 				</div>
-			</a>
-			<div class="codeP">
-				<b><a class="pfull" href='@routes.ProductCtrl.viewProduct( product.url.subType, product.url.group, product.url.pUrl , _sb, _v)'>@product.core.code</a></b>
-				<div class="stock">(@product.info.stock)</div>
 			</div>
-			<div class="nameP item_name">@product.core.name</div>
-			<div class="priceP ">
-				Giá bán lẻ:
-					<div class="price item_price"><b>@java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price)</b></div>
-					<b>VNĐ</b>
-			</div>
-			<input type="text" value="1" class="item_quantity" size="1"  id="item-quantity">
-			<div class="item_link hide">@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl , _sb, _v)</div>
-			<button class="item_add">Add to Cart</button>
-			<div class="hide more"> more more morem more more moremore more more more </div>
 		</li>
 	}
 </ul>

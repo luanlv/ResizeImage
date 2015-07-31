@@ -23,16 +23,18 @@ GET      /image/list                  controllers.ImageCtrl.getList(name: String
 POST     /image/upload                controllers.ImageCtrl.upload
 
 GET       /test                controllers.ProductCtrl.test
-GET       /test2               controllers.ProductCtrl.test2
+
+
+
 #GET       //cdn.luanlv.info/image/:size/:uuid           controllers.ImageCtrl.get(uuid: String, size: String)
 GET       /image/:size/:uuid                            controllers.ImageCtrl.get(uuid: String, size: String)
 
 
 GET       /apiListCollection         controllers.ProductCtrl.apiListCollection
 
-
-GET       /cdn                  controllers.ProductCtrl.setCDN(name: String)
-GET       /clearcdn             controllers.ProductCtrl.clearCDN
+GET       /clearCache           controllers.ProductCtrl.clearAllCache
+GET       /cdn                  controllers.CdnCtrl.setCDN(name: String)
+GET       /clearcdn             controllers.CdnCtrl.clearCDN
 # Map static resources from the /public folder to the /assets URL path
 #GET           //cdn.lvlblog.com/assets/v10/*file             controllers.Assets.versioned(path="/public", file)
 GET       /assets/*file?v=3              controllers.Assets.versioned(path="/public", file)
