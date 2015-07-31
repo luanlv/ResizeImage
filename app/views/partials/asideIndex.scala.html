@@ -2,11 +2,12 @@
 	_sub: String = "", _kw: String = "", _li: Int = 8)
 
 
-<aside class="aside">
-	<hr class="style-menu">
+<aside class="aside ">
+
 	<div class="laside">
+
 		<div class="sup">
-			<h2>Phần cứng, Thiết bị</h2><span class="num">(@supType.s1)</span>
+			<hr class="style-col style-col1">
 			<div class="sub">
 				<h3><a class="pfull" href="@routes.ProductCtrl.collection("may-nap-adapter", "list")">Máy Nạp & Adapter</a></h3><span class="num">(@subType.s11)</span>
 
@@ -25,9 +26,9 @@
 				</div>
 			</div>
 		</div>
-		<hr/>
+
 		<div class="sup">
-			<h2>LK Bán dẫn & Cảm biến</h2><span class="num">(@supType.s2)</span>
+			<hr class="style-col style-col2">
 
 			<div class="sub">
 				<h3><a class="pufll" href="@routes.ProductCtrl.collection("sensor-transducer", "list")">Sensors, Transducers</a></h3><span class="num">(@subType.s21)</span>
@@ -48,10 +49,11 @@
 			</div>
 		</div>
 
-		<hr/>
+
 
 		<div class="sup">
-			<h2>LK Khác và Phụ kiện</h2><span class="num">(@supType.s3)</span>
+
+			<hr class="style-col style-col3">
 			<div class="sub">
 				<h3><a class="pufll" href="@routes.ProductCtrl.collection("led", "list")">LEDs</a></h3><span class="num">(@subType.s31)</span>
 
@@ -71,6 +73,5 @@
 
 			</div>
 		</div>
-		<hr>
 	</div>
 </aside>

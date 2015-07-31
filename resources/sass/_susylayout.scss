@@ -43,7 +43,13 @@ $susy:(
 }
 
 .sa{
-  @include box-shadow(2px 2px 3px 0px #ddd);
+  @include box-shadow(2px 2px 3px 0px #bbb);
+}
+
+.sa-i{
+  -webkit-box-shadow: inset -5px 8px 20px -12px rgba(0,0,0,0.75);
+  -moz-box-shadow: inset -5px 8px 20px -12px rgba(0,0,0,0.75);
+  box-shadow: inset -5px 8px 20px -12px rgba(0,0,0,0.75);
 }
 
 .bo{
@@ -93,6 +99,8 @@ $susy:(
   padding-top: 15px;
   position: absolute;
   width: span(215px static);
+  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+
 }
 
 .content{

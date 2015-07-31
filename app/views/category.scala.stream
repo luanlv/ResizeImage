@@ -43,9 +43,11 @@
 				@pagelets(aside.id)
 				<div id="pjax-container" class="content">
 
-					<div class="c-left">
-						<div class="menuCol1" > &rarr; Phần cứng, Thiết bị.</div>
-						<div class="col1">@pagelets("collection")</div>
+					<div class="collection  ra-3 bo sa">
+						<div class="dataCol">
+							<div class="menuCol" > &rarr; Phần cứng, Thiết bị.</div>
+							@pagelets("collection")
+						</div>
 					</div>
 
 					<div class="c-right ra-5">

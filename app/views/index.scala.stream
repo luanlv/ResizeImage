@@ -57,6 +57,7 @@
 
 							<div class="dataCol">
 								<div class="menuCol" > &rarr; Phần cứng, Thiết bị.</div>
+
 								@pagelets("collection1")
 							</div>
 

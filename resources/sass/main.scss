@@ -88,23 +88,48 @@ hr.p-relative:after {
 }
 
 
-hr.style-menu {
+hr.style-col {
   padding: 0;
+  margin-top: 15px;
+  margin-bottom: 10px;
   border: none;
-  border-top: medium double #ddd;
-  color: #888;
-  font-weight: bold;
+  border-top: medium hidden #999;
+  color: #333 ;
+  //font-weight: bold;
   font-style: italic;
-  text-align: center;
-  font-size: 11px;
+  text-align: left;
+  font-size: 10px;
 }
 
-hr.style-menu:after {
-  content: "Danh mục";
+hr.style-col1:after {
+  content: "Phần cứng, Thiết bị";
   display: inline-block;
   position: relative;
   top: -0.7em;
-  font-size: 1.5em;
+  font-size: 1.2em;
+  padding: 0 0.25em;
+  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+}
+
+
+
+hr.style-col2:after {
+  content: "LK Bán dẫn & Cảm biến";
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  font-size: 1.2em;
+  padding: 0 0.25em;
+  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+}
+
+
+hr.style-col3:after {
+  content: "LK Khác và Phụ kiện";
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  font-size: 1.2em;
   padding: 0 0.25em;
   background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
 }
