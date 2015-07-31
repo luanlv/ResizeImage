@@ -427,7 +427,7 @@ while(index < documentNumber) {
       note: ""
     },
 
-    random_point: [Math.random(), 0]
+    random_point: [Math.random(), Math.random()]
   };
 
   batchDocuments[index % batchNumber] = document;

@@ -9,30 +9,10 @@
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
+
 	@bigPipe.render { pagelets =>
 		<div id="main" class="m-scene">
 		<div class="container" id="container">
-			<div class="cartBar">
-				<span class="cartMeta">
-					<ul>
-						<li class="first"><strong>Số lượng: </strong><span class="simpleCart_quantity" onchange='console.log("ok");'>0</span></li>
-						<li><strong>Tổng: </strong><span class="simpleCart_total">0</span></li>
-						<li><a href="javascript:;" id="view_cart">Chi tiết</a></li>
-						<li><a href="javascript:;" class="simpleCart_empty">Xóa tất cả</a></li>
-						<li class="last"><a href="javascript:;" class="simpleCart_checkout">Thanh toán</a></li>
-					</ul>
-				</span>
-
-				<div id="cart" class="hide_cart">
-					<div class="simpleCart_items">
-						<div class="cartHeaders">
-							<div class="itemName">Tên sản phẩm</div>
-							<div class="itemPrice">Giá</div>
-							<div class="itemQuantity">số lượng</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
 			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN))
 
@@ -40,44 +20,46 @@
 				@pagelets("aside")
 
 			<div id="pjax-container" class="content">
+
 				<div class="c-left">
-					<div class="content-top">
-						<div class="i-slide ra-5 sa">
-							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slide1.jpg").url)" alt="">
-
+					<div class="content-top  ra-5 bo sa">
+						<div class="i-slide">
+							<ul class="rslides">
+								<li><img src="@assetCDN(routes.Assets.versioned("imageDemo/slide3.jpg").url)" alt=""></li>
+								@*<li><img src="@assetCDN(routes.Assets.versioned("imageDemo/slide1.jpg").url)" alt=""></li>*@
+								<li><img src="@assetCDN(routes.Assets.versioned("imageDemo/slide2.jpg").url)" alt=""></li>
+								<li><img src="@assetCDN(routes.Assets.versioned("imageDemo/slide4.jpg").url)" alt=""></li>
+							</ul>
 						</div>
-
 						<div class="i-info">
-
 						</div>
 					</div>
 
 
-					<div class="content-bottom">
-
-						<div class="collection  ra-3 bo sa">
-
+					<div class="content-bottom ">
+						<div class="collection bo ra-5 sa">
 							<div class="dataCol">
-								<div class="menuCol">
-										&rarr; Phần cứng, Thiết bị.</div>
-
 								@pagelets("collection1")
 							</div>
-
-							<div class="dataCol">
-								<div class="menuCol"> &rarr; LK Bán dẫn & Cảm biến</div>
-								@pagelets("collection2")
-							</div>
-
-							<div class="dataCol">
-								<div class="menuCol"> &rarr; LK Khác và Phụ kiện</div>
-								@pagelets("collection3")
-							</div>
-
 						</div>
-
-
 					</div>
+
+					<div class="content-bottom  ">
+						<div class="collection bo ra-5 sa">
+							<div class="dataCol">
+							@pagelets("collection2")
+							</div>
+						</div>
+					</div>
+
+					<div class="content-bottom  ">
+						<div class="collection bo ra-5 sa">
+							<div class="dataCol">
+							@pagelets("collection3")
+							</div>
+						</div>
+					</div>
+
 				</div>
 
 				<div class="c-right">
@@ -96,7 +78,7 @@
 					</div>
 
 					<div class="map ra-5 bo sa">
-						MAP or Facebook
+
 					</div>
 					<div class="scroll scroll-right">
 						<ul>

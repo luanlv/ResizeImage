@@ -1,16 +1,30 @@
-@(assetCDN: String => String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 8)
+@(assetCDN: String => String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 12, subTypeUrl: String = "list", groupUrl: String = "")
 
+
+<div class="menuCol">
+	<h2 class="title">
+		@{products.head.info.supType}
+		@if(subTypeUrl != "list"){ > <a href="@routes.ProductCtrl.collection(subTypeUrl, "list", 1, _sb, "", _li, _v)">@products.head.info.subType</a>}
+		@if(groupUrl != "list" && groupUrl != ""){> <a href="@routes.ProductCtrl.collection(subTypeUrl, groupUrl, 1, _sb, "", _li, _v)">@products.head.info.group</a>}
+	</h2>
+</div>
 
 <ul class="gallery">
 	@for(product <- products){
 		<li  class="sresult gvresult">
 			<div class="full-width mimg itmcd itmcdV2">
-
 				<div class="lyr">
+
+
+
 					<div class="img l-shad lftd">
+
 						@if(product.extra.saleOff1 >0){
 							<div class="product-label" style="right: 5px;"><span class="sale-product-icon">-@{product.extra.saleOff1}%</span></div>
+						} else {
+
 						}
+
 
 						<div class="img full-width">
 							<div class="multiImgHolder wpr">
@@ -40,6 +54,8 @@
 									@java.text.NumberFormat.getIntegerInstance.format((product.core.price.head.price * (100 - product.extra.saleOff1))/100) <b>
 									VND</b>
 								</span>
+							} else {
+								<span class="amt bold price price_sale">@java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price) <b> VDN </b></span>
 							}
 						</div>
 					</div>

@@ -120,39 +120,4 @@
 	});
 
 
-  $(document).on('click', '.item_add', function(){
-    var cart = $('.simpleCart_total');
-    var imgtodrag = $(this).parent('.simpleCart_shelfItem').find("img").eq(0);
-
-    if (imgtodrag) {
-      var imgclone = imgtodrag.clone()
-          .offset({
-            top: imgtodrag.offset().top,
-            left: imgtodrag.offset().left
-          })
-          .css({
-            'opacity': '0.5',
-            'position': 'absolute',
-            'height': '150px',
-            'width': '150px',
-            'z-index': '1002'
-          })
-          .appendTo($('body'))
-          .animate({
-            'top': cart.offset().top + 10,
-            'left': cart.offset().left + 10,
-            'width': 75,
-            'height': 75
-          }, 400, 'easeInOutExpo');
-
-
-      imgclone.animate({
-        'width': 0,
-        'height': 0
-      }, function () {
-        $(this).detach()
-      });
-    }
-  });
-
 }(jQuery,simpleCart));

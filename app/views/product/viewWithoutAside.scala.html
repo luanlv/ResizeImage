@@ -1,13 +1,17 @@
 @(assetCDN: String => String, product: models.Product, supType: models.SupType, subType: models.SubType , group: models.GroupP,  _sb: String = "", _v: String = "", _li : Int = 8)
 
 
+<div class="menuCol">
+	<h2 class="title">
+		@{product.info.supType}
+		> <a href="@routes.ProductCtrl.collection(product.url.subType, "list", 1, _sb, "", _li, _v)">@product.info.subType</a>
+		> <a href="@routes.ProductCtrl.collection(product.url.subType, product.url.group, 1, _sb, "", _li, _v)">@product.info.group</a>
+		> @product.core.name
+	</h2>
+</div>
+
+
 	<div class="pContainer simpleCart_shelfItem">
-		<div class="pHeader">
-			<div>
-				Phần cứng, Thiết bị... >
-				Accessory Booard > Keypad Modules > TOUCH-CAP-4x4
-			</div>
-		</div>
 
 		<div class="pImg">
 			<em>Hình ảnh có thể chỉ là đại diện, xem datasheet để có thông số chính xác hơn</em>
@@ -28,7 +32,6 @@
 				</div>
 
 			</div>
-
 
 		</div>
 

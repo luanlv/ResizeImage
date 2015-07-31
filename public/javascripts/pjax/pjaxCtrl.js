@@ -90,4 +90,12 @@ $(function() {
     distance: 100
   });
 
+
+  $(".rslides").responsiveSlides({
+    auto: true,             // Boolean: Animate automatically, true or false
+    speed: 400,            // Integer: Speed of the transition, in milliseconds
+    timeout: 3500          // Integer: Time between slide transitions, in milliseconds
+  });
+
+
 });

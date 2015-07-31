@@ -1,10 +1,10 @@
 @(assetCDN: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	brand: models.Brand, origin: models.Origin, legType: models.LegType, legNumber: models.LegNumber,
 	collection: Pagelet, aside: Pagelet, _sub: String = "", _gro: String = "",
-	_page: Int = 1, _sb: String = "", _kw: String = "", _li: Int = 8, _v: String = "")(implicit pjaxVersion: pjax.PjaxVersion)
+	_page: Int = 1, _sb: String = "", _kw: String = "", _li: Int = 12, _v: String = "")(implicit pjaxVersion: pjax.PjaxVersion)
 
 
-<html>
+<html class="no-touch">
 	<head>
 		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN))
 		<meta charset="utf-8">
@@ -14,45 +14,33 @@
 	</head>
 	<body>
 
+
+
 	@bigPipe.render { pagelets =>
 		<div class="container" id="container">
-			<div class="cartBar">
-				<span class="cartMeta">
-					<ul>
-						<li class="first"><strong>Số lượng: </strong><span class="simpleCart_quantity" onchange='console.log("ok");'>0</span></li>
-						<li><strong>Tổng: </strong><span class="simpleCart_total">0</span></li>
-						<li><a href="javascript:;" id="view_cart">Chi tiết</a></li>
-						<li><a href="javascript:;" class="simpleCart_empty">Xóa tất cả</a></li>
-						<li class="last"><a href="javascript:;" class="simpleCart_checkout">Thanh toán</a></li>
-					</ul>
-				</span>
-				<div id="cart">
-					<div class="simpleCart_items">
-						<div class="cartHeaders">
-							<div class="itemName">Tên sản phẩm</div>
-							<div class="itemPrice">Giá</div>
-							<div class="itemQuantity">số lượng</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
 			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN))
 
 			<div class="main">
 				@pagelets(aside.id)
+
+
 				<div id="pjax-container" class="content">
 
-					<div class="collection  ra-3 bo sa">
-						<div class="dataCol">
-							<div class="menuCol" > &rarr; Phần cứng, Thiết bị.</div>
-							@pagelets("collection")
+					<div class="c-left">
+
+						<div class="content-bottom">
+							<div class="collection  ra-3 bo sa">
+								<div class="dataCol">
+									@pagelets("collection")
+								</div>
+							</div>
+
+							</div>
+
 						</div>
 					</div>
 
-					<div class="c-right ra-5">
-						<div class="demo"></div>
-					</div>
 				</div>
 			</div>
 			<div class="footer"></div>

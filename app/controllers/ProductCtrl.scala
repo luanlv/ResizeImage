@@ -378,7 +378,7 @@ class ProductCtrl @Inject() (
 //routes.ProductCtrl.collection(subTypeUrl, groupUrl, _kw, _li, _br, _or, _lt, _ln).url
 
   def collection(subTypeUrl:String = "", groupUrl: String = "",
-                 _page: Int = 1, _sb: String = "", _kw:String = "", _li:Int = 8, _v:String = "",
+                 _page: Int = 1, _sb: String = "", _kw:String = "", _li:Int = 12, _v:String = "",
                  _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ,
                  _min:Int = 0, _max: Int = 500000000) =
     Cached((rh: RequestHeader) => rh.uri + groupUrl, cachePage) {PjaxAction.async { implicit request =>
@@ -486,7 +486,7 @@ class ProductCtrl @Inject() (
             Ok("")
           } else {
 
-            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(assetCDN, result._1, _sb, _v, _li)))
+            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(assetCDN, result._1, _sb, _v, _li, subTypeUrl, groupUrl)))
 
             val pageletAside = HtmlPagelet("aside",
               Future(views.html.partials.aside(result._2, result._3, result._4,
@@ -550,7 +550,7 @@ class ProductCtrl @Inject() (
   def test = cached((request: RequestHeader) => request.uri, 10){
     val rand = Random.nextDouble()
     Action.async { implicit request =>
-      val result = getRandomJson("", "raspberry-pi", 10)
+      val result = getRandomJson("", "raspberry-pi", 1)
       result.map {
         data => Ok(Json.toJson(data))
       }
@@ -594,7 +594,8 @@ class ProductCtrl @Inject() (
     val data = cache.get[List[Product]] ( cacheName ) match {
       case None => {
         println(s"Not found $cacheName")
-        val rand = Random.nextDouble()
+        val rand1 = Random.nextDouble()
+        val rand2 = Random.nextDouble()
         val jsSubType =
           if(subTypeUrl != "")
             Json.obj("$eq" -> subTypeUrl)
@@ -607,14 +608,13 @@ class ProductCtrl @Inject() (
             Json.obj("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
 
         val result = cProduct.find(Json.obj(
-            "url.subType" -> jsSubType,
-            "url.group" -> jsGroupUrl,
-            "random_point" -> Json.obj("$near" -> Json.arr(rand, 0))
+
+            "random_point" -> Json.obj("$nearSphere" -> Json.arr(rand1, rand2))
           )).cursor[Product]().collect[List](limit)
 
         result.map {
           list =>
-            cache.set(cacheName, list, timeCacheRandom)
+            cache.set(cacheName, list, 0 second)
             cacheList += cacheName
             list
         }

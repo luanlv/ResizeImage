@@ -268,7 +268,7 @@ i {
 }
 
 span.sale-product-icon {
-  background-color: #e27c7c;
+  background-color: $red;
   display: block;
   text-align: center;
 }
@@ -287,3 +287,17 @@ span.old_price{
   font-weight: lighter;
   color: #666;
 }
+
+
+
+
+.title{
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+  font-style: italic;
+}
+
+
