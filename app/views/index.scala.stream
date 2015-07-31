@@ -42,7 +42,7 @@
 
 					<div class="content-top">
 						<div class="i-slide ra-5 sa">
-							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slide2.jpg").url)" alt="">
+							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slide1.jpg").url)" alt="">
 						</div>
 
 						<div class="i-info">
