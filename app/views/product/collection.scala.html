@@ -5,10 +5,14 @@
 	@for(product <- products){
 		<li  class="sresult gvresult">
 			<div class="full-width mimg itmcd itmcdV2">
-				<div class="lyr">
 
+				<div class="lyr">
 					<div class="img l-shad lftd">
-						<div class="img full-width" count="0" iid="251381026668">
+						@if(product.extra.saleOff1 >0){
+							<div class="product-label" style="right: 5px;"><span class="sale-product-icon">-@{product.extra.saleOff1}%</span></div>
+						}
+
+						<div class="img full-width">
 							<div class="multiImgHolder wpr">
 								<div class="imgWr">
 									<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _li)" class="img imgWr2">
@@ -29,9 +33,14 @@
 						<div class="timeLeftInfo">
                         </div>
 						<div class="bin">
-							<span class="amt bold">
-								@java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price) <b>VND</b>
-							</span>
+							@if(product.extra.saleOff1 > 0) {
+								<span class="amt bold price price_sale old_price">@java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price)</span>
+
+								<span class="amt bold price price_sale">
+									@java.text.NumberFormat.getIntegerInstance.format((product.core.price.head.price * (100 - product.extra.saleOff1))/100) <b>
+									VND</b>
+								</span>
+							}
 						</div>
 					</div>
 

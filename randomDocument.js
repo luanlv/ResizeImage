@@ -380,10 +380,10 @@ while(index < documentNumber) {
   var saleOff1;
   var saleOff2;
   var tmp = Math.random()*100;
-  if(tmp < 2){
+  if(tmp < 40){
     saleOff1 = listSaleOff1[Math.floor(Math.random() * listSaleOff1.length)];
     saleOff2 = 0;
-  } else if(tmp < 4){
+  } else if(tmp < 80){
     saleOff1 = 0;
     saleOff2 = listSaleOff2[Math.floor(Math.random() * listSaleOff2.length)];
   } else {

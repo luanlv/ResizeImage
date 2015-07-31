@@ -1,11 +1,12 @@
 .scroll {
-  border: 1px solid #999;
   width: 100%;
   overflow: hidden;
+
 }
 
 .scroll-right{
   height: 450px;
+  width: 100%;
 }
 
 .scroll-left{
@@ -14,9 +15,13 @@
 
 .extra-product{
   min-height: 100px;
-  background: whitesmoke;
+  background: darkseagreen;
 }
 
+.extra-product2{
+  min-height: 100px;
+  background: lightblue;
+}
 
 .scroll ul{
   list-style-type: none;

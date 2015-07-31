@@ -132,6 +132,7 @@ i {
 
 .prices, .prices1 {
   padding: 0 5px 5px 5px;
+  color: $red;
 }
 
 
@@ -256,4 +257,33 @@ i {
 
 
 
+.product-label {
+  position: absolute;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  top: 5px;
+  z-index: 3;
+}
 
+span.sale-product-icon {
+  background-color: #e27c7c;
+  display: block;
+  text-align: center;
+}
+
+.product-label span {
+  position: relative;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  //text-transform: uppercase;
+  border-radius: 4px;
+}
+
+span.old_price{
+  text-decoration: line-through !important;
+  font-weight: lighter;
+  color: #666;
+}

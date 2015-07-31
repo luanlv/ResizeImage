@@ -106,27 +106,29 @@ $susy:(
 .content{
   padding-left: span(225px static wide);
   @include clearfix();
+  margin-top: 15px;
 }
 
 
 .c-left{
-  @include span(40 of 50 );
+  @include span(83 of 100);
   @include clearfix()
 }
 .c-right{
-  @include span(9 of 50 last);
+  @include span(16 of 100 last);
   @include clearfix();
-  margin: 15px 10px 15px 0;
-
   .support{
     border: 1px solid #999;
+    margin-bottom: 10px;
   }
 
   .map{
     margin-top: 10px;
     min-height: 120px;
     background: antiquewhite;
+    margin-bottom: 15px;
   }
+
   .box-heading{
     background-color: #e55e5e;
   }
@@ -149,7 +151,6 @@ $susy:(
   @include full();
   @include clearfix();
   height: 230px;
-  margin-top: 15px;
 }
 
 .content-bottom{
@@ -159,7 +160,7 @@ $susy:(
 }
 
 .i-slide{
-  @include span(83 of 100);
+  @include full();
   @include clearfix();
   height: 230px;
   position: relative;
@@ -172,9 +173,21 @@ $susy:(
 
 
 .collection{
-  @include span(83 of 100);
+ @include full();
   @include clearfix();
   background: #fff;
+}
+
+.bottom-right{
+  @include span(16 of 100 last);
+  @include clearfix();
+}
+
+
+.menuCol{
+  //margin: 18px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
 }
 
 .dataCol{
