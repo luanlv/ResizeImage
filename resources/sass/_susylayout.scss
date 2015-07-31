@@ -63,9 +63,22 @@ $susy:(
 .header{
   background: #232f3e;
   height: 95px;
-  margin-bottom: 5px;
-}
 
+}
+.sub-nav{
+  background: #fafafa;
+  position: relative;
+  margin: 0;
+  padding: 0 9px 0 3px;
+  overflow: hidden;
+  border-bottom: 1px solid #e7e7e7;
+  border-top: 1px solid #e7e7e7;
+  border-top: 1px solid rgba(0,0,0,.17);
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  white-space: nowrap;
+  height: 33px;
+
+}
 
 .footer{
   height: 50px;
