@@ -1,11 +1,12 @@
 @(assetCDN: String => String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 12, subTypeUrl: String = "list", groupUrl: String = "")
 
-
 <div class="menuCol">
-	<h2 class="title">
+	<h2 class="ribbon" >
 		@{products.head.info.supType}
-		@if(subTypeUrl != "list"){ > <a href="@routes.ProductCtrl.collection(subTypeUrl, "list", 1, _sb, "", _li, _v)">@products.head.info.subType</a>}
-		@if(groupUrl != "list" && groupUrl != ""){> <a href="@routes.ProductCtrl.collection(subTypeUrl, groupUrl, 1, _sb, "", _li, _v)">@products.head.info.group</a>}
+		@if(subTypeUrl != "list"){
+			>> <a href="@routes.ProductCtrl.collection(subTypeUrl, "list", 1, _sb, "", _li, _v)">@products.head.info.subType</a>}
+		@if(groupUrl != "list" && groupUrl != ""){
+			>> <a href="@routes.ProductCtrl.collection(subTypeUrl, groupUrl, 1, _sb, "", _li, _v)">@products.head.info.group</a>}
 	</h2>
 </div>
 
@@ -15,8 +16,6 @@
 			<div class="full-width mimg itmcd itmcdV2">
 				<div class="lyr">
 
-
-
 					<div class="img l-shad lftd">
 
 						@if(product.extra.saleOff1 >0){
@@ -24,8 +23,6 @@
 						} else {
 
 						}
-
-
 						<div class="img full-width">
 							<div class="multiImgHolder wpr">
 								<div class="imgWr">

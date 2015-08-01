@@ -1,9 +1,9 @@
-@(assetCDN: String => String, title: String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 12)
+@(assetCDN: String => String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 12)
 
 
 <div class="right-panel">
 <div class="scroll-title">
-	<h3>@title</h3>
+	<h3>Bán chạy</h3>
 	<span>Tất cả</span>
 </div>
 
@@ -29,13 +29,9 @@
 					</div>
 
 					<div class="extra-price">
-						@if(product.extra.saleOff1 > 0){
-							<span class="old_price">@java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price)</span>
-							<br>
-							<span class="new_price">@java.text.NumberFormat.getIntegerInstance.format((product.core.price.head.price * (100 - product.extra.saleOff1))/100) <b>VND</b> (-@{product.extra.saleOff1}%)</span>
-						} else {
-							<span class="new_price">@java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price) <b>VND</b> </span>
-						}
+						<span class="old_price">@java.text.NumberFormat.getIntegerInstance.format(product.core.price.head.price)</span>
+						<br>
+						<span class="new_price">@java.text.NumberFormat.getIntegerInstance.format((product.core.price.head.price * (100 - product.extra.saleOff1))/100) <b>VND</b> (-@{product.extra.saleOff1}%)</span>
 					</div>
 
 				</div>

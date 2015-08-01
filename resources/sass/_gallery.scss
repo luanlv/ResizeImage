@@ -22,6 +22,7 @@
 }
 
 .gvresult {
+  text-align: center;
   float: left;
   height: auto;
   margin: 8px .7% 8px 0;
@@ -36,7 +37,7 @@ i {
 }
 
 .itmcdV2 {
-  min-height: 240px;
+  min-height: 200px;
   min-width: 180px;
   position: relative;
   border: 1px solid transparent;
@@ -77,6 +78,9 @@ i {
   position: relative;
   border: 1px solid #DDD;
   background: white;
+  &:hover{
+    border: 1px solid #999;
+  }
 }
 
 .wpr {
@@ -115,7 +119,7 @@ i {
   min-height: 17px;
   height: 17px;
   line-height: 17px;
-  margin: 7px 0;
+  margin: 3px 0;
 }
 
 .gvtitle h3 {
@@ -131,7 +135,7 @@ i {
 
 
 .prices, .prices1 {
-  padding: 0 5px 5px 5px;
+  padding: 0 5px 3px 5px;
   color: $red;
 }
 
@@ -151,7 +155,7 @@ i {
 }
 
 .meta .amt, .meta .lstTm, .meta .etrsb, .meta .free, .meta .loc {
-  padding: 0 0 3px 0;
+  padding: 0 ;
   display: block;
   color: #555;
   font: normal 11px arial;
@@ -164,8 +168,8 @@ i {
 
 .hotness-GV {
   font-size: 12px;
-  padding-top: 7px;
 }
+
 
 
 .itmcd:hover .ql_r {
@@ -298,6 +302,69 @@ span.old_price{
   font-weight: bold;
   color: #333;
   font-style: italic;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.ribbon a{
+  color: white !important;
+  text-decoration: underline;
 }
 
 
+
+.ribbon{
+  display: table;
+  //width: 150px;
+  position:relative;
+  padding: 0 10px 0 10px;
+  font-size:12px;
+  margin: 0 0 0 -15px;
+  line-height: 1.875em;
+  color: #fff;
+  border-radius: 0 0.156em 0.156em 0;
+  background: $blue;
+  box-shadow: -1px 2px 3px rgba(0,0,0,0.5);
+}
+
+.ribbon:before, .ribbon:after{
+  position:absolute;
+  content: '';
+  display: block;
+}
+
+.ribbon:before{
+  width: 0.469em;
+  height: 100%;
+  padding: 0 0 0.438em;
+  top:0;
+  left: -0.469em;
+  background:inherit;
+  border-radius: 0.313em 0 0 0.313em;
+}
+
+.ribbon:after{
+  width: 0.313em;
+  height: 0.313em;
+  background: rgba(0,0,0,0.35);
+  bottom: -0.313em;
+  left: -0.313em;
+  border-radius: 0.313em 0 0 0.313em;
+  box-shadow: inset -1px 2px 2px rgba(0,0,0,0.3);
+}
+
+@media (max-width: 600px) {
+
+  body{
+    font-size:0.875em;
+  }
+
+  .ribbon{
+    line-height: 1.143em;
+    padding: 0.5em;
+  }
+
+  .ribbon:before, .ribbon:after{
+    font-size: 0.714em;
+  }
+
+}

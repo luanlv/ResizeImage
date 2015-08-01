@@ -320,7 +320,7 @@ class ProductCtrl @Inject() (
 
           val aside = HtmlPagelet("aside", Future(views.html.partials.asideIndex(result._4, result._5, result._6)))
 
-          val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, result._7)))
+          val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, "Khuyến mãi", result._7)))
 
           val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside, saleOff)
           Ok.chunked(views.stream.index(assetCDN, bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside, saleOff))
@@ -355,6 +355,24 @@ class ProductCtrl @Inject() (
       }
     }
 
+    val cacheName = "relative" + gro
+
+    val futureRelative = cache.get[List[Product]] (cacheName ) match {
+      case None => {
+        println(s"not found $cacheName")
+        val futureRelative = getRandomJson(sub, gro, 10)
+        futureRelative.map {
+          list => cache.set(cacheName, list, cacheQueriesDay)
+            cacheList += cacheName
+        }
+        futureRelative
+      }
+      case Some(p) => {
+        println(s"found $cacheName")
+        Future(p)
+      }
+    }
+
     val FutureRelativeProduct = getRandomJson(sub, gro, 14)
 
 
@@ -369,7 +387,8 @@ class ProductCtrl @Inject() (
       supType <- supType
       subType <- subType
       group <- group
-    } yield (futureProduct, supType, subType, group)
+      futureRelative <- futureRelative
+    } yield (futureProduct, supType, subType, group, futureRelative)
 
     futureResult.map{
       result => {
@@ -386,15 +405,19 @@ class ProductCtrl @Inject() (
           }
           val pageletProduct = HtmlPagelet("product" , v)
 
+
+
           val pageletAside = HtmlPagelet("aside", Future(views.html.partials.viewAside(result._2,result._3, result._4, sub, gro, _sb, _v, _li)))
 
-          val bigPipe = new BigPipe(renderOptions(request), pageletProduct, pageletAside)
+          val saleRelative = HtmlPagelet("relative", Future(views.html.product.saleoff(assetCDN, "Sản phẩm tương tự", result._5)))
+
+          val bigPipe = new BigPipe(renderOptions(request), pageletProduct, pageletAside, saleRelative)
           val subType = result._1 match {
             case Some(data) => data.url.subType
             case _ => ""
           }
           Ok.chunked(views.stream.product.view(assetCDN, bigPipe, result._2, result._3, result._4,
-            pageletProduct, pageletAside, subType))
+            pageletProduct, pageletAside, saleRelative,  subType))
         }
       }
     }
@@ -478,6 +501,28 @@ class ProductCtrl @Inject() (
         }
       }
 
+      val cacheName4 = "saleOff"
+      val futureSaleOff = cache.get[List[Product]]( cacheName4 ) match {
+        case None => {
+          println(s"Not found $cacheName4")
+
+          val futureSaleOff = cProduct.find(Json.obj("extra.saleOff1" -> Json.obj("$gt" -> 0)))
+          .sort(Json.obj("extra.saleOff1" -> -1))
+          .cursor[Product]().collect[List](20)
+
+          futureSaleOff.map {
+            list => cache.set(cacheName4, list, cacheQueriesDay)
+              cacheList += cacheName4
+          }
+          futureSaleOff
+        }
+
+        case Some(p) => {
+          println(s"found $cacheName4")
+          Future(p)
+        }
+      }
+
       val tmpGroupUrl =
         if(groupUrl == "list")
           ""
@@ -501,7 +546,8 @@ class ProductCtrl @Inject() (
         origin <- origin
         legType <- legType
         legNumber <- legNumber
-      } yield (futureList, supType, subType, group, brand, origin, legType, legNumber)
+        futureSaleOff <- futureSaleOff
+      } yield (futureList, supType, subType, group, brand, origin, legType, legNumber, futureSaleOff)
 
       futureResult.map {
         result => {
@@ -522,11 +568,14 @@ class ProductCtrl @Inject() (
                 subTypeUrl, groupUrl, _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max))
 
             )
-            val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside)
+
+            val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, "Khuyến mãi", result._9)))
+
+            val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside, saleOff)
 
             Ok.chunked(views.stream.category(assetCDN, bigPipe, result._2, result._3, result._4,
               result._5, result._6, result._7, result._8,
-              pageletColelction, pageletAside, subTypeUrl, groupUrl, _page, _sb, _kw, _li, _v))
+              pageletColelction, pageletAside, saleOff, subTypeUrl, groupUrl, _page, _sb, _kw, _li, _v))
           }
         }
       }
@@ -642,7 +691,7 @@ class ProductCtrl @Inject() (
 
         result.map {
           list =>
-            cache.set(cacheName, list, 0 second)
+            cache.set(cacheName, list, timeCacheRandom)
             cacheList += cacheName
             list
         }

@@ -1,6 +1,6 @@
 @(assetCDN: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	brand: models.Brand, origin: models.Origin, legType: models.LegType, legNumber: models.LegNumber,
-	collection: Pagelet, aside: Pagelet, _sub: String = "", _gro: String = "",
+	collection: Pagelet, aside: Pagelet, saleOff: Pagelet, _sub: String = "", _gro: String = "",
 	_page: Int = 1, _sb: String = "", _kw: String = "", _li: Int = 12, _v: String = "")(implicit pjaxVersion: pjax.PjaxVersion)
 
 
@@ -39,6 +39,9 @@
 							</div>
 
 						</div>
+
+					<div class="c-right">
+						@pagelets(saleOff.id)
 					</div>
 
 				</div>

@@ -2,11 +2,11 @@
 
 
 <div class="menuCol">
-	<h2 class="title">
+	<h2 class="ribbon">
 		@{product.info.supType}
-		> <a href="@routes.ProductCtrl.collection(product.url.subType, "list", 1, _sb, "", _li, _v)">@product.info.subType</a>
-		> <a href="@routes.ProductCtrl.collection(product.url.subType, product.url.group, 1, _sb, "", _li, _v)">@product.info.group</a>
-		> @product.core.name
+		>> <a href="@routes.ProductCtrl.collection(product.url.subType, "list", 1, _sb, "", _li, _v)">@product.info.subType</a>
+		>> <a href="@routes.ProductCtrl.collection(product.url.subType, product.url.group, 1, _sb, "", _li, _v)">@product.info.group</a>
+		>> @product.core.name
 	</h2>
 </div>
 

@@ -1,5 +1,5 @@
 @(assetCDN: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
-	product: Pagelet, aside: Pagelet, _sub: String = "", _sb: String = "", _v: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
+	product: Pagelet, aside: Pagelet, relative: Pagelet, _sub: String = "", _sb: String = "", _v: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
 <!DOCTYPE html>
 <html>
 	<head>
@@ -32,7 +32,7 @@
 					</div>
 
 					<div class="c-right ra-5">
-						<div class="demo"></div>
+						@pagelets(relative.id)
 					</div>
 
 				</div>

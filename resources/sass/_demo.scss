@@ -1,12 +1,15 @@
 .right-panel{
-  background: #fff;
+  //background: #fff;
+
+  margin-top: 15px;
 }
 
 .scroll-title{
-  margin: 5px;
-  border-bottom: 1px solid #333;
+  margin: 5px 0 10px 0;
+  border-bottom: 2px solid #ddd;
   font-style: italic;
   h3{
+    font-size: 13px;
     color: red;
     margin: 0 0 0 5px;
     display: inline
@@ -23,7 +26,7 @@
 }
 
 .scroll-right{
-  height: 600px;
+  height: 700px;
   width: 100%;
 
 }
@@ -45,24 +48,50 @@
   padding: 0;
   margin: 0;
   li{
-    border-bottom: 1px solid #bbb;
+    border: 1px solid transparent;
     margin: 0 3px;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-bottom: 5px;
+    &:hover{
+      border: 1px solid #999;
+      background: #fff;
+      @include box-shadow(2px 2px 3px 0px #999);
+      @include border-radius(3px);
+
+    }
+
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, left top, right top, from(#fafafa), to(transparent));
+
+    /* Safari 5.1, Chrome 10+ */
+    background: -webkit-linear-gradient(left, transparent, #fafafa);
+
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(left, transparent, #fafafa);
+
+    /* IE 10 */
+    background: -ms-linear-gradient(left, transparent, #fafafa);
+
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(left, transparent, #fafafa);
   }
 }
 
 .extra-img{
   width: 140px;
-  height: 120px;
+  height: 110px;
   margin: 0px auto;
+  background: #fff;
+  &:hover{
+    border: 1px solid #999;
+  }
 }
 
 .img-center{
   @include clearfix();
   margin: 10px auto;
   width: 120px;
-  height: 100px;
+  height: 90px;
 }
 
 .extra-info{

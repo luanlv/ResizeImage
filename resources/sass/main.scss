@@ -63,7 +63,7 @@ hr.filter-menu:after {
   top: -0.7em;
   font-size: 1.5em;
   padding: 0 0.25em;
-  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+  background: white ;
 }
 
 hr.p-relative {
@@ -101,39 +101,55 @@ hr.style-col {
   font-style: italic;
   text-align: left;
   font-size: 10px;
+  text-shadow: 1px 4px 6px #fff, 0 0 0 #000, 1px 4px 6px #fff;
 }
 
 hr.style-col1:after {
-  content: "Phần cứng, Thiết bị";
+  content: "- Phần cứng, Thiết bị";
   display: inline-block;
   position: relative;
   top: -0.7em;
   font-size: 1.2em;
   padding: 0 0.25em;
-  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+  //background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+  background: -webkit-gradient(linear, left top, right top, from(#fafafa), to(white));
+  background: -webkit-linear-gradient(left, white, #fafafa);
+  background: -moz-linear-gradient(left, white, #fafafa);
+  background: -ms-linear-gradient(left, white, #fafafa);
+  background: -o-linear-gradient(left, white, #fafafa);
 }
 
 
 
 hr.style-col2:after {
-  content: "LK Bán dẫn & Cảm biến";
+  content: "- LK Bán dẫn & Cảm biến";
   display: inline-block;
   position: relative;
   top: -0.7em;
   font-size: 1.2em;
   padding: 0 0.25em;
-  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+  //background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+  background: -webkit-gradient(linear, left top, right top, from(#fafafa), to(white));
+  background: -webkit-linear-gradient(left, white, #fafafa);
+  background: -moz-linear-gradient(left, white, #fafafa);
+  background: -ms-linear-gradient(left, white, #fafafa);
+  background: -o-linear-gradient(left, white, #fafafa);
 }
 
 
 hr.style-col3:after {
-  content: "LK Khác và Phụ kiện";
+  content: "- LK Khác và Phụ kiện";
   display: inline-block;
   position: relative;
   top: -0.7em;
   font-size: 1.2em;
   padding: 0 0.25em;
-  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+  //background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+  background: -webkit-gradient(linear, left top, right top, from(#fafafa), to(white));
+  background: -webkit-linear-gradient(left, white, #fafafa);
+  background: -moz-linear-gradient(left, white, #fafafa);
+  background: -ms-linear-gradient(left, white, #fafafa);
+  background: -o-linear-gradient(left, white, #fafafa);
 }
 
 
@@ -212,4 +228,135 @@ a {
   float: left;
   width: 100%;
   border: 0;
+}
+
+
+.glide {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+.glide__wrapper {
+  width: 100%;
+  height: 100%;
+  list-style: none;
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.glide__wrapper.dragging {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+.glide__slide {
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.glide__arrows {
+  position: absolute;
+  top: 45%;
+  width: 100%;
+}
+.glide__arrow {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  padding: 15px 10px;
+  background: rgba(#333, 0.2);
+  cursor: pointer;
+  display: none;
+  color: white;
+  font-size: 20px;
+  &:hover{
+    background: rgba(#333, 0.5);
+  }
+}
+
+.glide:hover{
+  .glide__arrow{
+    display:block;
+  }
+}
+.glide__arrow.prev {
+  left: 0;
+  -webkit-border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  -moz-border-radius-bottomright: 5px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.glide__arrow.next {
+  right: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.glide__bullets {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+  list-style: none;
+}
+.glide__bullets li {
+  display: inline-block;
+  background-color: gray;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+.glide__bullets li.active {
+  background-color: white;
+}
+.glide--slider .glide__slide {
+  float: left;
+  clear: none;
+}
+.glide--slider .glide__arrow {
+  -webkit-transition: visibility 0 ease 150ms,
+  opacity 150ms ease;
+  transition: visibility 0 ease 150ms,
+  opacity 150ms ease;
+}
+
+.glide--slider .glide__arrow.prev {
+  opacity: 0;
+  visibility: hidden;
+}
+.glide--carousel .glide__slide {
+  float: left;
+  clear: none;
+}
+.glide--slideshow .glide__slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.glide--slideshow .glide__slide.active {
+  z-index: 1;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
