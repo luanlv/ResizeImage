@@ -1,4 +1,4 @@
-@(assetCDN: String => String, bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
+@(assetCDN: String => String, bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet, saleOff: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
 <!DOCTYPE html>
 <html class="no-touch">
 	<head>
@@ -35,7 +35,6 @@
 						</div>
 					</div>
 
-
 					<div class="content-bottom ">
 						<div class="collection bo ra-5 sa">
 							<div class="dataCol">
@@ -63,39 +62,9 @@
 				</div>
 
 				<div class="c-right">
-					<div class="support  ra-5 bo sa">
-						Nhân viên 1: 0199999999
-							<br>
-						Nhân viên 2: 0100000000
-							<br>
-						......
-							<br>
-						......
-							<br>
-						......
-							<br>
-						......
-					</div>
 
-					<div class="map ra-5 bo sa">
+					@pagelets(saleOff.id)
 
-					</div>
-					<div class="scroll scroll-right">
-						<ul>
-							<li><div class="extra-product">1</div></li>
-							<li><div class="extra-product2">2</div></li>
-							<li><div class="extra-product">3</div></li>
-							<li><div class="extra-product2">4</div></li>
-							<li><div class="extra-product">5</div></li>
-							<li><div class="extra-product2">6</div></li>
-							<li><div class="extra-product">7</div></li>
-							<li><div class="extra-product2">8</div></li>
-							<li><div class="extra-product">9</div></li>
-							<li><div class="extra-product2">10</div></li>
-							<li><div class="extra-product">11</div></li>
-							<li><div class="extra-product2">12</div></li>
-						</ul>
-					</div>
 				</div>
 
 			</div>

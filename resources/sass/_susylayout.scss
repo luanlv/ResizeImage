@@ -114,6 +114,7 @@ $susy:(
   @include span(83 of 100);
 
 }
+
 .c-right{
   @include span(16 of 100 last);
   
@@ -145,6 +146,9 @@ $susy:(
   }
 
 }
+
+
+
 .content-top{
   @include full();
   height: 230px;
@@ -195,6 +199,7 @@ $susy:(
   //margin: 18px;
   @include full();
   padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
 }
 
 .dataCol{

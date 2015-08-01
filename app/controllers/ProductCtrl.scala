@@ -202,6 +202,7 @@ class ProductCtrl @Inject() (
   def index = Cached((rh: RequestHeader) => rh.uri, cachePage) { PjaxAction.async { implicit request =>
 
     val cacheName1 = "phan-cung-thiet-bi"
+
     val futureCollection1 = cache.get[List[Product]]( cacheName1 ) match {
       case None => {
         println(s"Not found $cacheName1")
@@ -265,6 +266,29 @@ class ProductCtrl @Inject() (
     }
 
 
+    val cacheName4 = "saleOff"
+    val futureSaleOff = cache.get[List[Product]]( cacheName4 ) match {
+      case None => {
+        println(s"Not found $cacheName4")
+
+        val futureSaleOff = cProduct.find(Json.obj("extra.saleOff1" -> Json.obj("$gt" -> 0)))
+          .sort(Json.obj("extra.saleOff1" -> -1))
+          .cursor[Product]().collect[List](20)
+
+        futureSaleOff.map {
+          list => cache.set(cacheName4, list, cacheQueriesDay)
+            cacheList += cacheName4
+        }
+        futureSaleOff
+      }
+
+      case Some(p) => {
+        println(s"found $cacheName4")
+        Future(p)
+      }
+    }
+
+
     val supType = getSupType()
 
     val subType = getSubType()
@@ -279,7 +303,8 @@ class ProductCtrl @Inject() (
       supType <- supType
       subType <- subType
       group <- group
-    } yield (futureCollection1, futureCollection2, futureCollection3, supType, subType, group)
+      futureSaleOff <- futureSaleOff
+    } yield (futureCollection1, futureCollection2, futureCollection3, supType, subType, group, futureSaleOff)
 
 
 
@@ -295,8 +320,10 @@ class ProductCtrl @Inject() (
 
           val aside = HtmlPagelet("aside", Future(views.html.partials.asideIndex(result._4, result._5, result._6)))
 
-          val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside)
-          Ok.chunked(views.stream.index(assetCDN, bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside))
+          val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, result._7)))
+
+          val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside, saleOff)
+          Ok.chunked(views.stream.index(assetCDN, bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside, saleOff))
         }
       }
     }
