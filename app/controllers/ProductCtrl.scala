@@ -383,7 +383,6 @@ class ProductCtrl @Inject() (
                  _min:Int = 0, _max: Int = 500000000) =
     Cached((rh: RequestHeader) => rh.uri + groupUrl, cachePage) {PjaxAction.async { implicit request =>
 
-
       val cacheName = "collection-" + subTypeUrl +  groupUrl + _kw + _li + _br + _or + _lt + _ln + _min + _max
 
       val futureList = cache.get[List[Product]](cacheName) match {
@@ -420,6 +419,7 @@ class ProductCtrl @Inject() (
           } else {
             Json.obj("updateDate" -> -1)
           }
+
           val futureList = cProduct.find(Json.obj(
           "url.subType" -> jsSubType,
           "url.group" -> jsGroup,
@@ -428,6 +428,7 @@ class ProductCtrl @Inject() (
           "info.brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
           "info.origin" -> Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i"),
           "info.legType" -> jsLegType,
+          "info.legNumber" -> jsLegNumber,
           "core.price.0.price" -> Json.obj("$gte" -> _min, "$lte" -> _max)
         ))
         .sort(jsSort)

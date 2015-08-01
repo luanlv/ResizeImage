@@ -147,13 +147,13 @@ $susy:(
 }
 .content-top{
   @include full();
-  @include clearfix();
   height: 230px;
+  margin-bottom: 15px;
 }
 
 .content-bottom{
   @include full();
-  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .i-slide{
@@ -195,7 +195,6 @@ $susy:(
   //margin: 18px;
   @include full();
   padding-bottom: 5px;
-  border-bottom: 1px solid #ddd;
 }
 
 .dataCol{
@@ -204,8 +203,6 @@ $susy:(
 
 .pContainer{
   margin-top: 10px;
-  border: solid 1px #BEDAEC ;
-  @include clearfix();
   font-size: 12px;
 }
 
@@ -242,7 +239,7 @@ $susy:(
   margin-top: 10px;
   @include span( 6.5 of 10 last);
   fieldset{
-    @include clearfix();
+    //@include clearfix();
     padding:4px; border:1px #bedaec solid;background:#F7F3F3
   }
   legend>div{
@@ -260,9 +257,9 @@ $susy:(
 
 .pExtra{
   @include full();
-  @include clearfix();
+  //@include clearfix();
   ol{
-    @include clearfix();
+    //@include clearfix();
     li{
       float: left;
       margin: 0px 1px 0px 0px;

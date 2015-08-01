@@ -16,6 +16,7 @@ $(function() {
     }
   });
 
+
   $(document).on('pjax:start', function() { NProgress.start(); });
   $(document).on('pjax:end',   function() {
     simpleCart.initialize();
@@ -32,9 +33,8 @@ $(function() {
         magnifiersize: [450,450],
         magnifierpos: 'right',
         cursorshadecolor: '#fdffd5',
-        cursorshade: true //<-- No comma after last option!
+        cursorshade: true
       });
-
     }
     else {
       $(".zoomtracker").remove();
@@ -47,8 +47,6 @@ $(function() {
       $('#lightbox a').slimbox();
       console.log("slimbox initial");
     }
-
-
 
   // Pjax-end!
   });

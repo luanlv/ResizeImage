@@ -22,7 +22,7 @@
 				<div id="pjax-container" class="content">
 
 					<div class="c-left">
-						<div class="content-bottom ">
+						<div class="content-bottom">
 							<div class="collection bo ra-5 sa">
 								<div class="dataCol">
 									@pagelets("product")
