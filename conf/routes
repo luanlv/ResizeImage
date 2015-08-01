@@ -20,6 +20,7 @@ POST     /admin/delete/:id            controllers.ProductCtrl.deleteProduct(id: 
 
 
 GET      /image/list                  controllers.ImageCtrl.getList(name: String ?="", page: Int ?=1)
+GET      /image/upload                controllers.Application.upload
 POST     /image/upload                controllers.ImageCtrl.upload
 
 GET       /test                controllers.ProductCtrl.test

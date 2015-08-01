@@ -314,6 +314,132 @@ var imageArray = [
       "thumb": "/assets/imageDemo/thumb15.jpg"
     }
   ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin16.jpg",
+      "small": "/assets/imageDemo/small16.jpg",
+      "thumb": "/assets/imageDemo/thumb16.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin17.jpg",
+      "small": "/assets/imageDemo/small17.jpg",
+      "thumb": "/assets/imageDemo/thumb17.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin18.jpg",
+      "small": "/assets/imageDemo/small18.jpg",
+      "thumb": "/assets/imageDemo/thumb18.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin19.jpg",
+      "small": "/assets/imageDemo/small19.jpg",
+      "thumb": "/assets/imageDemo/thumb19.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin20.jpg",
+      "small": "/assets/imageDemo/small20.jpg",
+      "thumb": "/assets/imageDemo/thumb20.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin21.jpg",
+      "small": "/assets/imageDemo/small21.jpg",
+      "thumb": "/assets/imageDemo/thumb21.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin22.jpg",
+      "small": "/assets/imageDemo/small22.jpg",
+      "thumb": "/assets/imageDemo/thumb22.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin23.jpg",
+      "small": "/assets/imageDemo/small23.jpg",
+      "thumb": "/assets/imageDemo/thumb23.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin24.jpg",
+      "small": "/assets/imageDemo/small24.jpg",
+      "thumb": "/assets/imageDemo/thumb24.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin25.jpg",
+      "small": "/assets/imageDemo/small25.jpg",
+      "thumb": "/assets/imageDemo/thumb25.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin26.jpg",
+      "small": "/assets/imageDemo/small26.jpg",
+      "thumb": "/assets/imageDemo/thumb26.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin27.jpg",
+      "small": "/assets/imageDemo/small27.jpg",
+      "thumb": "/assets/imageDemo/thumb27.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin28.jpg",
+      "small": "/assets/imageDemo/small28.jpg",
+      "thumb": "/assets/imageDemo/thumb28.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin29.jpg",
+      "small": "/assets/imageDemo/small29.jpg",
+      "thumb": "/assets/imageDemo/thumb29.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin30.jpg",
+      "small": "/assets/imageDemo/small30.jpg",
+      "thumb": "/assets/imageDemo/thumb30.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin31.jpg",
+      "small": "/assets/imageDemo/small31.jpg",
+      "thumb": "/assets/imageDemo/thumb31.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin32.jpg",
+      "small": "/assets/imageDemo/small32.jpg",
+      "thumb": "/assets/imageDemo/thumb32.jpg"
+    }
+  ],
+  [
+    {
+      "origin": "/assets/imageDemo/origin33.jpg",
+      "small": "/assets/imageDemo/small33.jpg",
+      "thumb": "/assets/imageDemo/thumb33.jpg"
+    }
+  ]
 ];
 
 var listBrand = ["Other", "Xeltek", "ATMEL", "ELNEC", "TOP", "SOFI-TECH", "Raspberry Pi", "ST",
@@ -326,7 +452,10 @@ var listStock =  [1, 3, 7, 19, 15, 25, 60, 63, 70, 95, 150, 176, 210, 320, 333, 
 var listName = ["Bộ Hẹn Giờ", "Cảm Biến Khoảng Cách ", "Module Điều Khiển ", "Case Arduino UNO", "Module Nguồn",
                 "WiFi Serial Transceiver", "STM32F103VCT6 100-pin ARM ", "STM32F103ZET6 144-pin ARM ",
                 "Bluetooth Module HC05 master / slave Breakout board", "Opamp Instrumentation Amplifier 1MHz",
-                "10 - 80cm Distance Measuring ", "Full H-Bridge Driver Parallel 2A PowerSO-20"];
+                "10 - 80cm Distance Measuring ", "Full H-Bridge Driver Parallel 2A PowerSO-20",
+                "CUỘN CẢM SMD NLV25T (TDK)", "TỤ TANTALUM 100UF-16V", "DIODE ỔN ÁP 5W (1.5KE)",
+                "THẠCH ANH (B)", "ĐIỆN TRỞ 1W 5%" , "CẢM BIẾN BIẾN DẠNG", "BIẾN DÒNG (250KHZ)", "MẠCH NẠP ST-LINK V2 MINI",
+                "HỘP LẮP THIẾT BỊ BẰNG NHÔM", "HỘP LẮP THIẾT BỊ BẰNG NHỰA", ];
 var listPrice = [
     [{num:1, price: 10000}],
     [{num:1, price: 15000}],
