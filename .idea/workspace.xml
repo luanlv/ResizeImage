@@ -707,8 +707,8 @@
       <file leaf-file-name="main.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/sass/main.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-21.555555">
-              <caret line="382" column="0" selection-start-line="382" selection-start-column="0" selection-end-line="382" selection-end-column="0" />
+            <state vertical-scroll-proportion="-16.222221">
+              <caret line="365" column="18" selection-start-line="365" selection-start-column="18" selection-end-line="365" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -744,6 +744,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="routes" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/conf/routes">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7767442">
+              <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="big-pipe.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/big-pipe.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -764,16 +774,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="import_t.scala.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/partials/import_t.scala.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.0">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="collection.scala.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/product/collection.scala.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -786,10 +786,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.scala.stream" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.scala.stream" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5825243">
+            <state vertical-scroll-proportion="-13.333333">
               <caret line="43" column="79" selection-start-line="43" selection-start-column="79" selection-end-line="43" selection-end-column="79" />
               <folding />
             </state>
@@ -853,15 +853,15 @@
         <option value="$PROJECT_DIR$/resources/sass/_gallery.scss" />
         <option value="$PROJECT_DIR$/resources/sass/_aside.scss" />
         <option value="$PROJECT_DIR$/resources/sass/_demo.scss" />
-        <option value="$PROJECT_DIR$/conf/routes" />
         <option value="$PROJECT_DIR$/app/views/product/collection.scala.html" />
         <option value="$PROJECT_DIR$/app/views/product/saleoff.scala.html" />
         <option value="$PROJECT_DIR$/public/javascripts/big-pipe.js" />
         <option value="$PROJECT_DIR$/app/views/partials/import_b.scala.html" />
         <option value="$PROJECT_DIR$/public/javascripts/pjax/pjaxCtrl.js" />
         <option value="$PROJECT_DIR$/public/javascripts/jquery.scrollbox.js" />
-        <option value="$PROJECT_DIR$/resources/sass/main.scss" />
         <option value="$PROJECT_DIR$/app/views/index.scala.stream" />
+        <option value="$PROJECT_DIR$/resources/sass/main.scss" />
+        <option value="$PROJECT_DIR$/conf/routes" />
       </list>
     </option>
   </component>
@@ -1122,7 +1122,7 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/index.scala.stream&#10;routes&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Product.scala&#10;index&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/partials/index.scala.html&#10;demo&#9;null&#9;null&#10;susy&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;_su&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;produc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;produ&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;rou&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;Product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;type&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Type.scala&#10;create&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/product/create.scala.html&#10;pro&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;ImageC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ImageCtrl.scala&#10;cate&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/category.scala.html&#10;app&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;link.&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/link.scala.html&#10;appli&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;Ctrl&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;layout&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;main&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/public/javascripts/main.js" />
+    <property name="SearchEverywhereHistoryKey" value="routes&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Product.scala&#10;index&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/partials/index.scala.html&#10;demo&#9;null&#9;null&#10;susy&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;_su&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;produc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;produ&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;rou&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;Product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;type&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Type.scala&#10;create&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/product/create.scala.html&#10;pro&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;ImageC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ImageCtrl.scala&#10;cate&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/category.scala.html&#10;app&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;link.&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/link.scala.html&#10;appli&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;Ctrl&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;layout&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;main&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/public/javascripts/main.js" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
@@ -1743,29 +1743,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/routes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="20" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/partials/import_t.scala.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.0">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/product/collection.scala.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="19.333334">
-          <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1817,18 +1799,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/sass/main.scss">
+    <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.555555">
-          <caret line="382" column="0" selection-start-line="382" selection-start-column="0" selection-end-line="382" selection-end-column="0" />
+        <state vertical-scroll-proportion="-13.333333">
+          <caret line="43" column="79" selection-start-line="43" selection-start-column="79" selection-end-line="43" selection-end-column="79" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
+    <entry file="file://$PROJECT_DIR$/resources/sass/main.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5825243">
-          <caret line="43" column="79" selection-start-line="43" selection-start-column="79" selection-end-line="43" selection-end-column="79" />
+        <state vertical-scroll-proportion="-16.222221">
+          <caret line="365" column="18" selection-start-line="365" selection-start-column="18" selection-end-line="365" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/product/collection.scala.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="19.333334">
+          <caret line="7" column="46" selection-start-line="7" selection-start-column="46" selection-end-line="7" selection-end-column="46" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/routes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7767442">
+          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
           <folding />
         </state>
       </provider>
