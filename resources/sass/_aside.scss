@@ -125,7 +125,7 @@ div.laside{
       content: "\00a0\2666\00a0";
     }
   }
-  sub a {
+  .sup a {
     position:relative;
     &:before{
       content: "→"
