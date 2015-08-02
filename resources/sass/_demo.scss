@@ -1,24 +1,16 @@
 .right-panel{
-  //background: #fff;
-
+  background: #fff;
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
   margin-top: 15px;
+  padding-bottom: 10px;
 }
 
 .scroll-title{
-  margin: 5px 0 10px 0;
-  border-bottom: 2px solid #ddd;
+  margin: 10px 3px 0 3px;
+  padding-bottom: 10px;
   font-style: italic;
-  h3{
-    font-size: 13px;
-    color: red;
-    margin: 0 0 0 5px;
-    display: inline
-  }
-  span{
-    color: #999;
-    float: right;
-    margin-right: 5px;
-  }
+  border-bottom: 1px solid #ddd;
 }
 .scroll {
   width: 100%;
@@ -58,21 +50,6 @@
       @include box-shadow(2px 2px 3px 0px #999);
       @include border-radius(3px);
     }
-
-    /* Safari 4-5, Chrome 1-9 */
-    background: -webkit-gradient(linear, left top, right top, from(#fafafa), to(transparent));
-
-    /* Safari 5.1, Chrome 10+ */
-    background: -webkit-linear-gradient(left, transparent, #fafafa);
-
-    /* Firefox 3.6+ */
-    background: -moz-linear-gradient(left, transparent, #fafafa);
-
-    /* IE 10 */
-    background: -ms-linear-gradient(left, transparent, #fafafa);
-
-    /* Opera 11.10+ */
-    background: -o-linear-gradient(left, transparent, #fafafa);
   }
 }
 

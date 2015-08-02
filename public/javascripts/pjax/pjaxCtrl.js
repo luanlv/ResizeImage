@@ -81,19 +81,12 @@ $(function() {
     linear: true,
     step: 1,
     delay: 0,
-    speed: 30
+    speed: 25
   });
 
-  $('.scroll-left').scrollbox({
-    distance: 100
-  });
-
-
-  $(".rslides").responsiveSlides({
-    auto: true,             // Boolean: Animate automatically, true or false
-    speed: 400,            // Integer: Speed of the transition, in milliseconds
-    timeout: 3500          // Integer: Time between slide transitions, in milliseconds
-  });
+  //$('.scroll-left').scrollbox({
+  //  distance: 100
+  //});
 
 
   var slider = $('#Glide').glide({});

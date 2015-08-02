@@ -1,13 +1,13 @@
 @(assetCDN: String => String, title: String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 12)
 
 
-<div class="right-panel">
-<div class="scroll-title">
-	<h3>@title</h3>
-	<span>Tất cả</span>
-</div>
+<div class="right-panel ra-5 sa">
 
-<div class="scroll scroll-right">
+	<div class="scroll-title">
+		<h2 class="ribbon ribbon-right">@title</h2>
+	</div>
+
+<div class="scroll scroll-right ">
 
 	<ul>
 		@for(product <- products){
