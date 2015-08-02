@@ -78,10 +78,8 @@ $(function() {
   });
 
   $('.scroll-right').scrollbox({
-    linear: true,
-    step: 1,
-    delay: 0,
-    speed: 25
+    switchItems: 3,
+    distance: 170*3.4
   });
 
   //$('.scroll-left').scrollbox({
