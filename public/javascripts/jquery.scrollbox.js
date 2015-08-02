@@ -138,6 +138,7 @@ $.fn.scrollbox = function(config) {
           nextScrollId = setTimeout(forward, config.delay * 1000);
         }
       }
+      bLazy.revalidate();
     };
 
     forward = function() {

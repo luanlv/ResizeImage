@@ -15,7 +15,13 @@
   list-style: none;
 }
 .gallery li {
-  width: 24.24%;
+  width: 48.5%;
+  @include breakpoint(700px){
+    width: 32.63%;
+    @include breakpoint(1240px){
+      width: 24.24%;
+    }
+  }
 }
 
 .imgWr2{
@@ -37,7 +43,7 @@ i {
 }
 
 .itmcdV2 {
-  min-height: 200px;
+  min-height: 210px;
   min-width: 180px;
   position: relative;
   border: 1px solid transparent;
@@ -59,7 +65,7 @@ i {
   border-bottom-width: 1px;
   top: -11px;
   left: -11px;
-  min-height: 220px;
+  min-height: 240px;
   -webkit-transition: box-shadow .25s,min-height .75s;
   -moz-transition: box-shadow .25s,min-height .75s;
   transition: box-shadow .25s,min-height .75s;

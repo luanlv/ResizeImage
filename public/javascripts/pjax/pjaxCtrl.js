@@ -80,13 +80,16 @@ $(function() {
   $('.scroll-right').scrollbox({
     startDelay: 5,
     delay: 5,
-    switchItems: 3,
-    distance: 170*3.39
+    switchItems: 4,
+    distance: 170*4.52
   });
 
-  //$('.scroll-left').scrollbox({
-  //  distance: 100
-  //});
+  $('.s-prev').click(function () {
+    $('.scroll-right').trigger('backward');
+  });
+  $('.s-next').click(function () {
+    $('.scroll-right').trigger('forward');
+  });
 
 
   var slider = $('#Glide').glide({

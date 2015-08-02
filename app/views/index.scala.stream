@@ -69,43 +69,47 @@
 						<div class="slider-rb loading">
 							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rb.jpg").url)" alt=""></div>
 					</div>
-
 				</div>
 
-				<div class="c-left">
+				<div class="bottom">
 
-					<div class="content-bottom ">
-						<div class="collection ra-5 sa">
-							<div class="dataCol">
-								@pagelets("collection1")
+					<div class="c-left">
+
+						<div class="content-bottom ">
+							<div class="collection ra-5 sa">
+								<div class="dataCol">
+									@pagelets("collection1")
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="content-bottom  ">
-						<div class="collection ra-5 sa">
-							<div class="dataCol">
-							@pagelets("collection2")
+						<div class="content-bottom  ">
+							<div class="collection ra-5 sa">
+								<div class="dataCol">
+								@pagelets("collection2")
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="content-bottom  ">
-						<div class="collection ra-5 sa">
-							<div class="dataCol">
-							@pagelets("collection3")
+						<div class="content-bottom  ">
+							<div class="collection ra-5 sa">
+								<div class="dataCol">
+								@pagelets("collection3")
+								</div>
 							</div>
 						</div>
+
 					</div>
+
+					<div class="c-right">
+
+						@pagelets(saleOff.id)
+
+					</div>
+
+					<span style="clear: both;"></span>
 
 				</div>
-
-				<div class="c-right">
-
-					@pagelets(saleOff.id)
-
-				</div>
-
 			</div>
 			<div class="footer"></div>
 		</div>

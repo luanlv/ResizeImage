@@ -388,7 +388,10 @@ $.fn.addimagezoom = function(options){
 
 
 
-$(document).on('mouseover', '#multizoom1', function() {
+
+
+
+$(document).on('mouseover', '.multizoomWr', function() {
   $('#multizoom1').addimagezoom({ // multi-zoom: options same as for previous Featured Image Zoomer's addimagezoom unless noted as '- new'
     descArea: '#description', // description selector (optional - but required if descriptions are used) - new
     speed: 0, // duration of fade in for new zoomable images (in milliseconds, optional) - new
@@ -401,9 +404,9 @@ $(document).on('mouseover', '#multizoom1', function() {
     cursorshadecolor: '#fdffd5',
     cursorshade: true //<-- No comma after last option!
   });
+
+  $('.multizoomWr').toggleClass('multizoomWr');
 });
-
-
 
 
 

@@ -82,7 +82,7 @@ $head-color: white;
 
 .sn-left{
   position: absolute;
-  width: span(225px static);
+  width: span(226px static);
   height: 32px;
   background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
   border-top: 1px solid #ccc;
@@ -95,8 +95,26 @@ $head-color: white;
 
 .sn-right{
   height: 28px;
-  padding-left: span(225px static wide);
+  padding-left: span(240px static wide);
   border-bottom: 1px solid #e7e7e7;
+  a{
+    font-style: italic;
+    margin-left: 20px;
+    font-family: 'Open Sans', Arial, Helvetica, sans-senif, SimSun, 宋体;
+    box-sizing: border-box;
+    cursor: auto;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    color: #333 !important;
+    &:hover{
+      text-decoration: underline ;
+      color: #f90 !important;
+    }
+    vertical-align: baseline;
+  }
 }
 
 
@@ -110,14 +128,26 @@ $head-color: white;
 .main{
   @include clearfix();
 }
+
 .aside {
   position: absolute;
   width: span(215px static);
+  left: -215px;
+  @include breakpoint(900px){
+    left: 0;
+  }
 }
 
 
 .content{
-  padding-left: span(225px static wide);
+  padding-left: 5px;
+  padding-right: 5px;
+  @include breakpoint(900px){
+    padding-left: span(225px static wide);
+    @include breakpoint(1240){
+      padding-right: 0;
+    }
+  }
   @include clearfix();
   padding-bottom: 40px;
 }
@@ -146,7 +176,10 @@ $head-color: white;
   img{
     position: absolute; top:0; left: 0;
     width: 100%;
-    height: 400px;
+    height: 300px;
+    @include breakpoint(700px){
+      height: 400px;
+    }
   }
 }
 
@@ -163,62 +196,97 @@ $head-color: white;
   padding: 0;
   background: blue;
   position: relative;
-  min-height: 200px;
+  min-height: 150px;
+  @include breakpoint(700px){
+    min-height: 200px;
+  }
   img{
     position: absolute;
     top:0; left: 0;
     width: 100%;
-    height: 200px;
+    height: 150px;
+    @include breakpoint(700px) {
+      height: 200px;
+    }
   }
 }
+
+
+.bottom{
+  @include full();
+
+}
+
+//         c-left
 
 .c-left{
-  @include span(83 of 100);
-
+  @include breakpoint(1050px){
+    padding-right: span(200px static wide);
+  }
 }
+
+
+
+//       c-right
+//.c-right{
+//  display: none;
+//}
+//@include breakpoint(1200px) {
 
 .c-right{
-  @include span(16 of 100 last);
-  
-  .support{
-    border: 1px solid #999;
-  }
-
-  .map{
-    margin-top: 10px;
-    min-height: 120px;
-    background: antiquewhite;
-    margin-bottom: 15px;
-  }
-  .box-heading{
-    background-color: #e55e5e;
-  }
-
-  .info{
-    min-height: 150px;
-    background: $blue;
-    margin-bottom: 20px;
-    margin-top: 15px;
-  }
-
-  min-height: 1100px;
-
-  .sale-off{
-    margin: 15px 0 0 0 ;
-  }
-
+  display: none;
 }
 
+@include breakpoint(1050px){
+  .c-right {
+    display: block;
+    width: 180px;
+    position: absolute;
+    top: 125px;
+    right: 5px;
+    .support {
+      border: 1px solid #999;
+    }
+
+    .map {
+      margin-top: 10px;
+      min-height: 120px;
+      background: antiquewhite;
+      margin-bottom: 15px;
+    }
+    .box-heading {
+      background-color: #e55e5e;
+    }
+
+    .info {
+      min-height: 150px;
+      background: $blue;
+      margin-bottom: 20px;
+      margin-top: 15px;
+    }
+    .sale-off {
+      margin: 15px 0 0 0;
+    }
+
+  }
+}
+
+
+
+.bottom .c-right{
+  top: 525px;
+}
+//}
 
 
 .content-top{
   @include full();
   height: 230px;
   margin-bottom: 15px;
+  overflow: hidden;
 }
 
 .content-bottom{
-
   @include full();
   margin-top: 15px;
 }

@@ -18,7 +18,7 @@
 }
 
 .scroll-right{
-  height: 650px;
+  height: 775px;
   width: 100%;
 
 }
@@ -41,7 +41,7 @@
   margin: 0;
   li{
     border: 1px solid transparent;
-    margin: 0 3px;
+    margin: 0 5px;
     padding-top: 10px;
     padding-bottom: 10px;
     &:hover{
@@ -77,7 +77,7 @@
   color: #333;
   text-align: center;
   h3{
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1em;
     margin: 5px 0 3px 0;
   }
@@ -92,7 +92,7 @@
 .extra-price{
   padding: 0;
   margin: 0;
-  font-size: 12px;
+  font-size: 11px;
   @include clearfix();
 }
 
@@ -100,3 +100,27 @@
   color: red;
   font-weight: bold;
 }
+
+.scroll-nav{
+  @include full();
+  height: 20px;
+  margin: 3px 10px 0 10px;
+
+}
+
+.scroll-prev, .scroll-next{
+  text-align: center;
+  width: 25px;
+  height: 15px;
+}
+
+.scroll-prev{
+  float: left;
+  margin-left: 40px;
+}
+
+.scroll-next{
+  margin-right: 65px;
+  float: right;
+}
+

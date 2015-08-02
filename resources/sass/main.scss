@@ -236,7 +236,10 @@ a {
   padding: 0;
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 300px;
+  @include breakpoint(700px) {
+    height: 400px;
+  }
   overflow: hidden;
 }
 .glide__wrapper {
@@ -311,19 +314,21 @@ a {
   position: absolute;
   bottom: 5px;
   width: 100%;
-  text-align: center;
+  text-align: right;
   list-style: none;
 }
 .glide__bullets li {
   display: inline-block;
-  background-color: gray;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background: #fff;
   width: 10px;
   height: 10px;
   margin: 0 5px;
   cursor: pointer;
 }
 .glide__bullets li.active {
-  background-color: white;
+  background-color: rgb(230, 46, 4);
 }
 .glide--slider .glide__slide {
   float: left;
@@ -379,4 +384,6 @@ a {
 }
 
 
-
+.tActive{
+  border: 1px solid $blue;
+}
