@@ -79,7 +79,7 @@ $(function() {
 
   $('.scroll-right').scrollbox({
     switchItems: 3,
-    distance: 170*3.4
+    distance: 170*3.39
   });
 
   //$('.scroll-left').scrollbox({
