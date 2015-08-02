@@ -717,8 +717,8 @@
       <file leaf-file-name="pjaxCtrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/javascripts/pjax/pjaxCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5255814">
-              <caret line="81" column="22" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.4976744">
+              <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -777,8 +777,8 @@
       <file leaf-file-name="index.scala.stream" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.37037">
-              <caret line="34" column="79" selection-start-line="34" selection-start-column="79" selection-end-line="34" selection-end-column="79" />
+            <state vertical-scroll-proportion="-15.37037">
+              <caret line="40" column="80" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -855,10 +855,10 @@
         <option value="$PROJECT_DIR$/app/views/partials_extra/right_content.scala.html" />
         <option value="$PROJECT_DIR$/app/views/product/saleoff.scala.html" />
         <option value="$PROJECT_DIR$/resources/sass/_gallery.scss" />
-        <option value="$PROJECT_DIR$/app/views/index.scala.stream" />
         <option value="$PROJECT_DIR$/resources/sass/_aside.scss" />
         <option value="$PROJECT_DIR$/conf/routes" />
         <option value="$PROJECT_DIR$/resources/sass/_demo.scss" />
+        <option value="$PROJECT_DIR$/app/views/index.scala.stream" />
         <option value="$PROJECT_DIR$/public/javascripts/pjax/pjaxCtrl.js" />
       </list>
     </option>
@@ -999,6 +999,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resize-image-demo-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ResizeImage" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="controllers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1018,7 +1036,7 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="SearchEverywhereHistoryKey" value="routes&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Product.scala&#10;index&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/partials/index.scala.html&#10;demo&#9;null&#9;null&#10;susy&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;_su&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;produc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;produ&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;rou&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;Product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;type&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Type.scala&#10;create&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/product/create.scala.html&#10;pro&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;ImageC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ImageCtrl.scala&#10;cate&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/category.scala.html&#10;app&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;link.&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/link.scala.html&#10;appli&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;Ctrl&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;layout&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;main&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/public/javascripts/main.js" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/index.scala.stream&#10;routes&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Product.scala&#10;index&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/partials/index.scala.html&#10;demo&#9;null&#9;null&#10;susy&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;_su&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;produc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;produ&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;rou&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/conf/routes&#10;Product&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;type&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/models/Type.scala&#10;create&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/product/create.scala.html&#10;pro&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;ImageC&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ImageCtrl.scala&#10;cate&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/category.scala.html&#10;app&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;link.&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/views/link.scala.html&#10;appli&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/Application.scala&#10;Ctrl&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;productc&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/app/controllers/ProductCtrl.scala&#10;layout&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/resources/sass/_susylayout.scss&#10;main&#9;FILE&#9;file:///home/lvl/Shortcuts/project/ResizeImage/public/javascripts/main.js" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
@@ -1676,14 +1694,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.37037">
-          <caret line="34" column="79" selection-start-line="34" selection-start-column="79" selection-end-line="34" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/product/collection.scala.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1716,10 +1726,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/index.scala.stream">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.37037">
+          <caret line="40" column="80" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/javascripts/pjax/pjaxCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5255814">
-          <caret line="81" column="22" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.4976744">
+          <caret line="80" column="17" selection-start-line="80" selection-start-column="17" selection-end-line="80" selection-end-column="17" />
           <folding />
         </state>
       </provider>

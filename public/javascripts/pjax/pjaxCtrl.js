@@ -78,6 +78,8 @@ $(function() {
   });
 
   $('.scroll-right').scrollbox({
+    startDelay: 6,
+    delay: 6,
     switchItems: 3,
     distance: 170*3.39
   });
