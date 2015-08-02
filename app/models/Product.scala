@@ -160,7 +160,7 @@ object Info {
         val sold = (obj \ "sold").as[Int]
         val vote = (obj \ "vote").as[Int]
         val brand = (obj \ "brand").as[String]
-        val origin = (obj \ "legType").as[String]
+        val origin = (obj \ "origin").as[String]
         val legType = (obj \ "legType").as[String]
         val legNumber = (obj \ "legNumber").as[String]
         JsSuccess(Info(supType, subType, group, image, unit, stock, sold, vote, brand, origin, legType, legNumber))
