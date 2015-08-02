@@ -714,10 +714,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.scss" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/sass/main.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36245954">
+            <state vertical-scroll-proportion="-8.296296">
               <caret line="238" column="11" selection-start-line="238" selection-start-column="11" selection-end-line="238" selection-end-column="11" />
               <folding />
             </state>
@@ -734,11 +734,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pjaxCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/javascripts/pjax/pjaxCtrl.js">
+      <file leaf-file-name="routes" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/conf/routes">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="59" column="43" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.74883723">
+              <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -859,7 +859,6 @@
         <option value="$PROJECT_DIR$/app/views/product/collection.scala.html" />
         <option value="$PROJECT_DIR$/public/javascripts/big-pipe.js" />
         <option value="$PROJECT_DIR$/app/views/partials/import_b.scala.html" />
-        <option value="$PROJECT_DIR$/conf/routes" />
         <option value="$PROJECT_DIR$/public/javascripts/jquery.scrollbox.js" />
         <option value="$PROJECT_DIR$/app/views/product/saleoff.scala.html" />
         <option value="$PROJECT_DIR$/resources/sass/_aside.scss" />
@@ -872,6 +871,7 @@
         <option value="$PROJECT_DIR$/resources/sass/_gallery.scss" />
         <option value="$PROJECT_DIR$/resources/sass/_susylayout.scss" />
         <option value="$PROJECT_DIR$/resources/sass/main.scss" />
+        <option value="$PROJECT_DIR$/conf/routes" />
       </list>
     </option>
   </component>
@@ -1700,14 +1700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/routes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/partials/aside.scala.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-14.0">
@@ -1759,21 +1751,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/multizoom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="409" column="0" selection-start-line="409" selection-start-column="0" selection-end-line="409" selection-end-column="0" />
-          <folding>
-            <marker date="1438548700001" expanded="true" signature="7515:7528" placeholder="..." />
-            <marker date="1438548700001" expanded="true" signature="11632:11832" placeholder="..." />
-            <marker date="1438548700001" expanded="true" signature="11866:11920" placeholder="..." />
-            <marker date="1438548700001" expanded="true" signature="12211:12283" placeholder="..." />
-            <marker date="1438548700001" expanded="true" signature="12622:12694" placeholder="..." />
-            <marker date="1438548700001" expanded="true" signature="12888:13008" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/product/viewWithoutAside.scala.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.666667">
@@ -1818,8 +1795,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/sass/main.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36245954">
+        <state vertical-scroll-proportion="-8.296296">
           <caret line="238" column="11" selection-start-line="238" selection-start-column="11" selection-end-line="238" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/multizoom.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="409" column="0" selection-start-line="409" selection-start-column="0" selection-end-line="409" selection-end-column="0" />
+          <folding>
+            <marker date="1438548700001" expanded="true" signature="7515:7528" placeholder="..." />
+            <marker date="1438548700001" expanded="true" signature="11632:11832" placeholder="..." />
+            <marker date="1438548700001" expanded="true" signature="11866:11920" placeholder="..." />
+            <marker date="1438548700001" expanded="true" signature="12211:12283" placeholder="..." />
+            <marker date="1438548700001" expanded="true" signature="12622:12694" placeholder="..." />
+            <marker date="1438548700001" expanded="true" signature="12888:13008" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/routes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.74883723">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
           <folding />
         </state>
       </provider>
