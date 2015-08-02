@@ -59,6 +59,10 @@
     } else if (contentType === HTML_CONTENT_TYPE || contentType === TEXT_CONTENT_TYPE) {
       var content = BigPipe.readEmbeddedContentFromDom(contentId);
       BigPipe.renderPagelet(id, content);
+
+
+      bLazy.revalidate();
+
     } else {
       log("ERROR: unsupported contentType " + contentType + " for pagelet with id " + id);
     }

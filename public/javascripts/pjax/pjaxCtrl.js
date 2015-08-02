@@ -78,8 +78,8 @@ $(function() {
   });
 
   $('.scroll-right').scrollbox({
-    startDelay: 6,
-    delay: 6,
+    startDelay: 5,
+    delay: 5,
     switchItems: 3,
     distance: 170*3.39
   });
@@ -89,7 +89,11 @@ $(function() {
   //});
 
 
-  var slider = $('#Glide').glide({});
+  var slider = $('#Glide').glide({
+    afterTransition: function(){
+      bLazy.revalidate();
+    }
+  });
   var slider_api = slider.data('glide_api');
 
 });

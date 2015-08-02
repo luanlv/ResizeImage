@@ -31,25 +31,43 @@
 
 							<ul class="glide__wrapper">
 
-								<li class="glide__slide">
-									<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider2-min.jpg").url)" alt="">
+								<li class="glide__slide loading">
+									<img class="b-lazy"
+									src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+									data-src="@assetCDN(routes.Assets.versioned("imageDemo/slider2-min.jpg").url)"
+									alt="alt-text"
+									/>
 								</li>
-								<li class="glide__slide">
-									<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider4-min.jpg").url)" alt="">
+								<li class="glide__slide loading">
+									<img class="b-lazy"
+									src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+									data-src="@assetCDN(routes.Assets.versioned("imageDemo/slider4-min.jpg").url)"
+									alt="alt-text"
+									/>
 								</li>
-								<li class="glide__slide">
-									<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider1.jpg").url)" alt="">
+								<li class="glide__slide loading">
+									<img class="b-lazy"
+									src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+									data-src="@assetCDN(routes.Assets.versioned("imageDemo/slider1.jpg").url)"
+									alt="alt-text"
+									/>
 								</li>
-								<li class="glide__slide">
-									<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider3-min.jpg").url)" alt="">
+								<li class="glide__slide loading">
+									<img class="b-lazy"
+									src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+									data-src="@assetCDN(routes.Assets.versioned("imageDemo/slider3-min.jpg").url)"
+									alt="alt-text"
+									/>
 								</li>
 							</ul>
 							<ul class="glide__bullets"></ul></div>
 					</div>
 
 					<div class="slider-right">
-						<div class="slider-rt"><img src="@routes.Assets.versioned("imageDemo/slider-rt.jpg")" alt=""></div>
-						<div class="slider-rb"><img src="@routes.Assets.versioned("imageDemo/slider-rb.jpg")" alt=""></div>
+						<div class="slider-rt loading">
+							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rt.jpg").url)" alt=""></div>
+						<div class="slider-rb loading">
+							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rb.jpg").url)" alt=""></div>
 					</div>
 
 				</div>

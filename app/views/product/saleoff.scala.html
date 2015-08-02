@@ -13,9 +13,13 @@
 		@for(product <- products){
 			<li><div class="extra-product">
 				<div class="extra-img ra-3 bo">
-					<div class="img-center">
+					<div class="img-center loading">
 						<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _li)">
-							<img src="@assetCDN(product.info.image.head.small)" alt="@product.core.name" width="120" height="100">
+							<img class="b-lazy"
+							src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+							data-src="@assetCDN(product.info.image.head.small)"
+							alt="@product.core.name"
+							/>
 						</a>
 					</div>
 				</div>

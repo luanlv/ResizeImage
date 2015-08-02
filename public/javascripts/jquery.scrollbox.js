@@ -92,6 +92,7 @@ $.fn.scrollbox = function(config) {
           nextScrollId = setTimeout(forward, config.delay * 1000);
         }
       }
+      bLazy.revalidate();
     };
 
     // Backward
@@ -142,6 +143,7 @@ $.fn.scrollbox = function(config) {
     forward = function() {
       clearInterval(scrollingId);
       scrollingId = setInterval(scrollForward, config.speed);
+
     };
 
     // Implements mouseover function.
