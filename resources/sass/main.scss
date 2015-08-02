@@ -363,17 +363,20 @@ a {
 
 
 .loading {
-  background: #fafafa url('/assets/images/ajax-loader.gif') center center no-repeat;
+  background: #fafafa url('/assets/images/ajax-loader-fb.gif') center center no-repeat;
 }
 
 .b-lazy {
-  -webkit-transition: opacity 500ms ease-in-out;
-  -moz-transition: opacity 500ms ease-in-out;
-  -o-transition: opacity 500ms ease-in-out;
-  transition: opacity 500ms ease-in-out;
+  -webkit-transition: opacity 100ms ease-in-out;
+  -moz-transition: opacity 100ms ease-in-out;
+  -o-transition: opacity 100ms ease-in-out;
+  transition: opacity 100ms ease-in-out;
   max-width: 100%;
   opacity: 0;
 }
 .b-lazy.b-loaded {
   opacity: 1;
 }
+
+
+
