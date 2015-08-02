@@ -38,6 +38,6 @@ GET       /cdn                  controllers.CdnCtrl.setCDN(name: String)
 GET       /clearcdn             controllers.CdnCtrl.clearCDN
 # Map static resources from the /public folder to the /assets URL path
 #GET           //cdn.lvlblog.com/assets/v10/*file             controllers.Assets.versioned(path="/public", file)
-GET       /assets/v6/*file              controllers.Assets.versioned(path="/public", file)
-GET       /assets/a6/*file              controllers.Assets.at(path="/public", file)
+GET       /assets/v7/*file              controllers.Assets.versioned(path="/public", file)
+GET       /assets/a7/*file              controllers.Assets.at(path="/public", file)
 GET       /assets/*file                 controllers.Assets.at(path="/public", file)
