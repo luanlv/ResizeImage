@@ -35,7 +35,9 @@ $susy:(
 }
 
 .ra-5{
-  @include border-radius(5px);
+  @include breakpoint(900px){
+    @include border-radius(5px);
+  }
 }
 
 .ra-10{
@@ -162,6 +164,7 @@ $head-color: white;
   }
   padding-bottom: 40px;
   @include clearfix();
+  min-height: 850px;
 }
 
 .slider{
@@ -188,9 +191,9 @@ $head-color: white;
   img{
     position: absolute; top:0; left: 0;
     width: 100%;
-    height: 200px;
+    height: 160px;
     @include breakpoint(480px){
-      height: 280px;
+      height: 240px;
       @include breakpoint(700px){
         height: 320px;
         @include breakpoint(1050px){
@@ -214,9 +217,9 @@ $head-color: white;
   padding: 0;
   background: blue;
   position: relative;
-  min-height: 100px;
+  min-height: 80px;
   @include breakpoint(480px) {
-    min-height: 140px;
+    min-height: 120px;
     @include breakpoint(700px) {
       min-height: 160px;
       @include breakpoint(1050px) {
@@ -228,9 +231,9 @@ $head-color: white;
     position: absolute;
     top:0; left: 0;
     width: 100%;
-    height: 100px;
+    height: 80px;
     @include breakpoint(480px) {
-      height: 140px;
+      height: 120px;
       @include breakpoint(700px) {
         height: 160px;
         @include breakpoint(1050px) {
@@ -253,7 +256,7 @@ $head-color: white;
   @include breakpoint(900px){
     margin-right: 10px;
     @include breakpoint(1050px){
-      padding-right: span(200px static wide);
+      padding-right: span(190px static wide);
     }
   }
 }
@@ -367,7 +370,9 @@ $head-color: white;
   margin-top: 10px;
   width: 100%;
   padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
+  @include breakpoint(480px){
+    border-bottom: 1px solid #ddd;
+  }
 }
 
 .dataCol{

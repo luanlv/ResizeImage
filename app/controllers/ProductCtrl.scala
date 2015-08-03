@@ -208,7 +208,7 @@ class ProductCtrl @Inject() (
         println(s"Not found $cacheName1")
         val futureCollection1 = cProduct.find(Json.obj("url.supType" -> "phan-cung-thiet-bi"))
           .sort(Json.obj("updateDate" -> -1))
-          .cursor[Product]().collect[List](8)
+          .cursor[Product]().collect[List](12)
 
         futureCollection1.map {
           list => cache.set(cacheName1, list, cacheQueriesDay)
@@ -229,7 +229,7 @@ class ProductCtrl @Inject() (
         println(s"Not found $cacheName2")
         val futureColection2 = cProduct.find(Json.obj("url.supType" -> "ban-dan-cam-bien"))
           .sort(Json.obj("updateDate" -> -1))
-          .cursor[Product]().collect[List](8)
+          .cursor[Product]().collect[List](12)
 
         futureColection2.map {
           list => cache.set(cacheName2, list, cacheQueriesDay)
@@ -250,7 +250,7 @@ class ProductCtrl @Inject() (
 
         val futureCollection3 = cProduct.find(Json.obj("url.supType" -> "lk-khac-phu-kien"))
           .sort(Json.obj("updateDate" -> -1))
-          .cursor[Product]().collect[List](8)
+          .cursor[Product]().collect[List](12)
 
         futureCollection3.map {
           list => cache.set(cacheName3, list, cacheQueriesDay)

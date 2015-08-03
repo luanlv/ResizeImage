@@ -84,6 +84,8 @@ $(function() {
     distance: 170*4.52
   });
 
+
+
   $('.s-prev').click(function () {
     $('.scroll-right').trigger('backward');
   });
@@ -97,6 +99,7 @@ $(function() {
       bLazy.revalidate();
     }
   });
+
   var slider_api = slider.data('glide_api');
 
 });
