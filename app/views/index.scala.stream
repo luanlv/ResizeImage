@@ -38,7 +38,7 @@
 									alt="alt-text"
 									/>
 									<noscript>
-										<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider2-min.jpg").url)"
+										<img class="b-lazy" src="@assetCDN(routes.Assets.versioned("imageDemo/slider2-min.jpg").url)"
 										alt="alt-text">
 									</noscript>
 								</li>
@@ -49,7 +49,7 @@
 									alt="alt-text"
 									/>
 									<noscript>
-										<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider4-min.jpg").url)"
+										<img class="b-lazy" src="@assetCDN(routes.Assets.versioned("imageDemo/slider4-min.jpg").url)"
 										alt="alt-text">
 									</noscript>
 								</li>
@@ -60,7 +60,7 @@
 									alt="alt-text"
 									/>
 									<noscript>
-										<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider1.jpg").url)"
+										<img class="b-lazy" src="@assetCDN(routes.Assets.versioned("imageDemo/slider1.jpg").url)"
 										alt="alt-text">
 									</noscript>
 								</li>
@@ -71,7 +71,7 @@
 									alt="alt-text"
 									/>
 									<noscript>
-										<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider3-min.jpg").url)"
+										<img class="b-lazy" src="@assetCDN(routes.Assets.versioned("imageDemo/slider3-min.jpg").url)"
 										alt="alt-text">
 									</noscript>
 								</li>
@@ -81,9 +81,24 @@
 
 					<div class="slider-right">
 						<div class="slider-rt loading">
-							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rt.jpg").url)" alt=""></div>
+							<img class="b-lazy"
+							src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+							data-src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rt.jpg").url)"
+							alt="alt-text"
+							/>
+							<noscript>
+								<img class="b-lazy" src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rt.jpg").url)"
+								alt="alt-text">
+							</noscript>
 						<div class="slider-rb loading">
-							<img src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rb.jpg").url)" alt=""></div>
+							<img class="b-lazy"
+							src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+							data-src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rt.jpg").url)"
+							alt="alt-text"
+							/>
+							<noscript>
+								<img class="b-lazy" src="@assetCDN(routes.Assets.versioned("imageDemo/slider-rb.jpg").url)"
+								alt="alt-text">
 					</div>
 				</div>
 
