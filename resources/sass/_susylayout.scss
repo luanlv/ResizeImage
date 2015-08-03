@@ -278,7 +278,7 @@ $head-color: white;
     display: block;
     width: 180px;
     position: absolute;
-    top: 125px;
+    top: 123px;
     right: 5px;
     .support {
       border: 1px solid #999;
@@ -362,7 +362,6 @@ $head-color: white;
 
 .bottom-right{
   @include span(16 of 100 last);
-  @include clearfix();
 }
 
 
