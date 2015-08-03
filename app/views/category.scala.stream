@@ -1,20 +1,18 @@
 @(assetCDN: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	brand: models.Brand, origin: models.Origin, legType: models.LegType, legNumber: models.LegNumber,
 	collection: Pagelet, aside: Pagelet, saleOff: Pagelet, _sub: String = "", _gro: String = "",
-	_page: Int = 1, _sb: String = "", _kw: String = "", _li: Int = 12, _v: String = "")(implicit pjaxVersion: pjax.PjaxVersion)
+	_page: Int = 1, _sb: String = "", _kw: String = "", _li: Int = 12, _v: String = "")(implicit pjaxVersion: pjax.PjaxVersion, request: play.api.mvc.Request[Any])
 
 
 <html class="no-touch">
 	<head>
-		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN))
+		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN, routes.ProductCtrl.collection("", _gro, _page).absoluteURL(false)(request)))
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
-
-
 
 	@bigPipe.render { pagelets =>
 		<div class="container" id="container">

@@ -1,9 +1,9 @@
 @(assetCDN: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
-	product: Pagelet, aside: Pagelet, relative: Pagelet, _sub: String = "", _sb: String = "", _v: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion)
+	product: Pagelet, aside: Pagelet, relative: Pagelet, _sub: String = "", _gro: String = "", _pUrl: String = "", _sb: String = "", _v: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion, request: play.api.mvc.Request[Any])
 <!DOCTYPE html>
 <html>
 	<head>
-		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN))
+		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN, routes.ProductCtrl.viewProduct(_sub, _gro, _pUrl).absoluteURL()))
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">

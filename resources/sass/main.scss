@@ -12,19 +12,7 @@
 @import "demo";
 @import "slimbox";
 
-a {
-  font-family: Arial;
-  color: #333;
-  text-decoration: none;
-  &:visited{
-    color: #333;
-  }
-  &:hover{
-    text-decoration: underline;
-    color: #f90;
-    cursor: pointer;
-  }
-}
+
 span.num{
   display: inline-block;
   color: #999;
@@ -190,13 +178,13 @@ hr.style-col3:after {
   }
 }
 
-a {
-  position:relative;
-  color: #0654ba;
-  &:visited{
+  a {
+    position:relative;
     color: #0654ba;
+    &:visited{
+      color: #0654ba;
+    }
   }
-}
 
 .rslides {
   position: relative;

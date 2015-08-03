@@ -417,7 +417,7 @@ class ProductCtrl @Inject() (
             case _ => ""
           }
           Ok.chunked(views.stream.product.view(assetCDN, bigPipe, result._2, result._3, result._4,
-            pageletProduct, pageletAside, saleRelative,  subType))
+            pageletProduct, pageletAside, saleRelative,  subType, gro , pUrl, _sb, _v, _li))
         }
       }
     }

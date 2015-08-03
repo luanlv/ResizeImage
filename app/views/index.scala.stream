@@ -1,16 +1,15 @@
-@(assetCDN: String => String, bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet, saleOff: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion)
+@(assetCDN: String => String, bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet, saleOff: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion,  request: play.api.mvc.Request[Any])
 <!DOCTYPE html>
 <html class="no-touch">
 	<head>
-		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN))
+		@HtmlStream.fromHtml(views.html.partials.import_t(assetCDN, routes.ProductCtrl.index().absoluteURL()))
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
-
-	@bigPipe.render { pagelets =>
+		@bigPipe.render { pagelets =>
 		<div id="main" class="m-scene">
 		<div class="container" id="container">
 

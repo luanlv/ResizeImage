@@ -1,9 +1,11 @@
-@(assetCDN: String => String)
+@(assetCDN: String => String, canonical: String)
 
+<link rel="dns-prefetch" href="//static.luanlv.info" />
+<link rel="dns-prefetch" href="//cdn.luanlv.info" />
+<link rel="canonical" href="@canonical" />
 <link rel="shortcut icon" type="image/png" href='@routes.Assets.versioned("favicon.png")'>
 <link rel="stylesheet" href='@routes.Assets.at("stylesheets/main.css")'>
 @*<link rel="stylesheet" href='@routes.Assets.versioned("slimbox/css/slimbox2.css")'>*@
 @*<link rel="stylesheet" href='@routes.Assets.versioned("smoothstate/keyframes.css")'>*@
 @*<link rel="stylesheet" href='@routes.Assets.versioned("smoothstate/pageTransitions.css")'>*@
-<script src="@routes.Assets.at("javascripts/big-pipe.js")"></script>
 @*<link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/multizoom.css")'>*@
