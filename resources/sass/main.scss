@@ -236,9 +236,15 @@ a {
   padding: 0;
   position: relative;
   width: 100%;
-  height: 300px;
-  @include breakpoint(700px) {
-    height: 400px;
+  height: 200px;
+  @include breakpoint(480px) {
+    height: 280px;
+    @include breakpoint(700px) {
+      height: 320px;
+      @include breakpoint(1050px) {
+        height: 400px;
+      }
+    }
   }
   overflow: hidden;
 }

@@ -43,7 +43,9 @@ $susy:(
 }
 
 .sa{
-  @include box-shadow(2px 2px 3px 0px #bbb);
+  @include breakpoint(900px){
+    @include box-shadow(2px 2px 3px 0px #bbb);
+  }
 }
 
 .sa-i{
@@ -80,17 +82,19 @@ $head-color: white;
   height: 28px;
 }
 
-.sn-left{
-  position: absolute;
-  width: span(226px static);
-  height: 32px;
-  background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
-  border-top: 1px solid #ccc;
-  box-shadow: inset 0 5px 10px -7px rgba(0,0,0,0.4);
-  -webkit-border-top-right-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  border-top-right-radius: 5px;
 
+.sn-left{
+  @include breakpoint(900px){
+    position: absolute;
+    width: span(226px static);
+    height: 32px;
+    background: url("/assets/images/imgbg.jpg") repeat 0 0 #f8f8f8 ;
+    border-top: 1px solid #ccc;
+    box-shadow: inset 0 5px 10px -7px rgba(0,0,0,0.4);
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    border-top-right-radius: 5px;
+  }
 }
 
 .sn-right{
@@ -138,18 +142,26 @@ $head-color: white;
   }
 }
 
+.iconMenu{
+  &:hover{
+    cursor: pointer;
+  }
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 5px;
+  background: deepskyblue;
+  @include breakpoint(900px){
+    display: none;
+  }
+}
 
 .content{
-  padding-left: 5px;
-  padding-right: 5px;
   @include breakpoint(900px){
     padding-left: span(225px static wide);
-    @include breakpoint(1240){
-      padding-right: 0;
-    }
   }
-  @include clearfix();
   padding-bottom: 40px;
+  @include clearfix();
 }
 
 .slider{
@@ -176,9 +188,15 @@ $head-color: white;
   img{
     position: absolute; top:0; left: 0;
     width: 100%;
-    height: 300px;
-    @include breakpoint(700px){
-      height: 400px;
+    height: 200px;
+    @include breakpoint(480px){
+      height: 280px;
+      @include breakpoint(700px){
+        height: 320px;
+        @include breakpoint(1050px){
+          height: 400px;
+        }
+      }
     }
   }
 }
@@ -196,17 +214,29 @@ $head-color: white;
   padding: 0;
   background: blue;
   position: relative;
-  min-height: 150px;
-  @include breakpoint(700px){
-    min-height: 200px;
+  min-height: 100px;
+  @include breakpoint(480px) {
+    min-height: 140px;
+    @include breakpoint(700px) {
+      min-height: 160px;
+      @include breakpoint(1050px) {
+        min-height: 200px;
+      }
+    }
   }
   img{
     position: absolute;
     top:0; left: 0;
     width: 100%;
-    height: 150px;
-    @include breakpoint(700px) {
-      height: 200px;
+    height: 100px;
+    @include breakpoint(480px) {
+      height: 140px;
+      @include breakpoint(700px) {
+        height: 160px;
+        @include breakpoint(1050px) {
+          height: 200px;
+        }
+      }
     }
   }
 }
@@ -220,8 +250,11 @@ $head-color: white;
 //         c-left
 
 .c-left{
-  @include breakpoint(1050px){
-    padding-right: span(200px static wide);
+  @include breakpoint(900px){
+    margin-right: 10px;
+    @include breakpoint(1050px){
+      padding-right: span(200px static wide);
+    }
   }
 }
 
@@ -288,7 +321,9 @@ $head-color: white;
 
 .content-bottom{
   @include full();
-  margin-top: 15px;
+  @include breakpoint(900px){
+    margin-top: 15px;
+  }
 }
 
 .i-slide{
