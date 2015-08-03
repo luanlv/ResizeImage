@@ -33,7 +33,10 @@
   height: auto;
   margin: 8px .7% 8px 0;
   width: 24%;
-  min-width: 180px;
+  min-width:140px;
+  @include breakpoint(480px){
+    min-width: 180px;
+  }
   border-width: 0;
   vertical-align: top;
 }
@@ -44,7 +47,7 @@ i {
 
 .itmcdV2 {
   min-height: 240px;
-  min-width: 210px;
+  min-width: 150px;
   @include breakpoint(700px){
     min-height: 210px;
     min-width: 180px;
@@ -114,12 +117,17 @@ i {
 
 
 .imgWr {
-  height: 150px;
-  width: 100%;
+  height: 100px;
+  width: 120px;
+
+  @include breakpoint(480px){
+    height: 150px;
+    width: 100%;
+  }
   vertical-align: middle;
   text-align: center;
   display: table;
-  margin-top: 10px;
+  margin: 10px auto;
 }
 
 .imgWr a {
