@@ -17,7 +17,7 @@
 			<div class="img multizoomWr">
 				<div class="multizoom1 thumbs">
 				@for(image <- product.info.image) {
-					<a href="@image.small" data-large="@image.origin"  data-title="Milla Jojovitch">
+					<a href="@image.small" data-large="@image.origin"  data-title="Milla Jojovitch" >
 						<img class="@if(image.thumb == product.info.image.head.thumb){ tActive } tImg" src="@image.thumb" alt="Milla" title="" width="35" height="35"/>
 					</a>
 				}
@@ -28,10 +28,10 @@
 				</div>
 			</div>
 
-			<div id="lightbox">
+			<div id="lightbox" class="hide">
 				@for(image <- product.info.image) {
 					@if(image.origin == product.info.image.head.origin){
-						<a href="@image.origin" rel="lightbox-cats" > Click để phóng to!</a>
+						<a href="@image.origin" rel="lightbox-cats"> Click để phóng to!</a>
 					} else {<a href="@image.origin" rel="lightbox-cats" onclick="return false;" ></a>}
 				}
 			</div>

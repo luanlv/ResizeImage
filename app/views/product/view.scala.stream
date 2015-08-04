@@ -45,6 +45,7 @@
 		</div>
 
 	@HtmlStream.fromHtml(views.html.partials.import_b(assetCDN))
+
 	}
 	</body>
 </html>
