@@ -10,7 +10,7 @@
 @import "nav";
 @import "aside";
 @import "demo";
-@import "slimbox";
+//@import "slimbox";
 
 
 span.num{
@@ -388,10 +388,4 @@ a {
   }
 }
 
-#lightbox{
-  //display: none;
-}
 
-.show{
-  display: block;
-}

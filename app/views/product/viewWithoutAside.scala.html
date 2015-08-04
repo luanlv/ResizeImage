@@ -28,11 +28,10 @@
 				</div>
 			</div>
 
-			<div id="lightbox" class="hide">
+			<div id="swipe">
+				<a href="#" onclick="openPhotoSwipe()">Phóng to ảnh</a>
 				@for(image <- product.info.image) {
-					@if(image.origin == product.info.image.head.origin){
-						<a href="@image.origin" rel="lightbox-cats"> Click để phóng to!</a>
-					} else {<a href="@image.origin" rel="lightbox-cats" onclick="return false;" ></a>}
+						<a href="@image.origin" class="swipe-img" ></a>
 				}
 			</div>
 		</div>
@@ -95,7 +94,6 @@
 						<div>Đơn vị tính: <strong>@product.info.unit</strong></div>
 						<div>Stock: <strong>@product.info.stock</strong></div>
 					</div>
-
 				</fieldset>
 			</div>
 		</div>
@@ -109,8 +107,11 @@
 			</div>
 			<div class="pE-content">
 				@Html(product.extra.info)
+				<button id="btn-swipe" onclick="openPhotoSwipe()">Open PhotoSwipe</button>
 			</div>
 
 		</div>
 
 	</div>
+
+

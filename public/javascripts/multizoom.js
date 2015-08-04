@@ -407,7 +407,6 @@ if(isMobile === false){
 
   });
 
-  $('#lightbox').toggleClass('show');
 } else {
     $('#multizoom1').addimagezoom({ // multi-zoom: options same as for previous Featured Image Zoomer's addimagezoom unless noted as '- new'
       magnifiersize: [0, 0]
