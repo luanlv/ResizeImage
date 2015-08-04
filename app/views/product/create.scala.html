@@ -274,7 +274,7 @@
 							Kiểu chân"
 							<div style="margin-top: 3px;">
 								<select name="info.legType">
-									<option value="" @if(form("info.legType").value.getOrElse("") == ""){ selected }>--Kiểu Chân--</option>
+									<option value="NOPE" @if(form("info.legType").value.getOrElse("") == ""){ selected }>--Kiểu Chân--</option>
 									<option value="DIP" @if(form("info.legType").value.getOrElse("") == "DIP"){ selected }>DIP</option>
 									<option value="SIP" @if(form("info.legType").value.getOrElse("") == "SIP"){ selected }>SIP</option>
 									<option value="LQFP" @if(form("info.legType").value.getOrElse("") == "LQFP"){ selected }>LQFP</option>
@@ -291,7 +291,7 @@
 							Số chân
 							<div style="margin-top: 3px;">
 								<select name="info.legNumber">
-									<option value="" @if(form("info.legNumber").value.getOrElse("") == ""){ selected }>--Số chân--</option>
+									<option value="NOPE" @if(form("info.legNumber").value.getOrElse("") == ""){ selected }>--Số chân--</option>
 									<option value="208" @if(form("info.legNumber").value.getOrElse("") == "208"){ selected }>208</option>
 									<option value="100" @if(form("info.legNumber").value.getOrElse("") == "100"){ selected }>100</option>
 									<option value="64" @if(form("info.legNumber").value.getOrElse("") == "64"){ selected }>64</option>

@@ -1,5 +1,4 @@
 div.laside{
-
   position: absolute;
   top: -14px;
   @include clearfix();
@@ -130,10 +129,6 @@ div.laside{
     position:relative;
     &:before{
       content: "→"
-    }
-    color: #0654ba;
-    &:visited{
-      color: #0654ba;
     }
   }
 }

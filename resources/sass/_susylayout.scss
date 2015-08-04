@@ -164,7 +164,7 @@ $head-color: white;
   }
   padding-bottom: 40px;
   @include clearfix();
-  min-height: 850px;
+  min-height: 1350px;
 }
 
 .slider{
@@ -381,6 +381,7 @@ $head-color: white;
 .pContainer{
   margin-top: 10px;
   font-size: 12px;
+  position: relative;
 }
 
 .pHeader {
@@ -399,67 +400,106 @@ $head-color: white;
 }
 
 .pImg {
+  @include clearfix();
+  padding-right: 10px;
+  position: absolute;
   margin-top: 10px;
-  text-align: center;
-  @include span(3.5 of 10);
+  width: 260px;
+  .targetarea{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 200px;
+  }
   em{
     margin: 10px;
   }
+  p{
+    margin-left: 60px;
+  }
   .img {
     margin-top: 10px;
-    @include container(200px);
+    @include full();
+  }
+  .thumbs{
+    position: absolute;
+    width: 45px;
+  }
+  .imgInfo{
+    @include full();
+    margin-left: 45px;
+    margin-bottom: 10px;
+    text-align: center;
+
+  }
+  .tImg{
+    margin-bottom: 5px;
+  }
+  #lightbox{
+    margin-left:100px;
   }
 }
 
 .pDetail {
   font-size: 12px;
   margin-top: 10px;
-  @include span( 6.5 of 10 last);
-  fieldset{
-    //@include clearfix();
-    padding:4px; border:1px #bedaec solid;background:#F7F3F3
+  padding-left: span(260px static wide);
+  min-height: 230px;
+  .pInfo{
+    @include full();
   }
+  fieldset{
+    min-height: 220px;
+    padding:5px 5px 5px 10px;
+    border:1px #ddd solid;
+  }
+
   legend>div{
-    width:100%;display:table-cell; height:25px; line-height:25px;background-color:#F3EDC7;padding-left:5px;padding-right:5px;border-left:1px #bedaec solid;border-right:1px #bedaec solid;
+    width:100%;display:table-cell;
+    height:25px;
+    line-height:25px;
+    background-color:#fafafa;
+    padding-left:5px;
+    padding-right:5px;
+    border:1px #bedaec solid;
     color: red;
     font-size: 14px;
     font-weight: bold;
   }
-  .pdName{
-    color: red;
-    font-size: 12px;
+
+  .ttl{
+    color:red;
     font-weight: bold;
+    font-size: 15px;
+    display: inline;
   }
-}
+  .tUpdate{
+    font-size: 11px;
+    color: #666;
+  }
 
-.pExtra{
-  @include full();
-  //@include clearfix();
-  ol{
-    //@include clearfix();
-    li{
-      float: left;
-      margin: 0px 1px 0px 0px;
-      list-style: none;
-      div{
-        background: $blue;
-        color: white;
-        font-weight: bold;
-        @include border-radius(10px 10px 0 0);
-        span{
-          margin: 15px;
-        }
-      }
-
+  >div{
+    font-family: arial;
+    font-size: 12px;
+    color: #086e98;
+  }
+  .lineFirst{
+    padding-top: 5px;
+  }
+  .lineWr{
+    margin-top: 5px;
+    >:last-child{
+      display: inline-block;
+      margin-top: 5px;
     }
-    margin-bottom: 0;
+    >:first-child{
+      display: inline-block;
+      min-width: 260px;
+      margin-right: 5px;
+    }
   }
-  .pcExtra{
-    padding-left: 10px;
-    border-top: solid 1px #BEDAEC;
-    border-bottom: solid 1px #BEDAEC;
-  }
+
 }
+
 
 
 .hm-left{
