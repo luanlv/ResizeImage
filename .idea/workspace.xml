@@ -724,11 +724,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="viewWithoutAside.scala.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="viewWithoutAside.scala.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/product/viewWithoutAside.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8555377">
-              <caret line="104" column="8" selection-start-line="104" selection-start-column="8" selection-end-line="104" selection-end-column="8" />
+            <state vertical-scroll-proportion="-19.74074">
+              <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
               <folding>
                 <element signature="n#div#1;n#div#1;n#!!top" expanded="false" />
               </folding>
@@ -736,11 +736,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes" pinned="false" current-in-tab="false">
+      <file leaf-file-name="routes" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/conf/routes">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.7784615">
+              <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -859,9 +859,9 @@
         <option value="$PROJECT_DIR$/app/views/product/view.scala.stream" />
         <option value="$PROJECT_DIR$/app/core/Cdn.scala" />
         <option value="$PROJECT_DIR$/app/views/product/create.scala.html" />
-        <option value="$PROJECT_DIR$/conf/routes" />
         <option value="$PROJECT_DIR$/resources/sass/_susylayout.scss" />
         <option value="$PROJECT_DIR$/app/views/product/viewWithoutAside.scala.html" />
+        <option value="$PROJECT_DIR$/conf/routes" />
       </list>
     </option>
   </component>
@@ -1758,14 +1758,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/conf/routes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/sass/_susylayout.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-12.666667">
@@ -1776,11 +1768,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/product/viewWithoutAside.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8555377">
-          <caret line="104" column="8" selection-start-line="104" selection-start-column="8" selection-end-line="104" selection-end-column="8" />
+        <state vertical-scroll-proportion="-19.74074">
+          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding>
             <element signature="n#div#1;n#div#1;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/routes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7784615">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
