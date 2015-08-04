@@ -3,7 +3,7 @@
 
 
 @import "normalize";
-@import "nprogress";
+//@import "nprogress";
 @import "susylayout";
 @import "gallery";
 @import "cart";
@@ -380,6 +380,7 @@ hr.style-col3:after {
 .tActive{
   border: 1px solid $blue;
 }
+
 
 a {
   text-decoration: none;

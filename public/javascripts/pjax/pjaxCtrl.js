@@ -43,11 +43,6 @@ $(function() {
       $(".magnifyarea").remove();
     }
 
-    if ($('#lightbox').length) {
-      $('#lightbox a').slimbox();
-      console.log("slimbox initial");
-    }
-
   // Pjax-end!
   });
 
@@ -58,6 +53,13 @@ $(function() {
 
   $(document).on('mouseenter', '.multizoom1 > a', function(){
     $(this).trigger('click');
+    $('.tActive').toggleClass('tActive');
+    $(this).children("img").first().toggleClass('tActive');
+  });
+
+  $(document).on('click', '.multizoom1 > a', function(){
+    $('.tActive').toggleClass('tActive');
+    $(this).children("img").first().toggleClass('tActive');
   });
 
 
