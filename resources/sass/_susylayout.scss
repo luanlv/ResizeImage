@@ -402,7 +402,9 @@ $head-color: white;
 .pImg {
   @include clearfix();
   padding-right: 10px;
-  position: absolute;
+  @include breakpoint(580px){
+    position: absolute;
+  }
   margin-top: 10px;
   width: 260px;
   .targetarea{
@@ -442,7 +444,9 @@ $head-color: white;
 .pDetail {
   font-size: 12px;
   margin-top: 10px;
-  padding-left: span(260px static wide);
+  @include breakpoint(580px){
+    padding-left: span(260px static wide);
+  }
   min-height: 230px;
   .pInfo{
     @include full();
@@ -498,6 +502,15 @@ $head-color: white;
     }
   }
 
+}
+
+
+.pExtra{
+  @include full();
+  min-height: 300px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  border-top: none;
 }
 
 
