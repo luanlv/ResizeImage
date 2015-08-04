@@ -52,7 +52,6 @@ $(function() {
   });
 
 
-
   $(document).on('click',".laside > div > span", function(){
     $(this).siblings("div").toggleClass("hide");
   });
@@ -101,5 +100,14 @@ $(function() {
   });
 
   var slider_api = slider.data('glide_api');
+
+  $(window).resize(function(){
+    bLazy = new Blazy({
+      success: function(element){
+        var parent = element.parentNode.parentNode;
+        parent.className = parent.className.replace(/\bloading\b/,'');
+      }
+    });
+  });
 
 });

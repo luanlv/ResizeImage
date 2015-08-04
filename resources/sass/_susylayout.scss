@@ -356,6 +356,7 @@ $head-color: white;
 
 .collection{
  @include full();
+  min-height: 500px;
   background: #fff;
   padding-bottom: 10px;
   border-top: 1px solid #ddd;
