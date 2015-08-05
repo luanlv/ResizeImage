@@ -618,7 +618,7 @@ $head-color: white;
   text-align: center;
 }
 .hmm-left{
-  padding: 40px 25px 5px 25px;
+  padding: 40px 15px 5px 15px;
   @include breakpoint(580px) {
     padding: 25px;
   }
@@ -822,8 +822,8 @@ $head-color: white;
 }
 .hmml-bot {
   color: #999;
-  font-size: 10px;
+  font-size: 11px;
   @include breakpoint(580px){
-    font-size: 11px;
+    font-size: 12px;
   }
 }
