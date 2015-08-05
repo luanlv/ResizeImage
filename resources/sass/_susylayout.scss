@@ -21,6 +21,7 @@ body {
   padding: 0 auto;
   font-size: 12px;
   background: #fafafa;
+  position: relative;
 }
 
 html, body{
@@ -604,7 +605,7 @@ $head-color: white;
     top: 0px;
     min-height: 90px;
   }
-  background: deepskyblue;
+  background: #fafafa;
 }
 .hmm-left{
   @include clearfix();
