@@ -95,7 +95,9 @@ $head-color: white;
 
 
 .sn-left{
+  display: none;
   @include breakpoint(900px){
+    display: block;
     position: absolute;
     width: span(226px static);
     height: 32px;
@@ -110,7 +112,9 @@ $head-color: white;
 
 .sn-right{
   height: 28px;
-  padding-left: span(240px static wide);
+  @include breakpoint(900px){
+    padding-left: span(240px static wide);
+  }
   border-bottom: 1px solid #e7e7e7;
   a{
     font-style: italic;
@@ -605,10 +609,11 @@ $head-color: white;
     top: 0px;
     min-height: 90px;
   }
-  background: #fafafa;
+  background: #fff;
+  border-bottom: 1px solid red;
+  text-align: center;
 }
 .hmm-left{
-  @include clearfix();
   padding: 40px 25px 5px 25px;
   @include breakpoint(580px) {
     padding: 20px;
