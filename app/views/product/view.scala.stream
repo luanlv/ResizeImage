@@ -10,6 +10,8 @@
 		<meta http-equiv="x-pjax-version" content="@pjaxVersion.value">
 	</head>
 	<body>
+
+
 	@bigPipe.render { pagelets =>
 		<div id="main" class="m-scene">
 		<div class="container" id="container">
@@ -47,6 +49,7 @@
 	@HtmlStream.fromHtml(views.html.partials.import_b(assetCDN))
 
 	}
+
 
 		<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
