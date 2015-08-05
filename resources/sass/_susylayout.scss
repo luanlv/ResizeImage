@@ -118,12 +118,16 @@ $head-color: white;
   border-bottom: 1px solid #e7e7e7;
   a{
     font-style: italic;
-    margin-left: 20px;
+    margin-left: 10px;
+    font-size: 13px;
+    @include breakpoint(580px){
+      margin-left: 20px;
+      font-size: 14px;
+    }
     font-family: 'Open Sans', Arial, Helvetica, sans-senif, SimSun, 宋体;
     box-sizing: border-box;
     cursor: auto;
     float: left;
-    font-size: 14px;
     font-weight: bold;
     height: 28px;
     line-height: 28px;
@@ -616,7 +620,7 @@ $head-color: white;
 .hmm-left{
   padding: 40px 25px 5px 25px;
   @include breakpoint(580px) {
-    padding: 20px;
+    padding: 25px;
   }
   @include breakpoint(580px) {
     padding-right: span(250px static wide);
@@ -697,7 +701,10 @@ $head-color: white;
       background: linear-gradient(lighten($shade_color, 5%), darken($shade_color, 2%));
       border-right: 1px solid #ddd;
       color: #555;
-      padding: 0 28px 0px 13px;
+      padding: 0 20px 0px 5px;
+      @include breakpoint(580px){
+        padding: 0 28px 0px 13px;
+      }
       border-radius: 3px 0 0 3px;
       position: absolute;
       top: 0;
@@ -728,10 +735,17 @@ $head-color: white;
 
       > span {
         position: absolute;
-        top: 43%;
+        top: 50%;
+        @include breakpoint(580px) {
+          top: 43%;
+        }
         margin-top: -8px;
         white-space: nowrap;
-        font-size: 15px;
+
+        font-size: 12px;
+        @include breakpoint(580px){
+          font-size: 15px;
+        }
       }
 
       ul {
@@ -805,8 +819,12 @@ $head-color: white;
 
 .hmml-top, .hmml-bot {
   @include full();
+
+  }
 }
 .hmml-bot {
-  margin-top: 5px;
   color: #999;
+  font-size: 10px;
+  @include breakpoint(580px){
+    font-size: 11px;
 }
