@@ -701,7 +701,7 @@ $head-color: white;
       background: linear-gradient(lighten($shade_color, 5%), darken($shade_color, 2%));
       border-right: 1px solid #ddd;
       color: #555;
-      padding: 0 20px 0px 5px;
+      padding: 0 25px 0px 5px;
       @include breakpoint(580px){
         padding: 0 28px 0px 13px;
       }
@@ -736,7 +736,14 @@ $head-color: white;
       > span {
         position: absolute;
         top: 50%;
+        max-width: 55px;
+        overflow: hidden;
+        text-overflow: ellipsis;
         @include breakpoint(580px) {
+          max-width: 65px;
+          @include breakpoint(700px){
+            max-width: 130px;
+          }
           top: 43%;
         }
         margin-top: -8px;
