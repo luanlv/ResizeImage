@@ -599,12 +599,30 @@ $head-color: white;
   min-height: 90px;
 }
 
+.hmm-submenu{
+  position: absolute;
+  width: 240px;
+  right: 0;
+  @include breakpoint(900px) {
+    position: relative;
+    width: 100%;
+  }
+}
 
 
 .hmm-right{
+  @include box-shadow(2px 2px 3px 0px #bbb);
+  border-bottom: 1px solid #fff;
+  background: #fff;
+  @include breakpoint(900px){
+    @include box-shadow(0 0 0 0);
+    border-bottom: none;
+    background: transparent;
+  }
+  height: 42px;
   width: 100%;
-  @include breakpoint(580px) {
-    width: 180px;
+  @include breakpoint(900px) {
+    width: 240px;
     @include breakpoint(1200px) {
       width: 400px;
     }
@@ -614,23 +632,27 @@ $head-color: white;
   position: fixed;
   top: 0;
   z-index: 10001;
-  @include breakpoint(580px) {
+  @include breakpoint(900px) {
     position: absolute;
     right: 0px;
     top: 0px;
     min-height: 90px;
   }
-  background: #fff;
-  border-bottom: 1px solid red;
-  text-align: center;
-}
-.hmm-left{
-  padding: 40px 15px 5px 15px;
-  @include breakpoint(580px) {
-    padding: 25px;
+  @include breakpoint(900px){
+    padding-top: 22px;
   }
+}
+
+.hmm-left{
+  padding: 50px 15px 5px 45px;
   @include breakpoint(580px) {
-    padding-right: span(180px static wide);
+    padding: 50px 35px 5px 125px;
+    @include breakpoint(900px) {
+      padding: 25px 30px 5px 30px;
+    }
+  }
+  @include breakpoint(900px) {
+    padding-right: span(240px static wide);
     @include breakpoint(1200px) {
       padding-right: span(400px static wide);
     }
@@ -675,7 +697,7 @@ $head-color: white;
       color: rgba(255, 255, 255, 0);
       border: 1px solid $highlight-color;
       width: 10%;
-      min-width: 56px;
+      max-width: 50px;
       position: absolute;
       top: -1px;
       right: -1px;
@@ -690,11 +712,13 @@ $head-color: white;
         top: 18%;
         right: 0;
         bottom: 22%;
-        left: 4%;
-        background: url("http://media.lib.byu.edu/assets/images/searchbar/1.0/search-icon.svg") no-repeat center center;
-        background-size: contain;
+        left: 25%;
+        @include icons();
+        @include sprite($search);
+        zoom:0.5;
+        -moz-transform:scale(0.5);
+        -moz-transform-origin: 0 0;
       }
-
       &:hover, &:focus {
         background: linear-gradient(lighten($highlight_color, 15%), lighten($highlight_color, 7%));
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
@@ -706,11 +730,11 @@ $head-color: white;
       font-weight: 500;
       min-width: 17px;
       background: linear-gradient(lighten($shade_color, 5%), darken($shade_color, 2%));
-      border-right: 1px solid #ddd;
+      border-right: 1px solid #bbb;
       color: #555;
-      padding: 0 25px 0px 5px;
+      padding: 0 5px 0px 5px;
       @include breakpoint(580px){
-        padding: 0 28px 0px 13px;
+        padding: 0 10px 0px 10px;
       }
       border-radius: 3px 0 0 3px;
       position: absolute;
@@ -721,17 +745,6 @@ $head-color: white;
       user-select: none;
       box-sizing: content-box;
 
-      &:after {
-        content: "\2193";
-        color: rgba(85, 85, 85, 0);
-        background: url("http://media.lib.byu.edu/assets/images/searchbar/1.0/down-arrow.svg") no-repeat top left;
-        height: 8px;
-        width: 10px;
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        margin-top: -6px;
-      }
 
       &:hover,
       &.active {
@@ -759,6 +772,9 @@ $head-color: white;
         font-size: 12px;
         @include breakpoint(580px){
           font-size: 15px;
+        }
+        &:after{
+          content: '\00a0\25bc';
         }
       }
 
@@ -829,6 +845,170 @@ $head-color: white;
 
   }
 }
+
+.hmm-cart{
+  margin-left: 10px;
+  @include breakpoint(1200px){
+    margin-left: 40px;
+  }
+}
+
+.cartWr{
+  border: 1px solid transparent;
+  width: 40px;
+  @include breakpoint(1200px){
+    width: 90px;
+  }
+  float: left;
+
+  height: 40px;
+  &:hover{
+    border-color: #999;
+    .cart-icon{
+      @include sprite($cart-active);
+    }
+    .cart-name{
+      color: $red;
+    }
+  }
+}
+
+.cart-icon, .cart-meta, .user-icon, .user-meta, .phone-icon, .phone-meta{
+  float: left;
+}
+
+.cart-meta{
+}
+
+.cart-name, .cart-number{
+  //width: 48px;
+  height: 16px;
+  position: absolute;
+}
+
+.cart-number{
+  top: 2px;
+  left: 5px;
+  @include breakpoint(1200px) {
+    left: auto;
+    top: 3px;
+  }
+
+  color: black;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: underline;
+  @include breakpoint(1200px) {
+    text-decoration: none;
+    background: $blue;
+  }
+  @include border-radius(10px);
+  min-width: 30px;
+  text-align: center;
+}
+.cart-name{
+  display: none;
+  @include breakpoint(1200px){
+    display: block;
+  }
+  top: 18px;
+  font-size: 15px;
+  color: #333;
+  font-weight: bold;
+}
+
+.cart-icon{
+  @include icons();
+  @include sprite($cart);
+  margin-right: 5px;
+}
+
+.user-icon{
+  @include icons();
+  @include sprite($user);
+  margin-right: 5px;
+}
+
+.userWr{
+  width: 40px;
+  @include breakpoint(1200px) {
+    width: 110px;
+  }
+  float: left;
+  height: 40px;
+  position: relative;
+  border: 1px solid transparent;
+  &:hover{
+    border-color: #999;
+    .user-icon{
+      @include sprite($user-active);
+    }
+  }
+  a{
+    color: #333 !important;
+    &:hover{
+      color: #f90 !important;
+    }
+  }
+}
+
+.user-meta{
+  display: none;
+  @include breakpoint(1200px){
+    display: block;
+  }
+}
+
+.user-login, .user-registor{
+  position: absolute;
+  height: 16px;
+  font-weight: bold;
+}
+.user-registor{
+  top: 5px;
+}
+.user-login{
+  top: 22px;
+  border-top:1px solid #ddd;
+}
+
+
+.phoneWr{
+  width: 140px;
+  float: left;
+  height: 40px;
+  position: relative;
+  border: 1px solid transparent;
+  &:hover{
+    border-color: #999;
+    .phone-icon{
+      @include sprite($phone-active);
+    }
+  }
+}
+
+.phone-icon{
+  @include icons();
+  @include sprite($phone);
+  margin-right: 5px;
+}
+
+.phone-up, .phone-bot{
+  position: absolute;
+  height: 16px;
+  font-weight: bold;
+  color: red;
+}
+.phone-up{
+  top: 5px;
+}
+.phone-bot{
+  top: 22px;
+  border-top:1px solid #ddd;
+}
+
+
+
 
 
 .hmml-top, .hmml-bot {

@@ -1,0 +1,44 @@
+$menu: -0px -0px 40px 40px;
+$cart-active: -0px -40px 40px 40px;
+$down: -0px -80px 40px 40px;
+$help-active: -0px -120px 40px 40px;
+$help: -0px -160px 40px 40px;
+$menu-active: -0px -200px 40px 40px;
+$cart: -0px -240px 40px 40px;
+$phone-active: -0px -280px 40px 40px;
+$phone: -0px -320px 40px 40px;
+$search: -0px -360px 40px 40px;
+$user-active: -0px -400px 40px 40px;
+$user: -0px -440px 40px 40px;
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 3);
+}
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 4);
+}
+@function sprite-width($sprite) {
+  @return nth($sprite, 3);
+}
+@function sprite-height($sprite) {
+  @return nth($sprite, 4);
+}
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 1);
+  $sprite-offset-y: nth($sprite, 2);
+  background-position: $sprite-offset-x $sprite-offset-y;
+}
+@mixin sprite($sprite, $display: block) {
+  @include sprite-position($sprite);
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: $display;
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+
+}
+@mixin icons{
+  background-image: url("/assets/icons/sprite.png");
+}
+.icon {
+  background-image: url("/assets/icons/sprite.png");
+}
