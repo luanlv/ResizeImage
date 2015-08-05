@@ -200,14 +200,14 @@ $head-color: white;
     cursor: pointer;
   }
   position: fixed;
-  top: 5px;
-  right: 5px;
+  top: 7px;
+  left: 5px;
   padding: 5px;
   background: #fafafa;
-  //@include breakpoint(900px){
-  //  display: none;
-  //}
-  display: none;
+  display: block;
+  @include breakpoint(900px){
+    display: none;
+  }
   z-index: 10000;
   @include border-radius(3px);
 }
@@ -618,7 +618,7 @@ $head-color: white;
   transform: translateX(0);
 }
 .transform250{
-  transform: translateX(215px);
+  transform: translateX(210px);
 }
 
 .hm-left{

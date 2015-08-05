@@ -205,11 +205,13 @@ $(document).ready(function() {
   // --------------------------------------------------
   $(window).resize(function() {
     resizeElements();
-    $('.transform0').toggleClass('transform0');
-    $('.transform250').toggleClass('transform250');
+    if($(window).width() >=900){
+      $('.transform0').toggleClass('transform0');
+      $('.transform250').toggleClass('transform250');
+    }
   });
 
-  $('.slh').click(function(e){
+    $('.iconMenu').click(function(e){
     e.preventDefault;
     $('.aside').toggleClass('transform0');
     $('.content').toggleClass('transform250');
