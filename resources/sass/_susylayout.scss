@@ -597,8 +597,8 @@ $head-color: white;
 .hmm-right{
   width: 100%;
   @include breakpoint(580px) {
-    width: 250px;
-    @include breakpoint(1050px) {
+    width: 180px;
+    @include breakpoint(1200px) {
       width: 400px;
     }
   }
@@ -623,8 +623,8 @@ $head-color: white;
     padding: 25px;
   }
   @include breakpoint(580px) {
-    padding-right: span(250px static wide);
-    @include breakpoint(1050px) {
+    padding-right: span(180px static wide);
+    @include breakpoint(1200px) {
       padding-right: span(400px static wide);
     }
   }
