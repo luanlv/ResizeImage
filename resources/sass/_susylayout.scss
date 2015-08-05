@@ -83,8 +83,11 @@ $head-color: white;
 .header{
   background: $head-color;
   height: 130px;
-  @include breakpoint(900px){
-    height: 95px;
+  @include breakpoint(340px){
+    height: 115px;
+    @include breakpoint(900px){
+      height: 95px;
+    }
   }
 }
 .sub-nav{
@@ -667,9 +670,9 @@ $head-color: white;
 }
 
 .hmm-left{
-  padding: 65px 15px 5px 45px;
+  padding: 65px 15px 0px 45px;
   @include breakpoint(580px) {
-    padding: 65px 35px 5px 125px;
+    padding: 65px 35px 0px 125px;
     @include breakpoint(900px) {
       padding: 25px 30px 5px 30px;
     }

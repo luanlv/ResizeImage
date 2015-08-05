@@ -83,7 +83,7 @@ object Url{
   implicit object UrlWrite extends OWrites[Url]{
     def writes(url: Url): JsObject = Json.obj(
       "supType" -> url.supType,
-      "subType" -> url.supType,
+      "subType" -> url.subType,
       "group" -> url.group,
       "pUrl" -> url.pUrl,
       "tag" -> url.tag
