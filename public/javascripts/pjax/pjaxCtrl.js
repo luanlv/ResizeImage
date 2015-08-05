@@ -203,8 +203,16 @@ $(document).ready(function() {
 
   // Resize all elements when the window resizes
   // --------------------------------------------------
-
   $(window).resize(function() {
     resizeElements();
+    $('.transform0').toggleClass('transform0');
+    $('.transform250').toggleClass('transform250');
   });
+
+  $('.slh').click(function(e){
+    e.preventDefault;
+    $('.aside').toggleClass('transform0');
+    $('.content').toggleClass('transform250');
+  });
+
 });

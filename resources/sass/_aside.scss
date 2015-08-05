@@ -1,6 +1,8 @@
 div.laside{
   position: absolute;
-  top: -14px;
+  @include breakpoint(900px){
+    top: -14px;
+  }
   @include clearfix();
 
   border-top: 1px solid #ddd;

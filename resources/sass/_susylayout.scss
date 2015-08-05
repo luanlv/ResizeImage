@@ -10,6 +10,7 @@ $susy: (
 );
 
 .fullweb{
+  @include clearfix();
   position: relative;
   max-width: 1440px;
   margin: 0 auto;
@@ -178,10 +179,17 @@ $head-color: white;
   @include clearfix();
 }
 
+
+@media screen and (max-width: 900px) {
+  .aside {
+    transform: translateX(-215px);
+  }
+}
+
 .aside {
   position: absolute;
   width: span(215px static);
-  left: -215px;
+  //left: -215px;
   @include breakpoint(900px){
     left: 0;
   }
@@ -606,6 +614,12 @@ $head-color: white;
 }
 
 
+.transform0{
+  transform: translateX(0);
+}
+.transform250{
+  transform: translateX(215px);
+}
 
 .hm-left{
   left: 0;
@@ -643,7 +657,7 @@ $head-color: white;
   @include breakpoint(900px){
     @include box-shadow(0 0 0 0);
     border-bottom: none;
-    background: transparent;
+    background: none;
   }
   height: 42px;
   width: 100%;
@@ -654,18 +668,13 @@ $head-color: white;
     }
   }
 
-  min-height: 30px;
   position: fixed;
   top: 0;
   z-index: 10001;
   @include breakpoint(900px) {
     position: absolute;
     right: 0px;
-    top: 0px;
-    min-height: 90px;
-  }
-  @include breakpoint(900px){
-    padding-top: 22px;
+    top: 22px;
   }
 }
 
