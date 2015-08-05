@@ -694,11 +694,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="_susylayout.scss" pinned="false" current-in-tab="false">
+      <file leaf-file-name="_susylayout.scss" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/sass/_susylayout.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.3703704">
-              <caret line="619" column="27" selection-start-line="619" selection-start-column="27" selection-end-line="619" selection-end-column="27" />
+            <state vertical-scroll-proportion="0.56500804">
+              <caret line="96" column="25" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -744,10 +744,10 @@
       <file leaf-file-name="header.scala.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/partials_extra/header.scala.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6666667">
-              <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+            <state vertical-scroll-proportion="-17.074074">
+              <caret line="93" column="30" selection-start-line="93" selection-start-column="27" selection-end-line="93" selection-end-column="30" />
               <folding>
-                <element signature="n#style#0;n#a#4;n#div#1;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#a#5;n#div#1;n#div#1;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -763,10 +763,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes" pinned="false" current-in-tab="true">
+      <file leaf-file-name="routes" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/conf/routes">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.75076926">
+            <state vertical-scroll-proportion="0.0">
               <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
               <folding />
             </state>
@@ -846,9 +846,9 @@
         <option value="$PROJECT_DIR$/resources/sass/main.scss" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/resources/sass/_sprite.scss" />
+        <option value="$PROJECT_DIR$/conf/routes" />
         <option value="$PROJECT_DIR$/app/views/partials_extra/header.scala.html" />
         <option value="$PROJECT_DIR$/resources/sass/_susylayout.scss" />
-        <option value="$PROJECT_DIR$/conf/routes" />
       </list>
     </option>
   </component>
@@ -1736,28 +1736,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/conf/routes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/partials_extra/header.scala.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6666667">
-          <caret line="34" column="4" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+        <state vertical-scroll-proportion="-17.074074">
+          <caret line="93" column="30" selection-start-line="93" selection-start-column="27" selection-end-line="93" selection-end-column="30" />
           <folding>
-            <element signature="n#style#0;n#a#4;n#div#1;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#a#5;n#div#1;n#div#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/sass/_susylayout.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3703704">
-          <caret line="619" column="27" selection-start-line="619" selection-start-column="27" selection-end-line="619" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/routes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.75076926">
-          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.56500804">
+          <caret line="96" column="25" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
           <folding />
         </state>
       </provider>

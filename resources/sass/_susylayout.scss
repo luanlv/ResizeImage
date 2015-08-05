@@ -82,7 +82,10 @@ $head-color: white;
 
 .header{
   background: $head-color;
-  height: 95px;
+  height: 130px;
+  @include breakpoint(900px){
+    height: 95px;
+  }
 }
 .sub-nav{
   background: $head-color;
@@ -90,7 +93,10 @@ $head-color: white;
   padding: 0;
   overflow: hidden;
   white-space: nowrap;
-  height: 28px;
+  height: 46px;
+  @include breakpoint(570px){
+    height: 28px;
+  }
 }
 
 
@@ -110,8 +116,19 @@ $head-color: white;
   }
 }
 
+.sol{
+  display: none;
+  @include breakpoint(700px){
+    display:inline-block;
+  }
+}
+
 .sn-right{
-  height: 28px;
+  height: 46px;
+  @include breakpoint(570px){
+    height: 28px;
+  }
+
   @include breakpoint(900px){
     padding-left: span(240px static wide);
   }
@@ -120,7 +137,7 @@ $head-color: white;
     font-style: italic;
     margin-left: 10px;
     font-size: 13px;
-    @include breakpoint(580px){
+    @include breakpoint(700px){
       margin-left: 20px;
       font-size: 14px;
     }
@@ -129,14 +146,20 @@ $head-color: white;
     cursor: auto;
     float: left;
     font-weight: bold;
-    height: 28px;
-    line-height: 28px;
+    height: 24px;
+    line-height: 24px;
     color: #333 !important;
     &:hover{
       text-decoration: underline ;
       color: #f90 !important;
     }
     vertical-align: baseline;
+  }
+  a.slh{
+    @include breakpoint(600px){
+      float: right;
+      margin-right: 10px;
+    }
   }
 }
 
@@ -613,7 +636,7 @@ $head-color: white;
 .hmm-right{
   @include box-shadow(2px 2px 3px 0px #bbb);
   border-bottom: 1px solid #fff;
-  background: #fff;
+  background: #fafafa;
   @include breakpoint(900px){
     @include box-shadow(0 0 0 0);
     border-bottom: none;
@@ -644,9 +667,9 @@ $head-color: white;
 }
 
 .hmm-left{
-  padding: 50px 15px 5px 45px;
+  padding: 65px 15px 5px 45px;
   @include breakpoint(580px) {
-    padding: 50px 35px 5px 125px;
+    padding: 65px 35px 5px 125px;
     @include breakpoint(900px) {
       padding: 25px 30px 5px 30px;
     }
