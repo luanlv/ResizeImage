@@ -182,7 +182,11 @@ $head-color: white;
 
 @media screen and (max-width: 900px) {
   .aside {
-    transform: translateX(-215px);
+    -webkit-transform: translateX(-215px);
+    -moz-transform:    translateX(-215px);
+    -ms-transform:     translateX(-215px);
+    -o-transform:      translateX(-215px);
+    transform:         translateX(-215px);
   }
 }
 
@@ -615,10 +619,18 @@ $head-color: white;
 
 
 .transform0{
-  transform: translateX(0);
+  -webkit-transform: translateX(0px);
+  -moz-transform:    translateX(0px);
+  -ms-transform:     translateX(0px);
+  -o-transform:      translateX(0px);
+  transform:         translateX(0px);
 }
 .transform250{
-  transform: translateX(210px);
+  -webkit-transform: translateX(-210px);
+  -moz-transform:    translateX(-210px);
+  -ms-transform:     translateX(-210px);
+  -o-transform:      translateX(-210px);
+  transform:         translateX(-210px);
 }
 
 .hm-left{
