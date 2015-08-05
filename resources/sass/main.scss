@@ -197,7 +197,7 @@ hr.style-col3:after {
   padding: 0;
   position: relative;
   width: 100%;
-  height: 160px;
+  height: 200px;
   @include breakpoint(480px) {
     height: 240px;
     @include breakpoint(700px) {

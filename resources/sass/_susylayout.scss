@@ -205,13 +205,16 @@ $head-color: white;
 }
 
 .slider-left{
-  width: 70%;
+  width: 100%;
+  @include breakpoint(480px){
+    width: 70%;
+  }
   float: left;
   position: relative;
   img{
     position: absolute; top:0; left: 0;
     width: 100%;
-    height: 160px;
+    height: 200px;
     @include breakpoint(480px){
       height: 240px;
       @include breakpoint(700px){
@@ -225,7 +228,11 @@ $head-color: white;
 }
 
 .slider-right{
-  width: 30%;
+  display: none;
+  @include breakpoint(480px) {
+    display: block;
+    width: 30%;
+  }
   float: left;
   position: relative;
   background: #000;
