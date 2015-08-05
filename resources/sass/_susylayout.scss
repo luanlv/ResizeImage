@@ -626,11 +626,11 @@ $head-color: white;
   transform:         translateX(0px);
 }
 .transform250{
-  -webkit-transform: translateX(-210px);
-  -moz-transform:    translateX(-210px);
-  -ms-transform:     translateX(-210px);
-  -o-transform:      translateX(-210px);
-  transform:         translateX(-210px);
+  -webkit-transform: translateX(210px);
+  -moz-transform:    translateX(210px);
+  -ms-transform:     translateX(210px);
+  -o-transform:      translateX(210px);
+  transform:         translateX(210px);
 }
 
 .hm-left{
