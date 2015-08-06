@@ -8,7 +8,7 @@ GET         /                            controllers.ProductCtrl.index
 
 GET      /san-pham/:subTypeUrl/:groupUrl.html            controllers.ProductCtrl.collection( subTypeUrl:String, groupUrl:String , _page: Int ?=1, _sb: String ?="", _kw:String ?="", _li:Int ?=12, _v:String ?= "", _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" , _min: Int ?= 0, _max: Int ?= 500000000)
 #GET      /san-pham/:subTypeUrl.html                      controllers.ProductCtrl.listSubType( subTypeUrl:String, _page: Int ?=1, _sb: String ?="", _kw:String ?="", _li:Int ?=8, _v:String ?= "", _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" , _min: Int ?= 0, _max: Int ?= 500000000)
-GET      /san-pham/:subTypeUrl/:groupUrl/:pUrl.html      controllers.ProductCtrl.viewProduct( subTypeUrl:String, groupUrl: String, pUrl: String, _sb: String ?= "", _v: String ?="", _li: Int?=12)
+GET      /san-pham/:subTypeUrl/:groupUrl/:pUrl.html      controllers.ProductCtrl.viewProduct( subTypeUrl:String, groupUrl: String, pUrl: String, _sb: String ?= "", _v: String ?="", _kw: String ?="", _li: Int?=12)
 GET      /admin/create                    controllers.ProductCtrl.viewCreate
 POST     /admin/create                    controllers.ProductCtrl.create
 
@@ -34,7 +34,8 @@ GET       /image/:size/:uuid                            controllers.ImageCtrl.ge
 GET       /apiListCollection         controllers.ProductCtrl.apiListCollection
 
 GET       /clearCache           controllers.ProductCtrl.clearAllCache
-GET       /cdn                  controllers.CdnCtrl.setCDN(name: String)
+GET       /cdn1                  controllers.CdnCtrl.setCDN1(name: String)
+GET       /cdn2                  controllers.CdnCtrl.setCDN2(name: String)
 GET       /clearcdn             controllers.CdnCtrl.clearCDN
 # Map static resources from the /public folder to the /assets URL path
 #GET           //cdn.lvlblog.com/assets/v10/*file             controllers.Assets.versioned(path="/public", file)

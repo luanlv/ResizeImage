@@ -1,4 +1,4 @@
-@(assetCDN: String => String, title: String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 12)
+@(assetCDN: String => String,  map: String => String, title: String, products: List[models.Product], _sb: String = "", _v: String = "", _kw: String = "", _li: Int = 12)
 
 
 <div class="right-panel ra-5 sa">
@@ -18,7 +18,7 @@
 			<li><div class="extra-product">
 				<div class="extra-img ra-3 bo">
 					<div class="img-center loading">
-						<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _li)">
+						<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _kw, _li)">
 							<img class="b-lazy"
 							src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 							data-src="@assetCDN(product.info.image.head.small)"
@@ -34,7 +34,7 @@
 				<div class="extra-info">
 
 					<div class="extra-name">
-						<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _li)">
+						<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _kw, _li)">
 							<h3>@product.core.name</h3>
 						</a>
 					</div>

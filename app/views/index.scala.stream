@@ -1,4 +1,4 @@
-@(assetCDN: String => String, bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet, saleOff: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion,  request: play.api.mvc.Request[Any])
+@(assetCDN: String => String, map: String => String, bigPipe: BigPipe, collection1: Pagelet, collection2: Pagelet, collection3: Pagelet, aside: Pagelet, saleOff: Pagelet)(implicit pjaxVersion: pjax.PjaxVersion,  request: play.api.mvc.Request[Any])
 <!DOCTYPE html>
 <html class="no-touch">
 	<head>
@@ -14,7 +14,7 @@
 		<div id="main" class="m-scene">
 		<div class="container" id="container">
 
-			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN))
+			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN, map))
 
 			<div class="main">
 				@pagelets("aside")

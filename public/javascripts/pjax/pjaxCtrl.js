@@ -148,7 +148,7 @@ $(document).ready(function() {
     var inputWidthPercent = inputWidth / barWidth * 100 + "%";
 
     $(input).css({ 'margin-left': dropdownWidth, 'width': inputWidthPercent });
-  }
+  };
 
   function dropdownOn() {
     $(dropdownList).fadeIn(25);
@@ -182,7 +182,6 @@ $(document).ready(function() {
 
   $("html").click(dropdownOff);
 
-
   // Activate new dropdown option and show tray if applicable
   // --------------------------------------------------
 
@@ -213,8 +212,10 @@ $(document).ready(function() {
 
     $('.iconMenu').click(function(e){
     e.preventDefault;
-    $('.aside').toggleClass('transform0');
-    $('.content').toggleClass('transform250');
+      var content = $('.content');
+      var aside = $('.aside');
+    aside.toggleClass('transform0');
+    content.toggleClass('transform250');
   });
 
 });

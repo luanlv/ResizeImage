@@ -8,13 +8,20 @@ class CdnCtrl extends Controller {
 
   def clearCDN() = Action {
     maybeAssetsUrl = Option("")
+    maybeAssetsUrl2 = Option("")
     Ok("clear CDN ok!")
   }
 
-  def setCDN(name: String) = Action {
+  def setCDN1(name: String) = Action {
     val newCdn = "//" + name
     maybeAssetsUrl = Option(newCdn)
-    Ok("Set cdn to: " + name + " ok!")
+    Ok("Set cdn1 to: " + name + " ok!")
+  }
+
+  def setCDN2(name: String) = Action {
+    val newCdn = "//" + name
+    maybeAssetsUrl2 = Option(newCdn)
+    Ok("Set cdn2 to: " + name + " ok!")
   }
 
 }

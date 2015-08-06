@@ -809,9 +809,13 @@ $head-color: white;
       }
 
       > span {
-        position: absolute;
-        top: 50%;
-        max-width: 55px;
+        display: inline-table;
+        //position: absolute;
+        margin-top: 5px;
+        @include breakpoint(580px) {
+          margin-top: 3px;
+        }
+        max-width: 20px;
         overflow: hidden;
         text-overflow: ellipsis;
         @include breakpoint(580px) {
@@ -821,7 +825,6 @@ $head-color: white;
           }
           top: 43%;
         }
-        margin-top: -8px;
         white-space: nowrap;
 
         font-size: 12px;
@@ -894,9 +897,9 @@ $head-color: white;
       }
     }
 
-    ::placeholder {
-      font-weight: 400;
-    }
+    //::placeholder {
+    //  font-weight: 400;
+    //}
 
   }
 }

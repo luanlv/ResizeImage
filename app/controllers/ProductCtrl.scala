@@ -314,16 +314,16 @@ class ProductCtrl @Inject() (
 //          Ok(views.html.partials.index(result._1, result._2, result._3, result._4, result._5, result._6))
           Ok("")
         }else {
-          val pageletColelction1 = HtmlPagelet("collection1", Future(views.html.product.collection(assetCDN, result._1)))
-          val pageletColelction2 = HtmlPagelet("collection2", Future(views.html.product.collection(assetCDN, result._2)))
-          val pageletColelction3 = HtmlPagelet("collection3", Future(views.html.product.collection(assetCDN, result._3)))
+          val pageletColelction1 = HtmlPagelet("collection1", Future(views.html.product.collection(assetCDN, map, result._1)))
+          val pageletColelction2 = HtmlPagelet("collection2", Future(views.html.product.collection(assetCDN, map, result._2)))
+          val pageletColelction3 = HtmlPagelet("collection3", Future(views.html.product.collection(assetCDN, map, result._3)))
 
           val aside = HtmlPagelet("aside", Future(views.html.partials.asideIndex(result._4, result._5, result._6)))
 
-          val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, "Khuyến mãi", result._7)))
+          val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, map, "Khuyến mãi", result._7)))
 
           val bigPipe = new BigPipe(renderOptions(request), pageletColelction1, pageletColelction2, pageletColelction3, aside, saleOff)
-          Ok.chunked(views.stream.index(assetCDN, bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside, saleOff))
+          Ok.chunked(views.stream.index(assetCDN, map, bigPipe, pageletColelction1, pageletColelction2, pageletColelction3, aside, saleOff))
         }
       }
     }
@@ -332,7 +332,7 @@ class ProductCtrl @Inject() (
 
   //---------------------------View product--------------------------------------------------------
 
-  def viewProduct( sub: String, gro: String, pUrl: String, _sb: String = "", _v: String = "", _li: Int = 8) =
+  def viewProduct( sub: String, gro: String, pUrl: String, _sb: String = "", _v: String = "", _kw: String = "", _li: Int = 8) =
     Cached((rh: RequestHeader) => rh.uri + pUrl, cachePage)  { PjaxAction.async { implicit request =>
 
 
@@ -400,7 +400,7 @@ class ProductCtrl @Inject() (
           Ok("")
         else {
           val v = result._1 match {
-            case Some(data) => Future(views.html.product.viewWithoutAside(assetCDN, data, result._2, result._3, result._4, _sb, _v, _li))
+            case Some(data) => Future(views.html.product.viewWithoutAside(assetCDN, map, data, result._2, result._3, result._4, _sb, _v, _li))
             case _ => Future(views.html.product.view2())
           }
           val pageletProduct = HtmlPagelet("product" , v)
@@ -409,15 +409,15 @@ class ProductCtrl @Inject() (
 
           val pageletAside = HtmlPagelet("aside", Future(views.html.partials.viewAside(result._2,result._3, result._4, sub, gro, _sb, _v, _li)))
 
-          val saleRelative = HtmlPagelet("relative", Future(views.html.product.saleoff(assetCDN, "Sản phẩm tương tự", result._5)))
+          val saleRelative = HtmlPagelet("relative", Future(views.html.product.saleoff(assetCDN, map, "Sản phẩm tương tự", result._5)))
 
           val bigPipe = new BigPipe(renderOptions(request), pageletProduct, pageletAside, saleRelative)
           val subType = result._1 match {
             case Some(data) => data.url.subType
             case _ => ""
           }
-          Ok.chunked(views.stream.product.view(assetCDN, bigPipe, result._2, result._3, result._4,
-            pageletProduct, pageletAside, saleRelative,  subType, gro , pUrl, _sb, _v, _li))
+          Ok.chunked(views.stream.product.view(assetCDN, map, bigPipe, result._2, result._3, result._4,
+            pageletProduct, pageletAside, saleRelative,  subType, gro , pUrl, _sb, _v, _kw, _li))
         }
       }
     }
@@ -560,7 +560,7 @@ class ProductCtrl @Inject() (
             Ok("")
           } else {
 
-            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(assetCDN, result._1, _sb, _v, _li, subTypeUrl, groupUrl)))
+            val pageletColelction = HtmlPagelet("collection", Future(views.html.product.collection(assetCDN, map, result._1, _sb, _v, _kw, _li, subTypeUrl, groupUrl)))
 
             val pageletAside = HtmlPagelet("aside",
               Future(views.html.partials.aside(result._2, result._3, result._4,
@@ -569,11 +569,11 @@ class ProductCtrl @Inject() (
 
             )
 
-            val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, "Khuyến mãi", result._9)))
+            val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, map, "Khuyến mãi", result._9)))
 
             val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside, saleOff)
 
-            Ok.chunked(views.stream.category(assetCDN, bigPipe, result._2, result._3, result._4,
+            Ok.chunked(views.stream.category(assetCDN, map, bigPipe, result._2, result._3, result._4,
               result._5, result._6, result._7, result._8,
               pageletColelction, pageletAside, saleOff, subTypeUrl, groupUrl, _page, _sb, _kw, _li, _v))
           }
@@ -1518,6 +1518,19 @@ class ProductCtrl @Inject() (
         .replaceAll("u", "[u|ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự]")
         .replaceAll("y", "[y|ý|ỳ|ỷ|ỹ|ỵ]")
         .replaceAll("d", "[d|đ]")
+  }
+
+  def map(st: String) = {
+    var listMap =
+      Map("may-nap-adapter" -> "Máy Nạp & Adapter",
+          "board-phat-trien" -> "Board Phát triển",
+          "sensor-transducer" -> "Sensors, Transducers",
+          "memory-ic" -> "Memory ICs",
+          "led" -> "LEDs",
+          "lcd-display" -> "LCDs Display"
+      )
+
+    listMap.get(st).getOrElse("Error")
   }
 
 

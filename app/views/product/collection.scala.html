@@ -1,4 +1,4 @@
-@(assetCDN: String => String, products: List[models.Product], _sb: String = "", _v: String = "", _li: Int = 12, subTypeUrl: String = "list", groupUrl: String = "")
+@(assetCDN: String => String,  map: String => String, products: List[models.Product], _sb: String = "", _v: String = "", _kw: String = "", _li: Int = 12, subTypeUrl: String = "list", groupUrl: String = "")
 
 <div class="menuCol">
 	<h2 class="ribbon" >
@@ -26,7 +26,7 @@
 						<div class="img full-width">
 							<div class="multiImgHolder wpr">
 								<div class="imgWr loading">
-									<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _li)" class="img imgWr2">
+									<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _kw, _li)" class="img imgWr2">
 										<img class="b-lazy"
 										src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 										data-src="@assetCDN(product.info.image.head.small)"
@@ -43,7 +43,7 @@
 
 					<div class="gvtitle">
 						<h3>
-							<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _li)" class="vip">@product.core.name</a>
+							<a href="@routes.ProductCtrl.viewProduct(product.url.subType, product.url.group, product.url.pUrl, _sb, _v, _kw, _li)" class="vip">@product.core.name</a>
 						</h3>
 					</div>
 

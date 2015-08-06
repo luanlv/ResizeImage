@@ -1,4 +1,4 @@
-@(assetCDN: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
+@(assetCDN: String => String, map: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
 	brand: models.Brand, origin: models.Origin, legType: models.LegType, legNumber: models.LegNumber,
 	collection: Pagelet, aside: Pagelet, saleOff: Pagelet, _sub: String = "", _gro: String = "",
 	_page: Int = 1, _sb: String = "", _kw: String = "", _li: Int = 12, _v: String = "")(implicit pjaxVersion: pjax.PjaxVersion, request: play.api.mvc.Request[Any])
@@ -16,7 +16,7 @@
 	@bigPipe.render { pagelets =>
 		<div class="container" id="container">
 
-			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN))
+			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN, map, _sub, _kw))
 
 			<div class="main">
 				@pagelets(aside.id)

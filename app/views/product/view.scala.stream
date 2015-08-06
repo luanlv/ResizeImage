@@ -1,5 +1,5 @@
-@(assetCDN: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
-	product: Pagelet, aside: Pagelet, relative: Pagelet, _sub: String = "", _gro: String = "", _pUrl: String = "", _sb: String = "", _v: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion, request: play.api.mvc.Request[Any])
+@(assetCDN: String => String, map: String => String, bigPipe: BigPipe, supType: models.SupType, subType: models.SubType , group: models.GroupP,
+	product: Pagelet, aside: Pagelet, relative: Pagelet, _sub: String = "", _gro: String = "", _pUrl: String = "", _sb: String = "", _v: String = "", _kw: String = "", _li: Int = 8)(implicit pjaxVersion: pjax.PjaxVersion, request: play.api.mvc.Request[Any])
 <!DOCTYPE html>
 <html>
 	<head>
@@ -16,7 +16,7 @@
 		<div id="main" class="m-scene">
 		<div class="container" id="container">
 
-			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN))
+			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN, map,  _sub, _kw))
 
 			<div class="main">
 					@pagelets("aside")
