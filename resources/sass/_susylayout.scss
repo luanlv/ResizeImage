@@ -191,6 +191,7 @@ $head-color: white;
 }
 
 .aside {
+  z-index: 1;
   position: absolute;
   width: span(215px static);
   //left: -215px;
@@ -615,6 +616,13 @@ $head-color: white;
   border: 1px solid #ddd;
   border-top: none;
   padding: 5px;
+}
+
+.transform0, .transorm250, .aside, .content {
+  -webkit-transition: transform 0.5s ease-in-out;
+  -moz-transition:transform 0.5s ease-in-out;
+  -ms-transition:transform 0.5s ease-in-out;
+  -o-transform:transform 0.5s ease-in-out;
 }
 
 
