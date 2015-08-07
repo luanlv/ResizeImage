@@ -8,7 +8,6 @@ class CdnCtrl extends Controller {
 
   def clearCDN() = Action {
     maybeAssetsUrl = Option("")
-    maybeAssetsUrl2 = Option("")
     Ok("clear CDN ok!")
   }
 
