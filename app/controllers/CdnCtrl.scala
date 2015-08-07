@@ -30,4 +30,9 @@ class CdnCtrl extends Controller {
     Ok("Set cdn2 to: " + name + " ok!")
   }
 
+  def setCDN4(name: String) = Action {
+    val newCdn = "//" + name
+    maybeAssetsUrl3 = Option(newCdn)
+    Ok("Set cdn2 to: " + name + " ok!")
+  }
 }

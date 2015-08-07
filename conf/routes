@@ -36,7 +36,8 @@ GET       /apiListCollection         controllers.ProductCtrl.apiListCollection
 GET       /clearCache           controllers.ProductCtrl.clearAllCache
 GET       /cdn1                  controllers.CdnCtrl.setCDN1(name: String)
 GET       /cdn2                  controllers.CdnCtrl.setCDN2(name: String)
-GET       /cdn2                  controllers.CdnCtrl.setCDN3(name: String)
+GET       /cdn3                  controllers.CdnCtrl.setCDN3(name: String)
+GET       /cdn4                  controllers.CdnCtrl.setCDN4(name: String)
 GET       /clearcdn             controllers.CdnCtrl.clearCDN
 # Map static resources from the /public folder to the /assets URL path
 #GET           //cdn.lvlblog.com/assets/v10/*file             controllers.Assets.versioned(path="/public", file)
