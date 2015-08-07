@@ -14,11 +14,6 @@
 		<hr class="filter-menu">
 		<div>
 			<br>
-			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb,  "", _li, _v, _br, _or, _lt, _ln, _min, _max)" method="GET">
-				Tên:<input type="text" size="18" placeholder="Tên/Mã sản phẩm" name="_kw" value="@_kw">
-				<button type="submit"> > </button>
-			</form>
-			<br>
 			<form data-pjax action="@routes.ProductCtrl.collection(_sub, _gro, 1, _sb, _kw, _li, _v, _br, _or, _lt, _ln)" method="GET">
 				Giá:<input type="text" size="5" maxlength="13" name="_min"  value="@_min">
 				-  <input type="text" size="5" maxlength="13" name="_max"  value="@_max">

@@ -16,7 +16,7 @@
 		<div id="main" class="m-scene">
 		<div class="container" id="container">
 
-			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN, map,  _sub, _kw))
+			@HtmlStream.fromHtml(views.html.partials_extra.header(assetCDN, map,  _sub, _kw,  _sb, _li, _v))
 
 			<div class="main">
 					@pagelets("aside")

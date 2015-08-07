@@ -582,8 +582,116 @@ class ProductCtrl @Inject() (
    }
   }
 
+  //-------------------  search --------------------------------------------------------------------
+
+  def search(_sub: String = "", _kw: String = "", _page: Int = 1, _sb: String = "", _li: Int = 12, _v: String = "",
+             _br:String = "", _or:String = "", _lt:String = "", _ln:String = "" ,
+             _min:Int = 0, _max: Int = 500000000) =
+
+    PjaxAction.async {implicit request =>
 
 
+      val newKw = vnSearch(_kw)
+
+      val jsSubType =
+        if(_sub != "")
+          Json.obj("$eq" -> _sub)
+        else
+          Json.obj("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+
+      val jsLegType =
+        if(_lt == "") {
+          Json.obj("$regex" -> (".*" + _lt + ".*"), "$options" -> "-i")
+        } else {
+          Json.obj("$eq" -> _lt)
+        }
+      val jsLegNumber =
+        if(_ln == "") {
+          Json.obj("$regex" -> (".*" + _ln + ".*"), "$options" -> "-i")
+        } else {
+          Json.obj("$eq" -> _ln)
+        }
+      val jsSort = if(_sb == "") {
+        Json.obj("updateDate" -> -1)
+      } else {
+        Json.obj("updateDate" -> -1)
+      }
+
+      val futureSearch = cProduct.find(Json.obj(
+        "url.subType" -> jsSubType,
+        "$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i")),
+            Json.obj("core.code" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i"))),
+        "info.legType" -> jsLegType,
+        "info.legNumber" -> jsLegNumber,
+        "core.price.0.price" -> Json.obj("$gte" -> _min, "$lte" -> _max)
+      ))
+      .sort(jsSort)
+      .options(QueryOpts((_page - 1) * _li))
+      .cursor[Product]().collect[List](_li)
+
+      val cacheName4 = "saleOff"
+      val futureSaleOff = cache.get[List[Product]]( cacheName4 ) match {
+        case None => {
+          println(s"Not found $cacheName4")
+
+          val futureSaleOff = cProduct.find(Json.obj("extra.saleOff1" -> Json.obj("$gt" -> 0)))
+          .sort(Json.obj("extra.saleOff1" -> -1))
+          .cursor[Product]().collect[List](20)
+
+          futureSaleOff.map {
+            list => cache.set(cacheName4, list, cacheQueriesDay)
+              cacheList += cacheName4
+          }
+          futureSaleOff
+        }
+
+        case Some(p) => {
+          println(s"found $cacheName4")
+          Future(p)
+        }
+      }
+
+      val supType = getSupType()
+      val subType = getSubType()
+      val group = getGroup()
+      val brand = getBrand(_sub, "", _kw, _or, _lt, _ln, _min, _max)
+      val origin = getOrigin(_sub, "", _kw, _br, _lt, _ln, _min, _max)
+      val legType = getLegType(_sub, "", _kw, _br, _or, _ln, _min, _max)
+      val legNumber = getLegNumber(_sub, "", _kw, _br, _or, _lt, _min, _max)
+
+      val futureResult = for {
+        futureSearch <- futureSearch
+        supType <- supType
+        subType <- subType
+        group <- group
+        brand <- brand
+        origin <- origin
+        legType <- legType
+        legNumber <- legNumber
+        futureSaleOff <- futureSaleOff
+      } yield (futureSearch, supType, subType, group, brand, origin, legType, legNumber, futureSaleOff)
+
+      futureResult.map {
+        result => {
+          val pageletColelction = HtmlPagelet("collection", Future(views.html.product.search(assetCDN, map, result._1, _sb, _v, _kw, _li, _sub)))
+
+          val pageletAside = HtmlPagelet("aside",
+            Future(views.html.partials.aside(result._2, result._3, result._4,
+              result._5, result._6, result._7, result._8,
+              _sub, "list", _sb, _kw, _li, _v, _br, _or, _lt, _ln, _min, _max))
+
+          )
+
+          val saleOff = HtmlPagelet("saleoff", Future(views.html.product.saleoff(assetCDN, map, "Khuyến mãi", result._9)))
+
+          val bigPipe = new BigPipe(renderOptions(request), pageletColelction, pageletAside, saleOff)
+
+          Ok.chunked(views.stream.category(assetCDN, map, bigPipe, result._2, result._3, result._4,
+            result._5, result._6, result._7, result._8,
+            pageletColelction, pageletAside, saleOff, _sub, "", _page, _sb, _kw, _li, _v))
+        }
+      }
+    }
 
   //-------------------  view list products --------------------------------------------------------
 

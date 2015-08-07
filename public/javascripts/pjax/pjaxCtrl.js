@@ -218,4 +218,8 @@ $(document).ready(function() {
     content.toggleClass('transform250');
   });
 
+  $('.select-search > li').on('click', function(){
+    $('.t-hidden').empty().append('<input type="hidden" name="_sub" value="' + $(this).attr('value') + '">');
+  });
+
 });

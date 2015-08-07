@@ -424,9 +424,10 @@ $(document).ready(function () {
 		$('.listImage').empty();
 		$('.image-wrap > div').children('img').each(function () {
       var smallUrl = $(this).attr('src');
-			$('.listImage').append('<input type="hidden" name="info.image['+ z +'].origin" class="" value="'+ smallUrl.replace('/small/', '/origin/') +'">');
-			$('.listImage').append('<input type="hidden" name="info.image['+ z +'].small" class="" value="'+ smallUrl +'">');
-			$('.listImage').append('<input type="hidden" name="info.image['+ z +'].thumb" class="" value="'+ smallUrl.replace('/small/', '/thumb/') +'">');
+      var listImage = $('.listImage');
+			listImage.append('<input type="hidden" name="info.image['+ z +'].origin" class="" value="'+ smallUrl.replace('/small/', '/origin/') +'">');
+			listImage.append('<input type="hidden" name="info.image['+ z +'].small" class="" value="'+ smallUrl +'">');
+			listImage.append('<input type="hidden" name="info.image['+ z +'].thumb" class="" value="'+ smallUrl.replace('/small/', '/thumb/') +'">');
 			z+=1;
 		});
 	});

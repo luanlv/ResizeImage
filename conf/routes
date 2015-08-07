@@ -4,7 +4,7 @@
 
 
 GET         /                            controllers.ProductCtrl.index
-#GET         /tim-kiem.html                  controllers.ProductCtrl.search(_sup:String ?="", _sub:String ?="", _gro:String ?="", _kw:String ?="", _li:Int ?=8)
+GET         /tim-kiem.html               controllers.ProductCtrl.search(_sub:String ?="", _kw:String ?="", _page:Int ?=1, _sb:String ?="", _li: Int ?= 12, _v: String ?="", _br: String ?="", _or: String ?="", _lt: String ?="", _ln: String ?= "", _min: Int ?=0, _max: Int ?= 500000000  )
 
 GET      /san-pham/:subTypeUrl/:groupUrl.html            controllers.ProductCtrl.collection( subTypeUrl:String, groupUrl:String , _page: Int ?=1, _sb: String ?="", _kw:String ?="", _li:Int ?=12, _v:String ?= "", _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" , _min: Int ?= 0, _max: Int ?= 500000000)
 #GET      /san-pham/:subTypeUrl.html                      controllers.ProductCtrl.listSubType( subTypeUrl:String, _page: Int ?=1, _sb: String ?="", _kw:String ?="", _li:Int ?=8, _v:String ?= "", _br:String ?= "", _or:String ?= "", _lt:String ?= "", _ln:String ?= "" , _min: Int ?= 0, _max: Int ?= 500000000)
