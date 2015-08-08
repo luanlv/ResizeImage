@@ -455,7 +455,7 @@ var listName = ["Bộ Hẹn Giờ", "Cảm Biến Khoảng Cách ", "Module Đi�
                 "10 - 80cm Distance Measuring ", "Full H-Bridge Driver Parallel 2A PowerSO-20",
                 "CUỘN CẢM SMD NLV25T (TDK)", "TỤ TANTALUM 100UF-16V", "DIODE ỔN ÁP 5W (1.5KE)",
                 "THẠCH ANH (B)", "ĐIỆN TRỞ 1W 5%" , "CẢM BIẾN BIẾN DẠNG", "BIẾN DÒNG (250KHZ)", "MẠCH NẠP ST-LINK V2 MINI",
-                "HỘP LẮP THIẾT BỊ BẰNG NHÔM", "HỘP LẮP THIẾT BỊ BẰNG NHỰA", ];
+                "HỘP LẮP THIẾT BỊ BẰNG NHÔM", "HỘP LẮP THIẾT BỊ BẰNG NHỰA"];
 var listPrice = [
     [{num:1, price: 10000}],
     [{num:1, price: 15000}],

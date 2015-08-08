@@ -1,5 +1,4 @@
 @(assetCDN: String => String,  map: String => String,  _sub: String = "", _kw: String = "", _sb: String = "", _li: Int = 12, _v: String = "")
-
 <div class="header">
 	<div class="h-top">
 		<div class="hm-left">
@@ -7,7 +6,7 @@
 		<div class="hm-middle">
 			<div class="hmm-left">
 				<div class="hmml-top">
-					<form class="search_bar" action="@routes.ProductCtrl.search(_sub, _kw, 1, _sb, _li, _v)">
+					<form class="search_bar" action="@if(_sub == ""){/tim-kiem.html} else {/san-pham/@_sub/list.html}" method="GET">
 						<div class="search_dropdown">
 							<span>@if( _sub==""  ){ All } else { @map(_sub)}</span>
 							<ul class="select-search">
@@ -21,10 +20,6 @@
 							</ul>
 						</div>
 						<input type="text" name="_kw" value="@_kw"/>
-						<div class="t-hidden">
-							@if( _sub != ""){
-								<input type="hidden" name="_sub" value="@_sub">}
-						</div>
 						<button type="submit" value="Search">Search</button>
 					</form>
 				</div>

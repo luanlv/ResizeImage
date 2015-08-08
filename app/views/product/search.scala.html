@@ -1,9 +1,9 @@
 @(assetCDN: String => String,  map: String => String, products: List[models.Product], _sb: String = "", _v: String = "", _kw: String = "", _li: Int = 12, subTypeUrl: String = "")
 
 <div class="menuCol">
+	@if(_kw != ""){<h3 class="_kw">Từ khóa: "<span>@_kw</span>"</h3>}
 	<h2 class="ribbon" >
-		@if(subTypeUrl != ""){ Tìm trong: "@map(subTypeUrl)", }
-		Từ khóa: "@_kw"
+		Tất cả danh mục
 	</h2>
 </div>
 

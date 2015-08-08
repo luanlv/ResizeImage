@@ -132,7 +132,6 @@ $(document).ready(function() {
   var dropdownList = dropdown + " ul";
   var dropdownListItems = dropdownList + " li";
 
-
   // Set up common functions
   // --------------------------------------------------
 
@@ -219,7 +218,13 @@ $(document).ready(function() {
   });
 
   $('.select-search > li').on('click', function(){
-    $('.t-hidden').empty().append('<input type="hidden" name="_sub" value="' + $(this).attr('value') + '">');
+    var tmp = $(this).attr('value');
+    var searchBar = $('.search_bar');
+    if(tmp === "")
+      searchBar.attr('action', "/tim-kiem.html");
+    else
+      searchBar.attr('action', "/san-pham/"+ tmp +"/list.html");
+    //$('.t-hidden').empty().append('<input type="hidden" name="_sub" value="' + $(this).attr('value') + '">');
   });
 
 });

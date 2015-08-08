@@ -57,7 +57,8 @@ class ProductCtrl @Inject() (
   //--------------------    SETUP   ------------------------------------------------------------
   val cacheQueriesDay = 7 days
   val cachePage = 5
-  val timeCacheRandom = 60 second
+  val timeCacheRandom = 180 second
+  val timeCacheSearch = 60 minute
 
   val cProduct = {
     val cProduct = db[JSONCollection]("product")
@@ -452,6 +453,18 @@ class ProductCtrl @Inject() (
             } else {
               Json.obj("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
             }
+          val jsBrand =
+            if(_br == ""){
+              Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i")
+            } else {
+              Json.obj("$eq" -> _br)
+            }
+          val jsOrigin =
+            if(_or == ""){
+              Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i")
+            } else {
+              Json.obj("$eq" -> _or)
+            }
           val jsLegType =
             if(_lt == "") {
               Json.obj("$regex" -> (".*" + _lt + ".*"), "$options" -> "-i")
@@ -464,6 +477,7 @@ class ProductCtrl @Inject() (
             } else {
               Json.obj("$eq" -> _ln)
             }
+
           val jsSort = if(_sb == "") {
             Json.obj("updateDate" -> -1)
           } else {
@@ -475,8 +489,8 @@ class ProductCtrl @Inject() (
           "url.group" -> jsGroup,
           "$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i")),
             Json.obj("core.code" -> Json.obj("$regex" -> (".*" + newKw + ".*"), "$options" -> "-i"))),
-          "info.brand" -> Json.obj("$regex" -> (".*" + _br + ".*"), "$options" -> "-i"),
-          "info.origin" -> Json.obj("$regex" -> (".*" + _or + ".*"), "$options" -> "-i"),
+          "info.brand" -> jsBrand,
+          "info.origin" -> jsOrigin,
           "info.legType" -> jsLegType,
           "info.legNumber" -> jsLegNumber,
           "core.price.0.price" -> Json.obj("$gte" -> _min, "$lte" -> _max)
@@ -529,6 +543,7 @@ class ProductCtrl @Inject() (
         else
           groupUrl
 
+      println(subTypeUrl + "<============")
       val supType = getSupType()
       val subType = getSubType()
       val group = getGroup()
@@ -651,9 +666,10 @@ class ProductCtrl @Inject() (
         }
       }
 
-      val supType = getSupType()
-      val subType = getSubType()
-      val group = getGroup()
+
+      val supType = getSupType(_kw)
+      val subType = getSubType(_kw)
+      val group = getGroup(_kw)
       val brand = getBrand(_sub, "", _kw, _or, _lt, _ln, _min, _max)
       val origin = getOrigin(_sub, "", _kw, _br, _lt, _ln, _min, _max)
       val legType = getLegType(_sub, "", _kw, _br, _or, _ln, _min, _max)
@@ -814,13 +830,15 @@ class ProductCtrl @Inject() (
     data
   }
 
-  def getGroup() = {
-    val cacheGroup = "cachegroup"
-    val group = cache.get[GroupP]( cacheGroup ) match {
+  def getGroup(keyword: String = "") = {
+    val cacheName = "cachegroup"+keyword
+    val group = cache.get[GroupP]( cacheName ) match {
       case None => {
-        println(s"Not found $cacheGroup")
-
+        println(s"Not found $cacheName")
+        val vnKw = vnSearch(keyword)
         val command = Aggregate("product", Seq(
+            Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+              Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
             GroupField("info.group")("total" -> SumValue(1))
           )
         )
@@ -834,230 +852,80 @@ class ProductCtrl @Inject() (
             )
 
             val listValue = jsvalue.\\("total").map (x => x.toString().toInt)
-            val s111 = {
-              val index1 = listId.indexOf("Universal Programmer")
-              val index2 = listId.indexOf("USB Programmer")
 
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              val value2 =
-                if(index2 != -1)
-                  listValue(index2)
-                else
-                  0
-              value1 + value2
+            def getValue(st: String): Int = {
+              val index = listId.indexOf(st)
+              if(index != -1) listValue(index) else 0
             }
 
-            val s112 = {
-              val index1 = listId.indexOf("Firmware Master Chip")
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              val index2 = listId.indexOf("ISP Programmer")
-              val value2 =
-                if(index2 != -1)
-                  listValue(index2)
-                else
-                  0
+            val s111 = getValue("Universal Programmer") +
+                getValue("USB Programmer")
 
-              val index3 = listId.indexOf("ISP Programmer / Emulator")
-              val value3 =
-                if(index3 != -1)
-                  listValue(index3)
-                else
-                  0
+            val s112 = getValue("Firmware Master Chip") +
+                getValue("ISP Programmer") +
+                getValue("ISP Programmer / Emulator") +
+                getValue("ISP/Parallel Programmer Mode") +
+                getValue("Parallel Programmer mode")
 
-              val index4 = listId.indexOf("ISP/Parallel Programmer Mode")
-              val value4 =
-                if(index4 != -1)
-                  listValue(index4)
-                else
-                  0
-
-              val index5 = listId.indexOf("Parallel Programmer mode")
-              val value5 =
-                if(index5 != -1)
-                  listValue(index5)
-                else
-                  0
-              value1 + value2 + value3 + value4 + value5
-            }
-
-            val s121 = {
-              val index1 = listId.indexOf("mini PC")
-              val index2 = listId.indexOf("Raspberry Pi Case")
-
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              val value2 =
-                if(index2 != -1)
-                  listValue(index2)
-                else
-                  0
-              value1 + value2
-            }
+            val s121 = getValue("mini PC") +
+                getValue("Raspberry Pi Case")
 
 
-            val s122 = {
-              val index1 = listId.indexOf("Arduino")
-              val index2 = listId.indexOf("Arduino Shield")
-
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              val value2 =
-                if(index2 != -1)
-                  listValue(index2)
-                else
-                  0
-              value1 + value2
-            }
-
-            val s211 = {
-              val index1 = listId.indexOf("Accelerometer and Gyro Breakout")
-              val index2 = listId.indexOf("Gyroscope sensor")
-
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              val value2 =
-                if(index1 != -1)
-                  listValue(index2)
-                else
-                  0
-              value1 + value2
-            }
-
-            val s212 = {
-              val index1 = listId.indexOf("Light Sensor")
-              val index2 = listId.indexOf("Sensors")
-
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              val value2 =
-                if(index2 != -1)
-                  listValue(index2)
-                else
-                  0
-              value1 + value2
-            }
-
-            val s221 = {
-              val index1 = listId.indexOf("Memory")
-
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              value1
-            }
-
-            val s222 = {
-              val index1 = listId.indexOf("Memory-I2C Serial EEPROM")
-
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              value1
-            }
+            val s122 = getValue("Arduino") +
+                getValue("Arduino Shield")
 
 
-            val s311 = {
-              val index1 = listId.indexOf("LED 1W")
+            val s211 = getValue("Accelerometer and Gyro Breakout") +
+                getValue("Gyroscope sensor")
 
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              value1
-            }
+            val s212 = getValue("Light Sensor") +
+                getValue("Sensors")
 
+            val s221 = getValue("Memory")
 
-            val s312 = {
-              val index1 = listId.indexOf("LEDs")
+            val s222 = getValue("Memory-I2C Serial EEPROM")
 
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              value1
-            }
+            val s311 = getValue("LED 1W")
 
+            val s312 = getValue("LEDs")
 
-            val s321 = {
-              val index1 = listId.indexOf("Graphic LEDs")
+            val s321 = getValue("Graphic LEDs")
 
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-              value1
-            }
-
-            val s322 = {
-              val index1 = listId.indexOf("Graphic LCDs")
-              val index2 = listId.indexOf("LCDs")
-
-              val value1 =
-                if(index1 != -1)
-                  listValue(index1)
-                else
-                  0
-
-              val value2 =
-                if(index2 != -1)
-                  listValue(index2)
-                else
-                  0
-              value1 + value2
-            }
-
+            val s322 = getValue("Graphic LCDs") +
+                getValue("LCDs")
 
             GroupP(s111, s112, s121, s122, s211, s212, s221, s222, s311, s312, s321,  s322)
           }
         }
         result.map {
-          list => cache.set(cacheGroup, list, cacheQueriesDay)
-            cacheList += cacheGroup
+          list =>{
+            val cacheTime =
+              if(keyword == "") cacheQueriesDay else timeCacheSearch
+            cache.set(cacheName, list, cacheTime)
+            cacheList += cacheName
+          }
         }
         result
       }
       case Some(p) => {
-        println(s"Found $cacheGroup")
+        println(s"Found $cacheName")
         Future(p)
       }
     }
     group
   }
 
-  def getSupType() = {
-    val cacheSupType = "supType"
-    val supType = cache.get[SupType]( cacheSupType ) match {
+  def getSupType(keyword: String = "") = {
+    val cacheName = "supType" + keyword
+    val supType = cache.get[SupType]( cacheName ) match {
       case None => {
-        println(s"Not found $cacheSupType")
+        println(s"Not found $cacheName")
+
+        val vnKw = vnSearch(keyword)
 
         val command = Aggregate("product", Seq(
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           GroupField("info.supType")("total" -> SumValue(1))
         )
         )
@@ -1071,51 +939,43 @@ class ProductCtrl @Inject() (
             )
 
             val listValue = jsvalue.\\("total").map (x => x.toString().toInt)
-            val s1 = {
-              val index = listId.indexOf("Phần cứng, Thiết bị")
-              if(index != -1)
-                listValue(index)
-              else
-                0
+            def getValue(st: String): Int = {
+              val index = listId.indexOf(st)
+              if(index != -1) listValue(index) else 0
             }
-            val s2 = {
-              val index = listId.indexOf("LK Bán dẫn & Cảm biến")
-              if(index != -1)
-                listValue(index)
-              else
-                0
-            }
-            val s3 = {
-              val index = listId.indexOf("LK Khác và Phụ kiện")
-              if(index != -1)
-                listValue(index)
-              else
-                0
-            }
+            val s1 = getValue("Phần cứng, Thiết bị")
+            val s2 = getValue("LK Bán dẫn & Cảm biến")
+            val s3 = getValue("LK Khác và Phụ kiện")
             SupType(s1, s2, s3)
           }
         }
         result.map {
-          list => cache.set(cacheSupType, list, cacheQueriesDay)
-            cacheList += cacheSupType
+          list =>{
+            val cacheTime =
+              if(keyword == "") cacheQueriesDay else timeCacheSearch
+            cache.set(cacheName, list, cacheTime)
+            cacheList += cacheName
+          }
         }
         result
       }
       case Some(p) => {
-        println(s"Found $cacheSupType")
+        println(s"Found $cacheName")
         Future(p)
       }
     }
     supType
   }
 
-  def getSubType() = {
-    val cacheSubType = "subType"
-    val subType = cache.get[SubType]( cacheSubType ) match {
+  def getSubType(keyword: String = "") = {
+    val cacheName = "subType" + keyword
+    val subType = cache.get[SubType]( cacheName ) match {
       case None => {
-        println(s"Not found $cacheSubType")
-
+        println(s"Not found $cacheName")
+        val vnKw = vnSearch(keyword)
         val command = Aggregate("product", Seq(
+          Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
+            Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           GroupField("info.subType")("total" -> SumValue(1))
         )
         )
@@ -1129,59 +989,33 @@ class ProductCtrl @Inject() (
             )
 
             val listValue = jsvalue.\\("total").map (x => x.toString().toInt)
-            val s11 = {
-              val index = listId.indexOf("Máy Nạp & Adapter")
-              if(index != -1)
-                listValue(index)
-              else
-                0
+
+            def getValue(st: String): Int = {
+              val index = listId.indexOf(st)
+              if(index != -1) listValue(index) else 0
             }
-            val s12 = {
-              val index = listId.indexOf("Board Phát triển")
-              if(index != -1)
-                listValue(index)
-              else
-                0
-            }
-            val s21 = {
-              val index = listId.indexOf("Sensors, Transducers")
-              if(index != -1)
-                listValue(index)
-              else
-                0
-            }
-            val s22 = {
-              val index = listId.indexOf("Memory ICs")
-              if(index != -1)
-                listValue(index)
-              else
-                0
-            }
-            val s31 = {
-              val index = listId.indexOf("LEDs")
-              if(index != -1)
-                listValue(index)
-              else
-                0
-            }
-            val s32 = {
-              val index = listId.indexOf("LCDs Display")
-              if(index != -1)
-                listValue(index)
-              else
-                0
-            }
+
+            val s11 = getValue("Máy Nạp & Adapter")
+            val s12 = getValue("Board Phát triển")
+            val s21 = getValue("Sensors, Transducers")
+            val s22 = getValue("Memory ICs")
+            val s31 = getValue("LEDs")
+            val s32 = getValue("LCDs Display")
             SubType(s11, s12, s21, s22, s31, s32)
           }
         }
         result.map {
-          list => cache.set(cacheSubType, list, cacheQueriesDay)
-            cacheList += cacheSubType
+          list =>{
+            val cacheTime =
+              if(keyword == "") cacheQueriesDay else timeCacheSearch
+            cache.set(cacheName, list, cacheTime)
+            cacheList += cacheName
+          }
         }
         result
       }
       case Some(p) => {
-        println(s"Found $cacheSubType")
+        println(s"Found $cacheName")
         Future(p)
       }
     }
@@ -1198,6 +1032,18 @@ class ProductCtrl @Inject() (
       case None => {
         println(s"Not found $cacheName")
         val vnKw = vnSearch(keyword)
+        val bsSubTypeUrl =
+          if(subTypeUrl == ""){
+            BSONDocument("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> subTypeUrl)
+          }
+        val bsGroup =
+          if(group == ""){
+            BSONDocument("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> group)
+          }
         val bsLegType =
           if(legType == "") {
             BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i")
@@ -1211,7 +1057,8 @@ class ProductCtrl @Inject() (
             BSONDocument("$eq" -> legNumber)
           }
         val command = Aggregate("product", Seq(
-          Match(BSONDocument("url.group" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("url.subType" -> bsSubTypeUrl)),
+          Match(BSONDocument("url.group" -> bsGroup)),
           Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
             Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           Match(BSONDocument("info.origin" -> BSONDocument("$regex" -> (".*" + origin + ".*"), "$options" -> "-i"))),
@@ -1232,82 +1079,37 @@ class ProductCtrl @Inject() (
 
             val listValue = jsvalue.\\("total").map(x => x.toString().toInt)
 
-              val s1 = {
-                val index = listId.indexOf("Other")
+              def getValue(st: String): Int = {
+                val index = listId.indexOf(st)
                 if (index != -1) listValue(index) else 0
               }
 
-              val s2 = {
-                val index = listId.indexOf("Xeltek")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s3 = {
-                val index = listId.indexOf("ATMEL")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s4 = {
-                val index = listId.indexOf("ELNEC")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s5 = {
-                val index = listId.indexOf("TOP")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s6 = {
-                val index = listId.indexOf("SOFI-TECH")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s7 = {
-                val index = listId.indexOf("Raspberry Pi")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s8 = {
-                val index = listId.indexOf("ST")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s9 = {
-                val index = listId.indexOf("InvenSense")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s10 = {
-                val index = listId.indexOf("Eagle Power")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s11 = {
-                val index = listId.indexOf("VISHAY")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s12 = {
-                val index = listId.indexOf("Harvatek")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s13 = {
-                val index = listId.indexOf("Andorin")
-                if (index != -1) listValue(index) else 0
-              }
-
-              val s14 = {
-                val index = listId.indexOf("Sharp")
-                if (index != -1) listValue(index) else 0
-              }
+              val s1 = getValue("Other")
+              val s2 = getValue("Xeltek")
+              val s3 = getValue("ATMEL")
+              val s4 = getValue("ELNEC")
+              val s5 = getValue("TOP")
+              val s6 = getValue("SOFI-TECH")
+              val s7 = getValue("Raspberry Pi")
+              val s8 = getValue("ST")
+              val s9 = getValue("InvenSense")
+              val s10 = getValue("Eagle Power")
+              val s11 = getValue("VISHAY")
+              val s12 = getValue("Harvatek")
+              val s13 = getValue("Andorin")
+              val s14 = getValue("Sharp")
               Brand(s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14)
           }
 
         }
+
         result.map {
-          list => cache.set(cacheName, list, cacheQueriesDay)
+          list =>{
+            val cacheTime =
+              if(keyword == "") cacheQueriesDay else timeCacheSearch
+            cache.set(cacheName, list, cacheTime)
             cacheList += cacheName
+          }
         }
         result
       }
@@ -1329,6 +1131,18 @@ class ProductCtrl @Inject() (
       case None => {
         println(s"Not found $cacheName")
         val vnKw = vnSearch(keyword)
+        val bsSubTypeUrl =
+          if(subTypeUrl == ""){
+            BSONDocument("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> subTypeUrl)
+          }
+        val bsGroup =
+          if(group == ""){
+            BSONDocument("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> group)
+          }
         val bsLegType =
           if(legType == "") {
             BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i")
@@ -1342,7 +1156,8 @@ class ProductCtrl @Inject() (
             BSONDocument("$eq" -> legNumber)
           }
         val command = Aggregate("product", Seq(
-          Match(BSONDocument("url.group" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("url.subType" -> bsSubTypeUrl)),
+          Match(BSONDocument("url.group" -> bsGroup)),
           Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
             Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           Match(BSONDocument("info.brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
@@ -1363,34 +1178,28 @@ class ProductCtrl @Inject() (
 
             val listValue = jsvalue.\\("total").map(x => x.toString().toInt)
 
-            val s1 = {
-              val index = listId.indexOf("Việt Nam")
+            def getValue(st: String): Int = {
+              val index = listId.indexOf(st)
               if (index != -1) listValue(index) else 0
             }
-            val s2 = {
-              val index = listId.indexOf("Trung Quốc")
-              if (index != -1) listValue(index) else 0
-            }
-            val s3 = {
-              val index = listId.indexOf("Chính hãng")
-              if (index != -1) listValue(index) else 0
-            }
-            val s4 = {
-              val index = listId.indexOf("Taiwan")
-              if (index != -1) listValue(index) else 0
-            }
-            val s5 = {
-              val index = listId.indexOf("UK")
-              if (index != -1) listValue(index) else 0
-            }
+
+            val s1 = getValue("Việt Nam")
+            val s2 = getValue("Trung Quốc")
+            val s3 = getValue("Chính hãng")
+            val s4 = getValue("Taiwan")
+            val s5 = getValue("UK")
 
             Origin(s1,s2,s3,s4,s5)
           }
 
         }
         result.map {
-          list => cache.set(cacheName, list, cacheQueriesDay)
+          list =>{
+            val cacheTime =
+              if(keyword == "") cacheQueriesDay else timeCacheSearch
+            cache.set(cacheName, list, cacheTime)
             cacheList += cacheName
+          }
         }
         result
       }
@@ -1411,14 +1220,28 @@ class ProductCtrl @Inject() (
       case None => {
         println(s"Not found $cacheName")
         val vnKw = vnSearch(keyword)
+        val bsSubTypeUrl =
+          if(subTypeUrl == ""){
+            BSONDocument("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> subTypeUrl)
+          }
+        val bsGroup =
+          if(group == ""){
+            BSONDocument("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> group)
+          }
         val bsLegNumber =
           if(legNumber == "") {
             BSONDocument("$regex" -> (".*" + legNumber + ".*"), "$options" -> "-i")
           } else {
             BSONDocument("$eq" -> legNumber)
           }
+
         val command = Aggregate("product", Seq(
-          Match(BSONDocument("url.group" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("url.subType" -> bsSubTypeUrl)),
+          Match(BSONDocument("url.group" -> bsGroup)),
           Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
             Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           Match(BSONDocument("info.brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
@@ -1426,7 +1249,7 @@ class ProductCtrl @Inject() (
           Match(BSONDocument("info.legNumber" -> bsLegNumber)),
           Match(BSONDocument("core.price.0.price" -> BSONDocument("$gte" -> minPrice, "$lte" -> maxPrice))),
           GroupField("info.legType")("total" -> SumValue(1))
-        )
+          )
         )
 
         val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
@@ -1439,57 +1262,34 @@ class ProductCtrl @Inject() (
 
             val listValue = jsvalue.\\("total").map(x => x.toString().toInt)
 
-            val s1 = {
-              val index = listId.indexOf("")
+            def getValue(st: String): Int ={
+              val index = listId.indexOf(st)
               if (index != -1) listValue(index) else 0
             }
-            val s2 = {
-              val index = listId.indexOf("DIP")
-              if (index != -1) listValue(index) else 0
-            }
-            val s3 = {
-              val index = listId.indexOf("SIP")
-              if (index != -1) listValue(index) else 0
-            }
-            val s4 = {
-              val index = listId.indexOf("LQFP")
-              if (index != -1) listValue(index) else 0
-            }
-            val s5 = {
-              val index = listId.indexOf("PQFP")
-              if (index != -1) listValue(index) else 0
-            }
-            val s6 = {
-              val index = listId.indexOf("QFN")
-              if (index != -1) listValue(index) else 0
-            }
-            val s7 = {
-              val index = listId.indexOf("SOIC")
-              if (index != -1) listValue(index) else 0
-            }
-            val s8 = {
-              val index = listId.indexOf("TQFP")
-              if (index != -1) listValue(index) else 0
-            }
-            val s9 = {
-              val index = listId.indexOf("T-1 3/4")
-              if (index != -1) listValue(index) else 0
-            }
-            val s10 = {
-              val index = listId.indexOf("SMD")
-              if (index != -1) listValue(index) else 0
-            }
-            val s11 = {
-              val index = listId.indexOf("SMD0805")
-              if (index != -1) listValue(index) else 0
-            }
+
+            val s1 = getValue("NOPE")
+            val s2 = getValue("DIP")
+            val s3 = getValue("SIP")
+            val s4 = getValue("LQFP")
+            val s5 = getValue("PQFP")
+            val s6 = getValue("QFN")
+            val s7 = getValue("SOIC")
+            val s8 = getValue("TQFP")
+            val s9 = getValue("T-1 3/4")
+            val s10 = getValue("SMD")
+            val s11 = getValue("SMD0805")
+
             LegType(s1,s2,s3,s4,s5, s6, s7, s8, s9, s10, s11)
           }
 
         }
         result.map {
-          list => cache.set(cacheName, list, cacheQueriesDay)
+          list =>{
+            val cacheTime =
+              if(keyword == "") cacheQueriesDay else timeCacheSearch
+            cache.set(cacheName, list, cacheTime)
             cacheList += cacheName
+          }
         }
         result
       }
@@ -1510,6 +1310,18 @@ class ProductCtrl @Inject() (
       case None => {
         println(s"Not found $cacheName")
         val vnKw = vnSearch(keyword)
+        val bsSubTypeUrl =
+          if(subTypeUrl == ""){
+            BSONDocument("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> subTypeUrl)
+          }
+        val bsGroup =
+          if(group == ""){
+            BSONDocument("$regex" -> (".*" + "" + ".*"), "$options" -> "-i")
+          } else {
+            BSONDocument("$eq" -> group)
+          }
         val bsLegType =
           if(legType == "") {
             BSONDocument("$regex" -> (".*" + legType + ".*"), "$options" -> "-i")
@@ -1518,7 +1330,8 @@ class ProductCtrl @Inject() (
           }
 
         val command = Aggregate("product", Seq(
-          Match(BSONDocument("url.group" -> BSONDocument("$regex" -> (".*" + group + ".*"), "$options" -> "-i"))),
+          Match(BSONDocument("url.subType" -> bsSubTypeUrl)),
+          Match(BSONDocument("url.group" -> bsGroup)),
           Match(BSONDocument("$or" -> Json.arr(Json.obj("core.name" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i")),
             Json.obj("core.code" -> Json.obj("$regex" -> (".*" + vnKw + ".*"), "$options" -> "-i"))))),
           Match(BSONDocument("info.brand" -> BSONDocument("$regex" -> (".*" + brand + ".*"), "$options" -> "-i"))),
@@ -1526,7 +1339,7 @@ class ProductCtrl @Inject() (
           Match(BSONDocument("info.legType" -> bsLegType)),
           Match(BSONDocument("core.price.0.price" -> BSONDocument("$gte" -> minPrice, "$lte" -> maxPrice))),
           GroupField("info.legNumber")("total" -> SumValue(1))
-        )
+          )
         )
 
         val result = cProduct.db.command(command).map(x => Json.toJson(x)).map{
@@ -1539,73 +1352,37 @@ class ProductCtrl @Inject() (
 
             val listValue = jsvalue.\\("total").map(x => x.toString().toInt)
 
-            val s1 = {
-              val index = listId.indexOf("")
+            def getValue(st: String): Int = {
+              val index = listId.indexOf(st)
               if (index != -1) listValue(index) else 0
             }
-            val s2 = {
-              val index = listId.indexOf("208")
-              if (index != -1) listValue(index) else 0
-            }
-            val s3 = {
-              val index = listId.indexOf("100")
-              if (index != -1) listValue(index) else 0
-            }
-            val s4 = {
-              val index = listId.indexOf("64")
-              if (index != -1) listValue(index) else 0
-            }
-            val s5 = {
-              val index = listId.indexOf("44")
-              if (index != -1) listValue(index) else 0
-            }
-            val s6 = {
-              val index = listId.indexOf("40")
-              if (index != -1) listValue(index) else 0
-            }
-            val s7 = {
-              val index = listId.indexOf("32")
-              if (index != -1) listValue(index) else 0
-            }
-            val s8 = {
-              val index = listId.indexOf("28")
-              if (index != -1) listValue(index) else 0
-            }
-            val s9 = {
-              val index = listId.indexOf("24")
-              if (index != -1) listValue(index) else 0
-            }
-            val s10 = {
-              val index = listId.indexOf("20")
-              if (index != -1) listValue(index) else 0
-            }
-            val s11 = {
-              val index = listId.indexOf("16")
-              if (index != -1) listValue(index) else 0
-            }
-            val s12 = {
-              val index = listId.indexOf("14")
-              if (index != -1) listValue(index) else 0
-            }
-            val s13 = {
-              val index = listId.indexOf("8")
-              if (index != -1) listValue(index) else 0
-            }
-            val s14 = {
-              val index = listId.indexOf("4")
-              if (index != -1) listValue(index) else 0
-            }
-            val s15 = {
-              val index = listId.indexOf("2")
-              if (index != -1) listValue(index) else 0
-            }
-            LegNumber(s1,s2,s3,s4,s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15)
+
+            val s1 = getValue("NOPE")
+            val s2 = getValue("208")
+            val s3 = getValue("100")
+            val s4 = getValue("64")
+            val s5 = getValue("44")
+            val s6 = getValue("40")
+            val s7 = getValue("32")
+            val s8 = getValue("28")
+            val s9 = getValue("24")
+            val s10 = getValue("20")
+            val s11 = getValue("16")
+            val s12 = getValue("14")
+            val s13 = getValue("8")
+            val s14 = getValue("4")
+            val s15 = getValue("2")
+            LegNumber(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15)
           }
 
         }
         result.map {
-          list => cache.set(cacheName, list, cacheQueriesDay)
+          list =>{
+            val cacheTime =
+              if(keyword == "") cacheQueriesDay else timeCacheSearch
+            cache.set(cacheName, list, cacheTime)
             cacheList += cacheName
+          }
         }
         result
       }
@@ -1659,5 +1436,3 @@ class ProductCtrl @Inject() (
   }
 
 }
-
-

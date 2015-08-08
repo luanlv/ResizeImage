@@ -764,10 +764,10 @@ $head-color: white;
       &:after {
         content: '';
         position: absolute;
-        top: 18%;
+        top: 15%;
         right: 0;
         bottom: 22%;
-        left: 25%;
+        left: 22%;
         @include icons();
         @include sprite($search);
         zoom:0.5;
@@ -811,9 +811,9 @@ $head-color: white;
       > span {
         display: inline-table;
         //position: absolute;
-        margin-top: 5px;
+        margin-top: 6px;
         @include breakpoint(580px) {
-          margin-top: 3px;
+          margin-top: 4px;
         }
         max-width: 20px;
         overflow: hidden;

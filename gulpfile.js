@@ -60,4 +60,4 @@ gulp.task('serve', function () {
 });
 
 // Creating the default gulp task
-gulp.task('default', [ 'sass', 'watch', 'serve']);
+gulp.task('default', [ 'sass', 'watch']);

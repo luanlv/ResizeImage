@@ -416,3 +416,15 @@ span.old_price{
   }
 
 }
+
+
+._kw{
+  float: right;
+  font-size: 12px;
+  color: #666;
+  font-style: italic;
+  span{
+    font-size: 14px;
+    color: $red;
+  }
+}
