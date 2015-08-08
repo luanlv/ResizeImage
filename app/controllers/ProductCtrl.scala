@@ -1395,7 +1395,8 @@ class ProductCtrl @Inject() (
   }
 
   def vnSearch(s: String) = {
-    s.toLowerCase
+    println(s)
+    val tmp = s.toLowerCase
         .replaceAll("a", "[a|á|à|ả|ã|ạ|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ]")
         .replaceAll("e", "[e|é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ]")
         .replaceAll("i", "[i|í|ì|ỉ|ĩ|ị]")
@@ -1403,6 +1404,11 @@ class ProductCtrl @Inject() (
         .replaceAll("u", "[u|ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự]")
         .replaceAll("y", "[y|ý|ỳ|ỷ|ỹ|ỵ]")
         .replaceAll("d", "[d|đ]")
+    val arrayWords = tmp.split(" +")
+    if(arrayWords.length == 1)
+      arrayWords.head
+    else
+      "[" + arrayWords.mkString("|") + "]"
   }
 
   def map(st: String) = {
