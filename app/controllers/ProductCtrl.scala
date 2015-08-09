@@ -65,6 +65,15 @@ class ProductCtrl @Inject() (
     cProduct.indexesManager.ensure(
       Index(List("core.code" -> IndexType.Ascending, "url.pUrl" -> IndexType.Ascending), unique = true)
     )
+    cProduct.indexesManager.ensure(
+      Index(List("core.name" -> IndexType.Text))
+    )
+    cProduct.indexesManager.ensure(
+      Index(List("info.brand" -> IndexType.Ascending,
+        "info.origin" -> IndexType.Ascending,
+        "info.legType" -> IndexType.Ascending,
+        "info.legNumber" -> IndexType.Ascending))
+    )
     cProduct.indexesManager.ensure(Index(
         List("random_point" -> Geo2DSpherical)
     ))
